@@ -1,0 +1,495 @@
+{
+	"pages": [
+		// 登录
+		{
+			"path": "pages/login/logins",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/login/login-s",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/login/login_forgetPassword",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/login/login_login",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/login/login_securityCode",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+		    "path" : "pages/home/home1",
+			"style": {
+				"navigationBarTitleText": "登录选项"
+			}
+		},
+		{
+		    "path" : "pages/home/zhuguan",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+		    "path" : "pages/home/homejishu",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+		    "path" : "pages/order/sgdetailAll",
+			"style": {
+				"navigationBarTitleText": "施工详情"
+			}
+		},
+		{
+		    "path" : "pages/order/orderAll",
+			"style": {
+				"navigationBarTitleText": "订单中心"
+			}
+		},
+		{
+		    "path" : "pages/order/shDetail",
+			"style": {
+				"navigationBarTitleText": "订单中心"
+			}
+		},
+		{
+		    "path" : "pages/order/sgDetail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		},
+		{
+			"path": "pages/newfrom/newfrom",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+		    "path" : "pages/order/sgDetail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		},
+		{
+			// 技术人员页面
+			"path": "pages/newfrom/ArtisanTxt",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "选择技术人员"
+			}
+		},
+		
+		{
+			// 技术人员页面
+			"path": "pages/newfrom/fromArtisan",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "选择技术人员"
+			}
+		},
+		{
+			"path": "pages/newfrom/newDetail",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+			"path": "pages/newfrom/fromDetail",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		// {
+		// 	"path": "pages/newfrom/newfrom",
+		// 	"style": { //设置页面标题文字
+		// 		"navigationBarTitleText": "新订单"
+		// 	}
+		// },
+		{
+			"path": "pages/home/home",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		// 施工详情
+		{
+			"path": "pages/order/shigongxiangqings",
+			"style": {
+				"navigationBarTitleText": "施工详情"
+			}
+		},
+		//审核详情
+		{
+			"path": "pages/order/shenhexiangqing",
+			"style": {
+				"navigationBarTitleText": "审核详情"
+			}
+		},
+		{
+			"path": "pages/order/weitongguo",
+			"style": {
+				"navigationBarTitleText": "未通过的详情"
+			}
+		},
+		//质保险钱
+		{
+			"path": "pages/order/zhibaoxiangqing",
+			"style": {
+				"navigationBarTitleText": "质保详情"
+			}
+		},
+		// 反馈
+		{
+			"path": "pages/feedback/feedback-all",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "反馈"
+			}
+		},
+		{
+			"path": "pages/feedback/fankui",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "反馈"
+			}
+		},
+		//方案
+		{
+			"path": "pages/scheme/scheme",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "方案"
+			}
+		},
+		{
+			"path": "pages/scheme/scheme_ation",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "方案详情"
+			}
+		},
+		//售后订单
+		{
+			"path": "pages/after-sale/after-sale",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "售后订单"
+			}
+		},
+		{
+			"path": "pages/after-sale/kaigong",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "售后开工"
+			}
+		},
+		{
+			"path": "pages/after-sale/shouhouxiangqing",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "售后订单详情"
+			}
+		},
+		// 售后处理
+		{
+			"path": "pages/after-sale/shouhouchuli",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "售后处理"
+			}
+		},
+		{
+			"path": "pages/after-sale/chulifankui",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "处理反馈"
+			}
+		},
+		//查看问卷
+		{
+			"path": "pages/order/chakanwenjuan",
+			"style": {
+				"navigationBarTitleText": "查看问卷"
+			}
+		},
+		{
+			"path": "pages/order/wenjuandiaocha",
+			"style": {
+				"navigationBarTitleText": "问卷调查"
+			}
+		},
+		{
+			"path": "pages/order/quxiao",
+			"style": {
+				"navigationBarTitleText": "已取消的订单详情"
+			}
+		},
+		//技术订单
+		{
+			"path": "pages/home/neworder/neworder",
+			"style": {
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+			"path": "pages/home/neworder/ordera",
+			"style": {
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+			"path": "pages/home/neworder/orderb",
+			"style": {
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+			"path": "pages/home/neworder/fangan",
+			"style": {
+				"navigationBarTitleText": "方案"
+			}
+		},
+		// 待确认详情
+		{
+			"path": "pages/home/neworder/daiquerenxiangqing",
+			"style": {
+				"navigationBarTitleText": "待确认的方案详情"
+			}
+		},
+		{
+			"path": "pages/home/neworder/weitongguoxiangqing",
+			"style": {
+				"navigationBarTitleText": "未通过的方案详情"
+			}
+		},
+		{
+			"path": "pages/home/neworder/yiquerenxiangqing",
+			"style": {
+				"navigationBarTitleText": "已确认的方案详情"
+			}
+		},
+		//订单中心
+		{
+			"path": "pages/home/neworder/dingdanzhongxin",
+			"style": {
+				"navigationBarTitleText": "已确认的方案详情"
+			}
+		},
+		{
+			"path": "pages/home/neworder/shezhifangan",
+			"style": {
+				"navigationBarTitleText": "设置方案"
+			}
+		},
+		{
+			"path": "pages/home/neworder/xuanzefangan",
+			"style": {
+				"navigationBarTitleText": "选择方案"
+			}
+		},
+		{
+			"path": "pages/home/neworder/dyixiangqing",
+			"style": {
+				"navigationBarTitleText": "已完成的订单详情"
+			}
+		},
+		{
+			"path": "pages/home/neworder/dmeixiangqing",
+			"style": {
+				"navigationBarTitleText": "已取消的订单详情"
+			}
+		},
+		
+		//主管
+		{
+			"path": "pages/home/zgorder/zgNewOrder",
+			"style": {
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgOrder",
+			"style": {
+				"navigationBarTitleText": "订单中心"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgFangan",
+			"style": {
+				"navigationBarTitleText": "方案"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgHeTong",
+			"style": {
+				"navigationBarTitleText": "合同"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgSHOrder",
+			"style": {
+				"navigationBarTitleText": "售后订单"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgshouhchuli",
+			"style": {
+				"navigationBarTitleText": "售后处理"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgyuangong",
+			"style": {
+				"navigationBarTitleText": "员工"
+			}
+		},
+		//新订单
+		{
+			"path": "pages/home/zgorder/zgnews",
+			"style": {
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgnewa",
+			"style": {
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/xuanzejishu",
+			"style": {
+				"navigationBarTitleText": "选择技术人员"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/xuanzejishus",
+			"style": {
+				"navigationBarTitleText": "选择技术人员"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgrenyuan",
+			"style": {
+				"navigationBarTitleText": "人员"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zghetongs",
+			"style": {
+				"navigationBarTitleText": "合同"
+			}
+		},
+		{ 
+			"path": "pages/home/zgorder/zgshouhouxiangqing",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/butongyi",
+			"style": {
+				"navigationBarTitleText": "不同意"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgfanganxiangqing",
+			"style": {
+				"navigationBarTitleText": "方案详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgfanganquxiao",
+			"style": {
+				"navigationBarTitleText": "方案"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgfanganNew",
+			"style": {
+				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgshigong",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgshigongxiangqing",
+			"style": {
+				"navigationBarTitleText": "施工详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgshenhexiangqing",
+			"style": {
+				"navigationBarTitleText": "审核详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgfanganxiangqings",
+			"style": {
+				"navigationBarTitleText": "方案详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgweitongguo",
+			"style": {
+				"navigationBarTitleText": "未通过的详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgkehuquerenxiangqing",
+			"style": {
+				"navigationBarTitleText": "客户确认详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgzhibaoxiangqing",
+			"style": {
+				"navigationBarTitleText": "质保详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgwanchengxiangqing",
+			"style": {
+				"navigationBarTitleText": "完成详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgquxiao",
+			"style": {
+				"navigationBarTitleText": "已取消的订单详情"
+			}
+		}  
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#F8F8F8"
+	}
+
+}

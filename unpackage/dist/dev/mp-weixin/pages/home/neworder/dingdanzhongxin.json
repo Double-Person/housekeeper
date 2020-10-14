@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "已确认的方案详情",
+  "usingComponents": {
+    "from-deatil": "/components/fromAll"
+  }
+}
