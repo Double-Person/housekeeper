@@ -1,0 +1,9 @@
+export const statusObj = {
+	ALL: 0,
+	CONSTRUCTION: 1,
+	AUDIT: 2,
+	CUSTOMER_CONFIRMATION: 3,
+	QUALITY_ASSURANCE: 4,
+	COMPLETE: 5,
+	CANCEL: 6,
+}

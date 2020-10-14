@@ -1,42 +1,45 @@
 <template>
 	
 	<view class="newfrom">
-		<view class="sou">
-			<view class="sou_ipt">
-				<input type="text" value="" />
-				<view class="order_txt">
-					<view class="sou_icon">
-						<image src="../../../static/order_icon/sou.png"></image>
-					</view>
-					<text>搜索订单</text>
-				</view>
-			</view>
-		</view>
+		
+		<Topsearch @searchValue='searchValue' placeholder="搜索订单"/>
 		
 		<!--  -->
 		<view class="top">
-			<view class="active">待通过</view>
-			<view>已通过</view>
-			<view>未通过</view>
+		
+			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index)">{{item}}</view>
+			
 		</view>
 		
 		<!--  -->
 		<view class="form_deta" :class="{block:act==0}">
-			<fromDeatil :msg="msg" :flag="flag" @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
+			<fromDeatil msg="msg" :flag="8" @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
 		</view>
 	</view>
 </template>
 
 <script>
 	import fromDeatil from "../../../components/fromAll.vue"
+	import Topsearch from "../../../components/Topsearch.vue"
 	export default {
 		data() {
 			return {
-			
+				activeIndex: 0,
+				titleList: ['待通过', '已通过', '未通过'],
+				act: 1
 			}
 		},
+		components: {
+			fromDeatil,
+			Topsearch
+		},
 		methods: {
-			
+			searchValue(val) {
+				
+			},
+			clickTitle(index) {
+				this.activeIndex = index
+			},
 			getDetail(act){
 				console.log(1)
 				uni.navigateTo({
@@ -60,64 +63,12 @@
 				})
 			}
 		},
-		components: {
-			fromDeatil
-		}
+		
 	}
 </script>
 
 <style lang="scss" scoped>
-	.sou {
-		width: 100%;
-		height: 130upx;
-		background-image: url(../../../static/order_icon/suo_big.png);
-		overflow: hidden;
-	}
-
-	.sou_ipt {
-		width: 671upx;
-		height: 71upx;
-		overflow: hidden;
-		margin: 0 auto;
-		margin-top: 28upx;
-		border-radius: 50upx;
-		position: relative;
-	}
-
-	input {
-		width: 100%;
-		height: 71upx;
-		background-color: #fff;
-		padding-left: 40upx;
-		position: absolute;
-	}
-
-	.order_txt {
-		position: absolute;
-		z-index: 2;
-		overflow: hidden;
-		margin-left: 254upx;
-		margin-top: 19upx;
-	}
-
-	.sou_icon {
-		width: 34upx;
-		height: 35upx;
-		float: left;
-	}
-
-	.sou_icon image {
-		width: 100%;
-		height: 100%;
-	}
-	.order_txt text {
-		display: block;
-		float: left;
-		font-size: 28upx;
-		color: #B2B2B2;
-		margin-left: 19upx;
-		margin-top: 2upx;
-	}
+	
 	.top {
 		padding: 0 20upx;
 		width: 710upx;
