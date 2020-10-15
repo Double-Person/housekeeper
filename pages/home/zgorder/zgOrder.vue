@@ -1,21 +1,11 @@
 <template>
 	<view class="newfrom">
 		<!-- 搜索 -->
-		<view class="sou">
-			<view class="sou_ipt">
-				<input type="text" value="" />
-				<view class="order_txt">
-					<view class="sou_icon">
-						<image src="../../../static/order_icon/sou.png"></image>
-					</view>
-					<text>搜索订单</text>
-				</view>
-			</view>
-		</view>
+		<TopSearch></TopSearch>
 		
 		<view class="list-view">
 			<!-- 横向滚动 -->
-			<scroll-view scroll-x="true" class="top-scroll-view">
+			<scroll-view :scroll-x="true" class="top-scroll-view">
 				<view class="top">
 					<view :class="{active: topActive === index}" v-for="(item, index) in topBarList" :key="item.value" @click="topBarActive(index, item.value)">{{item.label}}</view>
 				</view>
@@ -41,7 +31,14 @@
 					</view>
 					<!-- 有下级 -->
 					<view v-if="topBarList[topActive].hasNext">
-						<fromDeatil msg="msg" :item="item" v-for="(item,index) in topBarList[topActive].list[currentType].list" :key="index"></fromDeatil>
+						
+						
+						<view class="state" v-if="statusObj.AUDIT == currentTabBar">
+							<fromDeatil :flag="8" msg="msg" :item="item" v-for="(item,index) in topBarList[topActive].list[currentType].list" :key="index"></fromDeatil>
+						</view>
+						<view class="state" v-if="statusObj.AUDIT != currentTabBar">
+							<fromDeatil :flag="8" msg="msg" :item="item" v-for="(item,index) in topBarList[topActive].list[currentType].list" :key="index"></fromDeatil>
+						</view>
 					</view>
 					
 				</view>
@@ -50,66 +47,12 @@
 
 		</view>
 
-
-
-		<view class="" v-if="false">
-			<!-- 全部 -->
-			<view class="form_deta" :class="{block:act==0}">
-				<fromDeatil :msg="msg" v-for="(item,index) in 4" :key="index"></fromDeatil>
-			</view>
-			<!-- 施工 -->
-			<!-- <view class="form_deta" :class="{block:act==1}" @click="sgDetail"> -->
-
-			<!--  -->
-			<!-- 审核页面 -->
-			<view class="form_deta" :class="{block:act==2}">
-				<view class="state">
-					<text class="statAct">审核中</text>
-					<text>已通过</text>
-					<text>未通过</text>
-				</view>
-				<!-- 切换页面 -->
-				<view class="form_deta">
-					<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index"></fromDeatil>
-				</view>
-				<view class="form_deta" :class="{block:sAce==1}">
-					<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index"></fromDeatil>
-				</view>
-				<view class="form_deta" :class="{block:sAce==2}">
-					<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index"></fromDeatil>
-				</view>
-			</view>
-			<!-- 客户确认 -->
-			<view class="form_deta" :class="{block:act==3}">
-				<view class="state states">
-					<text class="review">审核中</text>
-					<text>未通过</text>
-				</view>
-				<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index" @getDetail="kehuqueren"></fromDeatil>
-			</view>
-
-
-			<view class="form_deta" :class="{block:act==1}">
-				<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index" @getDetail="getDetail"></fromDeatil>
-			</view>
-			<!-- <view class="form_deta" :class="{block:act==3}" >
-				<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index" @getDetail="kehuqueren"></fromDeatil>
-			</view> -->
-			<view class="form_deta" :class="{block:act==4}">
-				<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index" @getDetail="zhibaoxq"></fromDeatil>
-			</view>
-			<view class="form_deta" :class="{block:act==5}">
-				<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index" @getDetail="wancheng"></fromDeatil>
-			</view>
-			<view class="form_deta" :class="{block:act==6}">
-				<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index" @getDetail="yiquxiao"></fromDeatil>
-			</view>
-		</view>
 	</view>
 </template>
 
 <script>
 	import fromDeatil from "../../../components/fromAll.vue"
+	import TopSearch from "../../../components/TopSearch.vue"
 	import {
 		statusObj
 	} from "../../../variable/orderCenter.js"
@@ -198,14 +141,12 @@
 				],
 
 				currentTabBar: -1,
-				dataList: [1, 2, 3, 4, 5, 6],
-				act: 2,
-				sAce: 1,
-				msg: '',
+				
 			}
 		},
 		components: {
-			fromDeatil
+			fromDeatil,
+			TopSearch
 		},
 		created() {
 			this.currentTabBar = this.topBarList && this.topBarList[0].value;
@@ -294,61 +235,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.sou {
-		width: 100%;
-		height: 130upx;
-		background-image: url(../../../static/order_icon/suo_big.png);
-		overflow: hidden;
-
-		input {
-			width: 100%;
-			height: 71upx;
-			background-color: #fff;
-			padding-left: 40upx;
-			position: absolute;
-		}
-
-		.sou_ipt {
-			width: 671upx;
-			height: 71upx;
-			overflow: hidden;
-			margin: 0 auto;
-			margin-top: 28upx;
-			border-radius: 50upx;
-			position: relative;
-		}
-
-
-
-		.order_txt {
-			position: absolute;
-			z-index: 2;
-			overflow: hidden;
-			margin-left: 254upx;
-			margin-top: 19upx;
-		}
-
-		.sou_icon {
-			width: 34upx;
-			height: 35upx;
-			float: left;
-		}
-
-		.sou_icon image {
-			width: 100%;
-			height: 100%;
-
-		}
-
-		.order_txt text {
-			display: block;
-			float: left;
-			font-size: 28upx;
-			color: #B2B2B2;
-			margin-left: 19upx;
-			margin-top: 2upx;
-		}
-	}
+	
 
 
 
@@ -366,11 +253,6 @@
 	.body-scroll-view {
 		height: calc(100% - 110upx);
 
-		// padding-bottom: 100upx;
-		.form_deta {
-			display: none;
-		}
-
 		.block {
 			display: block;
 			padding-bottom: 150upx;
@@ -383,13 +265,11 @@
 		display: flex;
 		flex-wrap: nowrap;
 		overflow: hidden;
-		// border: 1px solid red;
 	}
 
 	.top view {
 		height: 61upx;
 		float: left;
-		// border: 1px solid red;
 		margin-left: 67upx;
 		font-size: 32upx;
 		margin-top: 21upx;
@@ -420,7 +300,6 @@
 	.states {
 		width: 530upx;
 		margin-top: 19upx;
-		// height:80upx;
 		display: flex;
 		justify-content: space-between;
 		padding: 0 110upx;
@@ -431,14 +310,9 @@
 		font-size: 32upx;
 		padding: 19upx 47upx;
 		border: 1upx solid #191919;
-		// margin-top: 20upx;
-		// margin-left: 60upx;
 		border-radius: 10upx;
 	}
 
-	.state text:nth-of-type(1) {
-		// margin-left: 30upx;
-	}
 
 	.state .statAct {
 		background: #FFC823;

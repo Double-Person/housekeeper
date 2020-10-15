@@ -1,149 +1,79 @@
 <template>
-	
+
 	<view class="newfrom">
-		<view class="sou">
-			<view class="sou_ipt">
-				<input type="text" value="" />
-				<view class="order_txt">
-					<view class="sou_icon">
-						<image src="../../../static/order_icon/sou.png"></image>
-					</view>
-					<text>搜索</text>
-				</view>
-			</view>
-		</view>
-		
-		<!--  -->
+		<TopSearch />
+
 		<view class="top">
-			<view class="active">处理中</view>
-			<view>已完成</view>
+			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
-		<!--  -->
-	
-		
-		<!--  -->
-		<view class="form_deta" :class="{block:act==0}">
-			<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index" @getDetail="getDetail(act)"></fromDeatil>
-		</view>
+		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+			<view class="padding-bottom150">
+				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
+				 @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
 <script>
 	import fromDeatil from "../../../components/fromAll.vue"
+	import TopSearch from '../../../components/TopSearch.vue'
+	import {
+		salesOrder
+	} from "../../../variable/orderCenter.js"
 	export default {
 		data() {
 			return {
-				
+				activeIndex: 0,
+				titleList: [{
+						value: salesOrder.PROCESSING,
+						label: '处理中',
+						list: ['处理中 1', '处理中 2', '处理中 3', '处理中 4', '处理中 5']
+					},
+					{
+						value: salesOrder.COMPLETED,
+						label: '已完成',
+						list: ['已完成 1', '已完成 2', '已完成 3']
+					}
+				],
 			}
 		},
-		methods: {
-		
-			getDetail(act){
-				uni.navigateTo({
-					url:'./zgshouhouxiangqing'
-				})
-			
-			},
-			getState(item,shopName){
-				this.sAce = item,
-				this.msg=shopName
-			},
-			gox(){
-			 uni.navigateTo({
-			 	url:"./zgrenyuan"
-			 })
-			},
-			
-		},
 		components: {
-			fromDeatil
-		}
+			fromDeatil,
+			TopSearch
+		},
+
+		methods: {
+			// 标题点击
+			clickTitle(index, value) {
+				this.activeIndex = index
+			},
+			// 列表滚动
+			scrolltolower(event) {
+				
+			},
+			getDetail(act) {
+				uni.navigateTo({
+					url: './zgshouhouxiangqing'
+				})
+
+			},
+			getState(item, shopName) {
+				this.sAce = item,
+					this.msg = shopName
+			},
+			gox() {
+				uni.navigateTo({
+					url: "./zgrenyuan"
+				})
+			},
+
+		},
+
 	}
 </script>
 
 <style lang="scss" scoped>
-
-
+	@import '../../../common/style/tabList.scss';
 	
-	.sou {
-		width: 100%;
-		height: 130upx;
-		background-image: url(../../../static/order_icon/suo_big.png);
-		overflow: hidden;
-	}
-
-	.sou_ipt {
-		width: 671upx;
-		height: 71upx;
-		overflow: hidden;
-		margin: 0 auto;
-		margin-top: 28upx;
-		border-radius: 50upx;
-		position: relative;
-	}
-
-	input {
-		width: 100%;
-		height: 71upx;
-		background-color: #fff;
-		padding-left: 40upx;
-		position: absolute;
-	}
-
-	.order_txt {
-		position: absolute;
-		z-index: 2;
-		overflow: hidden;
-		margin-left: 254upx;
-		margin-top: 19upx;
-	}
-
-	.sou_icon {
-		width: 34upx;
-		height: 35upx;
-		float: left;
-	}
-
-	.sou_icon image {
-		width: 100%;
-		height: 100%;
-	}
-	.order_txt text {
-		display: block;
-		float: left;
-		font-size: 28upx;
-		color: #B2B2B2;
-		margin-left: 19upx;
-		margin-top: 2upx;
-	}
-	.top {
-		padding: 0 110upx;
-		width: 530upx;
-		height: 110upx;
-		display: flex;
-		flex-wrap: nowrap;
-		overflow: hidden;
-		// border: 1px solid red;
-		display: flex;
-		justify-content: space-between;
-		background:rgba(255,255,255,1);
-	}
-	
-	.top view {
-		height: 61upx;
-		float: left;
-		// border: 1px solid red;
-		margin-left: 67upx;
-		font-size: 32upx;
-		margin-top: 21upx;
-		line-height: 61upx;
-	}
-	
-	.top view:nth-of-type(1) {
-		margin-left: 9upx;
-	}
-	.active {
-		border-bottom: 6upx solid #FFC823;
-		font-weight: 700;
-	}
 </style>

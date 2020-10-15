@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09d0f194-42f6-4725-b5d5-7ae723a9ea25" name="Default Changelist" comment="">
+    <list default="true" id="09d0f194-42f6-4725-b5d5-7ae723a9ea25" name="Default Changelist" comment="主管的 订单中心和方案页面代码重构">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/fromAll.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/fromAll.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Topsearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/Topsearch.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/neworder/dingdanzhongxin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/neworder/dingdanzhongxin.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgFangan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgFangan.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgHeTong.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgHeTong.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgSHOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgSHOrder.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgrenyuan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgrenyuan.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgshouhchuli.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgshouhchuli.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgyuangong.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgyuangong.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/__uniapppicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/__uniapppicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/__uniappquill.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/__uniappquill.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/__uniappview.html" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/__uniappview.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-config-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-config-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-view.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-view.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/view.css" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/view.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/view.umd.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/view.umd.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variable/orderCenter.js" beforeDir="false" afterPath="$PROJECT_DIR$/variable/orderCenter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +62,9 @@
       <updated>1602653252804</updated>
       <workItem from="1602653254108" duration="437000" />
       <workItem from="1602654228203" duration="529000" />
-      <workItem from="1602659928792" duration="1452000" />
+      <workItem from="1602659928792" duration="1685000" />
+      <workItem from="1602725360753" duration="74000" />
+      <workItem from="1602739490776" duration="5036000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <created>1602653420511</created>
@@ -92,7 +94,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602654262477</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="主管的 订单中心和方案页面代码重构">
+      <created>1602672000216</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1602672000216</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,20 +110,21 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="项目初始化" />
     <MESSAGE value="配置文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="配置文件" />
+    <MESSAGE value="主管的 订单中心和方案页面代码重构" />
+    <option name="LAST_COMMIT_MESSAGE" value="主管的 订单中心和方案页面代码重构" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1602654261529">
+    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1602752901679">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602654261529" />
+    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602752901679" />
     <state x="184" y="88" key="DiffContextDialog" timestamp="1602653435902">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="184" y="88" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602653435902" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1602654274777">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1602672093968">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602654274777" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602672093968" />
   </component>
 </project>

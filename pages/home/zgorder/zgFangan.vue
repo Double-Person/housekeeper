@@ -1,31 +1,54 @@
 <template>
-	
+
 	<view class="newfrom">
-		
-		<Topsearch @searchValue='searchValue' placeholder="搜索订单"/>
-		
+
+		<Topsearch @searchValue='searchValue' placeholder="搜索订单" />
+
 		<!--  -->
+
+
+
 		<view class="top">
-		
-			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index)">{{item}}</view>
-			
+			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
+		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+			<view class="padding-bottom150">
+				<fromDeatil msg="msg" :flag="8" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail(act)"
+				 @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
+			</view>
+		</scroll-view>
+
 		
-		<!--  -->
-		<view class="form_deta" :class="{block:act==0}">
-			<fromDeatil msg="msg" :flag="8" @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
-		</view>
+
 	</view>
 </template>
 
 <script>
 	import fromDeatil from "../../../components/fromAll.vue"
-	import Topsearch from "../../../components/Topsearch.vue"
+	import Topsearch from "../../../components/TopSearch.vue"
+	import {
+		plantType
+	} from '../../../variable/plan.js'
 	export default {
 		data() {
 			return {
 				activeIndex: 0,
-				titleList: ['待通过', '已通过', '未通过'],
+				titleList: [{
+						value: plantType.TO_PASS,
+						label: '待通过',
+						list: ['待通过 1', '待通过 2', '待通过 3', '待通过 4', '待通过 5']
+					},
+					{
+						value: plantType.NOT_PASS,
+						label: '未通过',
+						list: ['未通过 1', '未通过 2', '未通过 3']
+					},
+					{
+						value: plantType.PASSED,
+						label: '已通过',
+						list: ['已通过 1', '已通过 2', '已通过 3']
+					}
+				],
 				act: 1
 			}
 		},
@@ -35,68 +58,45 @@
 		},
 		methods: {
 			searchValue(val) {
-				
+
 			},
-			clickTitle(index) {
+			scrolltolower(eve) {
+				console.log(eve);
+			},
+			clickTitle(index, value) {
 				this.activeIndex = index
 			},
-			getDetail(act){
+			getDetail(act) {
 				console.log(1)
 				uni.navigateTo({
-					url:'zgfanganxiangqing'
+					url: 'zgfanganxiangqing'
 				})
 			},
 			// 施工跳转
-			sgDetail(){
+			sgDetail() {
 				uni.navigateTo({
-					url:"./sgDetail"
+					url: "./sgDetail"
 				})
 			},
-			butongguo(){
+			butongguo() {
 				uni.navigateTo({
-					url:"zgfanganquxiao"
+					url: "zgfanganquxiao"
 				})
 			},
-			tongyi(){
+			tongyi() {
 				uni.navigateTo({
-					url:'zgfanganNew'
+					url: 'zgfanganNew'
 				})
 			}
 		},
-		
+
 	}
 </script>
 
 <style lang="scss" scoped>
-	
-	.top {
-		padding: 0 20upx;
-		width: 710upx;
-		height: 110upx;
-		display: flex;
-		flex-wrap: nowrap;
-		overflow: hidden;
-		// border: 1px solid red;
-		display: flex;
-		justify-content: space-between;
-		background:rgba(255,255,255,1);
+	@import '../../../common/style/tabList.scss';
+	.scroll-view-body{
+		height: calc( 100vh - 130upx - 110upx );
 	}
-	
-	.top view {
-		height: 61upx;
-		float: left;
-		// border: 1px solid red;
-		margin-left: 67upx;
-		font-size: 32upx;
-		margin-top: 21upx;
-		line-height: 61upx;
-	}
-	
-	.top view:nth-of-type(1) {
-		margin-left: 9upx;
-	}
-	.active {
-		border-bottom: 6upx solid #FFC823;
-		font-weight: 700;
-	}
+		
 </style>

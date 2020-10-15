@@ -40,7 +40,8 @@
 	export default {
 		data() {
 			return {
-			
+				msg: '',
+				act: 0
 			}
 		},
 		methods: {
