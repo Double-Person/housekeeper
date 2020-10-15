@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09d0f194-42f6-4725-b5d5-7ae723a9ea25" name="Default Changelist" comment="主管的 订单中心和方案页面代码重构">
+    <list default="true" id="09d0f194-42f6-4725-b5d5-7ae723a9ea25" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Topsearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/Topsearch.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/neworder/dingdanzhongxin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/neworder/dingdanzhongxin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgFangan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgFangan.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgHeTong.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgHeTong.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgSHOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgSHOrder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgrenyuan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgrenyuan.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgshouhchuli.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgshouhchuli.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgyuangong.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgyuangong.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/login-s.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login-s.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/__uniapppicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/__uniapppicker.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-view.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-view.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/variable/orderCenter.js" beforeDir="false" afterPath="$PROJECT_DIR$/variable/orderCenter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +55,7 @@
       <workItem from="1602654228203" duration="529000" />
       <workItem from="1602659928792" duration="1685000" />
       <workItem from="1602725360753" duration="74000" />
-      <workItem from="1602739490776" duration="5036000" />
+      <workItem from="1602739490776" duration="6405000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <created>1602653420511</created>
@@ -101,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602672000216</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="主管的 顶部搜索封装抽取，公用列表样式抽离，页面错误逻辑修改">
+      <created>1602754200622</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1602754200623</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,13 +109,14 @@
     <MESSAGE value="项目初始化" />
     <MESSAGE value="配置文件" />
     <MESSAGE value="主管的 订单中心和方案页面代码重构" />
-    <option name="LAST_COMMIT_MESSAGE" value="主管的 订单中心和方案页面代码重构" />
+    <MESSAGE value="主管的 顶部搜索封装抽取，公用列表样式抽离，页面错误逻辑修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="主管的 顶部搜索封装抽取，公用列表样式抽离，页面错误逻辑修改" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1602752901679">
+    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1602754198658">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602752901679" />
+    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602754198658" />
     <state x="184" y="88" key="DiffContextDialog" timestamp="1602653435902">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

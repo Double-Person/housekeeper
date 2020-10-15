@@ -625,110 +625,346 @@ var render = function() {
             "view",
             { staticClass: _vm._$s(4, "sc", "selGender"), attrs: { _i: 4 } },
             [
-              _c("view", [_c("text")]),
               _c(
                 "view",
                 {
-                  staticClass: _vm._$s(7, "sc", "uni-form-item uni-column"),
-                  attrs: { _i: 7 }
+                  staticClass: _vm._$s(5, "sc", "warp-list"),
+                  attrs: { _i: 5 }
                 },
                 [
+                  _c("view", {
+                    staticClass: _vm._$s(6, "sc", "title"),
+                    attrs: { _i: 6 }
+                  }),
                   _c(
-                    "picker",
+                    "view",
                     {
-                      attrs: {
-                        value: _vm._$s(8, "a-value", _vm.index),
-                        range: _vm._$s(8, "a-range", _vm.arr),
-                        _i: 8
-                      },
-                      on: { change: _vm.bindPickerChange }
+                      staticClass: _vm._$s(7, "sc", "uni-form-item uni-column"),
+                      attrs: { _i: 7 }
                     },
                     [
                       _c(
-                        "label",
+                        "picker",
                         {
-                          staticClass: _vm._$s(9, "sc", "sex_wapper"),
-                          attrs: { _i: 9 }
+                          attrs: {
+                            value: _vm._$s(8, "a-value", _vm.positionIndex),
+                            range: _vm._$s(8, "a-range", _vm.position),
+                            _i: 8
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.bindPickerChange(
+                                "positionIndex",
+                                $event
+                              )
+                            }
+                          }
                         },
-                        [_vm._v(_vm._$s(9, "t0-0", _vm._s(_vm.arr[_vm.index])))]
-                      )
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass: _vm._$s(9, "sc", "sex_wapper"),
+                              attrs: { _i: 9 }
+                            },
+                            [
+                              _vm._v(
+                                _vm._$s(
+                                  9,
+                                  "t0-0",
+                                  _vm._s(_vm.position[_vm.positionIndex])
+                                )
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _c("image", {
+                        staticClass: _vm._$s(10, "sc", "down"),
+                        attrs: {
+                          src: _vm._$s(
+                            10,
+                            "a-src",
+                            __webpack_require__(/*! ../../static/loginImg/xaila.png */ 16)
+                          ),
+                          _i: 10
+                        }
+                      })
                     ]
                   )
                 ]
               ),
-              _c("image", {
-                staticClass: _vm._$s(10, "sc", "down"),
-                attrs: {
-                  src: _vm._$s(
-                    10,
-                    "a-src",
-                    __webpack_require__(/*! ../../static/loginImg/xaila.png */ 16)
-                  ),
-                  _i: 10
-                }
-              }),
-              _c("text")
+              _vm._$s(11, "i", _vm.positionIndex)
+                ? _c(
+                    "view",
+                    {
+                      staticClass: _vm._$s(11, "sc", "warp-list"),
+                      attrs: { _i: 11 }
+                    },
+                    [
+                      _c("view", {
+                        staticClass: _vm._$s(12, "sc", "title"),
+                        attrs: { _i: 12 }
+                      }),
+                      _c(
+                        "view",
+                        {
+                          staticClass: _vm._$s(
+                            13,
+                            "sc",
+                            "uni-form-item uni-column"
+                          ),
+                          attrs: { _i: 13 }
+                        },
+                        [
+                          _c(
+                            "picker",
+                            {
+                              attrs: {
+                                value: _vm._$s(
+                                  14,
+                                  "a-value",
+                                  _vm.directorIndex
+                                ),
+                                range: _vm._$s(14, "a-range", _vm.director),
+                                _i: 14
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.bindPickerChange(
+                                    "directorIndex",
+                                    $event
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: _vm._$s(15, "sc", "sex_wapper"),
+                                  attrs: { _i: 15 }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._$s(
+                                      15,
+                                      "t0-0",
+                                      _vm._s(_vm.director[_vm.directorIndex])
+                                    )
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _c("image", {
+                            staticClass: _vm._$s(16, "sc", "down"),
+                            attrs: {
+                              src: _vm._$s(
+                                16,
+                                "a-src",
+                                __webpack_require__(/*! ../../static/loginImg/xaila.png */ 16)
+                              ),
+                              _i: 16
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _c(
+                "view",
+                {
+                  staticClass: _vm._$s(17, "sc", "warp-list"),
+                  attrs: { _i: 17 }
+                },
+                [
+                  _c("view", {
+                    staticClass: _vm._$s(18, "sc", "title"),
+                    attrs: { _i: 18 }
+                  }),
+                  _c(
+                    "view",
+                    {
+                      staticClass: _vm._$s(
+                        19,
+                        "sc",
+                        "uni-form-item uni-column"
+                      ),
+                      attrs: { _i: 19 }
+                    },
+                    [
+                      _c(
+                        "picker",
+                        {
+                          attrs: {
+                            value: _vm._$s(20, "a-value", _vm.sexIndex),
+                            range: _vm._$s(20, "a-range", _vm.sex),
+                            _i: 20
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.bindPickerChange("sexIndex", $event)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass: _vm._$s(21, "sc", "sex_wapper"),
+                              attrs: { _i: 21 }
+                            },
+                            [
+                              _vm._v(
+                                _vm._$s(
+                                  21,
+                                  "t0-0",
+                                  _vm._s(_vm.sex[_vm.sexIndex])
+                                )
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _c("image", {
+                        staticClass: _vm._$s(22, "sc", "down"),
+                        attrs: {
+                          src: _vm._$s(
+                            22,
+                            "a-src",
+                            __webpack_require__(/*! ../../static/loginImg/xaila.png */ 16)
+                          ),
+                          _i: 22
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _c("view", {
+                staticClass: _vm._$s(23, "sc", "uoload-id-card"),
+                attrs: { _i: 23 }
+              })
             ]
           )
         ]
       ),
       _c(
         "view",
-        { staticClass: _vm._$s(12, "sc", "selzjz"), attrs: { _i: 12 } },
+        { staticClass: _vm._$s(24, "sc", "selzjz"), attrs: { _i: 24 } },
         [
-          _c("image", {
-            attrs: {
-              src: _vm._$s(
-                13,
-                "a-src",
-                __webpack_require__(/*! ../../static/loginImg/xjz.png */ 17)
-              ),
-              _i: 13
-            }
-          }),
-          _c("image", {
-            attrs: {
-              src: _vm._$s(
-                14,
-                "a-src",
-                __webpack_require__(/*! ../../static/loginImg/xjf.png */ 18)
-              ),
-              _i: 14
-            }
-          }),
-          _c("image", {
-            attrs: {
-              src: _vm._$s(
-                15,
-                "a-src",
-                __webpack_require__(/*! ../../static/loginImg/xj.png */ 19)
-              ),
-              _i: 15
-            }
-          })
+          _vm._$s(25, "i", !_vm.photo.positive)
+            ? _c("image", {
+                attrs: {
+                  src: _vm._$s(
+                    25,
+                    "a-src",
+                    __webpack_require__(/*! ../../static/loginImg/xjz.png */ 17)
+                  ),
+                  _i: 25
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.changePositive("positive")
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._$s(26, "i", _vm.photo.positive)
+            ? _c("image", {
+                attrs: {
+                  src: _vm._$s(26, "a-src", _vm.photo.positive),
+                  _i: 26
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.changePositive("positive")
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._$s(27, "i", !_vm.photo.reverse)
+            ? _c("image", {
+                attrs: {
+                  src: _vm._$s(
+                    27,
+                    "a-src",
+                    __webpack_require__(/*! ../../static/loginImg/xjf.png */ 18)
+                  ),
+                  _i: 27
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.changePositive("reverse")
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._$s(28, "i", _vm.photo.reverse)
+            ? _c("image", {
+                attrs: { src: _vm._$s(28, "a-src", _vm.photo.reverse), _i: 28 },
+                on: {
+                  click: function($event) {
+                    return _vm.changePositive("reverse")
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._$s(29, "i", !_vm.photo.handPositive)
+            ? _c("image", {
+                attrs: {
+                  src: _vm._$s(
+                    29,
+                    "a-src",
+                    __webpack_require__(/*! ../../static/loginImg/xj.png */ 19)
+                  ),
+                  _i: 29
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.changePositive("handPositive")
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._$s(30, "i", _vm.photo.handPositive)
+            ? _c("image", {
+                attrs: {
+                  src: _vm._$s(30, "a-src", _vm.photo.handPositive),
+                  _i: 30
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.changePositive("handPositive")
+                  }
+                }
+              })
+            : _vm._e()
         ]
       ),
       _c(
         "view",
-        { staticClass: _vm._$s(16, "sc", "btnBox"), attrs: { _i: 16 } },
+        { staticClass: _vm._$s(31, "sc", "btnBox"), attrs: { _i: 31 } },
         [
-          _c("button", { attrs: { _i: 17 }, on: { click: _vm.goIndex } }, [
+          _c("button", { attrs: { _i: 32 }, on: { click: _vm.goIndex } }, [
             _c("text")
           ])
         ]
       ),
       _c(
         "view",
-        { staticClass: _vm._$s(19, "sc", "bottom"), attrs: { _i: 19 } },
+        { staticClass: _vm._$s(34, "sc", "bottom"), attrs: { _i: 34 } },
         [
           _c("image", {
             attrs: {
               src: _vm._$s(
-                20,
+                35,
                 "a-src",
                 __webpack_require__(/*! ../../static/loginImg/lonbg.png */ 8)
               ),
-              _i: 20
+              _i: 35
             }
           })
         ]
@@ -802,7 +1038,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _hbu
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0; //\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\nvar _default =\n{\n  data: function data() {\n    return {\n      arr: [\"男\", \"女\"],\n      index: \"0\" };\n\n  },\n  methods: {\n    goIndex: function goIndex() {\n      uni.navigateTo({\n        url: \"logins\" });\n\n    } } };exports.default = _default;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vcGFnZXMvbG9naW4vbG9naW4tcy52dWUiXSwibmFtZXMiOlsiZGF0YSIsImFyciIsImluZGV4IiwibWV0aG9kcyIsImdvSW5kZXgiLCJ1bmkiLCJuYXZpZ2F0ZVRvIiwidXJsIl0sIm1hcHBpbmdzIjoid0ZBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFZTtBQUNkQSxNQURjLGtCQUNQO0FBQ04sV0FBTztBQUNOQyxTQUFHLEVBQUMsQ0FBQyxHQUFELEVBQUssR0FBTCxDQURFO0FBRU5DLFdBQUssRUFBQyxHQUZBLEVBQVA7O0FBSUEsR0FOYTtBQU9kQyxTQUFPLEVBQUU7QUFDUkMsV0FEUSxxQkFDQztBQUNSQyxTQUFHLENBQUNDLFVBQUosQ0FBZTtBQUNkQyxXQUFHLEVBQUMsUUFEVSxFQUFmOztBQUdBLEtBTE8sRUFQSyxFIiwiZmlsZSI6IjIxLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG4vL1xuLy9cbi8vXG5cbmV4cG9ydCBkZWZhdWx0IHtcblx0ZGF0YSgpIHtcblx0XHRyZXR1cm4ge1xuXHRcdFx0YXJyOltcIueUt1wiLFwi5aWzXCJdLFxuXHRcdFx0aW5kZXg6XCIwXCJcblx0XHR9XG5cdH0sXG5cdG1ldGhvZHM6IHtcblx0XHRnb0luZGV4KCl7XG5cdFx0XHR1bmkubmF2aWdhdGVUbyh7XG5cdFx0XHRcdHVybDpcImxvZ2luc1wiXG5cdFx0XHR9KVxuXHRcdH0sXG5cdFx0XG5cdH1cbn1cbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///21\n");
+eval("/* WEBPACK VAR INJECTION */(function(__f__) {Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0; //\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\nvar _default =\n{\n  data: function data() {\n    return {\n      sex: [\"男\", \"女\"],\n      sexIndex: 0,\n      position: ['主管', '技术员', '工长'],\n      positionIndex: 0,\n      director: ['张三', '李四', '王五'],\n      directorIndex: 0,\n\n      photo: {\n        positive: '', // 正面\n        reverse: '', // 反面\n        handPositive: '' // 手持正面\n      } };\n\n  },\n  methods: {\n    // 下拉款选择\n    bindPickerChange: function bindPickerChange(type, event) {\n      this[type] = event.target.value;\n    },\n    // 上传身份证\n    changePositive: function changePositive(type) {var _this = this;\n      uni.chooseImage({\n        count: 1, //默认9\n        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有\n        sourceType: ['album', 'camera'], //从相册选择\n        success: function success(res) {\n          __f__(\"log\", res.tempFilePaths[0], \" at pages/login/login-s.vue:108\");\n          _this.photo[type] = res.tempFilePaths[0];\n        },\n        fail: function fail() {\n          uni.showToast({\n            title: '请开启手机相机权限',\n            icon: 'none' });\n\n        } });\n\n    },\n    goIndex: function goIndex() {\n      uni.navigateTo({\n        url: \"logins\" });\n\n    } } };exports.default = _default;\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/lib/format-log.js */ 11)[\"default\"]))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vcGFnZXMvbG9naW4vbG9naW4tcy52dWUiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBOEVBO0FBQ0EsTUFEQSxrQkFDQTtBQUNBO0FBQ0EscUJBREE7QUFFQSxpQkFGQTtBQUdBLG1DQUhBO0FBSUEsc0JBSkE7QUFLQSxrQ0FMQTtBQU1BLHNCQU5BOztBQVFBO0FBQ0Esb0JBREEsRUFDQTtBQUNBLG1CQUZBLEVBRUE7QUFDQSx3QkFIQSxDQUdBO0FBSEEsT0FSQTs7QUFjQSxHQWhCQTtBQWlCQTtBQUNBO0FBQ0Esb0JBRkEsNEJBRUEsSUFGQSxFQUVBLEtBRkEsRUFFQTtBQUNBO0FBQ0EsS0FKQTtBQUtBO0FBQ0Esa0JBTkEsMEJBTUEsSUFOQSxFQU1BO0FBQ0E7QUFDQSxnQkFEQSxFQUNBO0FBQ0EsNENBRkEsRUFFQTtBQUNBLHVDQUhBLEVBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxTQVBBO0FBUUE7QUFDQTtBQUNBLDhCQURBO0FBRUEsd0JBRkE7O0FBSUEsU0FiQTs7QUFlQSxLQXRCQTtBQXVCQSxXQXZCQSxxQkF1QkE7QUFDQTtBQUNBLHFCQURBOztBQUdBLEtBM0JBLEVBakJBLEUiLCJmaWxlIjoiMjEuanMiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XHJcblx0PHZpZXcgY2xhc3M9XCJpbmRleFwiPlxyXG5cdFx0PCEtLSAg5rOo5YaM6KGl5YWF5L+h5oGvIC0tPlxyXG5cdFx0PHZpZXcgY2xhc3M9XCJuZXdVc2VyXCI+XHJcblx0XHRcdDx0ZXh0PuaWsOeUqOaIt+azqOWGjDwvdGV4dD5cclxuXHRcdDwvdmlldz5cclxuXHRcdDx2aWV3IGNsYXNzPVwic2VsVXBsb2FkaW5nIFwiPlxyXG5cdFx0XHQ8dmlldyBjbGFzcz1cInNlbEdlbmRlclwiPlxyXG5cclxuXHRcdFx0XHQ8dmlldyBjbGFzcz1cIndhcnAtbGlzdFwiPlxyXG5cdFx0XHRcdFx0PHZpZXcgY2xhc3M9XCJ0aXRsZVwiPlxyXG5cdFx0XHRcdFx0XHTpgInmi6nogYzkvY1cclxuXHRcdFx0XHRcdDwvdmlldz5cclxuXHRcdFx0XHRcdDx2aWV3IGNsYXNzPVwidW5pLWZvcm0taXRlbSB1bmktY29sdW1uXCI+XHJcblx0XHRcdFx0XHRcdDxwaWNrZXIgQGNoYW5nZT1cImJpbmRQaWNrZXJDaGFuZ2UoJ3Bvc2l0aW9uSW5kZXgnLCAkZXZlbnQpXCIgOnZhbHVlPVwicG9zaXRpb25JbmRleFwiIDpyYW5nZT1cInBvc2l0aW9uXCI+XHJcblx0XHRcdFx0XHRcdFx0PGxhYmVsIGNsYXNzPVwic2V4X3dhcHBlclwiPnt7cG9zaXRpb25bcG9zaXRpb25JbmRleF19fTwvbGFiZWw+XHJcblx0XHRcdFx0XHRcdDwvcGlja2VyPlxyXG5cdFx0XHRcdFx0XHQ8aW1hZ2Ugc3JjPVwiLi4vLi4vc3RhdGljL2xvZ2luSW1nL3hhaWxhLnBuZ1wiIG1vZGU9XCJcIiBjbGFzcz1cImRvd25cIj48L2ltYWdlPlxyXG5cdFx0XHRcdFx0XHRcclxuXHRcdFx0XHRcdDwvdmlldz5cclxuXHRcdFx0XHQ8L3ZpZXc+XHJcblxyXG5cdFx0XHRcdDx2aWV3IGNsYXNzPVwid2FycC1saXN0XCIgdi1pZj1cInBvc2l0aW9uSW5kZXhcIj5cclxuXHRcdFx0XHRcdDx2aWV3IGNsYXNzPVwidGl0bGVcIj5cclxuXHRcdFx0XHRcdFx06YCJ5oup5Li7566hXHJcblx0XHRcdFx0XHQ8L3ZpZXc+XHJcblx0XHRcdFx0XHQ8dmlldyBjbGFzcz1cInVuaS1mb3JtLWl0ZW0gdW5pLWNvbHVtblwiPlxyXG5cdFx0XHRcdFx0XHQ8cGlja2VyIEBjaGFuZ2U9XCJiaW5kUGlja2VyQ2hhbmdlKCdkaXJlY3RvckluZGV4JywgJGV2ZW50KVwiIDp2YWx1ZT1cImRpcmVjdG9ySW5kZXhcIiA6cmFuZ2U9XCJkaXJlY3RvclwiPlxyXG5cdFx0XHRcdFx0XHRcdDxsYWJlbCBjbGFzcz1cInNleF93YXBwZXJcIj57e2RpcmVjdG9yW2RpcmVjdG9ySW5kZXhdfX08L2xhYmVsPlxyXG5cdFx0XHRcdFx0XHQ8L3BpY2tlcj5cclxuXHRcdFx0XHRcdFx0PGltYWdlIHNyYz1cIi4uLy4uL3N0YXRpYy9sb2dpbkltZy94YWlsYS5wbmdcIiBtb2RlPVwiXCIgY2xhc3M9XCJkb3duXCI+PC9pbWFnZT5cclxuXHRcdFx0XHRcdDwvdmlldz5cclxuXHRcdFx0XHQ8L3ZpZXc+XHJcblxyXG5cdFx0XHRcdDx2aWV3IGNsYXNzPVwid2FycC1saXN0XCI+XHJcblx0XHRcdFx0XHQ8dmlldyBjbGFzcz1cInRpdGxlXCI+XHJcblx0XHRcdFx0XHRcdOmAieaLqeaAp+WIq1xyXG5cdFx0XHRcdFx0PC92aWV3PlxyXG5cdFx0XHRcdFx0PHZpZXcgY2xhc3M9XCJ1bmktZm9ybS1pdGVtIHVuaS1jb2x1bW5cIj5cclxuXHRcdFx0XHRcdFx0PHBpY2tlciBAY2hhbmdlPVwiYmluZFBpY2tlckNoYW5nZSgnc2V4SW5kZXgnLCAkZXZlbnQpXCIgOnZhbHVlPVwic2V4SW5kZXhcIiA6cmFuZ2U9XCJzZXhcIj5cclxuXHRcdFx0XHRcdFx0XHQ8bGFiZWwgY2xhc3M9XCJzZXhfd2FwcGVyXCI+e3tzZXhbc2V4SW5kZXhdfX08L2xhYmVsPlxyXG5cdFx0XHRcdFx0XHQ8L3BpY2tlcj5cclxuXHRcdFx0XHRcdFx0PGltYWdlIHNyYz1cIi4uLy4uL3N0YXRpYy9sb2dpbkltZy94YWlsYS5wbmdcIiBtb2RlPVwiXCIgY2xhc3M9XCJkb3duXCI+PC9pbWFnZT5cclxuXHRcdFx0XHRcdDwvdmlldz5cclxuXHRcdFx0XHQ8L3ZpZXc+XHJcblxyXG5cclxuXHRcdFx0XHRcclxuXHRcdFx0XHQ8IS0tIDxpbWFnZSBzcmM9XCIuLi8uLi9zdGF0aWMvbG9naW5JbWcvY2Njc3gucG5nXCIgbW9kZT1cIlwiIGNsYXNzPVwiY2NzXCI+PC9pbWFnZT4gLS0+XHJcblx0XHRcdFx0PHZpZXcgY2xhc3M9XCJ1b2xvYWQtaWQtY2FyZFwiPuS4iuS8oOi6q+S7veivgTwvdmlldz5cclxuXHRcdFx0PC92aWV3PlxyXG5cdFx0PC92aWV3PlxyXG5cdFx0PHZpZXcgY2xhc3M9XCJzZWx6anpcIj5cclxuXHRcdFx0PCEtLSDmraPpnaIgLS0+XHJcblx0XHRcdDxpbWFnZSBzcmM9XCIuLi8uLi9zdGF0aWMvbG9naW5JbWcveGp6LnBuZ1wiIG1vZGU9XCJcIiBAY2xpY2s9XCJjaGFuZ2VQb3NpdGl2ZSgncG9zaXRpdmUnKVwiIHYtaWY9XCIhcGhvdG8ucG9zaXRpdmVcIj48L2ltYWdlPlxyXG5cdFx0XHQ8aW1hZ2UgOnNyYz1cInBob3RvLnBvc2l0aXZlXCIgbW9kZT1cIlwiIEBjbGljaz1cImNoYW5nZVBvc2l0aXZlKCdwb3NpdGl2ZScpXCIgdi1pZj1cInBob3RvLnBvc2l0aXZlXCI+PC9pbWFnZT5cclxuXHRcdFx0XHJcblx0XHRcdDwhLS0g5Y+N6Z2iIC0tPlxyXG5cdFx0XHQ8aW1hZ2Ugc3JjPVwiLi4vLi4vc3RhdGljL2xvZ2luSW1nL3hqZi5wbmdcIiBtb2RlPVwiXCIgQGNsaWNrPVwiY2hhbmdlUG9zaXRpdmUoJ3JldmVyc2UnKVwiIHYtaWY9XCIhcGhvdG8ucmV2ZXJzZVwiPjwvaW1hZ2U+XHJcblx0XHRcdDxpbWFnZSA6c3JjPVwicGhvdG8ucmV2ZXJzZVwiIG1vZGU9XCJcIiBAY2xpY2s9XCJjaGFuZ2VQb3NpdGl2ZSgncmV2ZXJzZScpXCIgdi1pZj1cInBob3RvLnJldmVyc2VcIj48L2ltYWdlPlxyXG5cdFx0XHRcclxuXHRcdFx0PCEtLSDmiYvmjIHmraPpnaIgLS0+XHJcblx0XHRcdDxpbWFnZSBzcmM9XCIuLi8uLi9zdGF0aWMvbG9naW5JbWcveGoucG5nXCIgQGNsaWNrPVwiY2hhbmdlUG9zaXRpdmUoJ2hhbmRQb3NpdGl2ZScpXCIgbW9kZT1cIlwiIHYtaWY9XCIhcGhvdG8uaGFuZFBvc2l0aXZlXCI+PC9pbWFnZT5cclxuXHRcdFx0PGltYWdlIDpzcmM9XCJwaG90by5oYW5kUG9zaXRpdmVcIiBtb2RlPVwiXCIgQGNsaWNrPVwiY2hhbmdlUG9zaXRpdmUoJ2hhbmRQb3NpdGl2ZScpXCIgdi1pZj1cInBob3RvLmhhbmRQb3NpdGl2ZVwiPjwvaW1hZ2U+XHJcblx0XHRcdFxyXG5cdFx0PC92aWV3PlxyXG5cdFx0XHJcblx0XHRcclxuXHRcdDx2aWV3IGNsYXNzPVwiYnRuQm94XCI+XHJcblx0XHRcdDxidXR0b24gdHlwZT1cImRlZmF1bHRcIiBAY2xpY2s9XCJnb0luZGV4XCI+PHRleHQ+56Gu5a6aPC90ZXh0PjwvYnV0dG9uPlxyXG5cdFx0PC92aWV3PlxyXG5cdFx0PHZpZXcgY2xhc3M9XCJib3R0b21cIj5cclxuXHRcdFx0PGltYWdlIHNyYz1cIi4uLy4uL3N0YXRpYy9sb2dpbkltZy9sb25iZy5wbmdcIiBtb2RlPVwiXCI+PC9pbWFnZT5cclxuXHRcdDwvdmlldz5cclxuXHQ8L3ZpZXc+XHJcbjwvdGVtcGxhdGU+XHJcblxyXG48c2NyaXB0PlxyXG5cdGV4cG9ydCBkZWZhdWx0IHtcclxuXHRcdGRhdGEoKSB7XHJcblx0XHRcdHJldHVybiB7XHJcblx0XHRcdFx0c2V4OiBbXCLnlLdcIiwgXCLlpbNcIl0sXHJcblx0XHRcdFx0c2V4SW5kZXg6IDAsXHJcblx0XHRcdFx0cG9zaXRpb246IFsn5Li7566hJywgJ+aKgOacr+WRmCcsICflt6Xplb8nXSxcclxuXHRcdFx0XHRwb3NpdGlvbkluZGV4OiAwLFxyXG5cdFx0XHRcdGRpcmVjdG9yOiBbJ+W8oOS4iScsICfmnY7lm5snLCAn546L5LqUJ10sXHJcblx0XHRcdFx0ZGlyZWN0b3JJbmRleDogMCxcclxuXHRcdFx0XHRcclxuXHRcdFx0XHRwaG90bzoge1xyXG5cdFx0XHRcdFx0cG9zaXRpdmU6ICcnLCAvLyDmraPpnaJcclxuXHRcdFx0XHRcdHJldmVyc2U6ICcnLCAvLyDlj43pnaJcclxuXHRcdFx0XHRcdGhhbmRQb3NpdGl2ZTogJycsIC8vIOaJi+aMgeato+mdolxyXG5cdFx0XHRcdH1cclxuXHRcdFx0fVxyXG5cdFx0fSxcclxuXHRcdG1ldGhvZHM6IHtcclxuXHRcdFx0Ly8g5LiL5ouJ5qy+6YCJ5oupXHJcblx0XHRcdGJpbmRQaWNrZXJDaGFuZ2UodHlwZSwgZXZlbnQpIHtcclxuXHRcdFx0XHR0aGlzW3R5cGVdID0gZXZlbnQudGFyZ2V0LnZhbHVlXHJcblx0XHRcdH0sXHJcblx0XHRcdC8vIOS4iuS8oOi6q+S7veivgVxyXG5cdFx0XHRjaGFuZ2VQb3NpdGl2ZSh0eXBlKSB7XHJcblx0XHRcdFx0dW5pLmNob29zZUltYWdlKHtcclxuXHRcdFx0XHRcdGNvdW50OiAxLCAvL+m7mOiupDlcclxuXHRcdFx0XHRcdHNpemVUeXBlOiBbJ29yaWdpbmFsJywgJ2NvbXByZXNzZWQnXSwgLy/lj6/ku6XmjIflrprmmK/ljp/lm77ov5jmmK/ljovnvKnlm77vvIzpu5jorqTkuozogIXpg73mnIlcclxuXHRcdFx0XHRcdHNvdXJjZVR5cGU6IFsnYWxidW0nLCAnY2FtZXJhJ10sIC8v5LuO55u45YaM6YCJ5oupXHJcblx0XHRcdFx0XHRzdWNjZXNzOiByZXMgPT4ge1xyXG5cdFx0XHRcdFx0XHRjb25zb2xlLmxvZyhyZXMudGVtcEZpbGVQYXRoc1swXSlcclxuXHRcdFx0XHRcdFx0dGhpcy5waG90b1t0eXBlXSA9IHJlcy50ZW1wRmlsZVBhdGhzWzBdO1xyXG5cdFx0XHRcdFx0fSxcclxuXHRcdFx0XHRcdGZhaWw6ICgpID0+IHtcclxuXHRcdFx0XHRcdFx0dW5pLnNob3dUb2FzdCh7XHJcblx0XHRcdFx0XHRcdFx0dGl0bGU6J+ivt+W8gOWQr+aJi+acuuebuOacuuadg+mZkCcsXHJcblx0XHRcdFx0XHRcdFx0aWNvbjonbm9uZSdcclxuXHRcdFx0XHRcdFx0fSlcclxuXHRcdFx0XHRcdH1cclxuXHRcdFx0XHR9KTtcclxuXHRcdFx0fSxcclxuXHRcdFx0Z29JbmRleCgpIHtcclxuXHRcdFx0XHR1bmkubmF2aWdhdGVUbyh7XHJcblx0XHRcdFx0XHR1cmw6IFwibG9naW5zXCJcclxuXHRcdFx0XHR9KVxyXG5cdFx0XHR9LFxyXG5cclxuXHRcdH1cclxuXHR9XHJcbjwvc2NyaXB0PlxyXG5cclxuPHN0eWxlIHNjb3BlZD5cclxuXHJcblx0LyogICovXHJcblx0LndhcnAtbGlzdCB7XHJcblx0XHRib3JkZXItYm90dG9tOiAxdXB4IHNvbGlkIHJnYigyNTUsIDI0NywgMjM3KTtcclxuXHRcdHBhZGRpbmctYm90dG9tOiAxMHVweDtcclxuXHRcdG1hcmdpbi10b3A6IDMwdXB4O1xyXG5cclxuXHR9XHJcblxyXG5cdC50aXRsZSB7XHJcblx0XHRtYXJnaW46IDI4cnB4IGF1dG87XHJcblx0XHRmb250LXNpemU6IDI4dXB4O1xyXG5cdFx0Zm9udC1mYW1pbHk6IFBpbmdGYW5nIFNDO1xyXG5cdFx0Zm9udC13ZWlnaHQ6IGJvbGQ7XHJcblx0XHRjb2xvcjogIzk5OTk5OTtcclxuXHRcdGxpbmUtaGVpZ2h0OiAzMHVweDtcclxuXHR9XHJcblxyXG5cdC51b2xvYWQtaWQtY2FyZCB7XHJcblx0XHRtYXJnaW46IDMwdXB4IGF1dG87XHJcblx0fVxyXG5cdC51bmktZm9ybS1pdGVte1xyXG5cdFx0cG9zaXRpb246IHJlbGF0aXZlO1xyXG5cdFx0ei1pbmRleDogMjtcclxuXHR9XHJcblx0LmRvd24ge1xyXG5cdFx0ZGlzcGxheTogYmxvY2s7XHJcblx0XHR3aWR0aDogMjZycHg7XHJcblx0XHRoZWlnaHQ6IDE1cnB4O1xyXG5cdFx0cG9zaXRpb246IGFic29sdXRlO1xyXG5cdFx0bGVmdDogNDgwcnB4O1xyXG5cdFx0dG9wOiAxOHJweFxyXG5cdH1cclxuXHJcblxyXG5cdC8qICAqL1xyXG5cclxuXHJcblxyXG5cdC5uZXdVc2VyIHtcclxuXHRcdG1hcmdpbi10b3A6IDMwMnJweDtcclxuXHR9XHJcblxyXG5cdC5uZXdVc2VyIHRleHQge1xyXG5cdFx0d2lkdGg6IDI4N3JweDtcclxuXHRcdGhlaWdodDogNTZycHg7XHJcblx0XHRmb250LXNpemU6IDU4cnB4O1xyXG5cdFx0Zm9udC1mYW1pbHk6IFBpbmdGYW5nIFNDO1xyXG5cdFx0Zm9udC13ZWlnaHQ6IGJvbGQ7XHJcblx0XHRjb2xvcjogcmdiYSg1MywgNTMsIDUzLCAxKTtcclxuXHRcdG1hcmdpbi1sZWZ0OiAyMzNycHg7XHJcblx0fVxyXG5cclxuXHQuc2VsVXBsb2FkaW5nIHtcclxuXHRcdHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuXHRcdHdpZHRoOiA3MCU7XHJcblx0XHRtYXJnaW4tdG9wOiAxMDVycHg7XHJcblx0XHRwYWRkaW5nOiAwIDEyNXJweDtcclxuXHJcblx0XHQvKiBoZWlnaHQ6IDI0NXJweDsgKi9cclxuXHR9XHJcblxyXG5cdC5zZWxHZW5kZXIgdGV4dCB7XHJcblx0XHR3aWR0aDogODRycHg7XHJcblx0XHRoZWlnaHQ6IDI3cnB4O1xyXG5cdFx0Zm9udC1zaXplOiAyOHJweDtcclxuXHRcdGZvbnQtZmFtaWx5OiBQaW5nRmFuZyBTQztcclxuXHRcdGZvbnQtd2VpZ2h0OiBib2xkO1xyXG5cdFx0Y29sb3I6IHJnYmEoMTUzLCAxNTMsIDE1MywgMSk7XHJcblx0XHRsaW5lLWhlaWdodDogMjVweDtcclxuXHR9XHJcblxyXG5cdC5jY3Mge1xyXG5cdFx0ZGlzcGxheTogYmxvY2s7XHJcblx0XHR3aWR0aDogNTEwcnB4O1xyXG5cdFx0aGVpZ2h0OiAxcnB4O1xyXG5cdFx0bWFyZ2luLXRvcDogMTBycHg7XHJcblx0XHRtYXJnaW4tYm90dG9tOiAzNXJweDtcclxuXHR9XHJcblxyXG5cdFxyXG5cdFxyXG5cdC5zZXhfd2FwcGVyIHtcclxuXHRcdHdpZHRoOiAzN3JweDtcclxuXHRcdGhlaWdodDogMzlycHg7XHJcblx0XHRmb250LXNpemU6IDQycnB4O1xyXG5cdFx0Zm9udC1mYW1pbHk6IFBpbmdGYW5nIFNDO1xyXG5cdFx0Zm9udC13ZWlnaHQ6IGJvbGQ7XHJcblx0XHRjb2xvcjogcmdiYSg3NywgNzcsIDc3LCAxKTtcclxuXHRcdGxpbmUtaGVpZ2h0OiAyNXJweDtcclxuXHRcdG1hcmdpbi10b3A6IDI5cnB4O1xyXG5cdFx0bWFyZ2luLWJvdHRvbTogMTFycHg7XHJcblx0fVxyXG5cclxuXHQuc2Vsemp6IHtcclxuXHRcdHBhZGRpbmctbGVmdDogODZycHg7XHJcblx0fVxyXG5cclxuXHQuc2Vsemp6IGltYWdlIHtcclxuXHRcdGRpc3BsYXk6IGJsb2NrO1xyXG5cdFx0d2lkdGg6IDU3OHJweDtcclxuXHRcdGhlaWdodDogMzY0cnB4O1xyXG5cdFx0bWFyZ2luLWJvdHRvbTogMjlycHg7XHJcblx0fVxyXG5cclxuXHQuYnRuQm94IHtcclxuXHRcdG1hcmdpbjogNjB1cHggYXV0byAwIGF1dG87XHJcblx0fVxyXG5cclxuXHQuYnRuQm94IGJ1dHRvbiB7XHJcblx0XHR3aWR0aDogNDE3cnB4O1xyXG5cdFx0aGVpZ2h0OiA4M3JweDtcclxuXHRcdGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCgxNTBkZWcsIHJnYmEoMjU1LCAyMDAsIDM1LCAxKSwgcmdiYSgyNTUsIDE5MywgMTIsIDEpKTtcclxuXHRcdGJveC1zaGFkb3c6IDBweCAwcHggM3B4IDBweCByZ2JhKDIwOCwgMTM5LCAyMCwgMC4yNSk7XHJcblx0XHRib3JkZXItcmFkaXVzOiA0MnJweDtcclxuXHR9XHJcblxyXG5cdC5idG5Cb3ggYnV0dG9uIHRleHQge1xyXG5cdFx0d2lkdGg6IDExNnJweDtcclxuXHRcdGhlaWdodDogMzhycHg7XHJcblx0XHRmb250LXNpemU6IDQwcnB4O1xyXG5cdFx0Zm9udC1mYW1pbHk6IFBpbmdGYW5nIFNDO1xyXG5cdFx0Zm9udC13ZWlnaHQ6IDUwMDtcclxuXHRcdGNvbG9yOiByZ2JhKDUzLCA1MywgNTMsIDEpO1xyXG5cdFx0bGluZS1oZWlnaHQ6IDQwcnB4O1xyXG5cdH1cclxuXHJcblx0LmJ0blRleHQge1xyXG5cdFx0bWFyZ2luOiAwIGF1dG87XHJcblx0XHR3aWR0aDogMzAwcnB4O1xyXG5cdFx0aGVpZ2h0OiAyM3JweDtcclxuXHRcdHBhZGRpbmc6IDE5cnB4O1xyXG5cdFx0Zm9udC1zaXplOiAyNHJweDtcclxuXHRcdGZvbnQtZmFtaWx5OiBTb3VyY2UgSGFuIFNhbnMgQ047XHJcblx0XHRmb250LXdlaWdodDogNDAwO1xyXG5cdFx0Y29sb3I6IHJnYmEoNTEsIDUxLCA1MSwgMSk7XHJcblx0XHRsaW5lLWhlaWdodDogMjVycHg7XHJcblx0fVxyXG5cclxuXHQuYm90dG9tIHtcclxuXHRcdG1hcmdpbi10b3A6IDYzcnB4O1xyXG5cdH1cclxuXHJcblx0LmJvdHRvbSBpbWFnZSB7XHJcblx0XHRkaXNwbGF5OiBibG9jaztcclxuXHRcdHdpZHRoOiAxMDAlO1xyXG5cdFx0aGVpZ2h0OiAxMzZycHg7XHJcblx0fVxyXG48L3N0eWxlPlxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///21\n");
 
 /***/ }),
 /* 22 */
