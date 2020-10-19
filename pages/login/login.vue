@@ -11,17 +11,6 @@
 	
 </template>
 
-<script>
-	// export default{
-	// 	onLoad() {
-	// 		setTimeout(()=>{
-	// 			uni.navigateTo({
-	// 				url:"logins"
-	// 			})
-	// 		},1000)
-	// 	}
-	//}
-</script>
 
 <style scoped lang="scss">
 

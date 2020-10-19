@@ -1,8 +1,8 @@
 <template>
 	<view class="newfrom">
 		<!-- 搜索 -->
-		<TopSearch></TopSearch>
-		
+		<TopSearch @search="search"></TopSearch>
+
 		<view class="list-view">
 			<!-- 横向滚动 -->
 			<scroll-view :scroll-x="true" class="top-scroll-view">
@@ -11,10 +11,10 @@
 				</view>
 			</scroll-view>
 
-			<scroll-view scroll-y="true" class="body-scroll-view">
+			<scroll-view scroll-y="true" class="body-scroll-view" @scrolltolower="scrolltolower">
 				<view class="block">
 					<!-- 审核页面 -->
-	
+
 					<view class="state" v-if="statusObj.AUDIT == currentTabBar">
 						<text :class="audit === 'review' ? 'statAct' :'' " @click="subType('review')">审核中</text>
 						<text :class="audit === 'haveBeenThrough' ? 'statAct' :'' " @click="subType('haveBeenThrough')">已通过</text>
@@ -31,16 +31,18 @@
 					</view>
 					<!-- 有下级 -->
 					<view v-if="topBarList[topActive].hasNext">
-						
-						
+
+
 						<view class="state" v-if="statusObj.AUDIT == currentTabBar">
-							<fromDeatil :flag="8" msg="msg" :item="item" v-for="(item,index) in topBarList[topActive].list[currentType].list" :key="index"></fromDeatil>
+							<fromDeatil :flag="8" msg="msg" :item="item" v-for="(item,index) in topBarList[topActive].list[currentType].list"
+							 :key="index"  @butongguo="notThrough" @tongyi="through"></fromDeatil>
 						</view>
 						<view class="state" v-if="statusObj.AUDIT != currentTabBar">
-							<fromDeatil :flag="8" msg="msg" :item="item" v-for="(item,index) in topBarList[topActive].list[currentType].list" :key="index"></fromDeatil>
+							<fromDeatil :flag="8" msg="msg" :item="item" v-for="(item,index) in topBarList[topActive].list[currentType].list"
+							 :key="index" @butongguo="notThrough" @tongyi="through"></fromDeatil>
 						</view>
 					</view>
-					
+
 				</view>
 			</scroll-view>
 
@@ -60,23 +62,23 @@
 	export default {
 		data() {
 			return {
+				currentTabBar: -1,
 				topActive: 0, // 顶部导航激活
 				statusObj: statusObj,
-				audit: 'review',  // 审核中三种状态  haveBeenThrough noThrough
-				customerConfirmation: 'review',  // 客户确认中两种状态  noThrough 
+				audit: 'review', // 审核中三种状态  haveBeenThrough noThrough
+				customerConfirmation: 'review', // 客户确认中两种状态  noThrough 
 				currentType: 'review', // 判断是 审核还是用户确认
-				topBarList: [
-					{
+				topBarList: [{
 						hasNext: false,
 						value: statusObj.ALL,
 						label: '全部',
-						list: ['全部 1','全部 2','全部 3']
+						list: ['全部 1', '全部 2', '全部 3']
 					},
 					{
 						hasNext: false,
 						value: statusObj.CONSTRUCTION,
 						label: '施工',
-						list: ['施工 1','施工 2','施工 3']
+						list: ['施工 1', '施工 2', '施工 3']
 					},
 					{
 						hasNext: true,
@@ -86,19 +88,19 @@
 							review: {
 								value: 1,
 								label: '审核中',
-								list: ['审核 审核中 1','审核 审核中 2','审核 审核中 3']
+								list: ['审核 审核中 1', '审核 审核中 2', '审核 审核中 3']
 							},
 							haveBeenThrough: {
 								value: 1,
 								label: '已通过',
-								list: ['审核 已通过 1','审核 已通过 2','审核 已通过 3']
+								list: ['审核 已通过 1', '审核 已通过 2', '审核 已通过 3']
 							},
 							noThrough: {
 								value: 1,
 								label: '未通过',
-								list: ['审核 未通过 1','审核 未通过 2','审核 未通过 3']
+								list: ['审核 未通过 1', '审核 未通过 2', '审核 未通过 3']
 							}
-							
+
 						}
 					},
 					{
@@ -109,39 +111,39 @@
 							review: {
 								value: 1,
 								label: '审核中',
-								list: ['客户确认 审核中 1','客户确认 审核中 2','客户确认 审核中 3']
+								list: ['客户确认 审核中 1', '客户确认 审核中 2', '客户确认 审核中 3']
 							},
-							
+
 							noThrough: {
 								value: 1,
 								label: '未通过',
-								list: ['客户确认 未通过 1','客户确认 未通过 2','客户确认 未通过 3']
+								list: ['客户确认 未通过 1', '客户确认 未通过 2', '客户确认 未通过 3']
 							}
-							
+
 						}
 					},
 					{
 						hasNext: false,
 						value: statusObj.QUALITY_ASSURANCE,
 						label: '质保',
-						list: ['质保 1','质保 2','质保 3']
+						list: ['质保 1', '质保 2', '质保 3']
 					},
 					{
 						hasNext: false,
 						value: statusObj.COMPLETE,
 						label: '完成',
-						list: ['完成 1','完成 2','完成 3']
+						list: ['完成 1', '完成 2', '完成 3']
 					},
 					{
 						hasNext: false,
 						value: statusObj.CANCEL,
 						label: '取消',
-						list: ['取消 1','取消 2','取消 3']
+						list: ['取消 1', '取消 2', '取消 3']
 					},
 				],
 
-				currentTabBar: -1,
 				
+
 			}
 		},
 		components: {
@@ -151,17 +153,21 @@
 		created() {
 			this.currentTabBar = this.topBarList && this.topBarList[0].value;
 		},
+		
 		methods: {
+			scrolltolower(event) {
+				console.log(event)
+			},
 			topBarActive(index, value) {
 				this.topActive = index
 				this.currentTabBar = value; // 
 				// 审核页面   audit: 'review',  // 审核中三种状态  haveBeenThrough noThrough
-				if(this.statusObj.AUDIT == this.currentTabBar) {
+				if (this.statusObj.AUDIT == this.currentTabBar) {
 					this.currentType = 'review'
 					this.audit = 'review'
 				}
 				// 客户确认  customerConfirmation: 'review',  // 审核中两种状态  noThrough 
-				if(this.statusObj.CUSTOMER_CONFIRMATION == this.currentTabBar) {
+				if (this.statusObj.CUSTOMER_CONFIRMATION == this.currentTabBar) {
 					this.currentType = 'review'
 					this.audit = 'review'
 				}
@@ -171,75 +177,29 @@
 				this.audit = type
 				this.currentType = type
 			},
-			clickTopBar(act) {
-				this.act = act
+			
+			// 搜索
+			search(value) {
+				console.log(value)
 			},
-
-
-			// 施工跳转
-			getDetail() {
-				uni.navigateTo({
-					url: "./zgshigong"
-				})
+			//  不通过
+			notThrough(val) {
+				console.log('不通过', val)
 			},
-			yitongguo() {
-				console.log(1)
-				uni.navigateTo({
-					url: 'shenhexiangqing'
-				})
-			},
-			weitongguo() {
-				uni.navigateTo({
-					url: 'weitongguo'
-				})
-			},
-			zhibaoxq() {
-				uni.navigateTo({
-					url: 'zgzhibaoxiangqing'
-				})
-			},
-			wancheng() {
-				uni.navigateTo({
-					url: 'zgwanchengxiangqing'
-				})
-			},
-			yiquxiao() {
-				uni.navigateTo({
-					url: 'zgquxiao'
-				})
-			},
-			butongguo() {
-				uni.navigateTo({
-					url: 'butongyi'
-				})
-			},
-			kehuqueren() {
-				uni.navigateTo({
-					url: 'zgkehuquerenxiangqing'
-				})
-			},
-			shenhexx(sAce) {
-				if (sAce == 2) {
-					uni.navigateTo({
-						url: 'zgweitongguo'
-					})
-				} else {
-					uni.navigateTo({
-						url: 'zgshenhexiangqing',
-					})
-				}
-
+			// 通过
+			through(val) {
+				console.log('通过', val)
 			}
+
+
+			
+			
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	
-
-
-
-	.list-view{
+	.list-view {
 		height: calc(100vh - 110upx);
 	}
 

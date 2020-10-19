@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09d0f194-42f6-4725-b5d5-7ae723a9ea25" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Topsearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/Topsearch.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/fromAll.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/fromAll.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgyuangong.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgyuangong.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/login_forgetPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login_forgetPassword.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/logins.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/logins.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/build/.automator/app-plus/.automator.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappchooselocation.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappes6.js" beforeDir="false" />
@@ -741,6 +748,8 @@
       <change beforePath="$PROJECT_DIR$/unpackage/resources/__UNI__4B1207D/www/static/order_icon/you.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/resources/__UNI__4B1207D/www/view.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/unpackage/resources/__UNI__4B1207D/www/view.umd.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/variable/orderCenter.js" beforeDir="false" afterPath="$PROJECT_DIR$/variable/orderCenter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variable/plan.js" beforeDir="false" afterPath="$PROJECT_DIR$/variable/plan.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -790,6 +799,7 @@
       <workItem from="1602659928792" duration="1685000" />
       <workItem from="1602725360753" duration="74000" />
       <workItem from="1602739490776" duration="6670000" />
+      <workItem from="1603078334466" duration="25000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <created>1602653420511</created>
@@ -855,17 +865,17 @@
     <option name="LAST_COMMIT_MESSAGE" value="用戶注册" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1602758555270">
+    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1602758799688">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602758555270" />
+    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602758799688" />
     <state x="184" y="88" key="DiffContextDialog" timestamp="1602653435902">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="184" y="88" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602653435902" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1602758598940">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1602758814570">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602758598940" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602758814570" />
   </component>
 </project>

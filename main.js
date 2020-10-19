@@ -6,6 +6,9 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 const app = new Vue({
-    ...App
+    ...App,
+	mounted() {
+		console.log('main mounted')
+	}
 })
 app.$mount()

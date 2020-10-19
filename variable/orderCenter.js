@@ -1,5 +1,6 @@
 //主管
 
+// 订单中心
 export const statusObj = {
 	ALL: 0,  // 全部
 	CONSTRUCTION: 1,  // 施工
@@ -20,8 +21,8 @@ export const salesOrder = {
 // 合同
 export const contract = {
 	STAY_BY: 0, // 待通过
-	NOT_THROUGH: 0, // 未通过
-	HAVE_BEEN_THROUGH: 0, // 已通过
+	NOT_THROUGH: 1, // 未通过
+	HAVE_BEEN_THROUGH: 2, // 已通过
 }
 
 

@@ -7,15 +7,15 @@
 			<view class="sjBox">
 				<view class="sjh">手机号</view>
 				<view class="sjText">
-					<input type="text" value="12345678911" />
+					<input type="text" v-model="userInfo.phone" />
 					<image src="../../static/loginImg/shouji-copyx.png" mode="" class="shoujiimage"></image>
 				</view>
 			</view>
 			<view class="sjBox">
 				<view class="sjh">密码</view>
 				<view class="sjText">
-					<input type="text" value="12345678911" />
-					<image src="../../static/loginImg/bukejianx.png" mode="" class="xsyc"></image>
+					<input :type="type" v-model="userInfo.password" class="pwd-input" />
+					<image src="../../static/loginImg/bukejianx.png" mode="" class="xsyc" @click="togglePassWord"></image>
 				</view>
 			</view>
 			<view class="zjdl">
@@ -38,10 +38,17 @@
 	export default{
 		data(){
 			return{
-				
+				type:'password',
+				userInfo: {
+					phone: '12345678910',
+					password: '123456'
+				}
 			}
 		},
 		methods:{
+			togglePassWord() {
+				this.type = (this.type === 'password' ? 'text' : 'password')
+			},
 			goPassword(){
 				uni.navigateTo({
 					url:"login_forgetPassword"
@@ -107,13 +114,14 @@
 				margin-top:35upx;
 				display: flex;
 				position: relative;
-				input{
+				.pwd-input{
 					width:300upx;
 					height:34upx;
 					font-size:42upx;
 					font-family:SourceHanSansCN;
 					font-weight:bold;
 					color:rgba(77,77,77,1);
+					border: none;
 				}
 				.shoujiimage{
 					display: block;

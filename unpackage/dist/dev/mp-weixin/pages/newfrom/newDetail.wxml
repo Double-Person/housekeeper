@@ -1,1 +1,0 @@
-<view class="newfrom"><view class="new_demo"><detail vue-id="58fd3703-1" bind:__l="__l"></detail><view class="new_detail"><order vue-id="58fd3703-2" bind:__l="__l"></order></view><view class="down"><text>选择技术人员</text><view class="pull_down"><image src="../../static/newfrom_icon/pull_down.png" mode></image></view></view><view class="from_enter">确定</view></view></view>

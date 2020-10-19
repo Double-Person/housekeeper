@@ -74,24 +74,28 @@
 		},
 		data() {
 			return {
-
+				info: {}
 			};
 		},
+		mounted() {
+			this.info = this.item
+			console.log('this.info', this.info)
+		},
 		methods:{
-			getDetail(){
-				this.$emit('getDetail')
+			getDetail(item){
+				this.$emit('getDetail', this.info)
 			},
 			shezhifa(){
-				this.$emit('shezhifa')
+				this.$emit('shezhifa', this.info)
 			},
 			butongyi(){
-				this.$emit('butongyi')
+				this.$emit('butongyi', this.info)
 			},
 			butongguo(){
-				this.$emit('butongguo')
+				this.$emit('butongguo', this.info)
 			},
 			tongyi(){
-				this.$emit('tongyi')
+				this.$emit('tongyi', this.info)
 			}
 		}
 	}

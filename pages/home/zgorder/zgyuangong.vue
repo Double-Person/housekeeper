@@ -25,7 +25,7 @@
 								<view class="zw">职位</view>
 							</view>
 						</view>
-						<view class="bgtext">{{item.type}}</view>
+						<view class="bgtext">查看资料</view>
 					</view>
 					<view class="bigBoxs">
 						<text>姓名：{{item.position}}</text>

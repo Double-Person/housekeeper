@@ -1,1 +1,0 @@
-<view class="bigBox"><view class="tit">选择你的权限</view><view data-event-opts="{{[['tap',[['zhuguan',['$event']]]]]}}" class="box" bindtap="__e">主管</view><view data-event-opts="{{[['tap',[['jishu',['$event']]]]]}}" class="box" bindtap="__e">技术员</view><view data-event-opts="{{[['tap',[['gongren',['$event']]]]]}}" class="box" bindtap="__e">工人</view></view>
