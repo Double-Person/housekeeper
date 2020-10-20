@@ -29,6 +29,7 @@
 			<image src="../../static/loginImg/wx.png" mode=""></image>
 		</view>
 		<view class="btnImg">
+			
 			<image src="../../static/loginImg/lonbg.png" mode=""></image>
 		</view>
 	</view>
@@ -56,6 +57,20 @@
 			},
 			wxLogin() {
 				console.log('微信登录')
+			
+				uni.login({
+				  provider: 'weixin',
+				  success: function (loginRes) {
+				    console.log(loginRes.authResult);
+				    // 获取用户信息
+				    uni.getUserInfo({
+				      provider: 'weixin',
+				      success: function (infoRes) {
+				        console.log('用户昵称为：' + infoRes.userInfo.nickName);
+				      }
+				    });
+				  }
+				});
 			},
 			goYz(){
 				uni.navigateTo({
@@ -195,7 +210,7 @@
 		width: 750upx;
 		height: 163upx;
 		overflow: hidden;
-		background: url(../../static/loginImg/lonbg.png);
+		background: url('../../static/loginImg/lonbg.png');
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
 		position: fixed;
