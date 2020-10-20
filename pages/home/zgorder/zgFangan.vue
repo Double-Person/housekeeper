@@ -1,13 +1,7 @@
 <template>
-
 	<view class="newfrom">
-
 		<Topsearch @searchValue='searchValue' placeholder="搜索订单" />
-
 		<!--  -->
-
-
-
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
@@ -17,9 +11,6 @@
 				 @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
 			</view>
 		</scroll-view>
-
-		
-
 	</view>
 </template>
 

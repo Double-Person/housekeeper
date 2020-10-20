@@ -1,49 +1,73 @@
 <template>
 	
 	<view class="newfrom">
-		<view class="sou">
-			<view class="sou_ipt">
-				<input type="text" value="" />
-				<view class="order_txt">
-					<view class="sou_icon">
-						<image src="../../static/order_icon/sou.png"></image>
-					</view>
-					<text>搜索订单</text>
-				</view>
-			</view>
-		</view>
-		
-		<!--  -->
+		<Topsearch @searchValue='searchValue' placeholder="搜索订单" />
 		<view class="top">
-			<view >待处理</view>
-			<view >处理中</view>
-			<view class="active">已完成</view>
+			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
-		
-		<!--  -->
-		<view class="form_deta" :class="{block:act==0}">
-			<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index" @getDetail="getDetail(act)" :flag="flag"></fromDeatil>
-		</view>
+		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+			<view class="padding-bottom150">
+				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" :flag="flag" 
+				@getDetail="getDetail($event)"></fromDeatil>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
 <script>
 	import fromDeatil from "../../components/fromAll.vue"
+	import Topsearch from "../../components/TopSearch.vue"
+	import {
+		workersAfterSale
+	} from '../../variable/orderCenter.js'
 	export default {
 		components:{
-			fromDeatil
+			fromDeatil,
+			Topsearch
 		},
 		data() {
 			return {
-				act: 0,
+				flag: 1,
+				activeIndex: 0,
+				titleList: [{
+						value: workersAfterSale.PROCESSED,
+						label: '待处理',
+						list: ['待处理 1', '待处理 2', '待处理 3', '待处理 4', '待处理 5']
+					},
+					{
+						value: workersAfterSale.PROCESSING,
+						label: '处理中',
+						list: ['处理中 1', '处理中 2', '处理中 3']
+					},
+					{
+						value: workersAfterSale.COMPLETED,
+						label: '已完成',
+						list: ['已完成 1', '已完成 2', '已完成 3']
+					}
+				],
 			}
 		},
+
 		methods: {
-			getScroll(item,a,b) {
-				this.act = item
+			searchValue(val) {
+			
 			},
-			getDetail(act){
-				console.log(act)
+			scrolltolower(eve) {
+				console.log(eve);
+			},
+			clickTitle(index, value) {
+				this.activeIndex = index
+				if(value === this.titleList[0].value) {
+					this.flag = 1
+				}else if(value === this.titleList[1].value) {
+					this.flag = 2
+				}else {
+					this.flag = -1
+				}
+			},
+		
+			getDetail(event){
+				let act = 0
 				if(act==0){
 					uni.navigateTo({
 						url:'kaigong'
@@ -67,9 +91,7 @@
 			},
 			
 		},
-		components: {
-			fromDeatil
-		}
+		
 	}
 </script>
 

@@ -1,45 +1,59 @@
 <template>
 	
 	<view class="newfrom">
-		<view class="sou">
-			<view class="sou_ipt">
-				<input type="text" value="" />
-				<view class="order_txt">
-					<view class="sou_icon">
-						<image src="../../static/order_icon/sou.png"></image>
-					</view>
-					<text>搜索订单</text>
-				</view>
-			</view>
-		</view>
-		
+		<Topsearch @searchValue='searchValue' placeholder="搜索订单" />
 		<!--  -->
 		<view class="top">
-			<view>退款</view>
-			<view class="active:act">质量问题</view>
+			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
-		
-		<!--  -->
-		<view class="form_deta">
-			<fromDeatil :msg="msg" v-for="(item,index) in 2" :key="index" @getDetail="getDetail()" :flag="flag"></fromDeatil>
-		</view>
+		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+			<view class="padding-bottom150">
+				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail($event)"></fromDeatil>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
 <script>
 	import fromDeatil from "../../components/fromAll.vue"
+	import Topsearch from "../../components/TopSearch.vue"
+	import {
+		workersAfterProcessing
+	} from '../../variable/orderCenter.js'
+	
 	export default {
 		components:{
-			fromDeatil
+			fromDeatil,
+			Topsearch
 		},
 		data() {
 			return {
-				act: 0,
+				activeIndex: 0,
+				titleList: [{
+						value: workersAfterProcessing.ALL,
+						label: '退款',
+						list: ['退款 1', '退款 2', '退款 3', '退款 4', '退款 5']
+					},
+					{
+						value: workersAfterProcessing.ONGOING,
+						label: '质量问题',
+						list: ['质量问题 1', '质量问题 2', '质量问题 3']
+					}
+				],
 				
 			}
 		},
 		methods: {
-			getDetail(act){
+			searchValue(val) {
+			
+			},
+			scrolltolower(eve) {
+				console.log(eve);
+			},
+			clickTitle(index, value) {
+				this.activeIndex = index
+			},
+			getDetail(event){
 				
 				uni.navigateTo({
 					url:'chulifankui'
@@ -53,9 +67,7 @@
 			},
 			
 		},
-		components: {
-			fromDeatil
-		}
+		
 	}
 </script>
 

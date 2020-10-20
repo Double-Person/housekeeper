@@ -70,32 +70,36 @@
 			},
 			item: {
 				
-			}
+			},
+			hasChildItem: {}
+			
 		},
 		data() {
 			return {
-				info: {}
+				info: {},
+				hasChildInfo: {}
 			};
 		},
 		mounted() {
 			this.info = this.item
-			console.log('this.info', this.info)
+			this.hasChildInfo = this.hasChildItem
+			console.log('this.info', this.info, this.hasChildItem)
 		},
 		methods:{
 			getDetail(item){
-				this.$emit('getDetail', this.info)
+				this.$emit('getDetail', this.hasChildInfo ? this.hasChildInfo : this.info)
 			},
 			shezhifa(){
-				this.$emit('shezhifa', this.info)
+				this.$emit('shezhifa', this.hasChildInfo ? this.hasChildInfo : this.info)
 			},
 			butongyi(){
-				this.$emit('butongyi', this.info)
+				this.$emit('butongyi', this.hasChildInfo ? this.hasChildInfo : this.info)
 			},
 			butongguo(){
-				this.$emit('butongguo', this.info)
+				this.$emit('butongguo', this.hasChildInfo ? this.hasChildInfo : this.info)
 			},
 			tongyi(){
-				this.$emit('tongyi', this.info)
+				this.$emit('tongyi', this.hasChildInfo ? this.hasChildInfo : this.info)
 			}
 		}
 	}

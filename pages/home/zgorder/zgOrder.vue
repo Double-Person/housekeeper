@@ -86,7 +86,7 @@
 						label: '审核',
 						list: {
 							review: {
-								value: 1,
+								value: 0,
 								label: '审核中',
 								list: ['审核 审核中 1', '审核 审核中 2', '审核 审核中 3']
 							},
@@ -96,7 +96,7 @@
 								list: ['审核 已通过 1', '审核 已通过 2', '审核 已通过 3']
 							},
 							noThrough: {
-								value: 1,
+								value: 2,
 								label: '未通过',
 								list: ['审核 未通过 1', '审核 未通过 2', '审核 未通过 3']
 							}
@@ -109,7 +109,7 @@
 						label: '客户确认',
 						list: {
 							review: {
-								value: 1,
+								value: 0,
 								label: '审核中',
 								list: ['客户确认 审核中 1', '客户确认 审核中 2', '客户确认 审核中 3']
 							},
@@ -253,7 +253,7 @@
 		// height:80upx;
 		display: flex;
 		justify-content: space-between;
-		padding: 0 20upx;
+		// padding: 0 20upx;
 
 	}
 

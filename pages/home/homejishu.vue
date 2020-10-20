@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<!-- 技术员 -->
 		<!-- 头部个人信息 -->
 		<view class="title">
 			<view class="my_text">
