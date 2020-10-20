@@ -27,7 +27,7 @@
 		},
 		data() {
 			return {
-				flag: 1,
+				flag: 2,
 				activeIndex: 0,
 				titleList: [{
 						value: workersAfterSale.PROCESSED,
@@ -58,9 +58,9 @@
 			clickTitle(index, value) {
 				this.activeIndex = index
 				if(value === this.titleList[0].value) {
-					this.flag = 1
-				}else if(value === this.titleList[1].value) {
 					this.flag = 2
+				}else if(value === this.titleList[1].value) {
+					this.flag = 1
 				}else {
 					this.flag = -1
 				}

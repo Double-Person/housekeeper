@@ -58,11 +58,10 @@
 						url:"../scheme/scheme"
 
 					},
-					{
-						image: "../../static/my_icon/my_hetong.png",
-						middle: "合同",
-
-					},
+					// {
+					// 	image: "../../static/my_icon/my_hetong.png",
+					// 	middle: "合同",
+					// },
 					{
 						image: "../../static/my_icon/my_shouhou.png",
 						middle: "售后订单",

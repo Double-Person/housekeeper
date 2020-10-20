@@ -45,6 +45,13 @@
 				uni.navigateTo({
 					url:"./fromDetail"
 				})
+			},
+			take() {
+				
+				// 跳转首页
+				uni.navigateTo({
+					url:'/pages/home/home'
+				})
 			}
 		}
 	}

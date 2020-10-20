@@ -2,8 +2,6 @@
 	<view class="newfrom">
 		<TopSearch placeholder="搜索订单"></TopSearch>
 		
-		
-		
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
@@ -116,7 +114,7 @@
 	@import '../../../common/style/tabList.scss';
 	
 	.top{
-		padding: 0 30rpx;
+		padding: 0;
 		width: 100%;
 	}
 

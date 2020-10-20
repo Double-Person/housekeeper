@@ -292,7 +292,7 @@
 		{
 			"path": "pages/home/neworder/dingdanzhongxin",
 			"style": {
-				"navigationBarTitleText": "已确认的方案详情"
+				"navigationBarTitleText": "订单中心"
 			}
 		},
 		{
@@ -484,6 +484,18 @@
 				"navigationBarTitleText": "已取消的订单详情"
 			}
 		}  
+        ,{
+            "path" : "pages/questionnaire/QuestionnaireSurvey",
+            "style" : {
+				"navigationBarTitleText": "问卷调查"
+			}
+        } 
+		,{
+            "path" : "pages/questionnaire/CheckQuestionnaire",
+            "style" : {
+				"navigationBarTitleText": "查看问卷"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

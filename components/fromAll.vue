@@ -40,7 +40,7 @@
 				<view class="right">完成</view>
 			</view>
 			<view class="btna" v-show="flag==5">
-				<view class="right">问卷调查</view>
+				<view class="right" @click="questionnaireSurvey">问卷调查</view>
 			</view>
 			<view class="btna" v-show="flag==6" @click="shezhifa">
 				<view class="right">设置方案</view>
@@ -100,6 +100,13 @@
 			},
 			tongyi(){
 				this.$emit('tongyi', this.hasChildInfo ? this.hasChildInfo : this.info)
+			},
+			// 問卷調查
+			questionnaireSurvey() {
+				uni.navigateTo({
+					// url: '/pages/questionnaire/QuestionnaireSurvey?info=' + JSON.stringify(this.info)
+					url: '/pages/questionnaire/CheckQuestionnaire'
+				})
 			}
 		}
 	}

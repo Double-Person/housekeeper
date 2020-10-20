@@ -4,18 +4,13 @@
     <list default="true" id="09d0f194-42f6-4725-b5d5-7ae723a9ea25" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/fromAll.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/fromAll.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/after-sale/after-sale.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/after-sale/after-sale.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/after-sale/shouhouchuli.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/after-sale/shouhouchuli.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/home/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/homejishu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/homejishu.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/home/neworder/dingdanzhongxin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/neworder/dingdanzhongxin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/neworder/fangan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/neworder/fangan.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgFangan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgFangan.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zhuguan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zhuguan.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/neworder/orderb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/neworder/orderb.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/newfrom/newfrom.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/newfrom/newfrom.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/order/orderAll.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/order/orderAll.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/scheme/scheme.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/scheme/scheme.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/variable/orderCenter.js" beforeDir="false" afterPath="$PROJECT_DIR$/variable/orderCenter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +62,7 @@
       <workItem from="1602739490776" duration="6670000" />
       <workItem from="1603078334466" duration="25000" />
       <workItem from="1603108669022" duration="139000" />
-      <workItem from="1603158606587" duration="2709000" />
+      <workItem from="1603158606587" duration="3309000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <created>1602653420511</created>

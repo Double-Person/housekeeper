@@ -27,12 +27,11 @@
 
 					<!-- 无下级 topBarList hasNext list    topActive -->
 					<view v-if="!topBarList[topActive].hasNext">
-						<view v-if="topBarList[topActive].value === currentTabBar">
+						<view v-if="statusObj.COMPLETE != currentTabBar">
 							<fromDeatil msg="msg" :item="item" v-for="(item,index) in topBarList[topActive].list" :key="index"></fromDeatil>
 						</view>
-						<view v-if="topBarList[topActive].value != currentTabBar">
-							完成
-							<fromDeatil msg="msg" :item="item" v-for="(item,index) in topBarList[topActive].list" :key="index"></fromDeatil>
+						<view v-if="statusObj.COMPLETE == currentTabBar">
+							<fromDeatil msg="msg" :flag="5" :item="item" v-for="(item,index) in topBarList[topActive].list" :key="index"></fromDeatil>
 						</view>
 						
 						
@@ -40,7 +39,7 @@
 					<!-- 有下级 -->
 					<view v-if="topBarList[topActive].hasNext">
 						<!-- 审核页面 -->
-						<view class="state 审核页面" v-if="statusObj.AUDIT == currentTabBar">
+						<view class="state" v-if="statusObj.AUDIT == currentTabBar">
 							<fromDeatil :flag="8" msg="msg" :item="item" 
 							:hasChildItem = "topBarList[topActive].list[currentType]" 
 							v-for="(item,index) in topBarList[topActive].list[currentType].list"
@@ -48,7 +47,7 @@
 						</view>
 						<!-- 施工 -->
 						
-						<view class="state 施工" v-if="statusObj.CONSTRUCTION == currentTabBar">
+						<view class="state" v-if="statusObj.CONSTRUCTION == currentTabBar">
 							<fromDeatil :flag="8" msg="msg" :item="item" :hasChildItem = "topBarList[topActive].list[currentType]" v-for="(item,index) in topBarList[topActive].list[currentType].list"
 							 :key="index" @butongguo="notThrough" @tongyi="through"></fromDeatil>
 						</view>
