@@ -2,18 +2,7 @@
 	<view>
 		<!-- 技术员 -->
 		<!-- 头部个人信息 -->
-		<view class="title">
-			<view class="my_text">
-				<view class="my_logo">
-					<image src="../../static/my_icon/my_logo.png"></image>
-					<image src="../../static/my_icon/logo.jpg" mode="" class="logo"></image>
-				</view>
-			</view>
-			<view class="top_bac">
-				<image src="../../static/my_icon/my_topbac.png" mode=""></image>
-			</view>
-			<text class="my_name">我是昵称</text>
-		</view>
+		<user-info-header />
 		<!-- 功能展示 -->
 		<view class="my_list">
 			<view class="list_fun">
@@ -38,28 +27,32 @@
 </template>
 
 <script>
+	import UserInfoHeader from '../../components/UserInfoHeader.vue'
 	export default {
 		data() {
 			return {
 				myList: [{
-						image: "../../static/my_icon/my_newdan.png",
+						image: require("../../static/my_icon/my_newdan.png"),
 						middle: "新订单",
 						url: "./neworder/neworder"
 					},
 					{
-						image: "../../static/my_icon/my_dan.png",
+						image: require("../../static/my_icon/my_dan.png"),
 						middle: "订单中心",
 						url: "./neworder/dingdanzhongxin"
 
 					},
 					{
-						image: "../../static/my_icon/my_fangan.png",
+						image: require("../../static/my_icon/my_fangan.png"),
 						middle: "方案",
 						url: "./neworder/fangan"
 
 					},
 				]
 			}
+		},
+		components:{
+			UserInfoHeader
 		},
 		methods: {
 			getDome(item) {
@@ -79,7 +72,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.btn{
 		width: 710upx;
 		height: 80upx;
@@ -91,52 +84,9 @@
 		text-align: center;
 		line-height: 80upx;
 	}
-	/* 头部个人信息 */
-	.title {
-		width: 750upx;
-		height: 378upx;
-		background-image: url(../../static/my_icon/my_bac.png);
-		position: relative;
-		overflow: hidden;
-	}
-
-	.my_logo {
-		width: 140upx;
-		height: 140upx;
-		margin-top: 106upx;
-		margin-left: 303upx;
-		position: relative;
-		border-radius: 50%;
-		overflow: hidden;
-	}
-
-	.my_logo image {
-		width: 100%;
-		height: 100%;
-		position: absolute;
-	}
-
 	image {
 		width: 100%;
 		height: 100%;
-	}
-
-	.top_bac {
-		width: 749upx;
-		height: 175upx;
-		position: absolute;
-		z-index: 2;
-		bottom: 0upx;
-	}
-
-	.my_name {
-		// width: 142upx;
-		height: 34upx;
-		display: block;
-		font-size: 36upx;
-		position: absolute;
-		bottom: 79upx;
-		left: 304upx;
 	}
 
 	/* 功能列表 */
