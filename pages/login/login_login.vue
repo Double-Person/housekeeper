@@ -7,15 +7,15 @@
 			<view class="sjBox">
 				<view class="sjh">手机号</view>
 				<view class="sjText">
-					<input type="text" value="12345678911" />
+					<input type="text" v-model="userInfo.phone" :maxlength="11" />
 					<image src="../../static/loginImg/shouji-copyx.png" mode="" class="shoujiimage"></image>
 				</view>
 			</view>
 			<view class="sjBox">
 				<view class="sjh">验证码</view>
 				<view class="sjText">
-					<input type="text" value="123456" />
-					<view class="yzm">发送验证码</view>
+					<input type="text" v-model="userInfo.code" @input="inputCode" :maxlength="codeLength"/>
+					<view class="yzm" @click="getCode" :style="{opacity: disableCode ? 1 : 0.5}">{{codeText}}</view>
 				</view>
 			</view>
 			<view class="zjdl" @click="goLogin">
@@ -23,7 +23,7 @@
 			</view>
 		</view>
 		<!-- 登录 -->
-		<view class="button" @click="goLogin">
+		<view class="button" @click="goLogin" :style="{opacity: isCommit ? 1 : 0.5}">
 			下一步
 			<view class="text">
 				*注册代表同意<text>《用户协议》</text>
@@ -39,20 +39,53 @@
 	export default{
 		data(){
 			return{
-				userName:"15288888888"
+				
+				codeText: '发送验证码',
+				userInfo: {
+					phone:"",
+					code: ''
+				},
+				timer: null,
+				codeLength: 4,
+				disableCode: true,
+				isCommit: false
+				
 			}
 		},
+	
 		methods:{
-			goIndex(){
+			goLogin(){
+				if(!this.isCommit) {
+					return false;
+				}
+				
 				uni.navigateTo({
-					url:"index"
+					url:"login_securityCode?userInfo=" + JSON.stringify(this.userInfo)
 				})
 			},
-			
-			goLogin(){
-				uni.navigateTo({
-					url:"login_securityCode"
-				})
+			// 获取验证码
+			getCode() {
+				if(!this.$checkPhone(this.userInfo.phone)) return false;
+				if (this.timer) return false;
+				let time = 60;
+				this.disableCode = false
+				this.timer = setInterval(() => {
+					time--;
+					this.codeText = time + 's后重新获取';
+					if(time === 0) {
+						this.disableCode = true
+						clearInterval(this.timer);
+						this.timer = null
+						this.codeText = '发送验证码'
+					}
+				}, 1000)
+				
+			},
+			inputCode() {
+				if((this.$checkPhone(this.userInfo.phone)) && (this.userInfo.code.length === this.codeLength)) {
+					this.isCommit = true
+				}
+				else this.isCommit = false
 			}
 		}
 	}
@@ -72,7 +105,7 @@
 		width: 750upx;
 		height: 163upx;
 		overflow: hidden;
-		background: url(../../static/loginImg/lonbg.png);
+		background: url('../../static/loginImg/lonbg.png');
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
 		position: fixed;
@@ -95,7 +128,7 @@
 		.sjBox{
 			width: 469upx;
 			padding: 16upx;
-			border-bottom:1px solid rgba(255,213,163,1);
+			border-bottom:1px solid #ffd5a3;
 			margin-bottom: 35upx;
 			.sjh{
 				width:100upx;
@@ -103,7 +136,7 @@
 				font-size:28upx;
 				font-family:SourceHanSansCN;
 				font-weight:bold;
-				color:rgba(153,153,153,1);
+				color:#999999;
 			}
 			.sjText{
 				margin-top:35upx;

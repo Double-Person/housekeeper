@@ -76,9 +76,11 @@
 </template>
 
 <script>
+	import {upLoadFile} from '@/components/api/api.js'
 	export default {
 		data() {
 			return {
+				userInfo: {},
 				sex: ["男", "女"],
 				sexIndex: 0,
 				position: ['主管', '技术员', '工长'],
@@ -93,9 +95,13 @@
 				}
 			}
 		},
+		onLoad(option) {
+			this.userInfo = JSON.parse(option.userInfo)
+		},
 		methods: {
 			// 下拉款选择
 			bindPickerChange(type, event) {
+				console.log(type)
 				this[type] = event.target.value
 			},
 			// 上传身份证
@@ -106,7 +112,11 @@
 					sourceType: ['album', 'camera'], //从相册选择
 					success: res => {
 						console.log(res.tempFilePaths[0])
-						this.photo[type] = res.tempFilePaths[0];
+						this.photo[type] = res.tempFilePaths[0]; /// 刪除
+						upLoadFile({path: res.tempFilePaths[0]}).then(file => {
+							console.log(file)
+							// this.photo[type] = res.tempFilePaths[0];
+						})
 					},
 					fail: () => {
 						uni.showToast({
@@ -117,9 +127,11 @@
 				});
 			},
 			goIndex() {
-				uni.navigateTo({
-					url: "logins"
-				})
+				// sexIndex  positionIndex  directorIndex
+				let {sexIndex, positionIndex, directorIndex, userInfo } = this;
+				// uni.navigateTo({
+				// 	url: "logins"
+				// })
 			},
 
 		}

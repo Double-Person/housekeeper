@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09d0f194-42f6-4725-b5d5-7ae723a9ea25" name="Default Changelist" comment="页面重构">
-      <change beforePath="$PROJECT_DIR$/pages/home/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/homejishu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/homejishu.vue" afterDir="false" />
+    <list default="true" id="09d0f194-42f6-4725-b5d5-7ae723a9ea25" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/api/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/api/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/api/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/api/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/home/zhuguan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zhuguan.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/login-s.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login-s.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/login_forgetPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login_forgetPassword.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/login_login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login_login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/login_securityCode.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login_securityCode.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/login/logins.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/logins.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +66,7 @@
       <workItem from="1603078334466" duration="25000" />
       <workItem from="1603108669022" duration="139000" />
       <workItem from="1603158606587" duration="3309000" />
-      <workItem from="1603218259293" duration="217000" />
+      <workItem from="1603218259293" duration="3671000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <created>1602653420511</created>
@@ -116,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603108783576</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="1、个人资料页面用户信息代码重构抽取公共代码；&#10;2、封装 api 请求。">
+      <created>1603218573782</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1603218573782</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,21 +144,22 @@
     <MESSAGE value="主管的 顶部搜索封装抽取，公用列表样式抽离，页面错误逻辑修改" />
     <MESSAGE value="用戶注册" />
     <MESSAGE value="页面重构" />
-    <option name="LAST_COMMIT_MESSAGE" value="页面重构" />
+    <MESSAGE value="1、个人资料页面用户信息代码重构抽取公共代码；&#10;2、封装 api 请求。" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、个人资料页面用户信息代码重构抽取公共代码；&#10;2、封装 api 请求。" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1603218410083">
+    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1603218572782">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1603218410083" />
+    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1603218572782" />
     <state x="184" y="88" key="DiffContextDialog" timestamp="1602653435902">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="184" y="88" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602653435902" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1603108792429">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1603218584313">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603108792429" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603218584313" />
     <state width="600" height="424" key="javadoc.popup" timestamp="1603161080899">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

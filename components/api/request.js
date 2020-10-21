@@ -1,5 +1,4 @@
-// https://yflh.hkzhtech.com/qufl
-let baseUrl = 'https://yflh.hkzhtech.com/qufl';
+export const baseUrl ='https://yflh.hkzhtech.com/qufl'
 
 export const ajax = (option) => {
     if (!option.url) {

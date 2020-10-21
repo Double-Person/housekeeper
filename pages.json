@@ -42,13 +42,13 @@
 			}
 		},
 		{
-		    "path" : "pages/home/home1",
+			"path": "pages/home/home1",
 			"style": {
 				"navigationBarTitleText": "登录选项"
 			}
 		},
 		{
-		    "path" : "pages/home/zhuguan",
+			"path": "pages/home/zhuguan",
 			"style": {
 				"app-plus": {
 					"titleNView": false
@@ -56,7 +56,7 @@
 			}
 		},
 		{
-		    "path" : "pages/home/homejishu",
+			"path": "pages/home/homejishu",
 			"style": {
 				"app-plus": {
 					"titleNView": false
@@ -64,25 +64,25 @@
 			}
 		},
 		{
-		    "path" : "pages/order/sgdetailAll",
+			"path": "pages/order/sgdetailAll",
 			"style": {
 				"navigationBarTitleText": "施工详情"
 			}
 		},
 		{
-		    "path" : "pages/order/orderAll",
+			"path": "pages/order/orderAll",
 			"style": {
 				"navigationBarTitleText": "订单中心"
 			}
 		},
 		{
-		    "path" : "pages/order/shDetail",
+			"path": "pages/order/shDetail",
 			"style": {
 				"navigationBarTitleText": "订单中心"
 			}
 		},
 		{
-		    "path" : "pages/order/sgDetail",
+			"path": "pages/order/sgDetail",
 			"style": {
 				"navigationBarTitleText": "详情"
 			}
@@ -94,7 +94,7 @@
 			}
 		},
 		{
-		    "path" : "pages/order/sgDetail",
+			"path": "pages/order/sgDetail",
 			"style": {
 				"navigationBarTitleText": "详情"
 			}
@@ -106,7 +106,7 @@
 				"navigationBarTitleText": "选择技术人员"
 			}
 		},
-		
+
 		{
 			// 技术人员页面
 			"path": "pages/newfrom/fromArtisan",
@@ -319,7 +319,7 @@
 				"navigationBarTitleText": "已取消的订单详情"
 			}
 		},
-		
+
 		//主管
 		{
 			"path": "pages/home/zgorder/zgNewOrder",
@@ -400,7 +400,7 @@
 				"navigationBarTitleText": "合同"
 			}
 		},
-		{ 
+		{
 			"path": "pages/home/zgorder/zgshouhouxiangqing",
 			"style": {
 				"navigationBarTitleText": "详情"
@@ -483,20 +483,41 @@
 			"style": {
 				"navigationBarTitleText": "已取消的订单详情"
 			}
-		}  
-        ,{
-            "path" : "pages/questionnaire/QuestionnaireSurvey",
-            "style" : {
+		}, {
+			"path": "pages/questionnaire/QuestionnaireSurvey",
+			"style": {
 				"navigationBarTitleText": "问卷调查"
 			}
-        } 
-		,{
-            "path" : "pages/questionnaire/CheckQuestionnaire",
-            "style" : {
+		}, {
+			"path": "pages/questionnaire/CheckQuestionnaire",
+			"style": {
 				"navigationBarTitleText": "查看问卷"
 			}
-        }
-    ],
+		}, {
+			"path": "pages/home/zgorder/zgwallet",
+			"style": {
+				"navigationBarTitleText": "钱包",
+				"app-plus": {
+					"bounce": "none", //关闭窗口回弹效果
+					"titleNView": {
+						"buttons": [ //原生标题栏按钮配置,
+							{
+								"text": "提现记录", //原生标题栏增加分享按钮，点击事件可通过页面的 onNavigationBarButtonTap 函数进行监听
+								"fontSize":"26rpx",
+								"color":"#010101",
+								"fontWeight": 500
+							}
+						]
+					}
+				}
+			}
+		}, {
+			"path": "pages/home/zgorder/zgwalletRecord",
+			"style": {
+				"navigationBarTitleText": "提现记录"
+			}
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

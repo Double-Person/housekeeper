@@ -70,8 +70,13 @@
 						image: require("../../static/my_icon/my_yungong.png"),
 						middle: "员工",
 						url: "./zgorder/zgyuangong"
-					
-					}
+					},
+					{
+						image: require("../../static/my_icon/wallet.png"),
+						middle: "钱包",
+						url: "./zgorder/zgwallet"
+					},
+				
 				]
 			}
 		},

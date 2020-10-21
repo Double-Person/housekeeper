@@ -17,7 +17,9 @@
             "delay" : 0
         },
         /* 模块配置 */
-        "modules" : {},
+        "modules" : {
+            "OAuth" : {}
+        },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
@@ -51,7 +53,14 @@
             "ios" : {},
             /* SDK配置 */
             "sdkConfigs" : {
-                "ad" : {}
+                "ad" : {},
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "123",
+                        "appsecret" : "123",
+                        "UniversalLinks" : ""
+                    }
+                }
             }
         }
     },

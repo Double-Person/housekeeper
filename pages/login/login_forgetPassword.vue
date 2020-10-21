@@ -71,6 +71,7 @@
 					})
 					return false;
 				}
+				// !this.$checkPhone(this.userInfo.phone)
 				if (!this.isPhone) {
 					uni.showToast({
 						title: '请输入正确的手机号码',

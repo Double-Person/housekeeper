@@ -7,14 +7,14 @@
 			<view class="sjBox">
 				<view class="sjh">新密码</view>
 				<view class="sjText">
-					<input type="text" value="12345678911" />
+					<input type="text" v-model="pwd" />
 					<image src="../../static/loginImg/bukejianx.png" mode="" class="shoujiimage"></image>
 				</view>
 			</view>
 			<view class="sjBox">
 				<view class="sjh">确认密码</view>
 				<view class="sjText">
-					<input type="text" value="12345678911" />
+					<input type="text" v-model="surePwd" />
 					<image src="../../static/loginImg/bukejianx.png" mode="" class="xsyc"></image>
 				</view>
 			</view>
@@ -34,8 +34,13 @@
 	export default{
 		data(){
 			return{
-				userName:"15288888888"
+				pwd: '',
+				surePwd: '',
+				userInfo: {}
 			}
+		},
+		onLoad(option) {
+			this.userInfo = JSON.parse(option.userInfo)
 		},
 		methods:{
 			goIndex(){
@@ -45,8 +50,30 @@
 			},
 	
 			gologin(){
+				if(!this.pwd.trim().length) {
+					uni.showToast({
+						title:'请输入新密码',
+						icon:'none'
+					})
+					return false
+				}
+				if(!this.surePwd.trim().length) {
+					uni.showToast({
+						title:'请再次输入新密码',
+						icon:'none'
+					})
+					return false
+				}
+				if(this.surePwd != this.pwd) {
+					uni.showToast({
+						title:'两次密码不一致',
+						icon:'none'
+					})
+					return false
+				}
+				this.userInfo.pwd = this.pwd
 				uni.navigateTo({
-					url:'login-s'
+					url:'login-s?userInfo=' + JSON.stringify(this.userInfo)
 				})
 			}
 		}
