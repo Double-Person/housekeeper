@@ -3,7 +3,7 @@
 }
 //  tabList 下方列表滚动区域高度
 .scroll-view-tab-list-body {
-	height: calc( 100vh - 130upx - 110upx );
+	height: calc(100vh - 130upx - 110upx);
 }
 .top {
 	padding: 0 110upx;
@@ -33,6 +33,45 @@
 }
 
 .active {
-	border-bottom: 6upx solid #FFC823;
+	border-bottom: 6upx solid #ffc823;
 	font-weight: 700;
 }
+
+// slot 插槽样式 start
+.slot-warp {
+	padding: 20upx;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	background: white;
+	// 左侧未激活按钮
+	.slot-not-active {
+		margin-left: auto;
+		width: 180upx;
+		height: 68upx;
+		border: 1upx solid rgba(191, 191, 191, 1);
+		border-radius: 34upx;
+		font-size: 32upx;
+		font-family: SourceHanSansCN;
+		font-weight: 400;
+		color: rgba(153, 153, 153, 1);
+		line-height: 68upx;
+		text-align: center;
+	}
+	// 右侧激活按钮
+	.slot-active {
+		margin-left: auto;
+		margin-left: 30upx;
+		width: 180upx;
+		height: 68upx;
+		background: linear-gradient(150deg, rgba(255, 200, 35, 1), rgba(255, 193, 12, 1));
+		border-radius: 34upx;
+		font-size: 32upx;
+		font-family: SourceHanSansCN;
+		font-weight: 400;
+		color: rgba(26, 26, 26, 1);
+		line-height: 68upx;
+		text-align: center;
+	}
+}
+// slot 插槽样式 end

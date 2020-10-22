@@ -502,10 +502,12 @@
 					"titleNView": {
 						"buttons": [ //原生标题栏按钮配置,
 							{
-								"text": "提现记录", //原生标题栏增加分享按钮，点击事件可通过页面的 onNavigationBarButtonTap 函数进行监听
+								"text": "提现记录", //原生标题栏增加分享按钮，点击事件可通过页面的 onNavigationBarButtonTap 函数进行监听 提现记录
 								"fontSize":"26rpx",
 								"color":"#010101",
-								"fontWeight": 500
+								"fontWeight": 500,
+								"float":"right",
+								"width": "auto"
 							}
 						]
 					}

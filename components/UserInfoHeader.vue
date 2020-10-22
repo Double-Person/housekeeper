@@ -25,6 +25,7 @@
 			this.getUserInfo()
 		},
 		methods: {
+		
 			// 更改用户头像
 			changeHead() {
 				uni.chooseImage({
@@ -94,6 +95,7 @@
 		display: block;
 		font-size: 36upx;
 		position: absolute;
+		z-index: 3;
 		bottom: 79upx;
 		left: 304upx;
 	}

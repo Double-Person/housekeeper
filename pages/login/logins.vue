@@ -83,7 +83,20 @@
 				if (res.returnMsg && res.returnMsg.status == '00') {
 					await uni.setStorageSync('USER_ID', res.returnMsg.USERINFO_ID)
 					await uni.navigateTo({
-						url: "../home/home1"
+						url: "../home/home1",
+					})
+					return false;
+					// 主管
+					await uni.navigateTo({
+						url: "../home/zhuguan",
+					})
+					// 技术员
+					await uni.navigateTo({
+						url: "../home/homejishu",
+					})
+					// 工人
+					await uni.navigateTo({
+						url: "../home/home",
 					})
 				}
 			},

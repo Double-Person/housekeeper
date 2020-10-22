@@ -148,10 +148,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="1、个人资料页面用户信息代码重构抽取公共代码；&#10;2、封装 api 请求。" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1603218572782">
+    <state x="560" y="115" key="CommitChangelistDialog2" timestamp="1603274920925">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1603218572782" />
+    <state x="560" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1603274920925" />
     <state x="184" y="88" key="DiffContextDialog" timestamp="1602653435902">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

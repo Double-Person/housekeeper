@@ -7,7 +7,7 @@
 
 				<!-- 名称+logo -->
 				<view class="new_logo">
-					<image src="../static/my_icon/logo.jpg" mode=""></image>
+					<image src="/static/my_icon/logo.jpg" mode=""></image>
 					<text>窗台防水</text>
 				</view>
 				<view class="shen">
@@ -16,7 +16,7 @@
 				<!-- 订单详情 -->
 				<view class="new_text">
 					<view class="new_img">
-						<image src="../static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
 					</view>
 					<view class="new_mid">
 						<text>项目名称{{item}}</text>
@@ -26,6 +26,10 @@
 					</view>
 				</view>
 			</view>
+			<slot>
+				<!-- Now this project is a third-hand project. Please be careful later. It may be that the slot is not suitable for the v-show below -->
+				<!-- 每个组件下方的不能文字按钮（通过，不通过等） -->
+			</slot>
 			<view class="btn" v-show="flag==1">
 				<view class="left">上传进度</view>
 				<view class="right">完成</view>
