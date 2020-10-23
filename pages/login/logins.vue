@@ -7,15 +7,15 @@
 			<view class="sjBox">
 				<view class="sjh">手机号</view>
 				<view class="sjText">
-					<input type="text" v-model="userInfo.phone" :maxlength="11"/>
-					<image src="../../static/loginImg/shouji-copyx.png" mode="" class="shoujiimage"></image>
+					<input type="text" v-model="userInfo.phone" :maxlength="11" />
+					<image src="/static/loginImg/shouji-copyx.png" mode="" class="shoujiimage"></image>
 				</view>
 			</view>
 			<view class="sjBox">
 				<view class="sjh">密码</view>
 				<view class="sjText">
-					<input :type="type" v-model="userInfo.password"  class="pwd-input" />
-					<image src="../../static/loginImg/bukejianx.png" mode="" class="xsyc" @click="togglePassWord"></image>
+					<input :type="type" v-model="userInfo.password" class="pwd-input" />
+					<image src="/static/loginImg/bukejianx.png" mode="" class="xsyc" @click="togglePassWord"></image>
 				</view>
 			</view>
 			<view class="zjdl">
@@ -27,11 +27,11 @@
 		<view class="button" @click="goHome">登录</view>
 		<!-- #ifdef APP-PLUS -->
 		<view class="imgBox" @click="wxLogin">
-			<image src="../../static/loginImg/wx.png" mode=""></image>
+			<image src="/static/loginImg/wx.png" mode=""></image>
 		</view>
 		<!-- #endif -->
 		<view class="btnImg">
-			<image src="../../static/loginImg/lonbg.png" mode=""></image>
+			<image src="/static/loginImg/lonbg.png" mode=""></image>
 		</view>
 	</view>
 </template>
@@ -69,17 +69,19 @@
 			// 账号密码登录
 			async goHome() {
 				// $checkPhone
-				if(!this.$checkPhone(this.userInfo.phone)) {
+				if (!this.$checkPhone(this.userInfo.phone)) {
 					return false;
 				}
+				await uni.navigateTo({
+					url: "../home/home1",
+				})
 				let res = await login({
-					PHONE: '13258188656',
-					PASSWORD: '123456',
-					openId: '',
-					nickName: ''
+					phone: this.userInfo.phone,
+					pwd: this.userInfo.password,
 				});
+				
+				
 				console.log(res)
-				console.log(res.returnMsg)
 				if (res.returnMsg && res.returnMsg.status == '00') {
 					await uni.setStorageSync('USER_ID', res.returnMsg.USERINFO_ID)
 					await uni.navigateTo({
@@ -124,9 +126,9 @@
 				});
 
 			},
-			
-			
-			
+
+
+
 
 		}
 	}

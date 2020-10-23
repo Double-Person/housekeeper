@@ -22,7 +22,7 @@
 				<view class="sjh">新密码</view>
 				<view class="sjText">
 					<input type="text" :type="type" class="pwd-input" v-model="password" @input="inputPassword" />
-					<image src="../../static/loginImg/bukejianx.png" mode="" class="xsyc" @click="togglePassWord"></image>
+					<image src="/static/loginImg/bukejianx.png" mode="" class="xsyc" @click="togglePassWord"></image>
 				</view>
 			</view>
 			<!-- <view class="zjdl" @click="gologin">
@@ -32,12 +32,16 @@
 		<!-- 登录 -->
 		<view class="button" @click="gologin" :style="{opacity: isCommit ? 1 : 0.7}">确定</view>
 		<view class="btnImg">
-			<image src="../../static/loginImg/lonbg.png" mode=""></image>
+			<image src="/static/loginImg/lonbg.png" mode=""></image>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		forgetPwd,
+		telCode
+	} from '@/components/api/api.js'
 	export default {
 		data() {
 			return {
@@ -90,6 +94,10 @@
 						this.timer = null
 					}
 				}, 1000)
+				telCode({phone: this.phone}).then(res => {
+					console.log(res)
+				})
+		
 
 			},
 
@@ -113,6 +121,17 @@
 			gologin() {
 				if (!this.isPhone) return false;
 				if(!this.isCommit) return false;
+				// workers_id 工人id phone  手机号 code 验证码 pwd  密码
+				let obj = {
+					phone: this.phone,
+					pwd: this.password,
+					code: this.code
+				}
+				forgetPwd(obj).then(res => {
+					console.log(res)
+				})
+				
+				
 				uni.navigateTo({
 					url: 'logins'
 				})

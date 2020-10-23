@@ -14,7 +14,7 @@
 </template>
 
 <script>
-	import {personal} from './api/api.js'
+	import {workerIndex} from './api/api.js'
 	export default {
 		data() {
 			return {
@@ -40,8 +40,8 @@
 			// 获取用户信息
 			getUserInfo() {
 				
-				let USERINFO_ID = uni.getStorageSync('USER_ID')
-				personal({ USERINFO_ID }).then(res => {
+				let workers_id = uni.getStorageSync('USER_ID')
+				workerIndex({ workers_id }).then(res => {
 					console.log('me', res)
 				
 				});

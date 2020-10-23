@@ -15,7 +15,7 @@
 						<picker @change="bindPickerChange('positionIndex', $event)" :value="positionIndex" :range="position">
 							<label class="sex_wapper">{{position[positionIndex]}}</label>
 						</picker>
-						<image src="../../static/loginImg/xaila.png" mode="" class="down"></image>
+						<image src="/static/loginImg/xaila.png" mode="" class="down"></image>
 						
 					</view>
 				</view>
@@ -28,7 +28,7 @@
 						<picker @change="bindPickerChange('directorIndex', $event)" :value="directorIndex" :range="director">
 							<label class="sex_wapper">{{director[directorIndex]}}</label>
 						</picker>
-						<image src="../../static/loginImg/xaila.png" mode="" class="down"></image>
+						<image src="/static/loginImg/xaila.png" mode="" class="down"></image>
 					</view>
 				</view>
 
@@ -40,7 +40,7 @@
 						<picker @change="bindPickerChange('sexIndex', $event)" :value="sexIndex" :range="sex">
 							<label class="sex_wapper">{{sex[sexIndex]}}</label>
 						</picker>
-						<image src="../../static/loginImg/xaila.png" mode="" class="down"></image>
+						<image src="/static/loginImg/xaila.png" mode="" class="down"></image>
 					</view>
 				</view>
 
@@ -52,15 +52,15 @@
 		</view>
 		<view class="selzjz">
 			<!-- 正面 -->
-			<image src="../../static/loginImg/xjz.png" mode="" @click="changePositive('positive')" v-if="!photo.positive"></image>
+			<image src="/static/loginImg/xjz.png" mode="" @click="changePositive('positive')" v-if="!photo.positive"></image>
 			<image :src="photo.positive" mode="" @click="changePositive('positive')" v-if="photo.positive"></image>
 			
 			<!-- 反面 -->
-			<image src="../../static/loginImg/xjf.png" mode="" @click="changePositive('reverse')" v-if="!photo.reverse"></image>
+			<image src="/static/loginImg/xjf.png" mode="" @click="changePositive('reverse')" v-if="!photo.reverse"></image>
 			<image :src="photo.reverse" mode="" @click="changePositive('reverse')" v-if="photo.reverse"></image>
 			
 			<!-- 手持正面 -->
-			<image src="../../static/loginImg/xj.png" @click="changePositive('handPositive')" mode="" v-if="!photo.handPositive"></image>
+			<image src="/static/loginImg/xj.png" @click="changePositive('handPositive')" mode="" v-if="!photo.handPositive"></image>
 			<image :src="photo.handPositive" mode="" @click="changePositive('handPositive')" v-if="photo.handPositive"></image>
 			
 		</view>
@@ -70,13 +70,13 @@
 			<button type="default" @click="goIndex"><text>确定</text></button>
 		</view>
 		<view class="bottom">
-			<image src="../../static/loginImg/lonbg.png" mode=""></image>
+			<image src="/static/loginImg/lonbg.png" mode=""></image>
 		</view>
 	</view>
 </template>
 
 <script>
-	import {upLoadFile} from '@/components/api/api.js'
+	import {upLoadFile, workerRegister} from '@/components/api/api.js'
 	export default {
 		data() {
 			return {

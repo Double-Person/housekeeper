@@ -1,4 +1,6 @@
-export const baseUrl ='https://yflh.hkzhtech.com/qufl'
+// export const baseUrl ='https://yflh.hkzhtech.com/qufl'
+export const baseUrl ='https://www.hemingbi.com'
+
 
 export const ajax = (option) => {
     if (!option.url) {
@@ -38,12 +40,12 @@ export const ajax = (option) => {
                 resolve(res.data);
             },
             fail: err => {
-                console.log(err);
+                // console.log(err);
                 uni.showToast({
                     title: '请求失败，请稍后重试',
                     icon: 'none'
                 })
-                reject(err)
+                reject(err);
             }
         });
     })
