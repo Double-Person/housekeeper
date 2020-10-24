@@ -518,6 +518,11 @@
 			"style": {
 				"navigationBarTitleText": "提现记录"
 			}
+		}, {
+			"path": "pages/home/zgorder/WaitingList",
+			"style": {
+				"navigationBarTitleText": "待派单"
+			}
 		}
 	],
 	"globalStyle": {

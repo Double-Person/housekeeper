@@ -14,7 +14,7 @@
 						<view class="text">{{item.middle}}</view>
 					</view>
 					<view class="list_right">
-						<image src="../../static/my_icon/my_you.png"></image>
+						<image src="/static/my_icon/my_you.png"></image>
 					</view>
 				</view>
 			</view>
@@ -27,23 +27,23 @@
 </template>
 
 <script>
-	import UserInfoHeader from '../../components/UserInfoHeader.vue'
+	import UserInfoHeader from '@/components/UserInfoHeader.vue'
 	export default {
 		data() {
 			return {
 				myList: [{
-						image: require("../../static/my_icon/my_newdan.png"),
+						image: require("@/static/my_icon/my_newdan.png"),
 						middle: "新订单",
 						url: "./neworder/neworder"
 					},
 					{
-						image: require("../../static/my_icon/my_dan.png"),
+						image: require("@/static/my_icon/my_dan.png"),
 						middle: "订单中心",
 						url: "./neworder/dingdanzhongxin"
 
 					},
 					{
-						image: require("../../static/my_icon/my_fangan.png"),
+						image: require("@/static/my_icon/my_fangan.png"),
 						middle: "方案",
 						url: "./neworder/fangan"
 

@@ -23,9 +23,7 @@
 				value: ''
 			}
 		},
-		created() {
-			console.log('--')
-		},
+	
 		methods: {
 			search(val) {
 				// this.$emit('searchValue', val.value)

@@ -4,7 +4,7 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+					<image src="/static/my_icon/logo.jpg" mode=""></image>
 					<text>窗台防水</text>
 				</view>
 
@@ -12,7 +12,7 @@
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+					<image src="/static/my_icon/logo.jpg" mode=""></image>
 				</view>
 				<view class="times">
 					<text>项目名称</text>
@@ -72,7 +72,7 @@
 		</view>
 		<view class="time" @click="xuanze">
 			<text>选择技术人员</text>
-			<image src="../../../static/loginImg/hright.png" mode=""></image>
+			<image src="/static/loginImg/hright.png" mode=""></image>
 		</view>
 		<view class="btn" @click="detailAll">
 			确定
@@ -102,6 +102,7 @@
 		font-family: SourceHanSansCN;
 		src: url("~@/static/SourceHanSansCN-Normal.otf") format('truetype'),
 	}
+
 
 	.index {
 		width: 750upx;

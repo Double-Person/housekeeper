@@ -17,11 +17,11 @@
 </template>
 
 <script>
-	import fromDeatil from "../../../components/fromAll.vue"
-	import TopSearch from "../../../components/TopSearch.vue"
+	import fromDeatil from "@/components/fromAll.vue"
+	import TopSearch from "@/components/TopSearch.vue"
 	import {
 		technicianPlant
-	} from '../../../variable/orderCenter.js'
+	} from '@/variable/orderCenter.js'
 	export default {
 		data() {
 			return {
@@ -92,7 +92,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import '../../../common/style/tabList.scss';
+@import "~@/common/style/tabList.scss";
 
 	.top {
 		padding: 0 20upx;

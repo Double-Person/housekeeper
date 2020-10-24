@@ -27,44 +27,44 @@
 </template>
 
 <script>
-	import UserInfoHeader from '../../components/UserInfoHeader.vue'
+	import UserInfoHeader from '@/components/UserInfoHeader.vue'
 	export default {
 		data() {
 			return {
 				myList: [{
-						image: require("../../static/my_icon/my_newdan.png"),
+						image: require("@/static/my_icon/my_newdan.png"),
 						middle: "新订单",
 						url: "../newfrom/newfrom"
 					},
 					{
-						image: require("../../static/my_icon/my_dan.png"),
+						image: require("@/static/my_icon/my_dan.png"),
 						middle: "订单中心",
 						url: "../order/orderAll"
 
 					},
 					{
-						image: require("../../static/my_icon/my_fangan.png"),
+						image: require("@/static/my_icon/my_fangan.png"),
 						middle: "方案",
 						url:"../scheme/scheme"
 
 					},
 					// {
-					// 	image: require("../../static/my_icon/my_hetong.png"),
+					// 	image: require("@/static/my_icon/my_hetong.png"),
 					// 	middle: "合同",
 					// },
 					{
-						image: require("../../static/my_icon/my_shouhou.png"),
+						image: require("@/static/my_icon/my_shouhou.png"),
 						middle: "售后订单",
 						url:"../after-sale/after-sale"
 
 					},
 					{
-						image: require("../../static/my_icon/my_shouchu.png"),
+						image: require("@/static/my_icon/my_shouchu.png"),
 						middle: "售后处理",
 						url:"../after-sale/shouhouchuli"
 					},
 					{
-						image: require("../../static/my_icon/my_yungong.png"),
+						image: require("@/static/my_icon/my_yungong.png"),
 						middle: "反馈",
 						url:'../feedback/feedback-all'
 

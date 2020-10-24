@@ -27,52 +27,57 @@
 </template>
 
 <script>
-	import UserInfoHeader from '../../components/UserInfoHeader.vue'
+	import UserInfoHeader from '@/components/UserInfoHeader.vue'
 	export default {
 		data() {
 			return {
 				myList: [{
-						image: require('../../static/my_icon/my_newdan.png'),
+						image: require('@/static/my_icon/my_newdan.png'),
 						middle: "新订单",
 						url: "./zgorder/zgNewOrder"
 					},
 					{
-						image: require("../../static/my_icon/my_dan.png"),
+						image: require("@/static/my_icon/my_dan.png"),
+						middle: "待派单",
+						url: "./zgorder/WaitingList"
+					},
+					{
+						image: require("@/static/my_icon/my_dan.png"),
 						middle: "订单中心",
 						url: "./zgorder/zgOrder"
 
 					},
 					{
-						image: require("../../static/my_icon/my_fangan.png"),
+						image: require("@/static/my_icon/my_fangan.png"),
 						middle: "方案",
 						url: "./zgorder/zgFangan"
 
 					},
 					{
-						image: require("../../static/my_icon/my_hetong.png"),
+						image: require("@/static/my_icon/my_hetong.png"),
 						middle: "合同",
 						url: "./zgorder/zgHeTong"
 					
 					},
 					{
-						image: require("../../static/my_icon/my_shouhou.png"),
+						image: require("@/static/my_icon/my_shouhou.png"),
 						middle: "售后订单",
 						url: "./zgorder/zgSHOrder"
 					
 					},
 					{
-						image: require("../../static/my_icon/my_shouchu.png"),
+						image: require("@/static/my_icon/my_shouchu.png"),
 						middle: "售后处理",
 						url: "./zgorder/zgshouhchuli"
 					
 					},
 					{
-						image: require("../../static/my_icon/my_yungong.png"),
+						image: require("@/static/my_icon/my_yungong.png"),
 						middle: "员工",
 						url: "./zgorder/zgyuangong"
 					},
 					{
-						image: require("../../static/my_icon/wallet.png"),
+						image: require("@/static/my_icon/wallet.png"),
 						middle: "钱包",
 						url: "./zgorder/zgwallet"
 					},

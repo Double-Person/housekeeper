@@ -27,8 +27,7 @@
           @getDetail="getDetail(act)"
         >
           <view class="slot-warp">
-            <view class="slot-not-active" @click="notThrough">不通过</view>
-            <view class="slot-active" @click="through">通过</view>
+            <view class="slot-active" @click="distribute">派单</view>
           </view>
         </fromDeatil>
       </view>
@@ -39,35 +38,30 @@
 <script>
 import fromDeatil from "@/components/fromAll.vue";
 import Topsearch from "@/components/TopSearch.vue";
-import { plantType } from "@/variable/plan.js";
 export default {
+	components: {
+	  fromDeatil,
+	  Topsearch,
+	},
   data() {
     return {
       activeIndex: 0,
       titleList: [
         {
-          value: plantType.TO_PASS,
-          label: "待通过",
-          list: ["待通过 1", "待通过 2", "待通过 3", "待通过 4", "待通过 5"],
+          value: 1,
+          label: "技术员",
+          list: ["技术员 1", "技术员 2", "技术员 3", "技术员 4", "技术员 5"],
         },
         {
-          value: plantType.NOT_PASS,
-          label: "未通过",
-          list: ["未通过 1", "未通过 2", "未通过 3"],
-        },
-        {
-          value: plantType.PASSED,
-          label: "已通过",
-          list: ["已通过 1", "已通过 2", "已通过 3"],
-        },
+          value: 2,
+          label: "工长",
+          list: ["工长 1", "工长 2", "工长 3"],
+        }
       ],
       act: 1,
     };
   },
-  components: {
-    fromDeatil,
-    Topsearch,
-  },
+ 
   methods: {
     // 搜索
     searchValue(val) {},
@@ -84,20 +78,10 @@ export default {
         url: "zgfanganxiangqing",
       });
     },
-    // 施工跳转
-    sgDetail() {
-      uni.navigateTo({
-        url: "./sgDetail",
-      });
-	},
-	// 不通过
-    notThrough() {
-      uni.navigateTo({
-        url: "zgfanganquxiao",
-      });
-	},
-	// 通过
-    through() {
+
+
+	// 派单
+    distribute() {
       uni.navigateTo({
         url: "zgfanganNew",
       });

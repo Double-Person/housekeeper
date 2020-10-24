@@ -35,9 +35,9 @@
 </template>
 
 <script>
-	import fromDeatil from "../../../components/fromAll.vue"
-	import TopSearch from "../../../components/TopSearch.vue"
-	import {technicianOrderStatus} from '../../../variable/orderCenter.js'
+	import fromDeatil from "@/components/fromAll.vue"
+	import TopSearch from "@/components/TopSearch.vue"
+	import {technicianOrderStatus} from '@/variable/orderCenter.js'
 	
 	export default {
 		data() {
