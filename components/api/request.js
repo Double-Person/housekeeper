@@ -1,8 +1,68 @@
 // export const baseUrl ='https://yflh.hkzhtech.com/qufl'
-export const baseUrl ='https://www.hemingbi.com'
+// export const baseUrl ='http://192.168.0.103:8081'
+export const baseUrl ='https://www.hemingbi.com/housekeeper'
 
 
 export const ajax = (option) => {
+    if (!option.url) {
+        throw new TypeError('请求地址不能为空')
+        return false
+    }
+    return new Promise((resolve, reject) => {
+        let token = null
+		try {
+		    const value = uni.getStorageSync('HOUSE_TOKEN');
+		    if (value) {	
+				option.data.token = value
+		    }
+		} catch (e) {
+		  
+			console.log(e)
+		}
+	
+		console.log('請求數據--', token)
+        uni.request({
+            url: baseUrl + option.url,
+            data: option.data || {},
+            method: option.method || 'GET',
+            header: {
+                'token': token,   // option.headerType ||    option.headerType ? option.headerType :   'Bearer ' + 
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            success: (res) => {
+                console.log('全局数据', res.data);
+                // 不同状态码相关提示
+                switch (res.data.msgType) {
+                    case -1:
+                        uni.showToast({
+                            title: res.data.returnMsg,
+							icon: 'none'
+                        })
+                        break;
+                    case '1':
+                        uni.showToast({
+                            title: '你没有相关权限',
+							icon: 'none'
+                        })
+                        break;
+                }
+
+                resolve(res.data);
+            },
+            fail: err => {
+                // console.log(err);
+                uni.showToast({
+                    title: '请求失败，请稍后重试',
+                    icon: 'none'
+                })
+                reject(err);
+            }
+        });
+    })
+}
+
+
+export const ajaxJson = (option) => {
     if (!option.url) {
         throw new TypeError('请求地址不能为空')
         return false
@@ -13,19 +73,18 @@ export const ajax = (option) => {
         });
         uni.request({
             url: baseUrl + option.url,
-            data: option.data || {},
+            data: JSON.stringify(option.data || {}),
             method: option.method || 'GET',
             header: {
-                // 'Authorization': 'Bearer ' + token,
-                "Content-Type": "application/x-www-form-urlencoded"
+                "Content-Type":  "application/json"
             },
             success: (res) => {
-                // console.log(res.data);
+                console.log('全局数据', res.data.msgType);
                 // 不同状态码相关提示
-                switch (res.data) {
-                    case '00':
+                switch (res.data.msgType) {
+                    case -1:
                         uni.showToast({
-                            title: '你没有相关权限',
+                            title: res.data.returnMsg,
 							icon: 'none'
                         })
                         break;

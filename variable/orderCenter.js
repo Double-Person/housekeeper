@@ -1,3 +1,9 @@
+export const positionObj = {
+	DIRECTOR: 0,  // 主管
+	TECHNICIAN: 1,  // 技术员
+	MASTER: 2,  // 工长
+	
+}
 //主管
 
 // 订单中心

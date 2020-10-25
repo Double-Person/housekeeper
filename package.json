@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "egg-cors": "^2.2.3",
     "uni-request": "^1.0.2"
   }
 }

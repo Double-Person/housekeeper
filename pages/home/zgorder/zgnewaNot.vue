@@ -1,5 +1,5 @@
 <template>
-  <view class="index" v-if="isShow">
+  <view class="index">
     <!--  -->
     <view class="box_te">
       <view class="tit">
@@ -41,20 +41,18 @@
         <text>客户地址：{{ orderInfo.address }}</text>
       </view>
     </view>
+    {{ isReceive }}
     <!-- 同意 -->
     <view class="time" @click="xuanze" v-if="isReceive">
-      <text>选择技术人员</text>
-      <image src="/static/loginImg/hright.png" mode=""></image>
+		同意
+      <!-- <text>选择技术人员</text>
+			<image src="/static/loginImg/hright.png" mode=""></image> -->
     </view>
     <!-- 不同意 -->
-    <view class="not-receive" v-if="!isReceive">
+    <view class="not-receive" >
+		不同意
       <view class="not-receive-title">填写意见</view>
-      <textarea
-        v-model="opinion"
-        class="text-area"
-        placeholder="填写意见"
-        auto-height
-      />
+      <textarea auto-height />
     </view>
     <view class="btn" @click="detailAll"> 确定 </view>
   </view>
@@ -64,17 +62,14 @@
 export default {
   data() {
     return {
-      isShow: false,
       orderInfo: {},
       isReceive: false, // 是否接受
-      opinion: "",
     };
   },
   onLoad(option) {
     console.log(JSON.parse(option.info || ""));
     this.orderInfo = JSON.parse(option.info || "");
-    this.isReceive = option.type == "true" ? true : false;
-    this.isShow = true;
+    this.isReceive = option.type;
   },
   methods: {
     detailAll() {
@@ -97,22 +92,13 @@ export default {
   src: url("~@/static/SourceHanSansCN-Normal.otf") format("truetype");
 }
 .not-receive {
-  // height: 258rpx;
-  background: #fff;
-  margin-top: 20rpx;
-  padding: 0 40rpx 20rpx 40rpx;
+  height: 258rpx;
   .not-receive-title {
-    border-bottom: 1rpx solid #eee;
-    width: 670rpx;
-    margin: 0 auto 20rpx auto;
-    padding: 40rpx 0 20rpx 0;
-    font-size: 28rpx;
+    height: 27rpx;
+    font-size: 2r8px;
     font-weight: 500;
     color: #333333;
-  }
-  .text-area {
-    background: #eee;
-    min-height: 110rpx;
+    line-height: 8rpx;
   }
 }
 

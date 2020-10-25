@@ -45,10 +45,16 @@
 			return {
 				type: 'password',
 				userInfo: {
-					phone: '14725836910',
+					phone: '18398207590',
 					password: '123456'
 				}
 			}
+		},
+		onLoad(option) {
+			if( option.phone) {
+				this.userInfo.phone = option.phone
+			}
+			
 		},
 		methods: {
 			togglePassWord() {
@@ -72,34 +78,42 @@
 				if (!this.$checkPhone(this.userInfo.phone)) {
 					return false;
 				}
-				await uni.navigateTo({
-					url: "../home/home1",
-				})
+				
 				let res = await login({
 					phone: this.userInfo.phone,
 					pwd: this.userInfo.password,
 				});
 				
 				
-				console.log(res)
-				if (res.returnMsg && res.returnMsg.status == '00') {
-					await uni.setStorageSync('USER_ID', res.returnMsg.USERINFO_ID)
-					await uni.navigateTo({
-						url: "../home/home1",
-					})
-					return false;
-					// 主管
-					await uni.navigateTo({
-						url: "../home/zhuguan",
-					})
-					// 技术员
-					await uni.navigateTo({
-						url: "../home/homejishu",
-					})
-					// 工人
-					await uni.navigateTo({
-						url: "../home/home",
-					})
+				console.log('登錄', res)
+				if (res.msgType == '0') {
+					let {token, worker} = res.returnMsg
+					await uni.setStorageSync('USER_INFO', worker)
+					await uni.setStorageSync('WORKERS_ID', worker.workers_id)
+					await uni.setStorageSync('HOUSE_TOKEN', token)  // workers_id
+				
+					if(worker.levels == 0) {
+						// 主管
+						await uni.navigateTo({
+							url: "../home/zhuguan",
+						})
+					}else if(worker.levels == 1) {
+						// 技术员
+						await uni.navigateTo({
+							url: "../home/homejishu",
+						})
+					}else if(worker.levels == 2) {
+						// 工人
+						await uni.navigateTo({
+							url: "../home/home",
+						})
+					}else{
+						console.log(res)
+					}
+			
+					
+					
+					
 				}
 			},
 			// 微信登录

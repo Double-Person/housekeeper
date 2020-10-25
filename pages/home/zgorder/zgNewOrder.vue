@@ -1,32 +1,32 @@
 <template>
 	<view class="newfrom">
-	<view class="new_demo">
+		<view class="new_demo">
 			<!-- 循环订单位置 -->
-			<view class="new_list" v-for="i in 2">
+			<view class="new_list" v-for="(item, index) in list" :key="index">
 
 				<!-- 名称+logo -->
 				<view class="new_logo">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-					<text>窗台防水</text>
+					<image :src="item.image ? item.image : '/static/my_icon/logo.jpg'" mode=""></image>
+					<text>{{item.project_name}}</text>
 				</view>
 
 				<!-- 订单详情 -->
 				<view class="new_text" @click="gonew">
 					<view class="new_img">
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+						<image :src="item.image ? item.image : '/static/my_icon/logo.jpg'" mode=""></image>
 					</view>
 					<view class="new_mid">
-						<text>项目名称</text>
-						<view>客户姓名:汪小菲</view>
-						<view>客户电话：18356987413</view>
-						<view>客户地址：四川省成都市锦江区崔家店145号</view>
+						<text>订单编号：{{item.order_number}}</text>
+						<view>客户姓名:{{item.contact}}</view>
+						<view>客户电话：{{item.phone}}</view>
+						<view>客户地址：{{item.address}}</view>
 					</view>
 				</view>
 
 				<!-- 按钮 -->
 				<view class="new_btn">
-					<text @click="butake">不接受</text>
-					<text @click="take">接受</text>
+					<text @click="receive(false,item)">不接受</text>
+					<text @click="receive(true,item)">接受</text>
 				</view>
 			</view>
 		</view>
@@ -34,28 +34,59 @@
 </template>
 
 <script>
-	export default{
-		data(){
+	import {
+		workerorderApiworkerList,
+		updatestate
+	} from "@/components/api/api.js"
+	export default {
+		data() {
 			return {
-				
+				list: []
 			}
 		},
-		methods:{
+		mounted() {
+			this.getWorkerorderApiworkerList()
+		},
+		methods: {
+			// 獲取新订单
+			getWorkerorderApiworkerList() {
+				let worker_id = uni.getStorageSync("WORKERS_ID");
+				let token = uni.getStorageSync("HOUSE_TOKEN");
+				console.log(worker_id, token)
+				workerorderApiworkerList({
+					worker_id,
+					token
+				}).then(({
+					varList
+				}) => {
+					console.log('獲取新订单', varList)
+					this.list = varList
+				})
+			},
 			// 接受
-			take(){
-				uni.navigateTo({
-					url:"./zgnewa"
+			receive(type, item) {
+				// worker_id 主管的id    order_id   订单id   state_one   1接受 2不接受 
+				let {
+					worker_id,
+					order_id
+				} = item;
+				updatestate({
+					worker_id,
+					order_id,
+					state_one: type ? 1 : 2
+				}).then(res => {
+					console.log(res)
+					// uni.navigateTo({
+					// 	url: "./zgnewa?type=" + type + "&info=" + JSON.stringify(item)
+					// })
 				})
+
+
 			},
-			// 不接受
-			butake(){
+
+			gonew() {
 				uni.navigateTo({
-					url:"./ordera"
-				})
-			},
-			gonew(){
-				uni.navigateTo({
-					url:'zgnews'
+					url: 'zgnews'
 				})
 			}
 		}
@@ -84,7 +115,7 @@
 		background: rgba(255, 255, 255, 1);
 		overflow: hidden;
 		position: relative;
-		margin-top:20upx;
+		margin-top: 20upx;
 	}
 
 	.new_logo {
@@ -165,6 +196,7 @@
 		margin-top: 14upx;
 		color: $uni--color-hei;
 	}
+
 	.new_mid {
 		float: left;
 		margin-left: 18upx;

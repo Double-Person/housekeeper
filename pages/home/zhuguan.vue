@@ -28,6 +28,7 @@
 
 <script>
 	import UserInfoHeader from '@/components/UserInfoHeader.vue'
+	
 	export default {
 		data() {
 			return {

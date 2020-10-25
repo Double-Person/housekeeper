@@ -7,9 +7,9 @@
 			</view>
 		</view>
 		<view class="top_bac">
-			<image src="../static/my_icon/my_topbac.png" mode=""></image>
+			<image :src="userInfo.head ? userInfo.head : '/static/my_icon/my_topbac.png'" mode=""></image>
 		</view>
-		<text class="my_name">我是昵称</text>
+		<text class="my_name">{{userInfo.name}}</text>
 	</view>
 </template>
 
@@ -40,10 +40,9 @@
 			// 获取用户信息
 			getUserInfo() {
 				
-				let workers_id = uni.getStorageSync('USER_ID')
-				workerIndex({ workers_id }).then(res => {
-					console.log('me', res)
-				
+				let workers_id = uni.getStorageSync('WORKERS_ID')
+				workerIndex({ workers_id }).then(({returnMsg}) => {
+					this.userInfo = returnMsg
 				});
 			}
 		}

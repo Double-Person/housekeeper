@@ -1,9 +1,23 @@
-import { ajax,baseUrl } from "./request.js";
+import { ajax, ajaxJson,baseUrl } from "./request.js";
 
 // 1.账号密码登录   phone   pwd
 export const login = data => ajax({ url: '/api/worker/workerLogin', data, method: 'POST' });
 // 2. 注册
-export const workerRegister = data => ajax({ url: '/api/worker/workerRegister', data, method: 'POST' });
+export const workerRegister = data => ajax({ url: '/api/worker/workerRegister', data, method: 'POST', headerType:'application/json' });
+// export const workerRegister = data => {
+// 	uni.request({
+// 		url: baseUrl + '/api/worker/workerRegister',
+// 		data,
+// 		method: 'POST',
+// 		success: res => {
+// 			console.log('----', res)
+// 		},
+// 		fail:(err)=> {
+// 			console.log('----', err)
+// 		}
+// 	})
+// }
+
 
 // 3.获取主管接口  参数  workers_id 工人id
 export const executive = data => ajax({ url: '/api/worker/executive', data, method: 'GET' });
@@ -23,16 +37,16 @@ export const workerIndex = data => ajax({ url: '/api/worker/index', data, method
 
 
 // 6、查询主管列表  
-export const workerUserExecutive = data => ajax({ url: '/api/workerUser/executive', data, method: 'POST' });
+export const workerUserExecutive = data => ajax({ url: '/workerUser/executive', data, method: 'POST' });
 
 // 7、查询主管下的技术员列表  parent_id  主管的id
-export const technician = data => ajax({ url: '/api/workerUser/technician', data, method: 'POST' });
+export const technician = data => ajax({ url: '/workerUser/technician', data, method: 'POST' });
 
 // 8、查询主管下的工人  parent_id  主管的id
-export const workerWorker = data => ajax({ url: '/api/workerUser/worker', data, method: 'POST' });
+export const workerWorker = data => ajax({ url: '/workerUser/worker', data, method: 'POST' });
 
-// 9、查询所有工人的接单列表  worker_id （主管的id、技术员的id、工长的id  
-export const workerorderApiworkerList = data => ajax({ url: '/api/workerorderApiworker/list', data, method: 'POST' });
+// 9、查询所有工人的接单列表  worker_id （主管的id、技术员的id、工长的id    新订单
+export const workerorderApiworkerList = data => ajax({ url: '/api/workerorderApi/list', data, method: 'POST' });
 
 // 10、主管接单点击事件  worker_id 主管的id    order_id   订单id   state_one   1接受 2不接受 
 export const updatestate = data => ajax({ url: '/api/workerorderApi/updatestate', data, method: 'POST' });
@@ -46,7 +60,16 @@ export const daitechnician = data => ajax({ url: '/api/workerorderApi/daitechnic
 // 12、查询主管工人待派单   worker_id 主管的id
 export const daiforeman = data => ajax({ url: '/api/workerorderApi/daiforeman', data, method: 'POST' });
 
-// 13、修改技术人员接单   technician_id :  技术员的id   order_id   订单id   state_one   1接受 2不接受    doortime    上门时间
+
+
+
+
+
+
+
+
+// 技术人员
+// 1、修改技术人员接单   technician_id :  技术员的id   order_id   订单id   state_one   1接受 2不接受    doortime    上门时间
 export const upaateforeman = data => ajax({ url: '/api/workerorderApi/upaateforeman', data, method: 'POST' });
 
      

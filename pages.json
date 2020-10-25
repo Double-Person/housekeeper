@@ -503,10 +503,10 @@
 						"buttons": [ //原生标题栏按钮配置,
 							{
 								"text": "提现记录", //原生标题栏增加分享按钮，点击事件可通过页面的 onNavigationBarButtonTap 函数进行监听 提现记录
-								"fontSize":"26rpx",
-								"color":"#010101",
+								"fontSize": "26rpx",
+								"color": "#010101",
 								"fontWeight": 500,
-								"float":"right",
+								"float": "right",
 								"width": "auto"
 							}
 						]
@@ -523,7 +523,15 @@
 			"style": {
 				"navigationBarTitleText": "待派单"
 			}
+		},
+		{
+			"path": "pages/login/directorList",
+			"style": {
+				"navigationBarTitleText": "选择主管"
+			}
 		}
+
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

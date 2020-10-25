@@ -24,7 +24,7 @@
           :item="item"
           v-for="(item, index) in titleList[activeIndex].list"
           :key="index"
-          @getDetail="getDetail(act)"
+          @getDetail="getDetail()"
         >
           <view class="slot-warp">
             <view class="slot-active" @click="distribute">派单</view>
@@ -38,6 +38,7 @@
 <script>
 import fromDeatil from "@/components/fromAll.vue";
 import Topsearch from "@/components/TopSearch.vue";
+import {daitechnician, daiforeman} from "@/components/api/api.js"
 export default {
 	components: {
 	  fromDeatil,
@@ -46,6 +47,7 @@ export default {
   data() {
     return {
       activeIndex: 0,
+	  worker_id: uni.getStorageSync('WORKERS_ID'),
       titleList: [
         {
           value: 1,
@@ -58,8 +60,10 @@ export default {
           list: ["工长 1", "工长 2", "工长 3"],
         }
       ],
-      act: 1,
     };
+  },
+  mounted() {
+  	this._daitechnician()
   },
  
   methods: {
@@ -71,6 +75,11 @@ export default {
     },
     clickTitle(index, value) {
       this.activeIndex = index;
+	  if(index === 0) {
+		  this._daitechnician()
+	  }else{
+		   this._daiforeman()
+	  }
     },
     getDetail(act) {
       console.log(1);
@@ -78,6 +87,18 @@ export default {
         url: "zgfanganxiangqing",
       });
     },
+	// 技术员
+	_daitechnician() {
+		daitechnician({worker_id: this.worker_id}).then(res => {
+			console.log(res)
+		})
+	},
+	// 工长
+	_daiforeman() {
+		daiforeman({worker_id: this.worker_id}).then(res => {
+			console.log(res)
+		})
+	},
 
 
 	// 派单

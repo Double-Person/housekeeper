@@ -19,8 +19,19 @@
 </template>
 
 <script>
+	import {technician} from "@/components/api/api.js"
 	export default{
+		mounted() {
+			this.getTechnician()
+		},
 		methods:{
+			// 查询主管下的技术员列表
+			getTechnician() {
+				let parent_id = uni.getStorageSync('WORKERS_ID')
+				technician({parent_id}).then(res => {
+					console.log('查询主管下的技术员列表', res)
+				})
+			},
 			gox(){
 				uni.navigateTo({
 					url:'xuanzejishus'

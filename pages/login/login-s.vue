@@ -20,13 +20,15 @@
 					</view>
 				</view>
 
-				<view class="warp-list" v-if="positionIndex">
+				<view class="warp-list" v-if="positionIndex" @click="changeDirector">
 					<view class="title">
 						选择主管
 					</view>
-					<view class="uni-form-item uni-column">
-						<picker @change="bindPickerChange('directorIndex', $event)" :value="directorIndex" :range="director">
-							<label class="sex_wapper">{{director[directorIndex]}}</label>
+					<!-- @change="bindPickerChange('directorIndex', $event)" -->
+					<view class="uni-form-item uni-column" >
+						<picker  :value="directorIndex" :range="director">
+							<!-- <label class="sex_wapper">{{director[directorIndex]}}</label> -->
+							<label class="sex_wapper">{{userInfo.name}}</label>
 						</picker>
 						<image src="/static/loginImg/xaila.png" mode="" class="down"></image>
 					</view>
@@ -76,14 +78,16 @@
 </template>
 
 <script>
-	import {upLoadFile, workerRegister} from '@/components/api/api.js'
+	import {upLoadFile, workerRegister, workerUserExecutive} from '@/components/api/api.js'
+	import {baseUrl} from '@/components/api/request.js'
+	
 	export default {
 		data() {
 			return {
 				userInfo: {},
 				sex: ["男", "女"],
 				sexIndex: 0,
-				position: ['主管', '技术员', '工长'],
+				position: ['主管', '技术员', '工长'], //  顺序不能换
 				positionIndex: 0,
 				director: ['张三', '李四', '王五'],
 				directorIndex: 0,
@@ -97,25 +101,41 @@
 		},
 		onLoad(option) {
 			this.userInfo = JSON.parse(option.userInfo)
+			
+			this.getWorkerUserExecutive()
+		
 		},
 		methods: {
+			changeDirector() {
+				uni.navigateTo({
+					url: './directorList?userInfo=' + JSON.stringify(this.userInfo)
+				})
+			},
 			// 下拉款选择
 			bindPickerChange(type, event) {
 				console.log(type)
 				this[type] = event.target.value
 			},
+			// 查询主管列表
+			getWorkerUserExecutive() {
+				workerUserExecutive().then(res => {
+					console.log('查询主管列表', res)
+				})
+			},
 			// 上传身份证
 			changePositive(type) {
 				uni.chooseImage({
-					count: 1, //默认9
+					count: 1,
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album', 'camera'], //从相册选择
 					success: res => {
 						console.log(res.tempFilePaths[0])
-						this.photo[type] = res.tempFilePaths[0]; /// 刪除
+						// this.photo[type] = res.tempFilePaths[0]; /// 刪除
 						upLoadFile({path: res.tempFilePaths[0]}).then(file => {
-							console.log(file)
-							// this.photo[type] = res.tempFilePaths[0];
+							
+							let upLoadPath = JSON.parse(file.data).data
+							this.photo[type] = baseUrl + '/' +  upLoadPath
+							console.log(this.photo[type])
 						})
 					},
 					fail: () => {
@@ -128,7 +148,55 @@
 			},
 			goIndex() {
 				// sexIndex  positionIndex  directorIndex
-				let {sexIndex, positionIndex, directorIndex, userInfo } = this;
+				let {sexIndex, positionIndex, directorIndex, userInfo: {code, phone, pwd }, photo: {positive, reverse, handPositive} } = this;
+				
+				// phone  电话   code  验证码  pwd  密码   position  职位  director  主管  
+				// sex  性别   idCardZ  身份证正面  idCardZF  身份证反面  office  工作证
+				
+				code: "1234"
+				phone: "18398207590"
+				pwd: "123456"
+				let obj = {
+					"phone": phone,
+					"code": code,
+					"pwd": pwd,
+					"position": positionIndex,
+					"director": '',
+					"sex": sexIndex === 0 ? 1 : 0,
+					
+					"idCardZ": positive,
+					"idCardF": reverse,
+					"office": handPositive
+				}
+				console.log(sexIndex, positionIndex, directorIndex)
+				console.log(obj)
+				workerRegister(obj).then(res => {
+					console.log('注册', res)
+					if(res.msgType == 0) {
+						uni.showToast({
+							title:res.returnMsg,
+							icon: "none"
+						})
+						uni.navigateTo({
+							url:"./logins?phone?=" + phone
+						})
+					}
+				})
+				// uni.request({
+				// 	url: baseUrl + '/api/worker/workerRegister',
+				// 	data: JSON.stringify(obj), // obj, //
+				// 	method: 'POST',
+				// 	// header: {
+				// 	// 	"Content-Type":  "application/json"
+				// 	// },
+				// 	success: res => {
+				// 		console.log('----', res)
+				// 	},
+				// 	fail:(err)=> {
+				// 		console.log('----', err)
+				// 	}
+				// })
+				
 				// uni.navigateTo({
 				// 	url: "logins"
 				// })
@@ -138,7 +206,7 @@
 	}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 	/*  */
 	.warp-list {
@@ -234,15 +302,15 @@
 	}
 
 	.selzjz {
-		padding-left: 86rpx;
+		 padding-left: 86rpx; 
+		image {
+			display: block;
+			width: 578rpx;
+			height: 364rpx;
+			margin-bottom: 29rpx;
+		}
 	}
 
-	.selzjz image {
-		display: block;
-		width: 578rpx;
-		height: 364rpx;
-		margin-bottom: 29rpx;
-	}
 
 	.btnBox {
 		margin: 60upx auto 0 auto;
