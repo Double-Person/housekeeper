@@ -529,6 +529,18 @@
 			"style": {
 				"navigationBarTitleText": "选择主管"
 			}
+		},
+		{
+			"path": "pages/login/detailInfo",
+			"style": {
+				"navigationBarTitleText": "个人资料"
+			}
+		},
+		{
+			"path": "pages/home/selectPersonnel",
+			"style": {
+				"navigationBarTitleText": "选择人员"
+			}
 		}
 
 

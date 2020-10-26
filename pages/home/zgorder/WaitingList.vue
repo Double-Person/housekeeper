@@ -1,6 +1,6 @@
 <template>
   <view class="newfrom">
-    <Topsearch @searchValue="searchValue" placeholder="搜索订单" />
+    
     <!--  -->
     <view class="top">
       <view
@@ -11,6 +11,8 @@
         >{{ item.label }}</view
       >
     </view>
+	<Topsearch @searchValue="searchValue" placeholder="搜索订单" />
+	
     <scroll-view
       :scroll-y="true"
       class="scroll-view-body"
@@ -90,13 +92,13 @@ export default {
 	// 技术员
 	_daitechnician() {
 		daitechnician({worker_id: this.worker_id}).then(res => {
-			console.log(res)
+			console.log('技术员', res)
 		})
 	},
 	// 工长
 	_daiforeman() {
 		daiforeman({worker_id: this.worker_id}).then(res => {
-			console.log(res)
+			console.log('工长', res)
 		})
 	},
 

@@ -1,3 +1,4 @@
+
 <template>
 	<view class="director-list">
 		<view class="director-item" v-for="(i, index) in list" :key="i.workers_id" :class="{active: active == index}">
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-		import { workerUserExecutive} from '@/components/api/api.js'
+		import { workerUserExecutive, technician, workerWorker} from '@/components/api/api.js'
 		import {positionObj} from "@/variable/orderCenter.js"
 	export default{
 		data() {
@@ -56,6 +57,13 @@
 				workerUserExecutive().then(({varList}) => {
 					console.log('查询主管列表', varList)
 					this.list = varList
+				})
+			},
+			// 查询主管下的技术员列表
+			getTechnician() {
+				let parent_id = uni.getStorageSync('WORKERS_ID')
+				technician({parent_id}).then(res => {
+					console.log('查询主管下的技术员列表', res)
 				})
 			},
 		}

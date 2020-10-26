@@ -28,7 +28,7 @@
 					<view class="uni-form-item uni-column" >
 						<picker  :value="directorIndex" :range="director">
 							<!-- <label class="sex_wapper">{{director[directorIndex]}}</label> -->
-							<label class="sex_wapper">{{userInfo.name}}</label>
+							<label class="sex_wapper">{{userInfo.name||'请选择'}}</label>
 						</picker>
 						<image src="/static/loginImg/xaila.png" mode="" class="down"></image>
 					</view>
@@ -101,12 +101,16 @@
 		},
 		onLoad(option) {
 			this.userInfo = JSON.parse(option.userInfo)
+			if(this.userInfo.positionIndex) {
+				this.positionIndex = this.userInfo.positionIndex
+			}
 			
 			this.getWorkerUserExecutive()
 		
 		},
 		methods: {
 			changeDirector() {
+				this.userInfo.positionIndex = this.positionIndex
 				uni.navigateTo({
 					url: './directorList?userInfo=' + JSON.stringify(this.userInfo)
 				})
@@ -129,13 +133,9 @@
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album', 'camera'], //从相册选择
 					success: res => {
-						console.log(res.tempFilePaths[0])
-						// this.photo[type] = res.tempFilePaths[0]; /// 刪除
 						upLoadFile({path: res.tempFilePaths[0]}).then(file => {
-							
 							let upLoadPath = JSON.parse(file.data).data
 							this.photo[type] = baseUrl + '/' +  upLoadPath
-							console.log(this.photo[type])
 						})
 					},
 					fail: () => {
@@ -161,7 +161,7 @@
 					"code": code,
 					"pwd": pwd,
 					"position": positionIndex,
-					"director": '',
+					"director": this.userInfo.workers_id || '',
 					"sex": sexIndex === 0 ? 1 : 0,
 					
 					"idCardZ": positive,

@@ -38,6 +38,7 @@
 	import fromDeatil from "@/components/fromAll.vue"
 	import TopSearch from "@/components/TopSearch.vue"
 	import {technicianOrderStatus} from '@/variable/orderCenter.js'
+	import { technicianListAllById } from "@/components/api/api.js"
 	
 	export default {
 		data() {
@@ -72,13 +73,32 @@
 			fromDeatil,
 			TopSearch
 		},
-		created() {
-			this.currentTabBar = this.titleList && this.titleList[0].value;
+		async created() {
+			this.currentTabBar = await this.titleList && this.titleList[0].value;
+			await this.getList()
 		},
 		methods: {
 			clickTitle(index, value) {
 				this.activeIndex = index;
 				this.currentTabBar = value
+			},
+			// 获取列表
+			getList () {
+				this.currentTabBar
+				let obj = { technician_id: uni.getStorageSync('WORKERS_ID')}
+				if(this.currentTabBar == 0) { // 0 进行中  1 已完成  2 已取消
+					obj.states = ''
+				}else if(this.currentTabBar == 1) {
+					obj.states = 0
+				}else if(this.currentTabBar == 2) {
+					obj.states = 1
+				}else if(this.currentTabBar == 3) {
+					obj.states = 2
+				}
+				technicianListAllById(obj).then(res => {
+					console.log('++++', res)
+				})
+				// technician_id
 			},
 			scrolltolower(e) {
 				

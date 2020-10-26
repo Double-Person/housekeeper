@@ -70,7 +70,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="time" @click="xuanze">
+		<view class="time" @click="selectPersonnel">
 			<text>选择技术人员</text>
 			<image src="/static/loginImg/hright.png" mode=""></image>
 		</view>
@@ -92,6 +92,12 @@
 			 		url:"../zhuguan"
 			 	})
 			},
+			// 选择技术人员
+			selectPersonnel() {
+				uni.navigateTo({
+					url: '../selectPersonnel'
+				})
+			}
 			
 		}
 	}

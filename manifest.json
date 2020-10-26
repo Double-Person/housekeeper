@@ -83,26 +83,7 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-	"h5" : {
-	    "devServer" : {
 	
-	        "disableHostCheck" : true,
-	        "proxy" : {
-	            "/api" : {
-	                "target" : "https://www.hemingbi.com/housekeeper",
-	                "changeOrigin" : true, // 允许跨域
-	                "secure" : true, // 开启HTTPS
-	                "pathRewrite" : {
-	                    "^/api" : ""
-	                }
-	            }
-	        },
-	   
-	        "https" : true
-	    },
-	    "domain" : "https://www.hemingbi.com/housekeeper"
-	  
-	},
     "uniStatistics" : {
         "enable" : false
     }

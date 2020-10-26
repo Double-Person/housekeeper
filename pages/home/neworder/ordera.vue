@@ -4,18 +4,18 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-					<text>窗台防水</text>
+					<image :src="info.image ? info.image : '/static/my_icon/logo.jpg'" mode=""></image>
+					<text>{{info.project_name}}</text>
 				</view>
 
 				<!-- <view class="com">显示状态</view> -->
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+					<image :src="info.image ? info.image : '/static/my_icon/logo.jpg'" mode=""></image>
 				</view>
 				<view class="time">
-					<text>项目名称</text>
+					<text>{{info.project_name}}</text>
 					<!-- <text>工人名称</text> -->
 				</view>
 			</view>
@@ -26,14 +26,15 @@
 				订单信息
 			</view>
 			<view class="textT">
-				<text>订单编号：51341851215121515</text>
+				
+				<text>订单编号：{{item.order_number}}</text>
 				<text>下单日期：2019年12月18日 13:20</text>
-				<text>客户姓名：张三胖</text>
-				<text>客户电话：18356987456</text>
-				<text>客户地址：四川省绵阳市涪城区贾家店街89号A栋203室</text>
+				<view>客户姓名:{{item.contact}}</view>
+				<view>客户电话：{{item.phone}}</view>
+				<view>客户地址：{{item.address}}</view>
 			</view>
 		</view>
-		
+
 	</view>
 </template>
 
@@ -41,11 +42,16 @@
 	export default {
 
 		data() {
-			return {}
+			return {
+				info: {}
+			}
+		},
+		onLoad(option) {
+			this.info = JSON.parse(option.info)
 		},
 		methods: {
 			// detailAll(){
-			 	
+
 			// }
 		}
 	}
@@ -200,7 +206,7 @@
 		margin-top: 20upx;
 		padding: 0upx 40upx;
 		width: 670upx;
-		
+
 		background: #fff;
 		border-radius: 8upx;
 
@@ -212,7 +218,7 @@
 			color: rgba(51, 51, 51, 1);
 			border-bottom: 1upx solid rgba(191, 191, 191, 1);
 		}
-		
+
 
 		.textT {
 			margin-top: 20upx;
@@ -248,11 +254,13 @@
 			color: rgba(51, 51, 51, 1);
 			border-bottom: 1upx solid rgba(191, 191, 191, 1);
 			overflow: hidden;
-			.tit_a{
+
+			.tit_a {
 				float: left;
 			}
-			.tit_b{
-				float:right;
+
+			.tit_b {
+				float: right;
 				color: #D4D4D4;
 			}
 		}
@@ -314,35 +322,41 @@
 		padding: 40upx;
 		overflow: hidden;
 		margin-top: 20upx;
-		.name{
+
+		.name {
 			width: 670upx;
 			display: flex;
 			justify-content: space-between;
 			margin-top: 20upx;
-			.tit{
-				font-size:28upx;
-				font-family:PingFang SC;
-				font-weight:500;
-				color:rgba(153,153,153,1);
+
+			.tit {
+				font-size: 28upx;
+				font-family: PingFang SC;
+				font-weight: 500;
+				color: rgba(153, 153, 153, 1);
 			}
 		}
-		.phone{
+
+		.phone {
 			display: flex;
 			align-items: center;
-			text{
-				font-size:28upx;
-				font-family:PingFang SC;
-				font-weight:500;
-				color:rgba(251,80,80,1);
+
+			text {
+				font-size: 28upx;
+				font-family: PingFang SC;
+				font-weight: 500;
+				color: rgba(251, 80, 80, 1);
 			}
-			image{
+
+			image {
 				margin-left: 18upx;
-				width:38upx;
-				height:38upx;
+				width: 38upx;
+				height: 38upx;
 			}
 		}
+
 		.title {
-			font-size:28upx;
+			font-size: 28upx;
 			width: 670upx;
 			padding-bottom: 20upx;
 			border-bottom: 2upx solid rgba(190, 190, 190, 1);
@@ -396,9 +410,11 @@
 		margin-top: 20upx;
 		color: #333333;
 		font-size: 32upx;
+
 		.zprice {
 			float: left;
-			text{
+
+			text {
 				color: #FA4F4F;
 			}
 		}

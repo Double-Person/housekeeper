@@ -1,7 +1,15 @@
-// export const baseUrl ='https://yflh.hkzhtech.com/qufl'
-// export const baseUrl ='http://192.168.0.103:8081'
-export const baseUrl ='https://www.hemingbi.com/housekeeper'
 
+// export const baseUrl ='http://192.168.0.103:8081'
+
+let baseUrl_ = ''
+// #ifdef H5   
+baseUrl_ =''
+// #endif
+
+// #ifdef APP-PLUS
+baseUrl_ ='https://www.hemingbi.com/housekeeper'
+// #endif
+export const baseUrl = baseUrl_
 
 export const ajax = (option) => {
     if (!option.url) {
@@ -30,7 +38,7 @@ export const ajax = (option) => {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             success: (res) => {
-                console.log('全局数据', res.data);
+                // console.log('全局数据', res.data);
                 // 不同状态码相关提示
                 switch (res.data.msgType) {
                     case -1:

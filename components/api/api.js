@@ -1,23 +1,19 @@
-import { ajax, ajaxJson,baseUrl } from "./request.js";
+// ,baseUrl 
+import { ajax, ajaxJson} from "./request.js";
+let baseUrl = ''
+
+// #ifdef H5   
+baseUrl =''
+// #endif
+
+// #ifdef APP-PLUS
+baseUrl ='https://www.hemingbi.com/housekeeper'
+// #endif
 
 // 1.账号密码登录   phone   pwd
 export const login = data => ajax({ url: '/api/worker/workerLogin', data, method: 'POST' });
 // 2. 注册
 export const workerRegister = data => ajax({ url: '/api/worker/workerRegister', data, method: 'POST', headerType:'application/json' });
-// export const workerRegister = data => {
-// 	uni.request({
-// 		url: baseUrl + '/api/worker/workerRegister',
-// 		data,
-// 		method: 'POST',
-// 		success: res => {
-// 			console.log('----', res)
-// 		},
-// 		fail:(err)=> {
-// 			console.log('----', err)
-// 		}
-// 	})
-// }
-
 
 // 3.获取主管接口  参数  workers_id 工人id
 export const executive = data => ajax({ url: '/api/worker/executive', data, method: 'GET' });
@@ -71,6 +67,13 @@ export const daiforeman = data => ajax({ url: '/api/workerorderApi/daiforeman', 
 // 技术人员
 // 1、修改技术人员接单   technician_id :  技术员的id   order_id   订单id   state_one   1接受 2不接受    doortime    上门时间
 export const upaateforeman = data => ajax({ url: '/api/workerorderApi/upaateforeman', data, method: 'POST' });
+
+
+export const technicianUpaateforeman = data => ajax({ url: '/api/technician/upaateforeman', data, method: 'POST' });
+// 订单中心
+export const technicianListAllById = data => ajax({ url: '/api/technician/listAllById', data, method: 'POST' });
+
+
 
      
 

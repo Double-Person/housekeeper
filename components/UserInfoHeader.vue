@@ -86,16 +86,17 @@
 		position: absolute;
 		z-index: 2;
 		bottom: 0upx;
+		
 	}
 
 	.my_name {
 		// width: 142upx;
-		height: 34upx;
 		display: block;
 		font-size: 36upx;
 		position: absolute;
 		z-index: 3;
-		bottom: 79upx;
-		left: 304upx;
+		bottom: 59upx;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 </style>

@@ -4,18 +4,18 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-					<text>窗台防水</text>
+					<image :src="info.image" mode=""></image>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 
 				<!-- <view class="com">显示状态</view> -->
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+					<image :src="info.image" mode=""></image>
 				</view>
 				<view class="time">
-					<text>项目名称</text>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 					<!-- <text>工人名称</text> -->
 				</view>
 			</view>
@@ -26,11 +26,11 @@
 				订单信息
 			</view>
 			<view class="textT">
-				<text>订单编号：51341851215121515</text>
-				<text>下单日期：2019年12月18日 13:20</text>
-				<text>客户姓名：张三胖</text>
-				<text>客户电话：18356987456</text>
-				<text>客户地址：四川省绵阳市涪城区贾家店街89号A栋203室</text>
+				<text>订单编号：{{info.order_number}}</text>
+				<text>下单日期：{{info.createtime}}</text>
+				<text>客户姓名：{{info.contact}}</text>
+				<text>客户电话：{{info.phone}}</text>
+				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
 			</view>
 		</view>
 		<view class="time">
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+	import {  technicianUpaateforeman } from "@/components/api/api.js";
 	export default {
 
 		data() {
@@ -58,6 +59,7 @@
 				format: true
 			})
 			return {
+				info: {},
 				date: currentDate,
 				time: `${(new Date()).getHours()}:${(new Date()).getMinutes()} `
 			}
@@ -70,8 +72,24 @@
 				return this.getDate('end');
 			}
 		},
+		onLoad(option) {
+			this.info = JSON.parse(option.info)
+			console.log(this.info)
+		},
 		methods: {
 			detailAll() {
+				let obj = {
+					techniorder_id: this.info.worker_id,
+					order_id: this.info.order_id,
+					state_one: 1, //  1接受 2不接受
+					doortime: this.date + ' ' + this.time,
+				}
+				technicianUpaateforeman(obj).then(res => {
+					uni.showToast({
+						title: '接单成功',
+						icon: "none"
+					})
+				})
 				uni.navigateTo({
 					// url: "fangan"
 					url:'/pages/home/neworder/neworder'

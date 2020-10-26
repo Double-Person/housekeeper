@@ -45,7 +45,7 @@
 			return {
 				type: 'password',
 				userInfo: {
-					phone: '18398207590',
+					phone: '15345678910',   ///  15345678910  123456    技术    15345678911    123456     工人     15345678910          123456
 					password: '123456'
 				}
 			}
@@ -88,23 +88,24 @@
 				console.log('登錄', res)
 				if (res.msgType == '0') {
 					let {token, worker} = res.returnMsg
-					await uni.setStorageSync('USER_INFO', worker)
-					await uni.setStorageSync('WORKERS_ID', worker.workers_id)
+					await uni.setStorageSync('USER_INFO', worker) // 用户信息
+					await uni.setStorageSync('WORKERS_ID', worker.workers_id)  // 用户id
 					await uni.setStorageSync('HOUSE_TOKEN', token)  // workers_id
+					await uni.setStorageSync('PARENT_ID', token)  // 上级主管id
 				
 					if(worker.levels == 0) {
 						// 主管
-						await uni.navigateTo({
+						await uni.redirectTo({
 							url: "../home/zhuguan",
 						})
 					}else if(worker.levels == 1) {
 						// 技术员
-						await uni.navigateTo({
+						await uni.redirectTo({
 							url: "../home/homejishu",
 						})
 					}else if(worker.levels == 2) {
 						// 工人
-						await uni.navigateTo({
+						await uni.redirectTo({
 							url: "../home/home",
 						})
 					}else{
