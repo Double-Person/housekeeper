@@ -127,7 +127,6 @@
 			.sjh {
 				height: 27upx;
 				font-size: 28upx;
-				font-family: SourceHanSansCN;
 				font-weight: bold;
 				color: rgba(153, 153, 153, 1);
 			}
@@ -141,7 +140,6 @@
 					width: 300upx;
 					height: 34upx;
 					font-size: 42upx;
-					font-family: SourceHanSansCN;
 					font-weight: bold;
 					color: rgba(77, 77, 77, 1);
 				}
@@ -171,7 +169,6 @@
 					border: 1upx solid rgba(255, 193, 12, 1);
 					border-radius: 4upx;
 					font-size: 24upx;
-					font-family: SourceHanSansCN;
 					font-weight: bold;
 					color: rgba(255, 193, 12, 1);
 					text-align: center;
@@ -182,8 +179,6 @@
 		.zjdl {
 			height: 23upx;
 			font-size: 24upx;
-			font-family: SourceHanSansCN;
-			font-weight: 400;
 			color: rgba(190, 190, 190, 1);
 			float: right;
 		}
@@ -198,8 +193,6 @@
 		box-shadow: 0upx 0upx 3upx 0upx rgba(208, 139, 20, 0.25);
 		border-radius: 42upx;
 		font-size: 40upx;
-		font-family: SourceHanSansCN;
-		font-weight: 400;
 		color: rgba(53, 53, 53, 1);
 		text-align: center;
 		line-height: 89upx;

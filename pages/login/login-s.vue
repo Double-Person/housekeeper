@@ -169,6 +169,28 @@
 					"idCardF": reverse,
 					"office": handPositive
 				}
+	
+				if(!positive) {
+					uni.showToast({
+						title: '身份证正面不能为空',
+						icon: 'none'
+					})
+					return false;
+				}
+				if(!reverse) {
+					uni.showToast({
+						title: '身份证反面不能为空',
+						icon: 'none'
+					})
+					return false;
+				}
+				if(!handPositive) {
+					uni.showToast({
+						title: '证件照不能为空不能为空',
+						icon: 'none'
+					})
+					return false;
+				}
 				console.log(sexIndex, positionIndex, directorIndex)
 				console.log(obj)
 				workerRegister(obj).then(res => {

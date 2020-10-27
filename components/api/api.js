@@ -71,6 +71,15 @@ export const technicianUpaateforeman = data => ajax({ url: '/api/technician/upaa
 export const technicianListAllById = data => ajax({ url: '/api/technician/listAllById', data, method: 'POST' });
 
 
+// 这个是第一层信息获取接口
+export const programme1 = data => ajax({ url: '/api/workerProgramme/programme1', data, method: 'GET' });
+// typeid
+export const programme2 = data => ajax({ url: '/api/workerProgramme/programme2', data, method: 'GET' });
+// typeid   series_id
+export const programme3 = data => ajax({ url: '/api/workerProgramme/programme3', data, method: 'GET' });
+
+
+
 
      
 

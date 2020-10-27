@@ -1,39 +1,30 @@
 <template>
 	<view class="index">
-		<view class="sou">
-			<view class="sou_ipt">
-				<input type="text" value="" />
-				<view class="order_txt">
-					<view class="sou_icon">
-						<image src="../../../static/order_icon/sou.png"></image>
-					</view>
-					<text>搜索</text>
-				</view>
-			</view>
-		</view>
+		<TopSearch placeholder="搜索订单"></TopSearch>
+
 		<view class="box">
-			<view class="tit" v-for="(item,index) in 2" :key="index">
+			<view class="tit" v-for="(item,index) in list" :key="index">
 				<view class="titT">
-					<view class="titi">一级名称</view>
-					<image src="../../../static/loginImg/hxiala.png" mode=""></image>
+					<view class="titi">{{item.typename}}</view>
+					<image src="/static/loginImg/hxiala.png" mode="" @click="clickFirst(item, index)"></image>
 				</view>
-				<view class="titTs" v-show="item.flag" v-for="(items,idex) in 2" :key="idex">
-					<view class="titBox" @click="flagS(index,idex)">
-						<view class="titi">二级名称</view>
-						<image src="../../../static/loginImg/xlll.png" mode=""></image>
-					</view>
-					<view class="text">
-						<view class="textb">
-							<image src="../../../static/loginImg/aaxa.png" mode=""></image>
-							<text>三级名称名称名称名称名称名称名称</text>
+				<!-- item.isShow    -->
+				<view v-show="item.isShow">
+					<view class="titTs" v-for="(items,idex) in item.list" :key="idex">
+						<view class="titBox">
+							<view class="titi">{{items.seriesname}}</view>
+							<image src="/static/loginImg/xlll.png" mode="" @click="clickSen(items,index,idex)"></image>
 						</view>
-						<view class="textb">
-							<image src="../../../static/loginImg/kax.png" mode=""></image>
-							<text>三级名称名称名称名称名称名称名称</text>
-						</view>
-						<view class="textb">
-							<image src="../../../static/loginImg/kax.png" mode=""></image>
-							<text>三级名称名称名称名称名称名称名称</text>
+						<view v-show="items.isShow">
+							<view class="text" v-for="(ele,idey) in items.list" :key="idey">
+								<!-- seriesname -->
+								<view class="textb" @click="clickThree(ele, index, idex, idey)"> 
+									<image src="/static/loginImg/aaxa.png" mode="" v-show="checkSeriesId == ele.series_id"></image>
+									<image src="/static/loginImg/kax.png" mode="" v-show="checkSeriesId != ele.series_id"></image>
+									<text>三级名称名称名称名称名称名称名称</text>
+								</view>
+								
+							</view>
 						</view>
 					</view>
 				</view>
@@ -41,6 +32,7 @@
 			</view>
 		</view>
 		<!-- 开工时间 -->
+
 		<view class="timek">
 			<text>开工时间</text>
 			<input type="text" value="填写" class="inp" />
@@ -56,207 +48,235 @@
 </template>
 
 <script>
-	export default{
-		data(){
-			return{
-				flag:false,
-				flags:false,
-				
+	import TopSearch from "@/components/TopSearch.vue"
+	import {
+		programme1, programme2, programme3
+	} from "@/components/api/api.js"
+	export default {
+		components: {
+			TopSearch
+		},
+		data() {
+			return {
+				checkSeriesId: '',
+				list: []
+
 			}
 		},
-		methods:{
-			btn(){
+		onLoad() {
+			this._programme1()
+		},
+		methods: { // typeid   series_id
+			// 点击第一层
+			clickFirst(item, index) {
+				this.list[index].isShow = !item.isShow
+				this._programme2(item.programmetype_id, index)
+				
+			},
+			// 点击第二层
+			clickSen(item, index1, index) {
+				this._programme3(item, index1, index)
+				this.$forceUpdate()
+			},
+			// 点击第三层
+			clickThree(ele, index, idex, idey) {
+				this.checkSeriesId = ele.series_id
+				this.$forceUpdate()
+			},
+		
+			// 获取第一级数据
+			_programme1() {
+				programme1().then(res => {
+					this.list = res.returnMsg
+					this.list.forEach(ele => {
+						ele.isShow = false
+					})
+				})
+			},
+			// 获取第二级数据
+			_programme2(typeid,index) {
+				programme2({typeid}).then(res => {
+					this.list[index].list = res.returnMsg
+					this.list[index].list.forEach(ele => {
+						ele.isShow = false
+					})
+				}).finally(() => {
+					this.$forceUpdate()
+				})
+			},
+			// 获取第三级数据
+			_programme3(obj, index1, index) {
+				programme2({typeid: obj.typeid, series_id: obj.series_id}).then(res => {
+					this.list[index1].list[index].list = res.returnMsg;
+					this.list[index1].list[index].isShow = !obj.isShow
+					console.log('获取第三级数据', this.list[index1].list[index].list)
+				}).finally(() => {
+					this.$forceUpdate()
+				})
+			},
+
+			// 确定
+			btn() {
 				uni.navigateTo({
-					url:'dingdanzhongxin'
+					url: 'dingdanzhongxin'
 				})
 			}
-			
-			
+
+
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.index{
+	.index {
 		width: 750upx;
 		height: 100vh;
 		background: #f2f2f2;
+
 	}
-	.sou {
-		width: 100%;
-		height: 130upx;
-		background-image: url(../../../static/order_icon/suo_big.png);
-		overflow: hidden;
+
+	image {
+		width: 24rpx;
+		height: 13rpx;
 	}
-	
-	.sou_ipt {
-		width: 671upx;
-		height: 71upx;
-		overflow: hidden;
-		margin: 0 auto;
-		margin-top: 28upx;
-		border-radius: 50upx;
-		position: relative;
-	}
-	
-	input {
-		width: 100%;
-		height: 71upx;
-		background-color: #fff;
-		padding-left: 40upx;
-		position: absolute;
-	}
-	
-	.order_txt {
-		position: absolute;
-		z-index: 2;
-		overflow: hidden;
-		margin-left: 254upx;
-		margin-top: 19upx;
-	}
-	
-	.sou_icon {
-		width: 34upx;
-		height: 35upx;
-		float: left;
-	}
-	
-	.sou_icon image {
-		width: 100%;
-		height: 100%;
-	
-	}
-	
-	.order_txt text {
-		display: block;
-		float: left;
-		font-size: 28upx;
-		color: #B2B2B2;
-		margin-left: 19upx;
-		margin-top: 2upx;
-	}
-	
-	.box{
+
+	.box {
 		margin-bottom: 19upx;
 		padding: 25upx 40upx;
-		width:670upx;
-		background:rgba(255,255,255,1);
-		.tit{
-			.titT{
+		width: 670upx;
+		background: rgba(255, 255, 255, 1);
+
+		.tit {
+
+			.titT {
 				width: 670upx;
 				height: 80upx;
-				border-bottom:1upx solid rgba(191,191,191,1);
+				border-bottom: 1upx solid rgba(191, 191, 191, 1);
 				display: flex;
 				justify-content: flex-end;
 				align-items: center;
-				.titi{
-					font-size:28upx;
-					font-family:PingFang SC;
-					font-weight:500;
-					color:rgba(26,26,26,1);
-					line-height:80upx;
+
+				.titi {
+					font-size: 28upx;
+					font-family: PingFang SC;
+					font-weight: 500;
+					color: rgba(26, 26, 26, 1);
+					line-height: 80upx;
 				}
-				image{
+
+				image {
 					margin-left: auto;
 					display: block;
 					width: 40upx;
 					height: 40upx;
 				}
 			}
-			.titTs{
-				.titBox{
+
+			.titTs {
+				.titBox {
 					padding-left: 20upx;
 					width: 650upx;
 					height: 70upx;
 					display: flex;
 					justify-content: flex-end;
 					align-items: center;
-					.titi{
-						font-size:28upx;
-						font-family:PingFang SC;
-						font-weight:400;
-						color:rgba(169,169,169,1);
+
+					.titi {
+						font-size: 28upx;
+						font-family: PingFang SC;
+						font-weight: 400;
+						color: rgba(169, 169, 169, 1);
 					}
-					image{
+
+					image {
 						margin-left: auto;
 						display: block;
 					}
-					.imgH{
+
+					.imgH {
 						width: 24upx;
 						height: 13upx;
 					}
-					.imgW{
+
+					.imgW {
 						width: 13upx;
 						height: 24upx;
 					}
 				}
 			}
-			.text{
-				padding: 25upx;
-				width:620upx;
-				height:132upx;
-				background:rgba(242,242,242,1);
-				border-radius:12upx;
-				.textb{
-					height:50upx;
+
+			.text {
+				padding: 15rpx 25upx;
+				width: 620upx;
+				// height: 132upx;
+				background: rgba(242, 242, 242, 1);
+				border-radius: 12upx;
+
+				.textb {
+					height: 50upx;
 					display: flex;
 					align-items: center;
-					image{
+
+					image {
 						display: block;
 						width: 34upx;
 						height: 34upx;
 						margin-right: 16upx;
 					}
-					text{
-						font-size:28upx;
-						font-family:PingFang SC;
-						font-weight:400;
-						color:rgba(26,26,26,1);
+
+					text {
+						font-size: 28upx;
+						font-family: PingFang SC;
+						font-weight: 400;
+						color: rgba(26, 26, 26, 1);
 					}
 				}
 			}
 		}
 	}
 
-	.timek{
+	.timek {
 		margin-bottom: 10upx;
 		padding: 0 40upx;
-		width:670upx;
-		height:80upx;
-		background:rgba(255,255,255,1);
+		width: 670upx;
+		height: 80upx;
+		background: rgba(255, 255, 255, 1);
 		display: flex;
 		align-items: center;
-		text{
+
+		text {
 			display: block;
 			width: 160upx;
-			font-size:28upx;
-			font-family:PingFang SC;
-			font-weight:500;
-			color:rgba(26,26,26,1);
+			font-size: 28upx;
+			font-family: PingFang SC;
+			font-weight: 500;
+			color: rgba(26, 26, 26, 1);
 		}
-		.inp{
+
+		.inp {
 			margin-left: 127upx;
-			width:152upx;
-			font-size:28upx;
-			font-family:PingFang SC;
-			font-weight:500;
-			color:rgba(169,169,169,1);
-		
+			width: 152upx;
+			font-size: 28upx;
+			font-family: PingFang SC;
+			font-weight: 500;
+			color: rgba(169, 169, 169, 1);
+
 		}
 	}
 
-	.btn{
-		position: fixed;
-		left:15upx;
-		bottom: 32upx;
+	.btn {
+		// position: fixed;
+		// left: 15upx;
+		// bottom: 32upx;
+		margin: 50rpx auto;
 		width: 715upx;
 		height: 91upx;
 		text-align: center;
 		line-height: 91upx;
-		font-size:36upx;
-		font-family:PingFang SC;
-		font-weight:500;
-		color:rgba(255,255,255,1);
+		font-size: 36upx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: rgba(255, 255, 255, 1);
 		background: #FFC10C;
 		border-radius: 10upx;
 	}
