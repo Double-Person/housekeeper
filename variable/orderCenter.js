@@ -1,7 +1,7 @@
-export const positionObj = {
-	DIRECTOR: 0,  // 主管
-	TECHNICIAN: 1,  // 技术员
-	MASTER: 2,  // 工长
+export const positionObj = { 
+	DIRECTOR: 0,  // 主管   director
+	TECHNICIAN: 1,  // 技术员   technology
+	MASTER: 2,  // 工长    master
 	
 }
 //主管

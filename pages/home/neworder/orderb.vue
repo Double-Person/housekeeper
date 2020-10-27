@@ -79,7 +79,8 @@
 		methods: {
 			detailAll() {
 				let obj = {
-					techniorder_id: this.info.worker_id,
+					technician_id: this.info.worker_id,
+					
 					order_id: this.info.order_id,
 					state_one: 1, //  1接受 2不接受
 					doortime: this.date + ' ' + this.time,

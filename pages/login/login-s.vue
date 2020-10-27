@@ -26,10 +26,11 @@
 					</view>
 					<!-- @change="bindPickerChange('directorIndex', $event)" -->
 					<view class="uni-form-item uni-column" >
-						<picker  :value="directorIndex" :range="director">
-							<!-- <label class="sex_wapper">{{director[directorIndex]}}</label> -->
+						<label class="sex_wapper">{{userInfo.name||'请选择'}}</label>
+						<!-- <picker  :value="directorIndex" :range="director">
+							 <label class="sex_wapper">{{director[directorIndex]}}</label>
 							<label class="sex_wapper">{{userInfo.name||'请选择'}}</label>
-						</picker>
+						</picker> -->
 						<image src="/static/loginImg/xaila.png" mode="" class="down"></image>
 					</view>
 				</view>

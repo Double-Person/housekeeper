@@ -38,7 +38,7 @@
 }
 
 // slot 插槽样式 start
-.slot-warp {
+/deep/ .slot-warp {
 	padding: 20upx;
 	display: flex;
 	align-items: center;

@@ -20,16 +20,16 @@
       @scrolltolower="scrolltolower"
     >
       <view class="padding-bottom150">
-        <!-- :flag="8" -->
+        <!-- :flag="8" 技术员  待派发 -->
         <fromDeatil
-          msg="msg"
+          msg="待派发"
           :item="item"
           v-for="(item, index) in titleList[activeIndex].list"
           :key="index"
           @getDetail="getDetail()"
         >
           <view class="slot-warp">
-            <view class="slot-active" @click="distribute">派单</view>
+            <view class="slot-active" @click="distribute(item)">派单</view>
           </view>
         </fromDeatil>
       </view>
@@ -54,7 +54,7 @@ export default {
         {
           value: 1,
           label: "技术员",
-          list: ["技术员 1", "技术员 2", "技术员 3", "技术员 4", "技术员 5"],
+          list: [],
         },
         {
           value: 2,
@@ -92,21 +92,22 @@ export default {
 	// 技术员
 	_daitechnician() {
 		daitechnician({worker_id: this.worker_id}).then(res => {
-			console.log('技术员', res)
+			this.titleList[0].list = res.varList
 		})
 	},
-	// 工长
+	// 工长   数据未绑定
 	_daiforeman() {
 		daiforeman({worker_id: this.worker_id}).then(res => {
 			console.log('工长', res)
+			this.titleList[1].list = res.varList
 		})
 	},
 
 
 	// 派单
-    distribute() {
-      uni.navigateTo({
-        url: "zgfanganNew",
+    distribute(item) {
+      uni.navigateTo({ 
+        url: "zgfanganNew?userInfo=" + JSON.stringify(item)
       });
     },
   },

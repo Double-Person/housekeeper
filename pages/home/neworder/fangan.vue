@@ -8,7 +8,7 @@
 		</view>
 		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body" :lower-threshold="100" @scrolltolower="scrolltolower">
 			<view class="padding-bottom150">
-				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail"
+				<fromDeatil :msg="(item.states == 1 && '已确认') || (item.states == 4 && '待确认') || (item.states == 3 && '未通过')" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail"
 				 @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
 			</view>
 		</scroll-view>
@@ -22,6 +22,7 @@
 	import {
 		technicianPlant
 	} from '@/variable/orderCenter.js'
+	import { technicianListAllById } from "@/components/api/api.js"
 	export default {
 		data() {
 			return {
@@ -30,17 +31,17 @@
 				titleList: [{
 						value: technicianPlant.BEEN_CONFIRMED,
 						label: '已确认',
-						list: ['已确认 1', '已确认 2', '已确认 3', '已确认 4', '已确认 5']
+						list: []
 					},
 					{
 						value: technicianPlant.CONFIRMED,
 						label: '待确认',
-						list: ['待确认 1', '待确认 2', '待确认 3']
+						list: []
 					},
 					{
 						value: technicianPlant.NOT_THROUGH,
 						label: '未通过',
-						list: ['未通过 1', '未通过 2', '未通过 3']
+						list: []
 					}
 				],
 			}
@@ -49,13 +50,29 @@
 			fromDeatil,
 			TopSearch
 		},
-		created() {
-			this.currentTabBar = this.titleList && this.titleList[0].value;
+		async created() {
+			this.currentTabBar = await this.titleList && this.titleList[0].value;
+			await this.getList()
 		},
 		methods: {
 			clickTitle(index, value) {
 				this.activeIndex = index;
 				this.currentTabBar = value
+				this.getList()
+			},
+			// 获取列表
+			getList () {
+				let obj = { technician_id: uni.getStorageSync('WORKERS_ID')}
+				if(this.currentTabBar == 0) { // 0 进行中  1 已完成  2 已取消
+					obj.states = 1
+				}else if(this.currentTabBar == 1) {
+					obj.states = 4
+				}else if(this.currentTabBar == 2) {
+					obj.states = 3
+				}
+				technicianListAllById(obj).then(res => {
+					this.titleList[this.activeIndex].list = res.varList
+				})
 			},
 			scrolltolower(e) {
 

@@ -27,23 +27,48 @@
 			return {
 				active: -1,
 				userInfo: {},
-				list: []
+				list: [],
+				toPath: '' // 确定后跳转的地址
 			}
 		},
 		onLoad(option) {
-			this.userInfo = JSON.parse(option.userInfo)
-			this.getWorkerUserExecutive()
+			console.log(option.type == 'technology')
+			if(option.userInfo) {
+				this.userInfo = JSON.parse(option.userInfo)
+			}
+			
+			if(option.type == 'technology'){  // 技术
+				this._technician()
+			}
+			if(option.type == 'master'){  //工长
+				
+			}
+			if(option.type == 'director'){   // 主管
+				this.getWorkerUserExecutive()
+			}
+			
+			this.toPath = option.path
+			console.log(this.toPath)
+			
+			
+			
+			
 		},
 		methods: {
 			checkWorker(index, item) {
 				this.active = index
-				this.userInfo.workers_id = item.workers_id;
-				this.userInfo.name = item.name;
+				this.userInfo.checkId = item.workers_id;
+				this.userInfo.checkName = item.name;
 			},
 			checkSure() {
-				uni.navigateTo({
-					url:'./login-s?userInfo='+ JSON.stringify(this.userInfo)
-				})
+				if(this.toPath) {
+					uni.navigateTo({
+						url: `${this.toPath}?userInfo=${JSON.stringify(this.userInfo)}`
+					})
+				}
+				// uni.navigateTo({
+				// 	url:'./login-s?userInfo='+ JSON.stringify(this.userInfo)
+				// })
 				
 			},
 			// 查看用户资料
@@ -55,15 +80,14 @@
 			// 查询主管列表
 			getWorkerUserExecutive() {
 				workerUserExecutive().then(({varList}) => {
-					console.log('查询主管列表', varList)
 					this.list = varList
 				})
 			},
 			// 查询主管下的技术员列表
-			getTechnician() {
+			_technician() {
 				let parent_id = uni.getStorageSync('WORKERS_ID')
 				technician({parent_id}).then(res => {
-					console.log('查询主管下的技术员列表', res)
+					this.list = res.varList
 				})
 			},
 		}

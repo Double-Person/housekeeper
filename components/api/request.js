@@ -11,6 +11,8 @@ baseUrl_ ='https://www.hemingbi.com/housekeeper'
 // #endif
 export const baseUrl = baseUrl_
 
+export const imgBaseUrl = 'https://www.hemingbi.com/housekeeper/'
+
 export const ajax = (option) => {
     if (!option.url) {
         throw new TypeError('请求地址不能为空')

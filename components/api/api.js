@@ -27,11 +27,6 @@ export const workerIndex = data => ajax({ url: '/api/worker/index', data, method
 
 
 
-
-
-
-
-
 // 6、查询主管列表  
 export const workerUserExecutive = data => ajax({ url: '/workerUser/executive', data, method: 'POST' });
 
@@ -61,10 +56,12 @@ export const daiforeman = data => ajax({ url: '/api/workerorderApi/daiforeman', 
 
 
 
-
-
-
 // 技术人员
+// 技术员的模糊查询
+// technician_id 技术员id    states（全部不传）   0设置方案、1完成、2取消、3重新设置、4、待审核     query 参数
+export const selectgoodname = data => ajax({ url: '/api/technician/selectgoodname', data, method: 'POST' });
+
+
 // 1、修改技术人员接单   technician_id :  技术员的id   order_id   订单id   state_one   1接受 2不接受    doortime    上门时间
 export const upaateforeman = data => ajax({ url: '/api/workerorderApi/upaateforeman', data, method: 'POST' });
 
@@ -77,14 +74,8 @@ export const technicianListAllById = data => ajax({ url: '/api/technician/listAl
 
      
 
-     
-
     
-     
-
-
-
-
+// 工人
 
 
 
@@ -108,7 +99,7 @@ export const upLoadFile = (option) => {
 			mask: true
 		})
 		uni.uploadFile({
-			url: baseUrl + '/uploadFile/file', //仅为示例，非真实的接口地址
+			url: baseUrl + 'uploadFile/file', //仅为示例，非真实的接口地址
 			filePath: option.path,
 			name: option.name || 'file',
 			formData: {

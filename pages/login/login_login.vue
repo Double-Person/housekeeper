@@ -8,7 +8,7 @@
 				<view class="sjh">手机号</view>
 				<view class="sjText">
 					<input type="text" v-model="userInfo.phone" :maxlength="11" />
-					<image src="../../static/loginImg/shouji-copyx.png" mode="" class="shoujiimage"></image>
+					<image src="/static/loginImg/shouji-copyx.png" mode="" class="shoujiimage"></image>
 				</view>
 			</view>
 			<view class="sjBox">
@@ -30,7 +30,7 @@
 			</view>
 		</view>
 		<view class="btnImg">
-			<image src="../../static/loginImg/lonbg.png" mode=""></image>
+			<image src="/static/loginImg/lonbg.png" mode=""></image>
 		</view>
 	</view>
 </template>
@@ -55,10 +55,7 @@
 	
 		methods:{
 			goLogin(){
-				if(!this.isCommit) {
-					return false;
-				}
-				
+				if(!this.isCommit)  return false;
 				uni.navigateTo({
 					url:"login_securityCode?userInfo=" + JSON.stringify(this.userInfo)
 				})
@@ -118,7 +115,6 @@
 		text-align: center;
 		margin-top:301upx;
 		font-size:58upx;
-		font-family:SourceHanSansCN;
 		font-weight:500;
 		color:rgba(53,53,53,1);
 	}
@@ -134,7 +130,6 @@
 				width:100upx;
 				height:27upx;
 				font-size:28upx;
-				font-family:SourceHanSansCN;
 				font-weight:bold;
 				color:#999999;
 			}
@@ -146,7 +141,6 @@
 					width:300upx;
 					height:34upx;
 					font-size:42upx;
-					font-family:SourceHanSansCN;
 					font-weight:bold;
 					color:rgba(77,77,77,1);
 				}
@@ -173,7 +167,6 @@
 					border:1upx solid rgba(255,193,12,1);
 					border-radius:4upx;
 					font-size:24upx;
-					font-family:SourceHanSansCN;
 					font-weight:bold;
 					color:rgba(255,193,12,1);
 					text-align: center;
@@ -181,9 +174,7 @@
 			}
 		}
 		.zjdl{
-	
 			font-size:24upx;
-			font-family:SourceHanSansCN;
 			font-weight:400;
 			color:rgba(190,190,190,1);
 			float: right;
@@ -198,16 +189,12 @@
 		box-shadow:0upx 0upx 3upx 0upx rgba(208,139,20,0.25);
 		border-radius:42upx;
 		font-size:40upx;
-		font-family:SourceHanSansCN;
-		font-weight:400;
 		color:rgba(53,53,53,1);
 		text-align: center;
 		line-height:83upx;
 		.text{
 			height:23upx;
 			font-size:24upx;
-			font-family:SourceHanSansCN;
-			font-weight:400;
 			color:rgba(51,51,51,1);
 			text{
 				color:#FFC10C;

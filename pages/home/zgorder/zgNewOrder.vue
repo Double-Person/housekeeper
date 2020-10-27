@@ -19,7 +19,7 @@
 						<text>订单编号：{{item.order_number}}</text>
 						<view>客户姓名:{{item.contact}}</view>
 						<view>客户电话：{{item.phone}}</view>
-						<view>客户地址：{{item.address}}</view>
+						<view>客户地址：{{item.province + item.citys + item.district_county + item.address_details}}</view>
 					</view>
 				</view>
 

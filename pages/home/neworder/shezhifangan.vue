@@ -67,6 +67,15 @@
 
 <script>
 	export default{
+		data() {
+			return {
+				info: {}
+			}
+		},
+		onLoad(option) {
+			this.info = JSON.parse(option.info)
+			console.log(this.info)
+		},
 		methods:{
 			szfan(){
 				uni.navigateTo({

@@ -4,7 +4,7 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+					<image src="/static/my_icon/logo.jpg" mode=""></image>
 					<text>窗台防水</text>
 				</view>
 
@@ -12,7 +12,7 @@
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+					<image src="/static/my_icon/logo.jpg" mode=""></image>
 				</view>
 				<view class="time">
 					<text>项目名称</text>

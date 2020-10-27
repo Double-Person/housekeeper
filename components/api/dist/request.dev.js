@@ -3,19 +3,19 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ajaxJson = exports.ajax = exports.baseUrl = void 0;
+exports.ajaxJson = exports.ajax = exports.imgBaseUrl = exports.baseUrl = void 0;
 // export const baseUrl ='http://192.168.0.103:8081'
 var baseUrl_ = ''; // #ifdef H5   
-// export const baseUrl =''
 
 baseUrl_ = ''; // #endif
 // #ifdef APP-PLUS
-// export const baseUrl ='https://www.hemingbi.com/housekeeper'
 
 baseUrl_ = 'https://www.hemingbi.com/housekeeper'; // #endif
 
 var baseUrl = baseUrl_;
 exports.baseUrl = baseUrl;
+var imgBaseUrl = 'https://www.hemingbi.com/housekeeper/';
+exports.imgBaseUrl = imgBaseUrl;
 
 var ajax = function ajax(option) {
   if (!option.url) {

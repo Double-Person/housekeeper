@@ -9,21 +9,21 @@
 		</view>
 		<view class="box">
 			<!-- 正面 -->
-			<image src="../../../static/loginImg/xjz.png" mode="" @click="changePositive('positive')" v-if="!photo.positive"></image>
+			<image src="/static/loginImg/xjz.png" mode="" @click="changePositive('positive')" v-if="!photo.positive"></image>
 			<image :src="photo.positive" mode="" @click="changePositive('positive')" v-if="photo.positive"></image>
 
 			<!-- 反面 -->
-			<image src="../../../static/loginImg/xjf.png" mode="" @click="changePositive('reverse')" v-if="!photo.reverse"></image>
+			<image src="/static/loginImg/xjf.png" mode="" @click="changePositive('reverse')" v-if="!photo.reverse"></image>
 			<image :src="photo.reverse" mode="" @click="changePositive('reverse')" v-if="photo.reverse"></image>
 			
 
 			<!-- 手持正面 -->
-			<image src="../../../static/loginImg/xj.png" mode="" @click="changePositive('handPositive')" v-if="!photo.handPositive"></image>
+			<image src="/static/loginImg/xj.png" mode="" @click="changePositive('handPositive')" v-if="!photo.handPositive"></image>
 			<image :src="photo.handPositive" mode="" @click="changePositive('handPositive')" v-if="photo.handPositive"></image>
 			
 
 			<!-- 手持反面 -->
-			<image src="../../../static/loginImg/xjgzz.png" mode="" @click="changePositive('handReverse')" v-if="!photo.handReverse"></image>
+			<image src="/static/loginImg/xjgzz.png" mode="" @click="changePositive('handReverse')" v-if="!photo.handReverse"></image>
 			<image :src="photo.handReverse" mode="" @click="changePositive('handReverse')" v-if="photo.handReverse"></image>
 			
 		</view>

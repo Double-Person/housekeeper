@@ -47,7 +47,7 @@ import zgOrderQuality from "./zgOrderQuality"; // 质保
 import zgOrderComplete from "./zgOrderComplete"; // 完成
 import zgOrderCancel from "./zgOrderCancel"; // 取消
 
-import { statusObj } from "../../../variable/orderCenter.js";
+import { statusObj } from "@/variable/orderCenter.js";
 
 export default {
   data() {

@@ -1,28 +1,49 @@
 <template>
 	<view class="newfrom">
-		<TopSearch placeholder="搜索订单"></TopSearch>
+		
 		
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
+		
+		<TopSearch placeholder="搜索订单" @search="search"></TopSearch>
+		
 		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body" :lower-threshold="100" @scrolltolower="scrolltolower">
 			<view class="padding-bottom150">
-				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
-				 @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
+				<view v-if="technicianOrderStatus.ALL === currentTabBar">
+					<fromDeatil 
+					:msg="(item.states == 0 && '设置方案') || (item.states == 1 && '完成') || (item.states == 2 && '取消')" :item="item" 
+					v-for="(item,index) in titleList[activeIndex].list" :key="index"
+					 @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi">
+						<view class="slot-warp" v-if="item.states == 0">
+						  <view class="slot-active"  @click="Aszfa(item)">设置方案</view>
+						</view>
+					 </fromDeatil>
+					 <NoData :show="titleList[activeIndex].hasData"/>
+				 </view>
 				 <!-- 运行中 -->
 				 <view v-if="technicianOrderStatus.ONGOING === currentTabBar">
-				 	<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
-				 	 @shezhifa="Aszfa" :flag="6"></fromDeatil>
+				 	<fromDeatil 
+					:msg="(item.states == 0 && '设置方案') || (item.states == 1 && '完成') || (item.states == 2 && '取消')" :item="item" 
+					v-for="(item,index) in titleList[activeIndex].list" :key="index"
+				 	 >
+						 <view class="slot-warp">
+						   <view class="slot-active" @click="Aszfa(item)">设置方案</view>
+						 </view>
+					 </fromDeatil>
+					 <NoData :show="titleList[activeIndex].hasData"/>
 				 </view>
 				 <!-- 已完成 -->
 				 <view v-if="technicianOrderStatus.COMPLETED === currentTabBar">
-				 	<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
+				 	<fromDeatil :msg="(item.states == 0 && '设置方案') || (item.states == 1 && '完成') || (item.states == 2 && '取消')" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
 				 	 @getDetail="yiwancheng"></fromDeatil>
+					 <NoData :show="titleList[activeIndex].hasData"/>
 				 </view>
 				 <!-- 已取消 -->
 				 <view v-if="technicianOrderStatus.CANCELLED === currentTabBar">
-				 	<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
+				 	<fromDeatil :msg="(item.states == 0 && '设置方案') || (item.states == 1 && '完成') || (item.states == 2 && '取消')" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
 				 	 @getDetail="yiquxiao"></fromDeatil>
+					 <NoData :show="titleList[activeIndex].hasData"/>
 				 </view>
 				 
 			</view>
@@ -37,72 +58,93 @@
 <script>
 	import fromDeatil from "@/components/fromAll.vue"
 	import TopSearch from "@/components/TopSearch.vue"
+	import NoData from "@/components/NoData.vue" 
 	import {technicianOrderStatus} from '@/variable/orderCenter.js'
-	import { technicianListAllById } from "@/components/api/api.js"
+	import { technicianListAllById, selectgoodname } from "@/components/api/api.js"
 	
 	export default {
 		data() {
 			return {
+				objParmas: {},
 				currentTabBar: -1,
 				activeIndex: 0,
 				technicianOrderStatus: technicianOrderStatus,
 				titleList: [{
 						value: technicianOrderStatus.ALL,
 						label: '全部',
-						list: ['全部 1', '全部 2', '全部 3', '全部 4', '全部 5']
+						hasData: true,
+						list: []
 					},
 					{
 						value: technicianOrderStatus.ONGOING,
 						label: '进行中',
-						list: ['进行中 1', '进行中 2', '进行中 3']
+						hasData: true,
+						list: []
 					},
 					{
 						value: technicianOrderStatus.COMPLETED,
 						label: '已完成',
-						list: ['已完成 1', '已完成 2', '已完成 3']
+						hasData: true,
+						list: []
 					},
 					{
 						value: technicianOrderStatus.CANCELLED,
 						label: '已取消',
-						list: ['已取消 1', '已取消 2', '已取消 3']
+						hasData: true,
+						list: []
 					}
 				],
 			}
 		},
 		components: {
 			fromDeatil,
-			TopSearch
+			TopSearch,
+			NoData
 		},
 		async created() {
 			this.currentTabBar = await this.titleList && this.titleList[0].value;
+			await this._initParmas()
 			await this.getList()
 		},
 		methods: {
-			clickTitle(index, value) {
-				this.activeIndex = index;
-				this.currentTabBar = value
+			// 初始化请求参数
+			_initParmas() {
+				this.objParmas = { technician_id: uni.getStorageSync('WORKERS_ID')}
+				if(this.currentTabBar == 0) { // 0 进行中  1 已完成  2 已取消
+					this.objParmas.states = ''
+				}else if(this.currentTabBar == 1) {
+					this.objParmas.states = 0
+				}else if(this.currentTabBar == 2) {
+					this.objParmas.states = 1
+				}else if(this.currentTabBar == 3) {
+					this.objParmas.states = 2
+				}
+			},
+			async clickTitle(index, value) {
+				this.activeIndex = await index;
+				this.currentTabBar = await value
+				await this._initParmas()
+				await this.getList()
 			},
 			// 获取列表
-			getList () {
-				this.currentTabBar
-				let obj = { technician_id: uni.getStorageSync('WORKERS_ID')}
-				if(this.currentTabBar == 0) { // 0 进行中  1 已完成  2 已取消
-					obj.states = ''
-				}else if(this.currentTabBar == 1) {
-					obj.states = 0
-				}else if(this.currentTabBar == 2) {
-					obj.states = 1
-				}else if(this.currentTabBar == 3) {
-					obj.states = 2
-				}
-				technicianListAllById(obj).then(res => {
-					console.log('++++', res)
+			async getList () {
+				await this._initParmas()
+				await technicianListAllById(this.objParmas).then(res => {
+					
+					this.titleList[this.currentTabBar].hasData = (res.varList.length === 0)
+					this.titleList[this.currentTabBar].list = res.varList
 				})
-				// technician_id
 			},
-			scrolltolower(e) {
-				
+			search(val) {
+				// technician_id 技术员id    states（全部不传）   0设置方案、1完成、2取消、3重新设置、4、待审核     query 参数
+				this.objParmas.query = val
+				console.log(this.objParmas)
+				selectgoodname(this.objParmas).then(res => {
+					console.log(res)
+					this.titleList[this.currentTabBar].list = res.varList
+				})
 			},
+			scrolltolower(e) {},
 			// 施工跳转
 			getDetail(){
 				uni.navigateTo({
@@ -120,9 +162,9 @@
 					url:'dmeixiangqing'
 				})
 			},
-			Aszfa(){
+			Aszfa(item){
 				uni.navigateTo({
-					url:'shezhifangan'
+					url:'shezhifangan?info=' + JSON.stringify(item)
 				})
 			}
 		},

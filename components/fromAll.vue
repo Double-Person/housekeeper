@@ -4,11 +4,10 @@
 		<view class="new_demo">
 			<!-- 循环订单位置 -->
 			<view class="new_list" @click="getDetail">
-
 				<!-- 名称+logo -->
 				<view class="new_logo">
-					<image src="/static/my_icon/logo.jpg" mode=""></image>
-					<text>窗台防水</text>
+					<image :src="imgBaseUrl + item.image" mode=""></image>
+					<text v-if="item.goods">{{item.goods_type == 0 ? item.goods.name : item.goods.package_name}}</text>
 				</view>
 				<view class="shen">
 					{{msg}}
@@ -16,13 +15,13 @@
 				<!-- 订单详情 -->
 				<view class="new_text">
 					<view class="new_img">
-						<image src="/static/my_icon/logo.jpg" mode=""></image>
+						<image :src="imgBaseUrl + item.image" mode=""></image>
 					</view>
 					<view class="new_mid">
-						<text>项目名称{{item}}</text>
-						<view>客户姓名:汪小菲</view>
-						<view>客户电话：18356987413</view>
-						<view>客户地址：四川省成都市锦江区崔家店145号</view>
+						<text>项目编号: {{item.order_number}}</text>
+						<view>客户姓名: {{item.contact}}</view>
+						<view>客户电话：{{item.phone}}</view>
+						<view>客户地址：{{item.province + item.citys + item.district_county + item.address_details}}</view>
 					</view>
 				</view>
 			</view>
@@ -62,6 +61,7 @@
 </template>
 
 <script>
+import {imgBaseUrl} from "@/components/api/request.js"
 	export default {
 		props: {
 			msg: {
@@ -80,10 +80,12 @@
 		},
 		data() {
 			return {
+				imgBaseUrl,
 				info: {},
 				hasChildInfo: {}
 			};
 		},
+	
 		mounted() {
 			this.info = this.item
 			this.hasChildInfo = this.hasChildItem

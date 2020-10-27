@@ -5,25 +5,38 @@
       <!-- 名称+logo -->
       <view class="new_logo">
         <image
-          :src="item.image ? item.image : '/static/my_icon/logo.jpg'"
+          :src="
+            item.image ? imgBaseUrl + item.image : '/static/my_icon/logo.jpg'
+          "
           mode=""
         ></image>
-        <text>{{ item.project_name }}</text>
+        <text v-if="item.goods">{{
+          item.goods_type == 0 ? item.goods.name : item.goods.package_name
+        }}</text>
       </view>
 
       <!-- 订单详情 -->
       <view class="new_text" @click="detailInfo(item)">
         <view class="new_img">
           <image
-            :src="item.image ? item.image : '/static/my_icon/logo.jpg'"
+            :src="
+              item.image ? imgBaseUrl + item.image : '/static/my_icon/logo.jpg'
+            "
             mode=""
           ></image>
         </view>
         <view class="new_mid">
           <text>订单编号：{{ item.order_number }}</text>
-          <view>客户姓名:{{ item.contact }}</view>
+          <view>客户姓名: {{ item.contact }}</view>
           <view>客户电话：{{ item.phone }}</view>
-          <view>客户地址：{{ item.address }}</view>
+          <view
+            >客户地址：{{
+              item.province +
+              item.citys +
+              item.district_county +
+              item.address_details
+            }}</view
+          >
         </view>
       </view>
 
@@ -37,14 +50,20 @@
 </template>
 
 <script>
-import { workerorderApiworkerList, technicianUpaateforeman } from "@/components/api/api.js";
+import {
+  workerorderApiworkerList,
+  technicianUpaateforeman,
+} from "@/components/api/api.js";
+import { imgBaseUrl } from "@/components/api/request.js";
 export default {
   data() {
     return {
       list: [],
+      imgBaseUrl,
     };
   },
-  mounted() {
+  mounted() {},
+  onLoad() {
     this.getWorkerorderApiworkerList();
   },
 
@@ -58,29 +77,28 @@ export default {
         worker_id,
         token,
       }).then(({ varList }) => {
-        console.log("獲取新订单", varList);
         this.list = varList;
       });
     },
     // 接受
-    take(item) {		
+    take(item) {
       uni.navigateTo({
         url: "./orderb?info=" + JSON.stringify(item),
       });
     },
     // 不接受
     butake(item) {
-		let obj = {
-			techniorder_id: item.worker_id,
-			order_id: item.order_id,
-			state_one: 2, //  1接受 2不接受
-		}
-		technicianUpaateforeman(obj).then(res => {
-			uni.showToast({
-				title: '拒单成功',
-				icon: "none"
-			})
-		})
+      let obj = {
+        techniorder_id: item.worker_id,
+        order_id: item.order_id,
+        state_one: 2, //  1接受 2不接受
+      };
+      technicianUpaateforeman(obj).then((res) => {
+        uni.showToast({
+          title: "拒单成功",
+          icon: "none",
+        });
+      });
       // uni.navigateTo({
       // 	url:"./ordera?info=" + JSON.stringify(item)
       // })
