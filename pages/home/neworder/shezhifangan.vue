@@ -3,9 +3,9 @@
 		<view class="box">
 			<view class="tit" @click="szfan">
 				<text>选择方案</text>
-				<image src="../../../static/loginImg/hright.png" mode=""></image>
+				<image src="/static/loginImg/hright.png" mode=""></image>
 			</view>
-			<view class="bigBox">
+			<view class="bigBox" v-if="isShowPlant">
 				<view class="text">
 					<view class="text_a">方案名称</view>
 					<view class="text_b">22/㎡/</view>
@@ -31,9 +31,9 @@
 					</view>
 				</view>
 			</view>
-			<view class="time">
-				<text>开工时间:2020-07-09</text>
-				<text>完成时间:2020-07-09</text>
+			<view class="time" v-if="isShowPlant">
+				<text>开工时间: {{selectPlant.starttime}}</text>
+				<text>完成时间: {{selectPlant.endtime}}</text>
 			</view>
 		</view>
 		<!-- 优惠价格 -->
@@ -41,7 +41,7 @@
 		<!-- 上传照片 -->
 		<view class="sczz">
 			<view class="tit">上传照片</view>
-			<image src="../../../static/loginImg/axx.png" mode=""></image>
+			<image src="/static/loginImg/axx.png" mode=""></image>
 		</view>
 		<!-- 备注 -->
 		<view class="bz">
@@ -51,7 +51,7 @@
 		<!-- 支付比例 -->
 		<view class="pay">
 			<view class="tit">选择支付比例</view>
-			<image src="../../../static/loginImg/hxiala.png" mode=""></image>
+			<image src="/static/loginImg/hxiala.png" mode=""></image>
 		</view>
 		<!-- 提交审核 -->
 		<view class="tijsh">
@@ -69,17 +69,25 @@
 	export default{
 		data() {
 			return {
-				info: {}
+				info: {},
+				selectPlant: {},
+				isShowPlant: false,
 			}
 		},
 		onLoad(option) {
 			this.info = JSON.parse(option.info)
-			console.log(this.info)
+			if(option.selectPlant) {
+				this.selectPlant = JSON.parse(option.selectPlant )
+				this.isShowPlant = true
+			}else {
+				this.isShowPlant = false
+			}
+
 		},
 		methods:{
 			szfan(){
 				uni.navigateTo({
-					url:'xuanzefangan'
+					url:'xuanzefangan?info=' + JSON.stringify(this.info)
 				})
 			},
 			goi(){
@@ -98,9 +106,10 @@
 		background: #f2f2f2;
 	}
 	.box{
-		padding: 0upx 40upx;
+		padding: 10upx 40upx;
 		width:670upx;
-		height:395upx;
+		// height:395upx;
+		min-height: 50rpx;
 		background:rgba(255,255,255,1);
 		.tit{
 			width: 670upx;

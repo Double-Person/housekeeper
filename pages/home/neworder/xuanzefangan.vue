@@ -1,6 +1,6 @@
 <template>
 	<view class="index">
-		<TopSearch placeholder="搜索订单"></TopSearch>
+		<TopSearch placeholder="搜索订单" @search="searchPlant"></TopSearch>
 
 		<view class="box">
 			<view class="tit" v-for="(item,index) in list" :key="index">
@@ -18,29 +18,40 @@
 						<view v-show="items.isShow">
 							<view class="text" v-for="(ele,idey) in items.list" :key="idey">
 								<!-- seriesname -->
-								<view class="textb" @click="clickThree(ele, index, idex, idey)"> 
+								<view class="textb" @click="clickThree(ele, index, idex, idey)">
 									<image src="/static/loginImg/aaxa.png" mode="" v-show="checkSeriesId == ele.series_id"></image>
 									<image src="/static/loginImg/kax.png" mode="" v-show="checkSeriesId != ele.series_id"></image>
-									<text>三级名称名称名称名称名称名称名称</text>
+									<text>{{ele.seriesname}}</text>
 								</view>
-								
+
 							</view>
 						</view>
 					</view>
 				</view>
-				
+
 			</view>
 		</view>
 		<!-- 开工时间 -->
 
 		<view class="timek">
 			<text>开工时间</text>
-			<input type="text" value="填写" class="inp" />
+			<!-- <input type="text" value="填写" class="inp" /> -->
+			<picker mode="date" :value="times.startDate" @change="bindDateChange($event,'startDate')">
+				<view class="uni-input">{{times.startDate}}</view>
+			</picker>
+			<picker class="picker-time" mode="time" :value="times.startTimes" @change="bindTimeChange($event,'startTimes')">
+				<view class="uni-input">{{times.startTimes}}</view>
+			</picker>
 		</view>
 		<!-- 完工时间 -->
 		<view class="timek">
 			<text>完工时间</text>
-			<input type="text" value="填写" class="inp" />
+			<picker mode="date" :value="times.endDate" @change="bindDateChange($event,'endDate')">
+				<view class="uni-input">{{times.endDate}}</view>
+			</picker>
+			<picker class="picker-time" mode="time" :value="times.endTimes" @change="bindTimeChange($event,'endTimes')">
+				<view class="uni-input">{{times.endTimes}}</view>
+			</picker>
 		</view>
 		<!-- 确定 -->
 		<view class="btn" @click="btn">确定</view>
@@ -50,20 +61,34 @@
 <script>
 	import TopSearch from "@/components/TopSearch.vue"
 	import {
-		programme1, programme2, programme3
+		programme1,
+		programme2,
+		programme3,
+		search
 	} from "@/components/api/api.js"
 	export default {
 		components: {
 			TopSearch
 		},
 		data() {
+			const currentDate = this.getDate({
+				format: true
+			})
 			return {
 				checkSeriesId: '',
-				list: []
+				list: [],
+				times: {
+					endDate: currentDate, // 结束日期
+					endTimes: `${(new Date()).getHours()}:${(new Date()).getMinutes()} `, // 结束时间
+					startDate: currentDate, // 开始日期
+					startTimes: `${(new Date()).getHours()}:${(new Date()).getMinutes()} `, // 开始时间
+				},
+				info: {}
 
 			}
 		},
-		onLoad() {
+		onLoad(option) {
+			this.info = JSON.parse(option.info)
 			this._programme1()
 		},
 		methods: { // typeid   series_id
@@ -71,19 +96,48 @@
 			clickFirst(item, index) {
 				this.list[index].isShow = !item.isShow
 				this._programme2(item.programmetype_id, index)
-				
 			},
 			// 点击第二层
 			clickSen(item, index1, index) {
 				this._programme3(item, index1, index)
-				this.$forceUpdate()
+				// this.$forceUpdate()
 			},
 			// 点击第三层
 			clickThree(ele, index, idex, idey) {
 				this.checkSeriesId = ele.series_id
+				console.log(ele, index, idex, idey)
 				this.$forceUpdate()
 			},
-		
+
+			// 确定按钮
+			btn() {
+				console.log(this.times)
+				let endtime = this.times.endDate + ' ' + this.times.endTimes;
+				let starttime = this.times.startDate + ' ' + this.times.startTimes;
+				let selectPlant = {
+					endtime,
+					starttime,
+					list: []
+				}
+				uni.navigateTo({
+					url: './shezhifangan?info=' + JSON.stringify(this.info) + '&selectPlant=' + JSON.stringify(selectPlant)
+				})
+			},
+			// 顶部搜素
+			searchPlant(info) {
+				search({info}).then(res => {
+					console.log(res)
+				})
+			},
+			// 选择日期
+			bindDateChange(event, type) {
+				this.times[type] = event.target.value
+			},
+			// 选择时间
+			bindTimeChange(event, type) {
+				this.times[type] = event.target.value
+			},
+
 			// 获取第一级数据
 			_programme1() {
 				programme1().then(res => {
@@ -94,8 +148,10 @@
 				})
 			},
 			// 获取第二级数据
-			_programme2(typeid,index) {
-				programme2({typeid}).then(res => {
+			_programme2(typeid, index) {
+				programme2({
+					typeid
+				}).then(res => {
 					this.list[index].list = res.returnMsg
 					this.list[index].list.forEach(ele => {
 						ele.isShow = false
@@ -106,21 +162,33 @@
 			},
 			// 获取第三级数据
 			_programme3(obj, index1, index) {
-				programme2({typeid: obj.typeid, series_id: obj.series_id}).then(res => {
+				programme2({
+					typeid: obj.typeid,
+					series_id: obj.series_id
+				}).then(res => {
 					this.list[index1].list[index].list = res.returnMsg;
 					this.list[index1].list[index].isShow = !obj.isShow
-					console.log('获取第三级数据', this.list[index1].list[index].list)
 				}).finally(() => {
 					this.$forceUpdate()
 				})
 			},
 
-			// 确定
-			btn() {
-				uni.navigateTo({
-					url: 'dingdanzhongxin'
-				})
-			}
+			getDate(type) {
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+
+				if (type === 'start') {
+					year = year - 60;
+				} else if (type === 'end') {
+					year = year + 2;
+				}
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+				return `${year}-${month}-${day}`;
+			},
+
 
 
 		}
@@ -136,8 +204,8 @@
 	}
 
 	image {
-		width: 24rpx;
-		height: 13rpx;
+		width: 13rpx;
+		height: 24rpx;
 	}
 
 	.box {
@@ -243,6 +311,9 @@
 		background: rgba(255, 255, 255, 1);
 		display: flex;
 		align-items: center;
+		.picker-time{
+			margin-left: 50rpx;
+		}
 
 		text {
 			display: block;
