@@ -46,6 +46,9 @@
         <text @click="take(item)">接受</text>
       </view>
     </view>
+  
+	<NoData :show="!list.length"/>
+  
   </view>
 </template>
 
@@ -54,6 +57,7 @@ import {
   workerorderApiworkerList,
   technicianUpaateforeman,
 } from "@/components/api/api.js";
+import NoData from "@/components/NoData.vue" 
 import { imgBaseUrl } from "@/components/api/request.js";
 export default {
   data() {
@@ -61,6 +65,9 @@ export default {
       list: [],
       imgBaseUrl,
     };
+  },
+  components:{
+	 NoData 
   },
   mounted() {},
   onLoad() {

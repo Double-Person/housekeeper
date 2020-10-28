@@ -50,8 +50,6 @@
 		</scroll-view>
 		
 		
-		
-		
 	</view>
 </template>
 
@@ -101,10 +99,14 @@
 			TopSearch,
 			NoData
 		},
-		async created() {
+		async onLoad() {
+			console.log('onLoad')
 			this.currentTabBar = await this.titleList && this.titleList[0].value;
 			await this._initParmas()
 			await this.getList()
+		},
+		mounted() {
+			 console.log('mounted')
 		},
 		methods: {
 			// 初始化请求参数
@@ -130,7 +132,6 @@
 			async getList () {
 				await this._initParmas()
 				await technicianListAllById(this.objParmas).then(res => {
-					
 					this.titleList[this.currentTabBar].hasData = (res.varList.length === 0)
 					this.titleList[this.currentTabBar].list = res.varList
 				})
@@ -138,9 +139,7 @@
 			search(val) {
 				// technician_id 技术员id    states（全部不传）   0设置方案、1完成、2取消、3重新设置、4、待审核     query 参数
 				this.objParmas.query = val
-				console.log(this.objParmas)
 				selectgoodname(this.objParmas).then(res => {
-					console.log(res)
 					this.titleList[this.currentTabBar].list = res.varList
 				})
 			},

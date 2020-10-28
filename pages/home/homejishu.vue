@@ -19,9 +19,9 @@
 				</view>
 			</view>
 		</view>
-		<view class="btn" @click="goHome">
+		<!-- <view class="btn" @click="goHome">
 			选择你的权限
-		</view>
+		</view> -->
 	</view>
 
 </template>

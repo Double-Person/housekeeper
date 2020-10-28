@@ -8,7 +8,7 @@
 				<view class="sjh">手机号</view>
 				<view class="sjText">
 					<input type="text" maxlength="11" v-model="phone" @input="checkPhoneSendCode" />
-					<image src="../../static/loginImg/shouji-copyx.png" mode="" class="shoujiimage"></image>
+					<image src="/static/loginImg/shouji-copyx.png" mode="" class="shoujiimage"></image>
 				</view>
 			</view>
 			<view class="sjBox">
@@ -95,7 +95,10 @@
 					}
 				}, 1000)
 				telCode({phone: this.phone}).then(res => {
-					console.log(res)
+					uni.showToast({
+						title: '验证码发送成功',
+						icon: 'none'
+					})
 				})
 		
 
@@ -129,12 +132,15 @@
 				}
 				forgetPwd(obj).then(res => {
 					console.log(res)
+					if(res.msgType == 0) {
+						uni.navigateTo({
+							url: 'logins'
+						})
+					}
 				})
 				
 				
-				uni.navigateTo({
-					url: 'logins'
-				})
+				
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 {
-    "name" : "room_ manage",
+    "name" : "工人端",
     "appid" : "__UNI__DB5D3D4",
     "description" : "",
     "versionName" : "1.0.0",
@@ -83,7 +83,6 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-	
     "uniStatistics" : {
         "enable" : false
     }

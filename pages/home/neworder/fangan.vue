@@ -8,8 +8,15 @@
 		</view>
 		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body" :lower-threshold="100" @scrolltolower="scrolltolower">
 			<view class="padding-bottom150">
-				<fromDeatil :msg="(item.states == 1 && '已确认') || (item.states == 4 && '待确认') || (item.states == 3 && '未通过')" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail"
-				 @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
+				<fromDeatil 
+					:msg="(item.states == 1 && '已确认') || (item.states == 4 && '待确认') || (item.states == 3 && '未通过')" 
+					:item="item" 
+					v-for="(item,index) in titleList[activeIndex].list" 
+					:key="index" @getDetail="getDetail"
+					 @butongguo="butongguo" @tongyi="tongyi">
+				 </fromDeatil>
+				 <NoData :show="!titleList[activeIndex].list.length"/>
+			
 			</view>
 		</scroll-view>
 
@@ -19,11 +26,17 @@
 <script>
 	import fromDeatil from "@/components/fromAll.vue"
 	import TopSearch from "@/components/TopSearch.vue"
+	import NoData from "@/components/NoData.vue" 
 	import {
 		technicianPlant
 	} from '@/variable/orderCenter.js'
 	import { technicianListAllById } from "@/components/api/api.js"
 	export default {
+		components: {
+			fromDeatil,
+			TopSearch,
+			NoData
+		},
 		data() {
 			return {
 				currentTabBar: -1,
@@ -46,10 +59,7 @@
 				],
 			}
 		},
-		components: {
-			fromDeatil,
-			TopSearch
-		},
+		
 		async created() {
 			this.currentTabBar = await this.titleList && this.titleList[0].value;
 			await this.getList()

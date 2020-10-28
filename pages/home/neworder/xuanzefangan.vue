@@ -19,9 +19,9 @@
 							<view class="text" v-for="(ele,idey) in items.list" :key="idey">
 								<!-- seriesname -->
 								<view class="textb" @click="clickThree(ele, index, idex, idey)">
-									<image src="/static/loginImg/aaxa.png" mode="" v-show="checkSeriesId == ele.series_id"></image>
-									<image src="/static/loginImg/kax.png" mode="" v-show="checkSeriesId != ele.series_id"></image>
-									<text>{{ele.seriesname}}</text>
+									<image src="/static/loginImg/aaxa.png" mode="" v-show="checkProgrammeId == ele.programme_id"></image>
+									<image src="/static/loginImg/kax.png" mode="" v-show="checkProgrammeId != ele.programme_id"></image>
+									<text>{{ele.name}}</text>
 								</view>
 
 							</view>
@@ -75,7 +75,7 @@
 				format: true
 			})
 			return {
-				checkSeriesId: '',
+				checkProgrammeId: '',
 				list: [],
 				times: {
 					endDate: currentDate, // 结束日期
@@ -83,7 +83,8 @@
 					startDate: currentDate, // 开始日期
 					startTimes: `${(new Date()).getHours()}:${(new Date()).getMinutes()} `, // 开始时间
 				},
-				info: {}
+				info: {},
+				selectList: [], // 选择的数据
 
 			}
 		},
@@ -104,20 +105,21 @@
 			},
 			// 点击第三层
 			clickThree(ele, index, idex, idey) {
-				this.checkSeriesId = ele.series_id
+				this.checkProgrammeId = ele.programme_id
 				console.log(ele, index, idex, idey)
+				this.selectList[index] = ele
 				this.$forceUpdate()
 			},
 
 			// 确定按钮
 			btn() {
 				console.log(this.times)
-				let endtime = this.times.endDate + ' ' + this.times.endTimes;
-				let starttime = this.times.startDate + ' ' + this.times.startTimes;
+				let endtime = this.times.endDate + ' ' + this.times.endTimes.substr(0,5)+':00';
+				let starttime = this.times.startDate + ' ' + this.times.startTimes.substr(0,5)+':00';
 				let selectPlant = {
 					endtime,
 					starttime,
-					list: []
+					list: this.selectList
 				}
 				uni.navigateTo({
 					url: './shezhifangan?info=' + JSON.stringify(this.info) + '&selectPlant=' + JSON.stringify(selectPlant)
@@ -131,11 +133,16 @@
 			},
 			// 选择日期
 			bindDateChange(event, type) {
-				this.times[type] = event.target.value
+				let arr = event.target.value.split('-')
+				
+				this.times[type] = arr[0] + '-'+ arr[1].padStart(2,0) + '-'+ arr[2].padStart(2,0)
+				console.log(this.times[type])
 			},
 			// 选择时间
 			bindTimeChange(event, type) {
-				this.times[type] = event.target.value
+				let arr = event.target.value.split(':')
+				this.times[type] = arr[0].padStart(2,0) + ':'+ arr[1].padStart(2,0)
+				console.log(this.times[type])
 			},
 
 			// 获取第一级数据
@@ -162,7 +169,7 @@
 			},
 			// 获取第三级数据
 			_programme3(obj, index1, index) {
-				programme2({
+				programme3({
 					typeid: obj.typeid,
 					series_id: obj.series_id
 				}).then(res => {

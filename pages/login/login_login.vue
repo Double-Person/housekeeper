@@ -36,6 +36,9 @@
 </template>
 
 <script>
+	import {
+		telCode
+	} from '@/components/api/api.js'
 	export default{
 		data(){
 			return{
@@ -76,6 +79,12 @@
 						this.codeText = '发送验证码'
 					}
 				}, 1000)
+				telCode({phone: this.userInfo.phone}).then(res => {
+					uni.showToast({
+						title: '验证码发送成功',
+						icon: 'none'
+					})
+				})
 				
 			},
 			inputCode() {

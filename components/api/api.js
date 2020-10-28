@@ -81,11 +81,14 @@ export const programme3 = data => ajax({ url: '/api/workerProgramme/programme3',
 // 参数  type（0 是新增  1  是修改）   order_id  list（这个是穿个方案的数组传id就行） 
 // starttime开始时间  endtime结束时间  img 图片   
 // concessional   remarks  proportion  price  priceafter  reason   GET   这个是提交和修改接口
-export const addprogrammeinfo = data => ajax({ url: '/api/workerProgramme/addprogrammeinfo', data, method: 'GET' });
+export const addprogrammeinfo = data => ajax({ url: '/api/workerProgramme/addprogrammeinfo', data, method: 'POST' });
 
  
 // 方案搜索
 export const search = data => ajax({ url: '/api/workerProgramme/search', data, method: 'GET' });
+// 参数  orderprogrammeinfo_id    GET   这个是获取方案信息信息获取接口
+export const orderprogrammeinfo = data => ajax({ url: '/api/workerProgramme/orderprogrammeinfo', data, method: 'GET' });
+
 
 
 
