@@ -9,12 +9,14 @@
 			<view class="padding-bottom150">
 				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" :flag="flag" 
 				@getDetail="getDetail($event)"></fromDeatil>
+				<NoData :show="true"></NoData>
 			</view>
 		</scroll-view>
 	</view>
 </template>
 
 <script>
+	import NoData from "@/components/NoData.vue"
 	import fromDeatil from "../../components/fromAll.vue"
 	import Topsearch from "../../components/TopSearch.vue"
 	import {
@@ -23,7 +25,8 @@
 	export default {
 		components:{
 			fromDeatil,
-			Topsearch
+			Topsearch,
+			NoData
 		},
 		data() {
 			return {
@@ -32,17 +35,17 @@
 				titleList: [{
 						value: workersAfterSale.PROCESSED,
 						label: '待处理',
-						list: ['待处理 1', '待处理 2', '待处理 3', '待处理 4', '待处理 5']
+						list: []
 					},
 					{
 						value: workersAfterSale.PROCESSING,
 						label: '处理中',
-						list: ['处理中 1', '处理中 2', '处理中 3']
+						list: []
 					},
 					{
 						value: workersAfterSale.COMPLETED,
 						label: '已完成',
-						list: ['已完成 1', '已完成 2', '已完成 3']
+						list: []
 					}
 				],
 			}

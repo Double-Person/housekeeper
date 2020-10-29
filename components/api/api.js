@@ -99,6 +99,9 @@ export const orderprogrammeinfo = data => ajax({ url: '/api/workerProgramme/orde
 
     
 // 工人
+// 新订单  接收、不接受
+export const receivingorders = data => ajax({ url: '/api/master/receivingorders', data, method: 'POST' });
+
 
 
 
@@ -107,7 +110,7 @@ export const orderprogrammeinfo = data => ajax({ url: '/api/workerProgramme/orde
 
 
 // 发送验证码
-export const telCode = data => ajax({ url: '/housekeeper/login/telCode', data, method: 'POST' });
+export const telCode = data => ajax({ url: '/login/telCode', data, method: 'POST' });
 
 
 
@@ -122,7 +125,7 @@ export const upLoadFile = (option) => {
 			mask: true
 		})
 		uni.uploadFile({
-			url: baseUrl + 'uploadFile/file', //仅为示例，非真实的接口地址
+			url: baseUrl + '/uploadFile/file', //仅为示例，非真实的接口地址
 			filePath: option.path,
 			name: option.name || 'file',
 			formData: {

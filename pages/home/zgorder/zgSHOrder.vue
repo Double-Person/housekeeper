@@ -10,17 +10,19 @@
 			<view class="padding-bottom150">
 				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
 				 @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
+				 <NoData show></NoData>
 			</view>
 		</scroll-view>
 	</view>
 </template>
 
 <script>
-	import fromDeatil from "../../../components/fromAll.vue"
-	import TopSearch from '../../../components/TopSearch.vue'
+	import NoData from "@/components/NoData.vue"
+	import fromDeatil from "@/components/fromAll.vue"
+	import TopSearch from '@/components/TopSearch.vue'
 	import {
 		salesOrder
-	} from "../../../variable/orderCenter.js"
+	} from "@/variable/orderCenter.js"
 	export default {
 		data() {
 			return {
@@ -28,19 +30,19 @@
 				titleList: [{
 						value: salesOrder.PROCESSING,
 						label: '处理中',
-						list: ['处理中 1', '处理中 2', '处理中 3', '处理中 4', '处理中 5']
+						list: []
 					},
 					{
 						value: salesOrder.COMPLETED,
 						label: '已完成',
-						list: ['已完成 1', '已完成 2', '已完成 3']
+						list: []
 					}
 				],
 			}
 		},
 		components: {
 			fromDeatil,
-			TopSearch
+			TopSearch,NoData
 		},
 
 		methods: {

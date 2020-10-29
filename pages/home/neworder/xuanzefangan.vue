@@ -11,9 +11,9 @@
 				<!-- item.isShow    -->
 				<view v-show="item.isShow">
 					<view class="titTs" v-for="(items,idex) in item.list" :key="idex">
-						<view class="titBox">
+						<view class="titBox" @click="clickSen(items,index,idex)">
 							<view class="titi">{{items.seriesname}}</view>
-							<image src="/static/loginImg/xlll.png" mode="" @click="clickSen(items,index,idex)"></image>
+							<image src="/static/loginImg/xlll.png" mode="" ></image>
 						</view>
 						<view v-show="items.isShow">
 							<view class="text" v-for="(ele,idey) in items.list" :key="idey">

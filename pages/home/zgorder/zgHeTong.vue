@@ -10,6 +10,7 @@
 			<view class="padding-bottom150">
 				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
 				 @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
+				 <NoData show></NoData>
 			</view>
 		</scroll-view>
 
@@ -17,11 +18,12 @@
 </template>
 
 <script>
-	import fromDeatil from "../../../components/fromAll.vue"
-	import TopSearch from "../../../components/TopSearch.vue"
+		import NoData from "@/components/NoData.vue"
+	import fromDeatil from "@/components/fromAll.vue"
+	import TopSearch from "@/components/TopSearch.vue"
 	import {
 		contract
-	} from "../../../variable/orderCenter.js"
+	} from "@/variable/orderCenter.js"
 	export default {
 		data() {
 			return {
@@ -29,24 +31,24 @@
 				titleList: [{
 						value: contract.STAY_BY,
 						label: '待通过',
-						list: ['待通过 1', '待通过 2', '待通过 3', '待通过 4', '待通过 5']
+						list: []
 					},
 					{
 						value: contract.NOT_THROUGH,
 						label: '未通过',
-						list: ['未通过 1', '未通过 2', '未通过 3']
+						list: []
 					},
 					{
 						value: contract.HAVE_BEEN_THROUGH,
 						label: '已通过',
-						list: ['已通过 1', '已通过 2', '已通过 3']
+						list: []
 					}
 				],
 			}
 		},
 		components: {
 			fromDeatil,
-			TopSearch
+			TopSearch,NoData
 		},
 		methods: {
 			clickTitle(index, value) {

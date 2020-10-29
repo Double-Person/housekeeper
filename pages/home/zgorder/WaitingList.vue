@@ -32,12 +32,15 @@
             <view class="slot-active" @click="distribute(item)">派单</view>
           </view>
         </fromDeatil>
+		<NoData show></NoData>
+		
       </view>
     </scroll-view>
   </view>
 </template>
 
 <script>
+	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue";
 import Topsearch from "@/components/TopSearch.vue";
 import {daitechnician, daiforeman} from "@/components/api/api.js"
@@ -45,6 +48,7 @@ export default {
 	components: {
 	  fromDeatil,
 	  Topsearch,
+	  NoData
 	},
   data() {
     return {
@@ -59,7 +63,7 @@ export default {
         {
           value: 2,
           label: "工长",
-          list: ["工长 1", "工长 2", "工长 3"],
+          list: [],
         }
       ],
     };

@@ -31,6 +31,7 @@
           @butongguo="butongguo"
           @tongyi="tongyi"
         ></fromDeatil>
+		<NoData show></NoData>
       </view>
     </scroll-view>
 
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue";
 import TopSearch from "@/components/TopSearch.vue";
 export default {
@@ -69,6 +71,7 @@ export default {
   components: {
     fromDeatil,
     TopSearch,
+	NoData
   },
   methods: {
     // 搜索

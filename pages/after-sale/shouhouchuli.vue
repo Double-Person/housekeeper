@@ -9,12 +9,14 @@
 		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
 			<view class="padding-bottom150">
 				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail($event)"></fromDeatil>
+				<NoData show></NoData>
 			</view>
 		</scroll-view>
 	</view>
 </template>
 
 <script>
+	import NoData from "@/components/NoData.vue"
 	import fromDeatil from "../../components/fromAll.vue"
 	import Topsearch from "../../components/TopSearch.vue"
 	import {
@@ -24,7 +26,8 @@
 	export default {
 		components:{
 			fromDeatil,
-			Topsearch
+			Topsearch,
+			NoData
 		},
 		data() {
 			return {
@@ -32,12 +35,12 @@
 				titleList: [{
 						value: workersAfterProcessing.ALL,
 						label: '退款',
-						list: ['退款 1', '退款 2', '退款 3', '退款 4', '退款 5']
+						list: []
 					},
 					{
 						value: workersAfterProcessing.ONGOING,
 						label: '质量问题',
-						list: ['质量问题 1', '质量问题 2', '质量问题 3']
+						list: []
 					}
 				],
 				

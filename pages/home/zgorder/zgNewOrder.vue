@@ -29,16 +29,22 @@
 					<text @click="receive(true,item)">接受</text>
 				</view>
 			</view>
+			
+			<NoData show></NoData>
 		</view>
 	</view>
 </template>
 
 <script>
+	import NoData from "@/components/NoData.vue"
 	import {
 		workerorderApiworkerList,
 		updatestate
 	} from "@/components/api/api.js"
 	export default {
+		components:{
+			NoData
+		},
 		data() {
 			return {
 				list: []

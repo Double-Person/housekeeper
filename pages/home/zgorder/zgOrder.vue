@@ -16,6 +16,7 @@
           >
         </view>
       </scroll-view>
+	 
       <!-- 全部 -->
       <zgOrderAll v-show="currentTabBar == statusObj.ALL" />
       <!-- 施工 -->
@@ -32,12 +33,16 @@
       <zgOrderComplete v-show="currentTabBar == statusObj.COMPLETE" />
       <!-- 取消 -->
       <zgOrderCancel v-show="currentTabBar == statusObj.CANCEL" />
+	  
+	   
     </view>
+	
   </view>
 </template>
 
 <script>
-import TopSearch from "../../../components/TopSearch.vue";
+	
+import TopSearch from "@/components/TopSearch.vue";
 
 import zgOrderAll from "./zgOrderAll"; // 全部
 import zgOrderConstuction from "./zgOrderConstuction"; // 施工
@@ -95,6 +100,7 @@ export default {
     zgOrderQuality,
     zgOrderComplete,
     zgOrderCancel,
+
   },
   created() {
     this.currentTabBar = this.topBarList && this.topBarList[0].value;

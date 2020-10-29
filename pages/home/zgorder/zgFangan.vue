@@ -31,12 +31,14 @@
             <view class="slot-active" @click="through">通过</view>
           </view>
         </fromDeatil>
+		<NoData show></NoData>
       </view>
     </scroll-view>
   </view>
 </template>
 
 <script>
+	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue";
 import Topsearch from "@/components/TopSearch.vue";
 import { plantType } from "@/variable/plan.js";
@@ -48,17 +50,17 @@ export default {
         {
           value: plantType.TO_PASS,
           label: "待通过",
-          list: ["待通过 1", "待通过 2", "待通过 3", "待通过 4", "待通过 5"],
+         list: [],
         },
         {
           value: plantType.NOT_PASS,
           label: "未通过",
-          list: ["未通过 1", "未通过 2", "未通过 3"],
+          list: [],
         },
         {
           value: plantType.PASSED,
           label: "已通过",
-          list: ["已通过 1", "已通过 2", "已通过 3"],
+          list: [],
         },
       ],
       act: 1,
@@ -66,7 +68,7 @@ export default {
   },
   components: {
     fromDeatil,
-    Topsearch,
+    Topsearch,NoData
   },
   methods: {
     // 搜索

@@ -1,5 +1,8 @@
 <template>
   <view class="title">
+	  <view class="close-user" @click="closeExit">
+	  	退出
+	  </view>
     <view class="my_text">
       <view class="my_logo">
         <image src="../static/my_icon/my_logo.png" mode=""></image>
@@ -33,6 +36,12 @@ export default {
     this.getUserInfo();
   },
   methods: {
+	  closeExit() {
+		  // console.log('--')
+		  uni.redirectTo({
+		  	url: '/pages/login/logins'
+		  })
+	  },
     // 更改用户头像
     changeHead() {
       uni.chooseImage({
@@ -65,6 +74,12 @@ export default {
   background-image: url("../static/my_icon/my_bac.png");
   position: relative;
   overflow: hidden;
+}
+.close-user{
+	position: absolute;
+	right: 55rpx;
+	top: 55rpx;
+	z-index: 3;
 }
 
 .my_logo {

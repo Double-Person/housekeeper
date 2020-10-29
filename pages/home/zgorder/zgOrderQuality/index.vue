@@ -15,20 +15,22 @@
         @getDetail="getDetail(act)"
       >
       </fromDeatil>
+	  <NoData show></NoData>
     </view>
   </scroll-view>
 </template>
 
 <script>
+	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue";
 export default {
   data() {
     return {
-      list: ["质保  1", "质保  2", "质保 3", "质保 4", "质保 5", "质保 6"],
+      list: [],
     };
   },
   components: {
-    fromDeatil,
+    fromDeatil,NoData
   },
   methods: {
     scrolltolower() {},

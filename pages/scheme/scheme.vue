@@ -8,14 +8,16 @@
 		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
 			<view class="padding-bottom150">
 				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail(act)"></fromDeatil>
+				<NoData :show="true"></NoData>
 			</view>
 		</scroll-view>
 	</view>
 </template>
 
 <script>
-	import fromDeatil from "../../components/fromAll.vue"
-	import Topsearch from "../../components/TopSearch.vue"
+	import fromDeatil from "@/components/fromAll.vue"
+	import Topsearch from "@/components/TopSearch.vue"
+	import NoData from "@/components/NoData.vue"
 	import {
 		workersPlant
 	} from '../../variable/orderCenter.js'
@@ -26,24 +28,25 @@
 				titleList: [{
 						value: workersPlant.ALL,
 						label: '全部',
-						list: ['全部 1', '全部 2', '全部 3', '全部 4', '全部 5']
+						list: []
 					},
 					{
 						value: workersPlant.ONGOING,
 						label: '进行中',
-						list: ['进行中 1', '进行中 2', '进行中 3']
+						list: []
 					},
 					{
 						value: workersPlant.COMPLETED,
 						label: '已完成',
-						list: ['已完成 1', '已完成 2', '已完成 3']
+						list: []
 					}
 				],
 			}
 		},
 		components: {
 			fromDeatil,
-			Topsearch
+			Topsearch,
+			NoData
 		},
 		methods: {
 			searchValue(val) {

@@ -14,14 +14,14 @@
 						<view class="text">{{item.middle}}</view>
 					</view>
 					<view class="list_right">
-						<image src="../../static/my_icon/my_you.png"></image>
+						<image src="/static/my_icon/my_you.png"></image>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="btn" @click="goHome">
+		<!-- <view class="btn" @click="goHome">
 			选择你的权限
-		</view>
+		</view> -->
 	</view>
 
 </template>

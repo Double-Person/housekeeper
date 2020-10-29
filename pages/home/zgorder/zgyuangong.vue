@@ -9,9 +9,9 @@
 		</view>
 		<!--  -->
 		<view class="person-num">
-			<view class="num">总人数:20000</view>
-			<view class="num">技术人员:10000</view>
-			<view class="num">工长:2000</view>
+			<view class="num">总人数:0</view>
+			<view class="num">技术人员:0</view>
+			<view class="num">工长:0</view>
 		</view>
 		<!-- 信息 -->
 		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
@@ -19,7 +19,7 @@
 				<view class="bigBox" v-for="(item,index) in titleList[activeIndex].list" :key="index" @click="gox(item)">
 					<view class="box">
 						<view class="tit">
-							<image src="../../../static/loginImg/qq.png" mode=""></image>
+							<image src="/static/loginImg/qq.png" mode=""></image>
 							<view class="text">
 								<view class="name">{{item.type + index}}</view>
 								<view class="zw">职位</view>
@@ -34,6 +34,7 @@
 					</view>
 				</view>
 				
+				<NoData show msg="暂无相关人员"></NoData>
 			</view>
 
 		</scroll-view>
@@ -44,15 +45,17 @@
 </template>
 
 <script>
-	import fromDeatil from "../../../components/fromAll.vue"
-	import TopSearch from "../../../components/TopSearch.vue"
+	import NoData from "@/components/NoData.vue"
+	import fromDeatil from "@/components/fromAll.vue"
+	import TopSearch from "@/components/TopSearch.vue"
 	import {
 		employees
-	} from "../../../variable/orderCenter.js"
+	} from "@/variable/orderCenter.js"
 	export default {
 		components: {
 			fromDeatil,
-			TopSearch
+			TopSearch,
+			NoData
 		},
 		data() {
 			return {
@@ -61,44 +64,13 @@
 						value: employees.TECHNICAL_PERSONNEL,
 						label: '技术人员',
 						list: [
-							{
-								type:'王大伟',	
-								position:'职位',
-								name:'张三胖',
-								phone:'12366598964',
-								address:'XXXXXXXXXXXXXXXXXXXXXXXXX'
-							},
-							{
-								type:'王大伟',	
-								position:'职位',
-								name:'张三胖',
-								phone:'12366598964',
-								address:'XXXXXXXXXXXXXXXXXXXXXXXXX'
-							},{
-								type:'王大伟',	
-								position:'职位',
-								name:'张三胖',
-								phone:'12366598964',
-								address:'XXXXXXXXXXXXXXXXXXXXXXXXX'
-							},{
-								type:'王大伟',	
-								position:'职位',
-								name:'张三胖',
-								phone:'12366598964',
-								address:'XXXXXXXXXXXXXXXXXXXXXXXXX'
-							},{
-								type:'王大伟',	
-								position:'职位',
-								name:'张三胖',
-								phone:'12366598964',
-								address:'XXXXXXXXXXXXXXXXXXXXXXXXX'
-							},{
-								type:'王大伟',	
-								position:'职位',
-								name:'张三胖',
-								phone:'12366598964',
-								address:'XXXXXXXXXXXXXXXXXXXXXXXXX'
-							},
+							// {
+							// 	type:'王大伟',	
+							// 	position:'职位',
+							// 	name:'张三胖',
+							// 	phone:'12366598964',
+							// 	address:'XXXXXXXXXXXXXXXXXXXXXXXXX'
+							// }
 						]
 					},
 					{

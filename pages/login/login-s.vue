@@ -16,7 +16,7 @@
 							<label class="sex_wapper">{{position[positionIndex]}}</label>
 						</picker>
 						<image src="/static/loginImg/xaila.png" mode="" class="down"></image>
-						
+
 					</view>
 				</view>
 
@@ -25,7 +25,7 @@
 						选择主管
 					</view>
 					<!-- @change="bindPickerChange('directorIndex', $event)" -->
-					<view class="uni-form-item uni-column" >
+					<view class="uni-form-item uni-column">
 						<label class="sex_wapper">{{userInfo.name||'请选择'}}</label>
 						<!-- <picker  :value="directorIndex" :range="director">
 							 <label class="sex_wapper">{{director[directorIndex]}}</label>
@@ -48,7 +48,15 @@
 				</view>
 
 
-				
+					<view class="warp-list">
+						<view class="title">
+							用户姓名
+						</view>
+						<view class="uni-form-item uni-column">
+							<input type="text" v-model="userName" />
+							
+						</view>
+					</view>
 				<!-- <image src="../../static/loginImg/cccsx.png" mode="" class="ccs"></image> -->
 				<view class="uoload-id-card">上传身份证</view>
 			</view>
@@ -57,18 +65,18 @@
 			<!-- 正面 -->
 			<image src="/static/loginImg/xjz.png" mode="" @click="changePositive('positive')" v-if="!photo.positive"></image>
 			<image :src="photo.positive" mode="" @click="changePositive('positive')" v-if="photo.positive"></image>
-			
+
 			<!-- 反面 -->
 			<image src="/static/loginImg/xjf.png" mode="" @click="changePositive('reverse')" v-if="!photo.reverse"></image>
 			<image :src="photo.reverse" mode="" @click="changePositive('reverse')" v-if="photo.reverse"></image>
-			
+
 			<!-- 手持正面 -->
 			<image src="/static/loginImg/xj.png" @click="changePositive('handPositive')" mode="" v-if="!photo.handPositive"></image>
 			<image :src="photo.handPositive" mode="" @click="changePositive('handPositive')" v-if="photo.handPositive"></image>
-			
+
 		</view>
-		
-		
+
+
 		<view class="btnBox">
 			<button type="default" @click="goIndex"><text>确定</text></button>
 		</view>
@@ -79,12 +87,21 @@
 </template>
 
 <script>
-	import {upLoadFile, workerRegister, workerUserExecutive} from '@/components/api/api.js'
-	import {baseUrl} from '@/components/api/request.js'
-	
+	import {
+		upLoadFile,
+		workerRegister,
+		workerUserExecutive
+	} from '@/components/api/api.js'
+	import {
+		baseUrl,
+		imgBaseUrl
+	} from '@/components/api/request.js'
+
 	export default {
 		data() {
 			return {
+				userName: '',
+				imgBaseUrl: imgBaseUrl,
 				userInfo: {},
 				sex: ["男", "女"],
 				sexIndex: 0,
@@ -92,7 +109,7 @@
 				positionIndex: 0,
 				director: ['张三', '李四', '王五'],
 				directorIndex: 0,
-				
+
 				photo: {
 					positive: '', // 正面
 					reverse: '', // 反面
@@ -102,12 +119,12 @@
 		},
 		onLoad(option) {
 			this.userInfo = JSON.parse(option.userInfo)
-			if(this.userInfo.positionIndex) {
+			if (this.userInfo.positionIndex) {
 				this.positionIndex = this.userInfo.positionIndex
 			}
-			
+
 			this.getWorkerUserExecutive()
-		
+
 		},
 		methods: {
 			changeDirector() {
@@ -134,29 +151,46 @@
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album', 'camera'], //从相册选择
 					success: res => {
-						upLoadFile({path: res.tempFilePaths[0]}).then(file => {
+						upLoadFile({
+							path: res.tempFilePaths[0]
+						}).then(file => {
 							let upLoadPath = JSON.parse(file.data).data
-							this.photo[type] = baseUrl + '/' +  upLoadPath
+							this.photo[type] = imgBaseUrl + upLoadPath
 						})
 					},
 					fail: () => {
 						uni.showToast({
-							title:'请开启手机相机权限',
-							icon:'none'
+							title: '请开启手机相机权限',
+							icon: 'none'
 						})
 					}
 				});
 			},
 			goIndex() {
 				// sexIndex  positionIndex  directorIndex
-				let {sexIndex, positionIndex, directorIndex, userInfo: {code, phone, pwd }, photo: {positive, reverse, handPositive} } = this;
-				
+				let {
+					userName,
+					sexIndex,
+					positionIndex,
+					directorIndex,
+					userInfo: {
+						code,
+						phone,
+						pwd
+					},
+					photo: {
+						positive,
+						reverse,
+						handPositive
+					}
+				} = this;
+
 				// phone  电话   code  验证码  pwd  密码   position  职位  director  主管  
 				// sex  性别   idCardZ  身份证正面  idCardZF  身份证反面  office  工作证
-				
-				code: "1234"
-				phone: "18398207590"
-				pwd: "123456"
+
+				// code: "1234"
+				// phone: "18398207590"
+				// pwd: "123456"
 				let obj = {
 					"phone": phone,
 					"code": code,
@@ -164,29 +198,37 @@
 					"position": positionIndex,
 					"director": this.userInfo.workers_id || '',
 					"sex": sexIndex === 0 ? 1 : 0,
-					
+
 					"idCardZ": positive,
 					"idCardF": reverse,
-					"office": handPositive
+					"office": handPositive,
+					name: userName
 				}
-	
-				if(!positive) {
+
+				if (!positive) {
 					uni.showToast({
 						title: '身份证正面不能为空',
 						icon: 'none'
 					})
 					return false;
 				}
-				if(!reverse) {
+				if (!reverse) {
 					uni.showToast({
 						title: '身份证反面不能为空',
 						icon: 'none'
 					})
 					return false;
 				}
-				if(!handPositive) {
+				if (!handPositive) {
 					uni.showToast({
 						title: '证件照不能为空不能为空',
+						icon: 'none'
+					})
+					return false;
+				}
+				if (positionIndex == 2) {
+					uni.showToast({
+						title: '系统错误',
 						icon: 'none'
 					})
 					return false;
@@ -195,13 +237,13 @@
 				console.log(obj)
 				workerRegister(obj).then(res => {
 					console.log('注册', res)
-					if(res.msgType == 0) {
+					if (res.msgType == 0) {
 						uni.showToast({
-							title:res.returnMsg,
+							title: res.returnMsg,
 							icon: "none"
 						})
 						uni.navigateTo({
-							url:"./logins?phone?=" + phone
+							url: "./logins?phone?=" + phone
 						})
 					}
 				})
@@ -219,7 +261,7 @@
 				// 		console.log('----', err)
 				// 	}
 				// })
-				
+
 				// uni.navigateTo({
 				// 	url: "logins"
 				// })
@@ -230,7 +272,6 @@
 </script>
 
 <style scoped lang="scss">
-
 	/*  */
 	.warp-list {
 		border-bottom: 1upx solid rgb(255, 247, 237);
@@ -251,10 +292,12 @@
 	.uoload-id-card {
 		margin: 30upx auto;
 	}
-	.uni-form-item{
+
+	.uni-form-item {
 		position: relative;
 		z-index: 2;
 	}
+
 	.down {
 		display: block;
 		width: 26rpx;
@@ -310,8 +353,8 @@
 		margin-bottom: 35rpx;
 	}
 
-	
-	
+
+
 	.sex_wapper {
 		width: 37rpx;
 		height: 39rpx;
@@ -325,7 +368,8 @@
 	}
 
 	.selzjz {
-		 padding-left: 86rpx; 
+		padding-left: 86rpx;
+
 		image {
 			display: block;
 			width: 578rpx;

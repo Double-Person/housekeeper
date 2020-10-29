@@ -32,6 +32,7 @@
             <view class="slot-active" @click="through">通过</view>
           </view>
         </fromDeatil>
+		<NoData show></NoData>
       </view>
     </scroll-view>
   </view>
@@ -39,16 +40,18 @@
 
 
 <script>
+	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue"
 export default {
   data() {
     return {
       audit: "review",
-      list: ["客户确认  1", "客户确认  2", "客户确认 3"],
+      list: [],
     };
   },
   components: {
-    fromDeatil
+    fromDeatil, 
+	NoData
   },
   methods: {
     subType(type) {
