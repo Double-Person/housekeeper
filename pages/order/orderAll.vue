@@ -10,66 +10,25 @@
 					<view :class="{ active: topActive === index }" v-for="(item, index) in topBarList" :key="item.value" @click="topBarActive(index, item.value)">{{ item.label }}</view>
 				</view>
 			</scroll-view>
-
-			<scroll-view scroll-y="true" class="body-scroll-view" @scrolltolower="scrolltolower">
-				<view class="block">
-					<!-- 审核页面 -->
-					<view class="state" v-if="statusObj.AUDIT == currentTabBar">
-						<text :class="audit === 'review' ? 'statAct' : ''" @click="subType('review')">审核中</text>
-						<text :class="audit === 'haveBeenThrough' ? 'statAct' : ''" @click="subType('haveBeenThrough')">已通过</text>
-						<text :class="audit === 'noThrough' ? 'statAct' : ''" @click="subType('noThrough')">未通过</text>
-					</view>
-					<!-- 施工页面 -->
-					<view class="state jc-around" v-if="statusObj.CONSTRUCTION == currentTabBar">
-						<text :class="audit === 'review' ? 'statAct' : ''" @click="subType('review')">待开工</text>
-						<text :class="audit === 'haveBeenThrough' ? 'statAct' : ''" @click="subType('haveBeenThrough')">施工中</text>
-					</view>
-
-					<!-- 无下级 topBarList hasNext list    topActive -->
-					<view v-if="!topBarList[topActive].hasNext">
-						<view v-if="statusObj.COMPLETE != currentTabBar">
-							<fromDeatil msg="msg" :item="item" v-for="(item, index) in topBarList[topActive].list" :key="index"></fromDeatil>
-						</view>
-						<view v-if="statusObj.COMPLETE == currentTabBar">
-							<!-- :flag="5" -->
-							<fromDeatil msg="msg" :item="item" v-for="(item, index) in topBarList[topActive].list" :key="index">
-								<view class="slot-warp">
-									<view class="slot-active" @click="questionnaireSurvey">问卷调查</view>
-								</view>
-							</fromDeatil>
-						</view>
-						<NoData :show="true"></NoData>
-					</view>
-					<!-- 有下级 -->
-					<view v-if="topBarList[topActive].hasNext">
-						<!-- 审核页面 -->
-						<view class="state" v-if="statusObj.AUDIT == currentTabBar">
-							<fromDeatil msg="msg" :item="item" :hasChildItem="topBarList[topActive].list[currentType]" v-for="(item, index) in topBarList[topActive].list[currentType]
-                  .list"
-							 :key="index">
-								<view class="slot-warp">
-									<view class="slot-not-active" @click="notThrough">不通过</view>
-									<view class="slot-active" @click="through">通过</view>
-								</view>
-							</fromDeatil>
-							<NoData :show="true"></NoData>
-						</view>
-						<!-- 施工 -->
-
-						<view class="state" v-if="statusObj.CONSTRUCTION == currentTabBar">
-							<fromDeatil msg="msg" :item="item" :hasChildItem="topBarList[topActive].list[currentType]" v-for="(item, index) in topBarList[topActive].list[currentType]
-                  .list"
-							 :key="index">
-								<view class="slot-warp">
-									<view class="slot-not-active" @click="notThrough">不通过</view>
-									<view class="slot-active" @click="through">通过</view>
-								</view>
-							</fromDeatil>
-							<NoData :show="true"></NoData>
-						</view>
-					</view>
-				</view>
+			
+			<!-- mastertype -->
+			<scroll-view scroll-y="true" class="body-scroll-view">
+				<!-- 全部 -->
+				<orderAll v-show="currentTabBar == statusObj.ALL" :list='topBarList[this.topActive].list'/>
+				<!-- 施工 -->
+				<orderConstuction v-show="currentTabBar == statusObj.CONSTRUCTION" @orderConstuction='orderConstuction' :list='topBarList[this.topActive].list'/>
+				<!-- 审核 -->
+				<orderAudit v-show="currentTabBar == statusObj.AUDIT" @orderAudit="orderAudit" :list='topBarList[this.topActive].list'/>
+				<!-- 质保 -->
+				<orderQuality v-show="currentTabBar == statusObj.QUALITY_ASSURANCE" :list='topBarList[this.topActive].list'/>
+				<!-- 完成 -->
+				<orderComplete v-show="currentTabBar == statusObj.COMPLETE" :list='topBarList[this.topActive].list'/>
+				<!-- 完成 -->
+				<orderCancel v-show="currentTabBar == statusObj.CANCEL" :list='topBarList[this.topActive].list'/>
 			</scroll-view>
+
+			
+		
 		</view>
 	</view>
 </template>
@@ -77,18 +36,27 @@
 <script>
 	import fromDeatil from "@/components/fromAll.vue";
 	import TopSearch from "@/components/TopSearch.vue";
-	import {
-		workersOrderStatus
-	} from "@/variable/orderCenter.js";
+	import orderAll from "./orderAll/index.vue"; // 全部
+	import orderConstuction from "./orderConstuction/index.vue"; // 施工
+	import orderAudit from "./orderAudit/index.vue"; // 审核
+	import orderQuality from "./orderQuality/index.vue"; // 质保
+	import orderComplete from "./orderComplete/index.vue"; // 完成
+	import orderCancel from "./orderCancel/index.vue"; // 完成
 	import NoData from "@/components/NoData.vue"
+	import { workersOrderStatus } from "@/variable/orderCenter.js";
+	
+	import { selectorder } from '@/components/api/api.js'
 	export default {
 		components: {
 			fromDeatil,
 			TopSearch,
-			NoData
+			NoData,
+			orderAll,orderConstuction,orderAudit,orderQuality,orderComplete,orderCancel
 		},
 		data() {
 			return {
+				orderAuditType: 'review',  // 审核状态  
+				orderConstuctionType:'review',  // 施工状态
 				currentTabBar: -1,
 				topActive: 0, // 顶部导航激活
 				statusObj: workersOrderStatus,
@@ -105,7 +73,8 @@
 						hasNext: true,
 						value: workersOrderStatus.CONSTRUCTION,
 						label: "施工",
-						list: {
+						list: [],
+						list1: {
 							review: {
 								value: 0,
 								label: "待开工",
@@ -122,7 +91,8 @@
 						hasNext: true,
 						value: workersOrderStatus.AUDIT,
 						label: "审核",
-						list: {
+						list: [],
+						list1: {
 							review: {
 								value: 0,
 								label: "审核中",
@@ -165,28 +135,74 @@
 
 		created() {
 			this.currentTabBar = this.topBarList && this.topBarList[0].value;
+			this._list()
 		},
 		methods: {
-			//  不通过
-			notThrough(val) {
-				console.log("不通过", val);
-			},
-			// 通过
-			through(val) {
-				console.log("通过", val);
-			},
-			scrolltolower(event) {
-				console.log(event);
-			},
+		
 			topBarActive(index, value) {
 				this.topActive = index;
 				this.currentTabBar = value; //
+				// 0待开工、1施工中、2审核中、3已通过、4未通过、
+				//  5质保中、6已完成、7取消、8售后待处理、9售后处理中、10售后已完成
+				if(index == 1) { // 施工
+					this._list('0')
+				}
+				
+				if(index == 2) { // 审核
+					if(this.orderConstuctionType == 'review') { // 2审核中、3已通过、4未通过
+						this._list(2)
+					}
+					if(this.orderConstuctionType == 'haveBeenThrough') { // 已通过
+						this._list(3)
+					}
+					if(this.orderConstuctionType == 'noThrough') { // 未通过
+						this._list(4)
+					}
+				}
+				
+				if(index == 3) { // 质保
+					this._list(5)
+				}else if(index == 4) { // 已完成
+					this._list(6)
+				}else if(index == 5) { // 取消
+					this._list(7)
+				}else if(index == 0) { // 全部
+					this._list('')
+				}
+				
+	
 				// 审核页面   audit: 'review',  // 审核中三种状态  haveBeenThrough noThrough
 				if (this.statusObj.AUDIT == this.currentTabBar) {
 					this.currentType = "review";
 					this.audit = "review";
 				}
 			},
+			
+			_list(mastertype) {
+				let obj = {
+					mastertype: mastertype || '',
+					worker_id: uni.getStorageSync('WORKERS_ID')
+				};
+				selectorder(obj).then(res => {
+					console.log(res)
+					this.topBarList[this.topActive].list = res.varList
+				})
+			},
+			// 施工  待开工，施工中状态切换 
+			orderConstuction(type) {
+				this.orderConstuctionType = type
+				if(this.orderConstuctionType == 'review') { // 待开工
+					this._list('0')
+				}
+				if(this.orderConstuctionType == 'haveBeenThrough') { // 施工中
+					this._list(1)
+				}
+			},
+			//  审核状态切换
+			orderAudit(type) {
+				this.orderAuditType = type
+			},
+			
 			// 下级类型切换
 			subType(type) {
 				console.log("下级类型", type);

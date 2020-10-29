@@ -11,7 +11,9 @@ baseUrl_ ='https://www.hemingbi.com/housekeeper'
 // #endif
 export const baseUrl = baseUrl_
 
-export const imgBaseUrl = 'https://www.hemingbi.com/housekeeper/'
+// export const imgBaseUrl = 'https://www.hemingbi.com/housekeeper/'
+export const imgBaseUrl = 'http://192.168.0.110:8081/'
+
 
 export const ajax = (option) => {
     if (!option.url) {

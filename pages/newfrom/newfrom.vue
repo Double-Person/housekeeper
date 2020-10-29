@@ -82,7 +82,7 @@
 				receivingorders(obj).then(res => {
 					uni.showToast({
 						title: '操作成功',
-						title: 'none'
+						icon: 'none'
 					})
 					this.getWorkerorderApiworkerList()
 				})

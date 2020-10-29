@@ -45,16 +45,14 @@
 			return {
 				type: 'password',
 				userInfo: {
-					phone: '',   ///  15345678910  123456    技术    15345678911    123456     工人     18398207590     123456
-					password: ''
+					phone: '15345678911',   ///  15345678910  123456    技术    15345678911    123456     工人     18398207590     123456
+					password: '123456'
 				}
 			}
 		},
 		onLoad(option) {
-			if( option.phone) {
+			if(option.phone) {
 				this.userInfo.phone = option.phone
-			}else {
-				this.userInfo.phone = ''
 			}
 			
 		},

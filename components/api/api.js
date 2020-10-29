@@ -101,6 +101,12 @@ export const orderprogrammeinfo = data => ajax({ url: '/api/workerProgramme/orde
 // 工人
 // 新订单  接收、不接受
 export const receivingorders = data => ajax({ url: '/api/master/receivingorders', data, method: 'POST' });
+// 订单中心  // 列表
+export const selectorder = data => ajax({ url: '/api/master/selectorder', data, method: 'POST' });
+// 订单中心  施工待开工中  开工按钮
+export const start = data => ajax({ url: '/api/master/start', data, method: 'POST' });
+
+
 
 
 

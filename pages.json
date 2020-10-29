@@ -541,6 +541,16 @@
 			"style": {
 				"navigationBarTitleText": "选择人员"
 			}
+		},
+		{
+			"path": "pages/order/orderConstuction/index",
+			"style": {}
+		},
+		{
+			"path": "pages/order/Start",
+			"style": {
+				"navigationBarTitleText": "新订单开工"
+			}
 		}
 
 
