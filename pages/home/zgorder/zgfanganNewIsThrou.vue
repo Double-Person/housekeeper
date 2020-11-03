@@ -20,7 +20,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="orderxx">
 			<view class="titb">
 				订单信息
@@ -31,8 +31,8 @@
 				<text>客户姓名：{{info.contact}}</text>
 				<text>客户电话：{{info.phone}}</text>
 				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
-				
-			
+
+
 			</view>
 		</view>
 		<view class="serve" v-if="false">
@@ -72,8 +72,8 @@
 				</view>
 			</view>
 		</view>
-		
-		<view class="time" @click="selectPersonnel">
+
+		<view class="time" @click="selectPersonnel" v-if="false">
 			<text> {{info.checkId ? info.checkName : '选择技术人员'}} </text>
 			<image src="/static/loginImg/hright.png" mode=""></image>
 		</view>
@@ -84,31 +84,43 @@
 </template>
 
 <script>
-	import {baseUrl } from "@/components/api/request.js"
-	import {distribution, workerorderApiJudgeadopt } from "@/components/api/api.js"
+	import {
+		baseUrl
+	} from "@/components/api/request.js"
+	import {
+		workerorderApiJudgeadopt
+	} from "@/components/api/api.js"
 	export default {
 
 		data() {
 			return {
 				baseUrl: baseUrl,
+				status: null,
 				info: {}
 			}
 		},
 		onLoad(option) {
-			if(option.userInfo) {
+			if (option.userInfo) {
 				this.info = JSON.parse(option.userInfo)
+				this.status = option.status
 				console.log(this.info)
 			}
 		},
 		methods: {
-			detailAll(){   // worker_id 工人的id（技术员或工人的id）   order_id   订单id  states    0已分配技术人员、3已分配工人
+			detailAll() { // worker_id 工人的id（技术员或工人的id）   order_id   订单id  states    0 待审核  1  通过   2  不通过
+				
 				let obj = {
-					worker_id: this.info.checkId,
+					worker_id: uni.getStorageSync('WORKERS_ID'),
 					order_id: this.info.order_id,
-					states: 0
+					state: this.status
 				}
-			 	distribution(obj).then(res => {
+
+				workerorderApiJudgeadopt(obj).then(res => {
 					console.log(res)
+					uni.showToast({
+						title: res.mig,
+						icon: 'none'
+					})
 				})
 			},
 			// 选择技术人员
@@ -117,7 +129,7 @@
 					url: '../selectPersonnel?type=technology&path=/pages/home/zgorder/zgfanganNew&userInfo=' + JSON.stringify(this.info)
 				})
 			}
-			
+
 		}
 	}
 </script>
@@ -135,41 +147,46 @@
 		background-color: #F2F2F2;
 		font-family: SourceHanSansCN;
 	}
-	.time{
-		margin-top:20upx;
+
+	.time {
+		margin-top: 20upx;
 		padding: 30upx 40upx;
-		width:670upx;
-		height:40upx;
-		background:rgba(255,255,255,1);
+		width: 670upx;
+		height: 40upx;
+		background: rgba(255, 255, 255, 1);
 		display: flex;
 		justify-content: flex-end;
-		text{
-			font-size:28upx;
-			font-family:PingFang SC;
-			font-weight:500;
-			color:rgba(170,170,170,1);
+
+		text {
+			font-size: 28upx;
+			font-family: PingFang SC;
+			font-weight: 500;
+			color: rgba(170, 170, 170, 1);
 		}
-		image{
+
+		image {
 			display: block;
-			width:34upx;
+			width: 34upx;
 			height: 34upx;
 			margin-left: auto;
 		}
 	}
-	.btn{
+
+	.btn {
 		background: #FFC823;
-		width:715upx;
+		width: 715upx;
 		height: 91upx;
-		font-size:36upx;
-		font-family:PingFang SC;
-		font-weight:500;
-		color:rgba(255,255,255,1);
-		line-height:91upx;
+		font-size: 36upx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: rgba(255, 255, 255, 1);
+		line-height: 91upx;
 		text-align: center;
 		border-radius: 8upx;
 		margin-top: 50upx;
 		margin-left: 15upx;
 	}
+
 	.box_te {
 		border-top: 19upx solid #f2f2f2;
 		padding: 40upx 20upx 0upx 20upx;
@@ -312,7 +329,7 @@
 		margin-top: 20upx;
 		padding: 0upx 40upx;
 		width: 670upx;
-		
+
 		background: #fff;
 		border-radius: 8upx;
 
@@ -324,7 +341,7 @@
 			color: rgba(51, 51, 51, 1);
 			border-bottom: 1upx solid rgba(191, 191, 191, 1);
 		}
-		
+
 
 		.textT {
 			margin-top: 20upx;
@@ -360,11 +377,13 @@
 			color: rgba(51, 51, 51, 1);
 			border-bottom: 1upx solid rgba(191, 191, 191, 1);
 			overflow: hidden;
-			.tit_a{
+
+			.tit_a {
 				float: left;
 			}
-			.tit_b{
-				float:right;
+
+			.tit_b {
+				float: right;
 				color: #D4D4D4;
 			}
 		}
@@ -426,35 +445,41 @@
 		padding: 40upx;
 		overflow: hidden;
 		margin-top: 20upx;
-		.name{
+
+		.name {
 			width: 670upx;
 			display: flex;
 			justify-content: space-between;
 			margin-top: 20upx;
-			.tit{
-				font-size:28upx;
-				font-family:PingFang SC;
-				font-weight:500;
-				color:rgba(153,153,153,1);
+
+			.tit {
+				font-size: 28upx;
+				font-family: PingFang SC;
+				font-weight: 500;
+				color: rgba(153, 153, 153, 1);
 			}
 		}
-		.phone{
+
+		.phone {
 			display: flex;
 			align-items: center;
-			text{
-				font-size:28upx;
-				font-family:PingFang SC;
-				font-weight:500;
-				color:rgba(251,80,80,1);
+
+			text {
+				font-size: 28upx;
+				font-family: PingFang SC;
+				font-weight: 500;
+				color: rgba(251, 80, 80, 1);
 			}
-			image{
+
+			image {
 				margin-left: 18upx;
-				width:38upx;
-				height:38upx;
+				width: 38upx;
+				height: 38upx;
 			}
 		}
+
 		.title {
-			font-size:28upx;
+			font-size: 28upx;
 			width: 670upx;
 			padding-bottom: 20upx;
 			border-bottom: 2upx solid rgba(190, 190, 190, 1);
@@ -508,9 +533,11 @@
 		margin-top: 20upx;
 		color: #333333;
 		font-size: 32upx;
+
 		.zprice {
 			float: left;
-			text{
+
+			text {
 				color: #FA4F4F;
 			}
 		}

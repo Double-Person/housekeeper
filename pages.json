@@ -225,19 +225,7 @@
 				"navigationBarTitleText": "处理反馈"
 			}
 		},
-		//查看问卷
-		{
-			"path": "pages/order/chakanwenjuan",
-			"style": {
-				"navigationBarTitleText": "查看问卷"
-			}
-		},
-		{
-			"path": "pages/order/wenjuandiaocha",
-			"style": {
-				"navigationBarTitleText": "问卷调查"
-			}
-		},
+	
 		{
 			"path": "pages/order/quxiao",
 			"style": {
@@ -363,7 +351,6 @@
 				"navigationBarTitleText": "员工"
 			}
 		},
-		//新订单
 		{
 			"path": "pages/home/zgorder/zgnews",
 			"style": {
@@ -488,8 +475,28 @@
 			"style": {
 				"navigationBarTitleText": "问卷调查"
 			}
-		}, {
+		},
+		{
 			"path": "pages/questionnaire/CheckQuestionnaire",
+			"style": {
+				"navigationBarTitleText": "查看问卷"
+			}
+		},
+		
+			//查看问卷
+		{
+			"path": "pages/order/chakanwenjuan",
+			"style": {
+				"navigationBarTitleText": "查看问卷"
+			}
+		},
+		{
+			"path": "pages/order/wenjuandiaocha",
+			"style": {
+				"navigationBarTitleText": "问卷调查"
+			}
+		}, {
+		"path": "pages/questionnaire/CheckQuestionnaire",
 			"style": {
 				"navigationBarTitleText": "查看问卷"
 			}
@@ -551,7 +558,22 @@
 			"style": {
 				"navigationBarTitleText": "新订单开工"
 			}
+		},
+		{
+			"path": "pages/home/zgorder/zgfanganNewIsThrou",
+			"style": {
+				"navigationBarTitleText": "方案"
+			}
+		},
+		{
+			"path": "components/workersOrderDetail/allDetail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
 		}
+		
+		
+		
 
 
 	],

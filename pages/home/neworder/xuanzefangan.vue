@@ -19,8 +19,10 @@
 							<view class="text" v-for="(ele,idey) in items.list" :key="idey">
 								<!-- seriesname -->
 								<view class="textb" @click="clickThree(ele, index, idex, idey)">
-									<image src="/static/loginImg/aaxa.png" mode="" v-show="checkProgrammeId == ele.programme_id"></image>
-									<image src="/static/loginImg/kax.png" mode="" v-show="checkProgrammeId != ele.programme_id"></image>
+									
+									<image src="/static/loginImg/aaxa.png" mode="" v-show="checkProgrammeListId.includes(ele.programme_id)"></image>
+									<!-- <image src="/static/loginImg/kax.png" mode="" v-show="checkProgrammeId != ele.programme_id"></image> -->
+									<image src="/static/loginImg/kax.png" mode="" v-show="!checkProgrammeListId.includes(ele.programme_id)"></image>
 									<text>{{ele.name}}</text>
 								</view>
 
@@ -76,23 +78,33 @@
 			})
 			return {
 				checkProgrammeId: '',
+				checkProgrammeList: [],
+				checkProgrammeListId: [],
 				list: [],
 				times: {
-					endDate: currentDate, // 结束日期
+					endDate: this.getDate(), // 结束日期
 					endTimes: `${(new Date()).getHours()}:${(new Date()).getMinutes()} `, // 结束时间
-					startDate: currentDate, // 开始日期
+					startDate: this.getDate(), // currentDate, // 开始日期
 					startTimes: `${(new Date()).getHours()}:${(new Date()).getMinutes()} `, // 开始时间
 				},
 				info: {},
+				order_id: '',
 				selectList: [], // 选择的数据
 
 			}
 		},
 		onLoad(option) {
 			this.info = JSON.parse(option.info)
+			this.order_id = option.order_id
 			this._programme1()
 		},
 		methods: { // typeid   series_id
+			// 顶部搜素
+			searchPlant(info) {
+				search({info}).then(res => {
+					console.log(res)
+				})
+			},
 			// 点击第一层
 			clickFirst(item, index) {
 				this.list[index].isShow = !item.isShow
@@ -106,43 +118,60 @@
 			// 点击第三层
 			clickThree(ele, index, idex, idey) {
 				this.checkProgrammeId = ele.programme_id
-				console.log(ele, index, idex, idey)
-				this.selectList[index] = ele
+				if( !this.checkProgrammeListId.includes(ele.programme_id) ) {
+					this.checkProgrammeListId.push(ele.programme_id);
+					ele.num = ''
+					this.selectList.push(ele)
+				}else {
+					let findIndexNum = this.checkProgrammeListId.findIndex( item => item == ele.programme_id );
+					this.checkProgrammeListId.splice(findIndexNum, 1)
+				}
+				
 				this.$forceUpdate()
 			},
 
 			// 确定按钮
 			btn() {
-				console.log(this.times)
-				let endtime = this.times.endDate + ' ' + this.times.endTimes.substr(0,5)+':00';
-				let starttime = this.times.startDate + ' ' + this.times.startTimes.substr(0,5)+':00';
+				let endtime = this.formatTime(this.times.endDate + ' ' + this.times.endTimes);
+				let starttime = this.formatTime(this.times.startDate + ' ' + this.times.startTimes);
 				let selectPlant = {
 					endtime,
 					starttime,
 					list: this.selectList
 				}
+				
+				console.log( selectPlant );
+	
 				uni.navigateTo({
-					url: './shezhifangan?info=' + JSON.stringify(this.info) + '&selectPlant=' + JSON.stringify(selectPlant)
+					url: './shezhifangan?info=' + JSON.stringify(this.info) + '&selectPlant=' + JSON.stringify(selectPlant) + '&order_id=' + this.order_id
 				})
 			},
-			// 顶部搜素
-			searchPlant(info) {
-				search({info}).then(res => {
-					console.log(res)
-				})
+			
+			formatTime(time) {
+				let newTime = new Date( time );
+				console.log(newTime);
+				let year = newTime.getFullYear(), 
+					month = this.padStart(newTime.getMonth() + 1) ,
+					day = this.padStart(newTime.getDate()),
+					hours = this.padStart(newTime.getHours()),
+					minutes = this.padStart(newTime.getMinutes()),
+					seconds = this.padStart(newTime.getSeconds()) || '00';
+				let timeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+				return timeStr
 			},
+			padStart(val) {
+				return val < 10 ?  '0' + val : val
+			},
+
 			// 选择日期
 			bindDateChange(event, type) {
 				let arr = event.target.value.split('-')
-				
-				this.times[type] = arr[0] + '-'+ arr[1].padStart(2,0) + '-'+ arr[2].padStart(2,0)
-				console.log(this.times[type])
+				this.times[type] = arr[0] + '-'+ arr[1] + '-'+ arr[2]
 			},
 			// 选择时间
 			bindTimeChange(event, type) {
 				let arr = event.target.value.split(':')
-				this.times[type] = arr[0].padStart(2,0) + ':'+ arr[1].padStart(2,0)
-				console.log(this.times[type])
+				this.times[type] = arr[0] + ':'+ arr[1]
 			},
 
 			// 获取第一级数据

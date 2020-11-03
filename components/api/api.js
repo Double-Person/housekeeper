@@ -11,19 +11,19 @@ baseUrl ='https://www.hemingbi.com/housekeeper'
 // #endif
 
 // 1.账号密码登录   phone   pwd
-export const login = data => ajax({ url: '/api/worker/workerLogin', data, method: 'POST' });
+export const login = data => ajax({ url: '/worker/workerLogin', data, method: 'POST' });
 // 2. 注册
-export const workerRegister = data => ajax({ url: '/api/worker/workerRegister', data, method: 'POST', headerType:'application/json' });
+export const workerRegister = data => ajax({ url: '/worker/workerRegister', data, method: 'POST', headerType:'application/json' });
 
 // 3.获取主管接口  参数  workers_id 工人id
-export const executive = data => ajax({ url: '/api/worker/executive', data, method: 'GET' });
+export const executive = data => ajax({ url: '/worker/executive', data, method: 'GET' });
 
 // 4.忘记密码   手机号   验证吗  新密码 
 /* 参数  workers_id 工人id phone  手机号 code 验证码 pwd  密码 */
-export const forgetPwd = data => ajax({ url: '/api/worker/forgetPwd', data, method: 'POST' });
+export const forgetPwd = data => ajax({ url: '/worker/forgetPwd', data, method: 'POST' });
 
 // 5.首页用户信息显示   workers_id 工人id
-export const workerIndex = data => ajax({ url: '/api/worker/index', data, method: 'GET' });
+export const workerIndex = data => ajax({ url: '/worker/index', data, method: 'GET' });
 
 
 
@@ -50,6 +50,25 @@ export const daitechnician = data => ajax({ url: '/api/workerorderApi/daitechnic
 
 // 12、查询主管工人待派单   worker_id 主管的id
 export const daiforeman = data => ajax({ url: '/api/workerorderApi/daiforeman', data, method: 'POST' });
+
+// 13  方案
+export const workerorderApiProgramme = data => ajax({ url: '/api/workerorderApi/programme', data, method: 'POST' });
+// 方案通过
+export const workerorderApiJudgeadopt = data => ajax({ url: '/api/workerorderApi/judgeadopt', data, method: 'POST' });
+// 方案未通过详情
+export const programmeApiList = data => ajax({ url: '/api/programmeApi/list', data, method: 'POST' });
+// 问卷调查
+export const questionnaireApiList = data => ajax({ url: '/api/questionnaireApi/list', data, method: 'POST' });
+// 問卷调查提交
+export const questionnaireApiAdd = data => ajax({ url: '/api/questionnaireApi/add', data, method: 'POST' });
+// 查询问卷调查答案列表
+export const questionnaireApiAnswerlist = data => ajax({ url: '/api/questionnaireApi/answerlist', data, method: 'POST' });
+
+
+
+
+
+
 
 
 

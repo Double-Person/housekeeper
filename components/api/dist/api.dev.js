@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.upLoadFile = exports.telCode = exports.upaateforeman = exports.daiforeman = exports.daitechnician = exports.distribution = exports.updatestate = exports.workerorderApiworkerList = exports.workerWorker = exports.technician = exports.workerUserExecutive = exports.workerIndex = exports.forgetPwd = exports.executive = exports.workerRegister = exports.login = void 0;
+exports.upLoadFile = exports.telCode = exports.start = exports.selectorder = exports.receivingorders = exports.orderprogrammeinfo = exports.search = exports.addprogrammeinfo = exports.programme3 = exports.programme2 = exports.programme1 = exports.technicianListAllById = exports.technicianUpaateforeman = exports.upaateforeman = exports.selectgoodname = exports.questionnaireApiAnswerlist = exports.questionnaireApiAdd = exports.questionnaireApiList = exports.programmeApiList = exports.workerorderApiJudgeadopt = exports.workerorderApiProgramme = exports.daiforeman = exports.daitechnician = exports.distribution = exports.updatestate = exports.workerorderApiworkerList = exports.workerWorker = exports.technician = exports.workerUserExecutive = exports.workerIndex = exports.forgetPwd = exports.executive = exports.workerRegister = exports.login = void 0;
 
 var _request = require("./request.js");
 
@@ -18,7 +18,7 @@ baseUrl = 'https://www.hemingbi.com/housekeeper'; // #endif
 
 var login = function login(data) {
   return (0, _request.ajax)({
-    url: '/api/worker/workerLogin',
+    url: '/worker/workerLogin',
     data: data,
     method: 'POST'
   });
@@ -29,7 +29,7 @@ exports.login = login;
 
 var workerRegister = function workerRegister(data) {
   return (0, _request.ajax)({
-    url: '/api/worker/workerRegister',
+    url: '/worker/workerRegister',
     data: data,
     method: 'POST',
     headerType: 'application/json'
@@ -41,7 +41,7 @@ exports.workerRegister = workerRegister;
 
 var executive = function executive(data) {
   return (0, _request.ajax)({
-    url: '/api/worker/executive',
+    url: '/worker/executive',
     data: data,
     method: 'GET'
   });
@@ -54,7 +54,7 @@ exports.executive = executive;
 
 var forgetPwd = function forgetPwd(data) {
   return (0, _request.ajax)({
-    url: '/api/worker/forgetPwd',
+    url: '/worker/forgetPwd',
     data: data,
     method: 'POST'
   });
@@ -65,7 +65,7 @@ exports.forgetPwd = forgetPwd;
 
 var workerIndex = function workerIndex(data) {
   return (0, _request.ajax)({
-    url: '/api/worker/index',
+    url: '/worker/index',
     data: data,
     method: 'GET'
   });
@@ -157,11 +157,89 @@ var daiforeman = function daiforeman(data) {
     data: data,
     method: 'POST'
   });
-}; // 技术人员
-// 1、修改技术人员接单   technician_id :  技术员的id   order_id   订单id   state_one   1接受 2不接受    doortime    上门时间
+}; // 13  方案
 
 
 exports.daiforeman = daiforeman;
+
+var workerorderApiProgramme = function workerorderApiProgramme(data) {
+  return (0, _request.ajax)({
+    url: '/api/workerorderApi/programme',
+    data: data,
+    method: 'POST'
+  });
+}; // 方案通过
+
+
+exports.workerorderApiProgramme = workerorderApiProgramme;
+
+var workerorderApiJudgeadopt = function workerorderApiJudgeadopt(data) {
+  return (0, _request.ajax)({
+    url: '/api/workerorderApi/judgeadopt',
+    data: data,
+    method: 'POST'
+  });
+}; // 方案未通过详情
+
+
+exports.workerorderApiJudgeadopt = workerorderApiJudgeadopt;
+
+var programmeApiList = function programmeApiList(data) {
+  return (0, _request.ajax)({
+    url: '/api/programmeApi/list',
+    data: data,
+    method: 'POST'
+  });
+}; // 问卷调查
+
+
+exports.programmeApiList = programmeApiList;
+
+var questionnaireApiList = function questionnaireApiList(data) {
+  return (0, _request.ajax)({
+    url: '/api/questionnaireApi/list',
+    data: data,
+    method: 'POST'
+  });
+}; // 問卷调查提交
+
+
+exports.questionnaireApiList = questionnaireApiList;
+
+var questionnaireApiAdd = function questionnaireApiAdd(data) {
+  return (0, _request.ajax)({
+    url: '/api/questionnaireApi/add',
+    data: data,
+    method: 'POST'
+  });
+}; // 查询问卷调查答案列表
+
+
+exports.questionnaireApiAdd = questionnaireApiAdd;
+
+var questionnaireApiAnswerlist = function questionnaireApiAnswerlist(data) {
+  return (0, _request.ajax)({
+    url: '/api/questionnaireApi/answerlist',
+    data: data,
+    method: 'POST'
+  });
+}; // 技术人员
+// 技术员的模糊查询
+// technician_id 技术员id    states（全部不传）   0设置方案、1完成、2取消、3重新设置、4、待审核     query 参数
+
+
+exports.questionnaireApiAnswerlist = questionnaireApiAnswerlist;
+
+var selectgoodname = function selectgoodname(data) {
+  return (0, _request.ajax)({
+    url: '/api/technician/selectgoodname',
+    data: data,
+    method: 'POST'
+  });
+}; // 1、修改技术人员接单   technician_id :  技术员的id   order_id   订单id   state_one   1接受 2不接受    doortime    上门时间
+
+
+exports.selectgoodname = selectgoodname;
 
 var upaateforeman = function upaateforeman(data) {
   return (0, _request.ajax)({
@@ -169,14 +247,137 @@ var upaateforeman = function upaateforeman(data) {
     data: data,
     method: 'POST'
   });
-}; // 发送验证码
-
+};
 
 exports.upaateforeman = upaateforeman;
 
+var technicianUpaateforeman = function technicianUpaateforeman(data) {
+  return (0, _request.ajax)({
+    url: '/api/technician/upaateforeman',
+    data: data,
+    method: 'POST'
+  });
+}; // 订单中心
+
+
+exports.technicianUpaateforeman = technicianUpaateforeman;
+
+var technicianListAllById = function technicianListAllById(data) {
+  return (0, _request.ajax)({
+    url: '/api/technician/listAllById',
+    data: data,
+    method: 'POST'
+  });
+}; // 这个是第一层信息获取接口
+
+
+exports.technicianListAllById = technicianListAllById;
+
+var programme1 = function programme1(data) {
+  return (0, _request.ajax)({
+    url: '/api/workerProgramme/programme1',
+    data: data,
+    method: 'GET'
+  });
+}; // typeid
+
+
+exports.programme1 = programme1;
+
+var programme2 = function programme2(data) {
+  return (0, _request.ajax)({
+    url: '/api/workerProgramme/programme2',
+    data: data,
+    method: 'GET'
+  });
+}; // typeid   series_id
+
+
+exports.programme2 = programme2;
+
+var programme3 = function programme3(data) {
+  return (0, _request.ajax)({
+    url: '/api/workerProgramme/programme3',
+    data: data,
+    method: 'GET'
+  });
+}; // 参数  type（0 是新增  1  是修改）   order_id  list（这个是穿个方案的数组传id就行） 
+// starttime开始时间  endtime结束时间  img 图片   
+// concessional   remarks  proportion  price  priceafter  reason   GET   这个是提交和修改接口
+
+
+exports.programme3 = programme3;
+
+var addprogrammeinfo = function addprogrammeinfo(data) {
+  return (0, _request.ajax)({
+    url: '/api/workerProgramme/addprogrammeinfo',
+    data: data,
+    method: 'POST'
+  });
+}; // 方案搜索
+
+
+exports.addprogrammeinfo = addprogrammeinfo;
+
+var search = function search(data) {
+  return (0, _request.ajax)({
+    url: '/api/workerProgramme/search',
+    data: data,
+    method: 'GET'
+  });
+}; // 参数  orderprogrammeinfo_id    GET   这个是获取方案信息信息获取接口
+
+
+exports.search = search;
+
+var orderprogrammeinfo = function orderprogrammeinfo(data) {
+  return (0, _request.ajax)({
+    url: '/api/workerProgramme/orderprogrammeinfo',
+    data: data,
+    method: 'GET'
+  });
+}; // 工人
+// 新订单  接收、不接受
+
+
+exports.orderprogrammeinfo = orderprogrammeinfo;
+
+var receivingorders = function receivingorders(data) {
+  return (0, _request.ajax)({
+    url: '/api/master/receivingorders',
+    data: data,
+    method: 'POST'
+  });
+}; // 订单中心  // 列表
+
+
+exports.receivingorders = receivingorders;
+
+var selectorder = function selectorder(data) {
+  return (0, _request.ajax)({
+    url: '/api/master/selectorder',
+    data: data,
+    method: 'POST'
+  });
+}; // 订单中心  施工待开工中  开工按钮
+
+
+exports.selectorder = selectorder;
+
+var start = function start(data) {
+  return (0, _request.ajax)({
+    url: '/api/master/start',
+    data: data,
+    method: 'POST'
+  });
+}; // 发送验证码
+
+
+exports.start = start;
+
 var telCode = function telCode(data) {
   return (0, _request.ajax)({
-    url: '/housekeeper/login/telCode',
+    url: '/login/telCode',
     data: data,
     method: 'POST'
   });

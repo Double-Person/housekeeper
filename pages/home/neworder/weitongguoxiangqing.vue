@@ -4,19 +4,18 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-					<text>窗台防水</text>
+					<image :src="imgBaseUrl + passInfo.image" mode=""></image>
+					<text v-if="passInfo.goods">{{passInfo.goods_type == 0 ? passInfo.goods.name : passInfo.goods.package_name}}</text>
 				</view>
 
 				<view class="com">未通过</view>
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+					<image :src="imgBaseUrl + passInfo.image" mode=""></image>
 				</view>
 				<view class="time">
-					<text>项目名称</text>
-					<text>工人名称</text>
+					<text v-if="passInfo.goods">{{passInfo.goods_type == 0 ? passInfo.goods.name : passInfo.goods.package_name}}</text>
 				</view>
 			</view>
 		</view>
@@ -26,11 +25,13 @@
 				订单信息
 			</view>
 			<view class="textT">
-				<text>订单编号：51341851215121515</text>
-				<text>下单日期：2019年12月18日 13:20</text>
-				<text>客户姓名：张三胖</text>
-				<text>客户电话：18356987456</text>
-				<text>客户地址：四川省绵阳市涪城区贾家店街89号A栋203室</text>
+				<text>订单编号：{{passInfo.order_number}}</text>
+				<text>下单日期：{{passInfo.createtime}}</text>
+				<text>客户姓名：{{passInfo.contact}}</text>
+				<text>客户电话：{{passInfo.phone}}</text>
+				<text>客户地址：{{passInfo.province + passInfo.citys + passInfo.district_county + passInfo.address_details}}</text>
+				
+		
 			</view>
 		</view>
 		<!-- 服务项目 -->
@@ -39,35 +40,26 @@
 				<text class="tit_a">方案详情</text>
 				<text class="tit_b" @click="detailAll">全部详情></text>
 			</view>
-			<view class="box">
-				<view class="text">
-					<text>水电安装</text>
-					<text>1.0m²*40.00</text>
-					<text>¥200.00</text>
+			<view class="box" v-if="info.programme">
+				<view class="text" v-for="ele in info.programme">
+					<text>{{ele.name}}</text>
+					<text>{{ele.numbers + ele.company}}*{{ele.price}}</text>
+					<text>¥ {{ ele.numbers * ele.price }}</text>
 				</view>
-				<view class="text">
-					<text>窗台防水</text>
-					<text>1个*40.00</text>
-					<text>¥1688.00</text>
-				</view>
-				<view class="text">
-					<text>水电安装</text>
-					<text>1.0m²*40.00</text>
-					<text>¥100.00</text>
-				</view>
+			
 			</view>
 			<view class="bottom">
 				<view class="left">
 					<text>开工时间：</text>
-					<text>2020-07-09</text>
+					<text>{{info.starttime}}</text>
 				</view>
 				<view class="right">
 					<text>完工时间：</text>
-					<text>2020-8-19</text>
+					<text>{{info.endtime}}</text>
 				</view>
 				<view class="youhui">
 					<text class="color">总金额：</text>
-					<text class="color">1256</text>
+					<text class="color">{{info.priceafter}}</text>
 				</view>
 			</view>
 		</view>
@@ -78,15 +70,18 @@
 				照片
 			</view>
 			<view class="img_data">
-				<view class="oimg">
-					<image src="../../../static/my_icon/logo.jpg"></image>
+				<view class="oimg" v-for="(item, index) in info.urllist">
+					<image :src="imgBaseUrl + item.picture_url"></image>
 				</view>
-				<view class="oimg">
-					<image src="../../../static/my_icon/logo.jpg"></image>
-				</view>
-				<view class="oimg">
-					<image src="../../../static/my_icon/logo.jpg"></image>
-				</view>
+				
+			</view>
+		</view>
+		<view class="order_txt">
+			<view class="title">
+				未通过的原因
+			</view>
+			<view class="txt_data">
+				{{info.reason}}
 			</view>
 		</view>
 		<!-- 备注 -->
@@ -95,17 +90,10 @@
 				整改说明
 			</view>
 			<view class="txt_data">
-				xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				{{info.explain}}
 			</view>
 		</view>
-		<view class="order_txt">
-			<view class="title">
-				未通过的原因
-			</view>
-			<view class="txt_data">
-				xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-			</view>
-		</view>
+		
 		<!-- 总价计算 -->
 		<!-- <view class="zong">
 			<view class="zprice">
@@ -119,10 +107,22 @@
 </template>
 
 <script>
+	import {imgBaseUrl} from "@/components/api/request.js"
+	import { programmeApiList } from "@/components/api/api.js"
 	export default {
 
 		data() {
-			return {}
+			return {
+				imgBaseUrl: imgBaseUrl,
+				info: {},
+				passInfo: {},
+			}
+		},
+		onLoad(option) {
+			this.passInfo = JSON.parse(option.info)
+			programmeApiList({order_id : this.passInfo.order_id}).then(res => {
+				this.info = res.varList
+			})
 		},
 		methods: {
 			detailAll(){
@@ -309,8 +309,8 @@
 				line-height: 50upx;
 			}
 
-			text:nth-child(3) {
-				margin-top: 60upx;
+			text:nth-child(5) {
+				padding-bottom: 30upx;
 			}
 		}
 	}
@@ -319,7 +319,7 @@
 		padding: 0upx 40upx;
 		margin-top: 20upx;
 		width: 670upx;
-		height: 465upx;
+		// height: 465upx;
 		background: rgba(255, 255, 255, 1);
 		border-radius: 8upx;
 

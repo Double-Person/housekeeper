@@ -1,6 +1,6 @@
 <template>
 	<view class="index">
-		<!-- <image src="../../static/loginImg/homebg.png" mode=""></image> -->
+		<!-- <image src="/static/loginImg/homebg.png" mode=""></image> -->
 		<view class="box">
 			<view class="a"></view>
 			<view class="b"></view>

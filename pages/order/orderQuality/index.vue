@@ -4,13 +4,12 @@
     class="scroll-view-tab-list-body"
   >
     <view class="padding-bottom150">
-      <!-- :flag="8" -->
       <fromDeatil
-        msg="msg"
+        :msg="showMsg(item.mastertype)"
         :item="item"
         v-for="(item, index) in list"
         :key="index"
-        @getDetail="getDetail(act)"
+        @getDetail="getDetail"
       >
       </fromDeatil>
 	  <NoData :show="list.length === 0"></NoData>
@@ -21,6 +20,7 @@
 <script>
 	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue";
+import { showMsg } from "@/utils/showMsg.js";
 export default {
   props:{
   	list: {
@@ -28,11 +28,20 @@ export default {
   		default: () => []
   	}
   },
+  data() {
+    return {
+      showMsg: showMsg
+    }
+  },
   components: {
     fromDeatil,NoData
-  },
+  }, 
   methods: {
-    getDetail() {},
+    getDetail(item) {
+      uni.navigateTo({
+         url: '../../components/workersOrderDetail/allDetail?info=' + JSON.stringify(item)
+      });
+    },
   },
 };
 </script>

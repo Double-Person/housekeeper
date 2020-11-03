@@ -4,181 +4,149 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image :src="baseUrl + info.image" mode=""></image>
-					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
+					<image :src="imgBaseUrl + orderInfo.image" mode=""></image>
+					<text v-if="orderInfo.goods">{{orderInfo.goods_type == 0 ? orderInfo.goods.name : orderInfo.goods.package_name}}</text>
 				</view>
 
-				<!-- <view class="com">显示状态</view> -->
+				<view class="com">{{ showMsg(orderInfo.mastertype) }}</view>
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image :src="baseUrl + info.image" mode=""></image>
+					<image :src="imgBaseUrl + orderInfo.image" mode=""></image>
 				</view>
-				<view class="times">
-					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
-					<!-- <text>工人名称</text> -->
+				<view class="time">
+					<text v-if="orderInfo.goods">{{orderInfo.goods_type == 0 ? orderInfo.goods.name : orderInfo.goods.package_name}}</text>
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="orderxx">
 			<view class="titb">
 				订单信息
 			</view>
 			<view class="textT">
-				<text>订单编号：{{info.order_number}}</text>
-				<text v-if="info.goods">下单日期：{{info.goods.createtime}}</text>
-				<text>客户姓名：{{info.contact}}</text>
-				<text>客户电话：{{info.phone}}</text>
-				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
-				
-			
+				<text>订单编号：{{ orderInfo.order_number }}</text>
+				<text>客户姓名：{{ orderInfo.contact }}</text>
+				<text>客户电话：{{ orderInfo.phone }}</text>
+				<text>客户地址：{{orderInfo.province + orderInfo.citys + orderInfo.district_county + orderInfo.address_details}}</text>
 			</view>
 		</view>
-		<view class="serve" v-if="false">
+		<!-- 服务项目 -->
+		<view class="serve" v-if="plantInfo.programme">
 			<view class="titb">
 				<text class="tit_a">方案详情</text>
-				<text class="tit_b" @click="detailAll">全部详情></text>
+				<!-- <text class="tit_b" @click="detailAll">全部详情></text> -->
 			</view>
 			<view class="box">
-				<view class="text">
-					<text>水电安装</text>
-					<text>1.0m²*40.00</text>
-					<text>¥200.00</text>
+				<view class="text" v-for="(item, index) in plantInfo.programme" :key="index">
+					<text>{{item.name}}</text>
+					<text>{{item.price + item.company}}*{{item.numbers}}</text>
+					<text>¥ {{ item.numbers * item.price }} </text>
 				</view>
-				<view class="text">
-					<text>窗台防水</text>
-					<text>1个*40.00</text>
-					<text>¥1688.00</text>
-				</view>
-				<view class="text">
-					<text>水电安装</text>
-					<text>1.0m²*40.00</text>
-					<text>¥100.00</text>
-				</view>
+				
 			</view>
 			<view class="bottom">
 				<view class="left">
 					<text>开工时间：</text>
-					<text>2020-07-09</text>
+					<text>{{ plantInfo.starttime }}</text>
 				</view>
 				<view class="right">
 					<text>完工时间：</text>
-					<text>2020-8-19</text>
+					<text>{{ plantInfo.endtime }}</text>
 				</view>
 				<view class="youhui">
 					<text class="color">总金额：</text>
-					<text class="color">1256</text>
+					<text class="color">{{ plantInfo.priceafter }}</text>
 				</view>
 			</view>
 		</view>
+
+		<!-- 照片 -->
+		<view class="order_img">
+			<view class="title">
+				照片
+			</view>
+			<view class="img_data">
+				<view class="oimg" v-for="(item, index) in plantInfo.urllist" :key="index">
+					<image :src="imgBaseUrl + item.picture_url"></image>
+				</view>
+				
+			</view>
+		</view>
+		<!-- 备注 -->
+		<view class="order_txt">
+			<view class="title">
+				备注
+			</view>
+			<view class="txt_data">
+				{{ plantInfo.remarks }}
+			</view>
+		</view>
 		
-		<view class="time" @click="selectPersonnel">
-			<text> {{info.checkId ? info.checkName : '选择技术人员'}} </text>
-			<image src="/static/loginImg/hright.png" mode=""></image>
-		</view>
-		<view class="btn" @click="detailAll">
-			确定
-		</view>
+		<!-- 总价计算 -->
+		<!-- <view class="zong">
+			<view class="zprice">
+				总价：<text>￥300</text>
+			</view>
+			<view class="fu">
+				支付比例：<text>100%</text>
+			</view>
+		</view> -->
 	</view>
 </template>
 
 <script>
-	import {baseUrl } from "@/components/api/request.js"
-	import {distribution, workerorderApiJudgeadopt } from "@/components/api/api.js"
+import { programmeApiList } from "@/components/api/api.js"
+import {imgBaseUrl} from "@/components/api/request.js"
+import { showMsg } from "@/utils/showMsg.js"
 	export default {
 
 		data() {
 			return {
-				baseUrl: baseUrl,
-				info: {}
+				showMsg: showMsg,
+				imgBaseUrl: imgBaseUrl,
+				orderInfo: {},
+				plantInfo: {}
 			}
 		},
-		onLoad(option) {
-			if(option.userInfo) {
-				this.info = JSON.parse(option.userInfo)
-				console.log(this.info)
-			}
+		onLoad(opt) {
+			this.orderInfo = JSON.parse(opt.info)
+			this._programmeApiList()
 		},
 		methods: {
-			detailAll(){   // worker_id 工人的id（技术员或工人的id）   order_id   订单id  states    0已分配技术人员、3已分配工人
-				let obj = {
-					worker_id: this.info.checkId,
-					order_id: this.info.order_id,
-					states: 0
-				}
-			 	distribution(obj).then(res => {
-					console.log(res)
-				})
+			detailAll(){
+			 	uni.navigateTo({
+			 		url:"./sgdetailAll"
+			 	})
 			},
-			// 选择技术人员
-			selectPersonnel() {
-				uni.navigateTo({
-					url: '../selectPersonnel?type=technology&path=/pages/home/zgorder/zgfanganNew&userInfo=' + JSON.stringify(this.info)
+
+			_programmeApiList() {
+				programmeApiList( {order_id: this.orderInfo.order_id} ).then(res => {
+					
+					this.plantInfo = res.varList
+					console.log(this.plantInfo)
 				})
 			}
-			
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	@font-face {
-		font-family: SourceHanSansCN;
-		src: url("~@/static/SourceHanSansCN-Normal.otf") format('truetype'),
-	}
-
-
 	.index {
 		width: 750upx;
-		height: 100vh;
 		background-color: #F2F2F2;
 		font-family: SourceHanSansCN;
 	}
-	.time{
-		margin-top:20upx;
-		padding: 30upx 40upx;
-		width:670upx;
-		height:40upx;
-		background:rgba(255,255,255,1);
-		display: flex;
-		justify-content: flex-end;
-		text{
-			font-size:28upx;
-			font-family:PingFang SC;
-			font-weight:500;
-			color:rgba(170,170,170,1);
-		}
-		image{
-			display: block;
-			width:34upx;
-			height: 34upx;
-			margin-left: auto;
-		}
-	}
-	.btn{
-		background: #FFC823;
-		width:715upx;
-		height: 91upx;
-		font-size:36upx;
-		font-family:PingFang SC;
-		font-weight:500;
-		color:rgba(255,255,255,1);
-		line-height:91upx;
-		text-align: center;
-		border-radius: 8upx;
-		margin-top: 50upx;
-		margin-left: 15upx;
-	}
+
 	.box_te {
 		border-top: 19upx solid #f2f2f2;
-		padding: 40upx 20upx 0upx 20upx;
+		padding: 40upx 0upx 0upx 20upx;
 		height: 350upx;
 		background: white;
 
 		.tit {
 			display: flex;
-			// justify-content: flex-end;
+			justify-content: flex-end;
 			align-items: center;
 
 			.imgtit {
@@ -232,7 +200,7 @@
 				}
 			}
 
-			.times {
+			.time {
 				margin-left: 18upx;
 				margin-top: 21upx;
 
@@ -315,6 +283,7 @@
 		
 		background: #fff;
 		border-radius: 8upx;
+		padding-bottom: 20rpx;
 
 		.titb {
 			padding: 20upx 0upx;
@@ -332,15 +301,11 @@
 			text {
 				width: 670upx;
 				display: block;
-				font-size: 27upx;
+				font-size: 28upx;
 				font-weight: 400;
 				color: rgba(153, 153, 153, 1);
 				line-height: 50upx;
 			}
-
-			// text:nth-child(3) {
-			// 	margin-top: 60upx;
-			// }
 		}
 	}
 
@@ -348,7 +313,6 @@
 		padding: 0upx 40upx;
 		margin-top: 20upx;
 		width: 670upx;
-		height: 465upx;
 		background: rgba(255, 255, 255, 1);
 		border-radius: 8upx;
 
@@ -405,7 +369,7 @@
 			position: relative;
 
 			.right {
-				margin-top: 11upx;
+				margin-top: 18upx;
 			}
 
 			.youhui {
@@ -426,50 +390,32 @@
 		padding: 40upx;
 		overflow: hidden;
 		margin-top: 20upx;
-		.name{
-			width: 670upx;
-			display: flex;
-			justify-content: space-between;
-			margin-top: 20upx;
-			.tit{
-				font-size:28upx;
-				font-family:PingFang SC;
-				font-weight:500;
-				color:rgba(153,153,153,1);
-			}
-		}
-		.phone{
-			display: flex;
-			align-items: center;
-			text{
-				font-size:28upx;
-				font-family:PingFang SC;
-				font-weight:500;
-				color:rgba(251,80,80,1);
-			}
-			image{
-				margin-left: 18upx;
-				width:38upx;
-				height:38upx;
-			}
-		}
+
 		.title {
-			font-size:28upx;
 			width: 670upx;
 			padding-bottom: 20upx;
 			border-bottom: 2upx solid rgba(190, 190, 190, 1);
+			font-size: 28upx;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
 		}
 
 		.img_data {
 			width: 670upx;
 			display: flex;
 			justify-content: space-between;
+			flex-wrap: wrap;
 			margin-top: 25upx;
+			&::after{
+				width: 210upx;
+				content: '';
+			}
 
 			.oimg {
 				width: 210upx;
 				height: 210upx;
 				overflow: hidden;
+				margin-bottom: 20rpx;
 
 				image {
 					width: 100%;
@@ -490,6 +436,9 @@
 			width: 670upx;
 			padding-bottom: 20upx;
 			border-bottom: 2upx solid rgba(190, 190, 190, 1);
+			font-size: 28upx;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
 		}
 
 		.txt_data {

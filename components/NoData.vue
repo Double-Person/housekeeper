@@ -12,10 +12,10 @@ export default {
       type: String,
       default: "您还没有订单哦！",
     },
-	show: {
-		type: Boolean,
-		required: true
-	}
+    show: {
+      type: Boolean,
+      required: true
+    }
   },
 };
 </script>

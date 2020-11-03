@@ -1,39 +1,33 @@
 <template>
 	<view class="check-questionnaire">
 		<view class="answer-list" v-for="(item, index) in list" :key="index">
-			<view class="title">{{index + 1}} . {{item.title}}</view>
-			<view class="answer">答案 {{item.answer}}</view>
+			<view class="title">{{index + 1}} . {{item.questionnaire_name}}</view>
+			<view class="answer">答案: {{item.problem_answer == 1 && item.questionnaire_one || item.problem_answer == 2 && item.questionnaire_two || item.problem_answer == 3 && item.questionnaire_three}}</view>
 		</view> 
 	</view>
 </template>
 
 <script>
+import { questionnaireApiAnswerlist } from "@/components/api/api.js";
 	export default{
 		data() {
 			return {
-				list: [
-					{
-						title:'这是问题',
-						answer: '这是答案'
-					},{
-						title:'这是问题',
-						answer: '这是答案'
-					},{
-						title:'这是问题',
-						answer: '这是答案'
-					},{
-						title:'这是问题',
-						answer: '这是答案'
-					},{
-						title:'这是问题',
-						answer: '这是答案'
-					},{
-						title:'这是问题',
-						answer: '这是答案'
-					},
-				]
+				order_id: '',
+				list: []
 			}
-		}
+		},
+		onLoad(opt) {
+			this.order_id = opt.order_id;
+			this._questionnaireApiAnswerlist()
+		},
+		methods: {
+			_questionnaireApiAnswerlist() {
+				questionnaireApiAnswerlist({ order_id: this.order_id }).then(res => {
+					console.log(res)
+					this.list = res.varList
+				})
+			}
+		},
 	}
 </script>
 

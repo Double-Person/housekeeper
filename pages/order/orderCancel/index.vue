@@ -2,40 +2,42 @@
   <scroll-view
     :scroll-y="true"
     class="scroll-view-tab-list-body"
-    :lower-threshold="100"
-    @scrolltolower="scrolltolower"
   >
     <view class="padding-bottom150">
       <!-- :flag="8" -->
       <fromDeatil
-        msg="msg"
+        msg="取消"
         :item="item"
         v-for="(item, index) in list"
         :key="index"
-        @getDetail="getDetail(act)"
+        @getDetail="getDetail"
       >
       </fromDeatil>
-	  <NoData show></NoData>
+      <NoData :show="!list.length"></NoData>
     </view>
   </scroll-view>
 </template>
 
 <script>
-	import NoData from "@/components/NoData.vue"
+import NoData from "@/components/NoData.vue";
 import fromDeatil from "@/components/fromAll.vue";
 export default {
-  data() {
-    return {
-      list: [],
-    };
+  props: {
+    list: {
+      type: Array,
+      default: () => [],
+    },
   },
   components: {
     fromDeatil,
-	NoData
+    NoData,
   },
   methods: {
-    scrolltolower() {},
-    getDetail() {},
+    getDetail(item) {
+      uni.navigateTo({
+         url: '../../components/workersOrderDetail/allDetail?info=' + JSON.stringify(item)
+      });
+    },
   },
 };
 </script>

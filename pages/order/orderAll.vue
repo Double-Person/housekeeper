@@ -10,25 +10,25 @@
 					<view :class="{ active: topActive === index }" v-for="(item, index) in topBarList" :key="item.value" @click="topBarActive(index, item.value)">{{ item.label }}</view>
 				</view>
 			</scroll-view>
-			
+
 			<!-- mastertype -->
 			<scroll-view scroll-y="true" class="body-scroll-view">
 				<!-- 全部 -->
-				<orderAll v-show="currentTabBar == statusObj.ALL" :list='topBarList[this.topActive].list'/>
+				<orderAll v-show="currentTabBar == statusObj.ALL" :list='topBarList[this.topActive].list' />
 				<!-- 施工 -->
-				<orderConstuction v-show="currentTabBar == statusObj.CONSTRUCTION" @orderConstuction='orderConstuction' :list='topBarList[this.topActive].list'/>
+				<orderConstuction v-show="currentTabBar == statusObj.CONSTRUCTION" @orderConstuction='orderConstuction' :list='topBarList[this.topActive].list' />
 				<!-- 审核 -->
-				<orderAudit v-show="currentTabBar == statusObj.AUDIT" @orderAudit="orderAudit" :list='topBarList[this.topActive].list'/>
+				<orderAudit v-show="currentTabBar == statusObj.AUDIT" @orderAuditEmit="orderAuditEmit" :list='topBarList[this.topActive].list' />
 				<!-- 质保 -->
-				<orderQuality v-show="currentTabBar == statusObj.QUALITY_ASSURANCE" :list='topBarList[this.topActive].list'/>
+				<orderQuality v-show="currentTabBar == statusObj.QUALITY_ASSURANCE" :list='topBarList[this.topActive].list' />
 				<!-- 完成 -->
-				<orderComplete v-show="currentTabBar == statusObj.COMPLETE" :list='topBarList[this.topActive].list'/>
+				<orderComplete v-show="currentTabBar == statusObj.COMPLETE" :list='topBarList[this.topActive].list' />
 				<!-- 完成 -->
-				<orderCancel v-show="currentTabBar == statusObj.CANCEL" :list='topBarList[this.topActive].list'/>
+				<orderCancel v-show="currentTabBar == statusObj.CANCEL" :list='topBarList[this.topActive].list' />
 			</scroll-view>
 
-			
-		
+
+
 		</view>
 	</view>
 </template>
@@ -43,20 +43,29 @@
 	import orderComplete from "./orderComplete/index.vue"; // 完成
 	import orderCancel from "./orderCancel/index.vue"; // 完成
 	import NoData from "@/components/NoData.vue"
-	import { workersOrderStatus } from "@/variable/orderCenter.js";
-	
-	import { selectorder } from '@/components/api/api.js'
+	import {
+		workersOrderStatus
+	} from "@/variable/orderCenter.js";
+
+	import {
+		selectorder
+	} from '@/components/api/api.js'
 	export default {
 		components: {
 			fromDeatil,
 			TopSearch,
 			NoData,
-			orderAll,orderConstuction,orderAudit,orderQuality,orderComplete,orderCancel
+			orderAll,
+			orderConstuction,
+			orderAudit,
+			orderQuality,
+			orderComplete,
+			orderCancel
 		},
 		data() {
 			return {
-				orderAuditType: 'review',  // 审核状态  
-				orderConstuctionType:'review',  // 施工状态
+				orderAuditType: 'review', // 审核状态  
+				orderConstuctionType: 'review', // 施工状态
 				currentTabBar: -1,
 				topActive: 0, // 顶部导航激活
 				statusObj: workersOrderStatus,
@@ -137,75 +146,102 @@
 			this.currentTabBar = this.topBarList && this.topBarList[0].value;
 			this._list()
 		},
+		onLoad() {
+			// 审核状态切换事件监听
+			uni.$on("orderAuditEmit", (type) => {
+				this.orderAuditType = type
+				this.watchAudit()
+			})
+		},
 		methods: {
-		
+
 			topBarActive(index, value) {
 				this.topActive = index;
 				this.currentTabBar = value; //
 				// 0待开工、1施工中、2审核中、3已通过、4未通过、
 				//  5质保中、6已完成、7取消、8售后待处理、9售后处理中、10售后已完成
-				if(index == 1) { // 施工
+				if (index == 1) { // 施工
 					this._list('0')
 				}
-				
-				if(index == 2) { // 审核
-					if(this.orderConstuctionType == 'review') { // 2审核中、3已通过、4未通过
+
+				if (index == 2) { // 审核
+					console.log('-----', this.orderConstuctionType)
+					if (this.orderConstuctionType == 'review') { // 2审核中、3已通过、4未通过
 						this._list(2)
 					}
-					if(this.orderConstuctionType == 'haveBeenThrough') { // 已通过
+					if (this.orderConstuctionType == 'haveBeenThrough') { // 已通过
 						this._list(3)
 					}
-					if(this.orderConstuctionType == 'noThrough') { // 未通过
+					if (this.orderConstuctionType == 'noThrough') { // 未通过
 						this._list(4)
 					}
 				}
-				
-				if(index == 3) { // 质保
+
+				if (index == 3) { // 质保
 					this._list(5)
-				}else if(index == 4) { // 已完成
+				} else if (index == 4) { // 已完成
 					this._list(6)
-				}else if(index == 5) { // 取消
+				} else if (index == 5) { // 取消
 					this._list(7)
-				}else if(index == 0) { // 全部
+				} else if (index == 0) { // 全部
 					this._list('')
 				}
-				
-	
+
+
 				// 审核页面   audit: 'review',  // 审核中三种状态  haveBeenThrough noThrough
 				if (this.statusObj.AUDIT == this.currentTabBar) {
 					this.currentType = "review";
 					this.audit = "review";
 				}
 			},
-			
+
 			_list(mastertype) {
+				uni.showLoading({
+					title: '加载中'
+				})
 				let obj = {
 					mastertype: mastertype || '',
 					worker_id: uni.getStorageSync('WORKERS_ID')
 				};
+				console.log(mastertype, obj)
 				selectorder(obj).then(res => {
-					console.log(res)
 					this.topBarList[this.topActive].list = res.varList
+				}).finally(() => {
+					uni.hideLoading()
 				})
 			},
+			
+			watchAudit() {
+				if (this.orderAuditType == 'review') { // 2审核中、3已通过、4未通过
+					this._list(2)
+				}
+				if (this.orderAuditType == 'haveBeenThrough') { // 已通过
+					this._list(3)
+				}
+				if (this.orderAuditType == 'noThrough') { // 未通过
+					this._list(4)
+				}
+			},
+			
 			// 施工  待开工，施工中状态切换 
 			orderConstuction(type) {
 				this.orderConstuctionType = type
-				if(this.orderConstuctionType == 'review') { // 待开工
+				if (this.orderConstuctionType == 'review') { // 待开工
 					this._list('0')
 				}
-				if(this.orderConstuctionType == 'haveBeenThrough') { // 施工中
+				if (this.orderConstuctionType == 'haveBeenThrough') { // 施工中
 					this._list(1)
 				}
 			},
 			//  审核状态切换
-			orderAudit(type) {
+			orderAuditEmit(type) {
+				uni.$on('orderAuditEmit')
 				this.orderAuditType = type
 			},
-			
+
+
 			// 下级类型切换
 			subType(type) {
-				console.log("下级类型", type);
 				this.audit = type;
 				this.currentType = type;
 			},

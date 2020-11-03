@@ -12,7 +12,7 @@
 			<view class="padding-bottom150">
 				<view v-if="technicianOrderStatus.ALL === currentTabBar">
 					<fromDeatil 
-					:msg="(item.states == 0 && '设置方案') || (item.states == 1 && '完成') || (item.states == 2 && '取消')" :item="item" 
+					:msg="(item.states == 0 && '设置方案') || (item.states == 1 && '完成') || (item.states == 2 && '取消') || (item.states == 3 && '不通过')|| (item.states == 4 && '待审核')" :item="item" 
 					v-for="(item,index) in titleList[activeIndex].list" :key="index"
 					 @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi">
 						<view class="slot-warp" v-if="item.states == 0">

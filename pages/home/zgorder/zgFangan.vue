@@ -20,18 +20,18 @@
       <view class="padding-bottom150">
         <!-- :flag="8" -->
         <fromDeatil
-          msg="msg"
+          :msg="item.state==0 && '待审核'|| item.state==1 && '通过' || item.state==2 && '不通过'"
           :item="item"
           v-for="(item, index) in titleList[activeIndex].list"
           :key="index"
           @getDetail="getDetail(act)"
         >
-          <view class="slot-warp">
+          <view class="slot-warp" v-if="item.state==0">
             <view class="slot-not-active" @click="notThrough">不通过</view>
-            <view class="slot-active" @click="through">通过</view>
+            <view class="slot-active" @click="through(item)">通过</view>
           </view>
         </fromDeatil>
-		<NoData show></NoData>
+		<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
       </view>
     </scroll-view>
   </view>
@@ -42,6 +42,7 @@
 import fromDeatil from "@/components/fromAll.vue";
 import Topsearch from "@/components/TopSearch.vue";
 import { plantType } from "@/variable/plan.js";
+import {workerorderApiProgramme} from "@/components/api/api.js"
 export default {
   data() {
     return {
@@ -52,16 +53,17 @@ export default {
           label: "待通过",
          list: [],
         },
+		{
+		  value: plantType.PASSED,
+		  label: "已通过",
+		  list: [],
+		},
         {
           value: plantType.NOT_PASS,
           label: "未通过",
           list: [],
         },
-        {
-          value: plantType.PASSED,
-          label: "已通过",
-          list: [],
-        },
+       
       ],
       act: 1,
     };
@@ -69,6 +71,9 @@ export default {
   components: {
     fromDeatil,
     Topsearch,NoData
+  },
+  mounted() {
+  	this._workerorderApiProgramme()
   },
   methods: {
     // 搜索
@@ -79,19 +84,23 @@ export default {
     },
     clickTitle(index, value) {
       this.activeIndex = index;
+	  this._workerorderApiProgramme()
     },
+	_workerorderApiProgramme() {
+		let obj = {
+			worker_id: uni.getStorageSync('WORKERS_ID'),  // worker_id 主管id
+			state: this.activeIndex    // *  state 0 待审核  1  通过   2  不通过
+		}
+		workerorderApiProgramme(obj).then(res => {
+			this.titleList[this.activeIndex].list = res.varList
+		})
+	},
     getDetail(act) {
-      console.log(1);
       uni.navigateTo({
         url: "zgfanganxiangqing",
       });
     },
-    // 施工跳转
-    sgDetail() {
-      uni.navigateTo({
-        url: "./sgDetail",
-      });
-	},
+  
 	// 不通过
     notThrough() {
       uni.navigateTo({
@@ -99,9 +108,10 @@ export default {
       });
 	},
 	// 通过
-    through() {
+    through(info) {
       uni.navigateTo({
-        url: "zgfanganNew",
+		  // url: 'zgfanganNewIsThrou'
+        url: "zgfanganNewIsThrou?userInfo=" + JSON.stringify(info) + '&status=1',
       });
     },
   },

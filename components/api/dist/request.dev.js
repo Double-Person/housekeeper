@@ -12,9 +12,10 @@ baseUrl_ = ''; // #endif
 
 baseUrl_ = 'https://www.hemingbi.com/housekeeper'; // #endif
 
-var baseUrl = baseUrl_;
+var baseUrl = baseUrl_; // export const imgBaseUrl = 'https://www.hemingbi.com/housekeeper/'
+
 exports.baseUrl = baseUrl;
-var imgBaseUrl = 'https://www.hemingbi.com/housekeeper/';
+var imgBaseUrl = 'http://192.168.0.114:8081/';
 exports.imgBaseUrl = imgBaseUrl;
 
 var ajax = function ajax(option) {

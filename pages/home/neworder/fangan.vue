@@ -6,14 +6,16 @@
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
-		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body">
 			<view class="padding-bottom150">
 				<fromDeatil 
 					:msg="(item.states == 1 && '已确认') || (item.states == 4 && '待确认') || (item.states == 3 && '未通过')" 
 					:item="item" 
 					v-for="(item,index) in titleList[activeIndex].list" 
-					:key="index" @getDetail="getDetail"
-					 @butongguo="butongguo" @tongyi="tongyi">
+					:key="index" @getDetail="getDetail(index, item)">
+					<view class="slot-warp" v-if="activeIndex == 2">
+						<view class="slot-active" @click="aglinSetting(item.order_id)">重新设置</view>
+					</view>
 				 </fromDeatil>
 				 <NoData :show="!titleList[activeIndex].list.length"/>
 			
@@ -65,6 +67,13 @@
 			await this.getList()
 		},
 		methods: {
+			
+			aglinSetting(order_id) {
+				// /home/neworder/dingdanzhongxin
+				uni.navigateTo({ // home neworder weitongguoxiangqing
+					url: './shezhifangan?order_id=' + order_id
+				})
+			},
 			clickTitle(index, value) {
 				this.activeIndex = index;
 				this.currentTabBar = value
@@ -84,11 +93,8 @@
 					this.titleList[this.activeIndex].list = res.varList
 				})
 			},
-			scrolltolower(e) {
-
-			},
-
-			getDetail(val) {
+			
+			getDetail(val, info) {
 				let act = this.currentTabBar
 				if (act == 1) {
 					uni.navigateTo({
@@ -96,7 +102,7 @@
 					})
 				} else if (act == 2) {
 					uni.navigateTo({
-						url: 'weitongguoxiangqing'
+						url: 'weitongguoxiangqing?info=' + JSON.stringify(info)
 					})
 				} else {
 					uni.navigateTo({

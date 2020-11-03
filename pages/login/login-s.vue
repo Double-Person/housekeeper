@@ -64,15 +64,15 @@
 		<view class="selzjz">
 			<!-- 正面 -->
 			<image src="/static/loginImg/xjz.png" mode="" @click="changePositive('positive')" v-if="!photo.positive"></image>
-			<image :src="photo.positive" mode="" @click="changePositive('positive')" v-if="photo.positive"></image>
+			<image :src="imgBaseUrl + photo.positive" mode="" @click="changePositive('positive')" v-if="photo.positive"></image>
 
 			<!-- 反面 -->
 			<image src="/static/loginImg/xjf.png" mode="" @click="changePositive('reverse')" v-if="!photo.reverse"></image>
-			<image :src="photo.reverse" mode="" @click="changePositive('reverse')" v-if="photo.reverse"></image>
+			<image :src="imgBaseUrl + photo.reverse" mode="" @click="changePositive('reverse')" v-if="photo.reverse"></image>
 
 			<!-- 手持正面 -->
 			<image src="/static/loginImg/xj.png" @click="changePositive('handPositive')" mode="" v-if="!photo.handPositive"></image>
-			<image :src="photo.handPositive" mode="" @click="changePositive('handPositive')" v-if="photo.handPositive"></image>
+			<image :src="imgBaseUrl + photo.handPositive" mode="" @click="changePositive('handPositive')" v-if="photo.handPositive"></image>
 
 		</view>
 
@@ -122,6 +122,7 @@
 			if (this.userInfo.positionIndex) {
 				this.positionIndex = this.userInfo.positionIndex
 			}
+			console.log('=======');
 
 			this.getWorkerUserExecutive()
 
@@ -155,7 +156,8 @@
 							path: res.tempFilePaths[0]
 						}).then(file => {
 							let upLoadPath = JSON.parse(file.data).data
-							this.photo[type] = imgBaseUrl + upLoadPath
+							console.log(upLoadPath)
+							this.photo[type] = upLoadPath
 						})
 					},
 					fail: () => {
@@ -226,13 +228,13 @@
 					})
 					return false;
 				}
-				if (positionIndex == 2) {
-					uni.showToast({
-						title: '系统错误',
-						icon: 'none'
-					})
-					return false;
-				}
+				// if (positionIndex == 2) {
+				// 	uni.showToast({
+				// 		title: '系统错误',
+				// 		icon: 'none'
+				// 	})
+				// 	return false;
+				// }
 				console.log(sexIndex, positionIndex, directorIndex)
 				console.log(obj)
 				workerRegister(obj).then(res => {
