@@ -15,7 +15,7 @@ baseUrl_ = 'https://www.hemingbi.com/housekeeper'; // #endif
 var baseUrl = baseUrl_; // export const imgBaseUrl = 'https://www.hemingbi.com/housekeeper/'
 
 exports.baseUrl = baseUrl;
-var imgBaseUrl = 'http://192.168.0.114:8081/';
+var imgBaseUrl = 'http://192.168.0.110:8081/';
 exports.imgBaseUrl = imgBaseUrl;
 
 var ajax = function ajax(option) {

@@ -5,9 +5,9 @@
 	  </view>
     <view class="my_text">
       <view class="my_logo">
-        <image src="../static/my_icon/my_logo.png" mode=""></image>
+        <image src="/static/my_icon/my_logo.png" mode=""></image>
         <image
-          src="../static/my_icon/logo.jpg"
+          :src="userInfo.head ? userInfo.head : '/static/my_icon/logo.jpg'"
           mode=""
           class="logo"
           @click="changeHead"
@@ -15,10 +15,7 @@
       </view>
     </view>
     <view class="top_bac">
-      <image
-        :src="userInfo.head ? userInfo.head : '/static/my_icon/my_topbac.png'"
-        mode=""
-      ></image>
+ 
     </view>
     <text class="my_name">{{ userInfo.name }}</text>
   </view>
@@ -37,7 +34,6 @@ export default {
   },
   methods: {
 	  closeExit() {
-		  // console.log('--')
 		  uni.redirectTo({
 		  	url: '/pages/login/logins'
 		  })

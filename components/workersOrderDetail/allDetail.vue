@@ -35,7 +35,7 @@
 		<view class="serve" v-if="plantInfo.programme">
 			<view class="titb">
 				<text class="tit_a">方案详情</text>
-				<!-- <text class="tit_b" @click="detailAll">全部详情></text> -->
+				<text class="tit_b" @click="detailAll">全部详情></text>
 			</view>
 			<view class="box">
 				<view class="text" v-for="(item, index) in plantInfo.programme" :key="index">
@@ -116,7 +116,8 @@ import { showMsg } from "@/utils/showMsg.js"
 		methods: {
 			detailAll(){
 			 	uni.navigateTo({
-			 		url:"./sgdetailAll"
+					 // url:"./sgdetailAll"
+					 url: './moreDetail'
 			 	})
 			},
 

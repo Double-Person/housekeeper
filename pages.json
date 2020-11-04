@@ -34,6 +34,14 @@
 			}
 		},
 		{
+			"path": "pages/login/bindPhoneByWechat",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
 			"path": "pages/login/login_securityCode",
 			"style": {
 				"app-plus": {
@@ -567,6 +575,12 @@
 		},
 		{
 			"path": "components/workersOrderDetail/allDetail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		},
+		{
+			"path": "components/workersOrderDetail/moreDetail",
 			"style": {
 				"navigationBarTitleText": "详情"
 			}

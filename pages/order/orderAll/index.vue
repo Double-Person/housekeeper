@@ -74,6 +74,7 @@ export default {
     NoData,
   },
 
+
   methods: {
 
     getDetail(item) {

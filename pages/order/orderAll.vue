@@ -7,7 +7,7 @@
 			<!-- 横向滚动 -->
 			<scroll-view :scroll-x="true" class="top-scroll-view">
 				<view class="top">
-					<view :class="{ active: topActive === index }" v-for="(item, index) in topBarList" :key="item.value" @click="topBarActive(index, item.value)">{{ item.label }}</view>
+					<view class="top-view" :class="{ active: topActive === index }" v-for="(item, index) in topBarList" :key="item.value" @click="topBarActive(index, item.value)">{{ item.label }}</view>
 				</view>
 			</scroll-view>
 

@@ -94,8 +94,14 @@
 			}
 		},
 		onLoad(option) {
-			this.info = JSON.parse(option.info)
-			this.order_id = option.order_id
+			if(option.info) {
+				this.info = JSON.parse(option.info)
+			}
+			
+			
+			if(option.order_id) {
+				this.order_id = option.order_id
+			}
 			this._programme1()
 		},
 		methods: { // typeid   series_id
@@ -176,17 +182,19 @@
 
 			// 获取第一级数据
 			_programme1() {
-				programme1().then(res => {
+				let token = uni.getStorageSync('HOUSE_TOKEN');
+				programme1({token}).then( res => {
 					this.list = res.returnMsg
-					this.list.forEach(ele => {
+					this.list && this.list.forEach(ele => {
 						ele.isShow = false
 					})
 				})
 			},
 			// 获取第二级数据
 			_programme2(typeid, index) {
+				let token = uni.getStorageSync('HOUSE_TOKEN');
 				programme2({
-					typeid
+					typeid, token
 				}).then(res => {
 					this.list[index].list = res.returnMsg
 					this.list[index].list.forEach(ele => {
@@ -198,9 +206,11 @@
 			},
 			// 获取第三级数据
 			_programme3(obj, index1, index) {
+				let token = uni.getStorageSync('HOUSE_TOKEN');
 				programme3({
 					typeid: obj.typeid,
-					series_id: obj.series_id
+					series_id: obj.series_id,
+					token
 				}).then(res => {
 					this.list[index1].list[index].list = res.returnMsg;
 					this.list[index1].list[index].isShow = !obj.isShow

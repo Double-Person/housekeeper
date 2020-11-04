@@ -2,8 +2,6 @@
   <scroll-view
     :scroll-y="true"
     class="scroll-view-tab-list-body"
-    :lower-threshold="100"
-    @scrolltolower="scrolltolower"
   >
     <view class="padding-bottom150">
       <!-- :flag="8" -->
@@ -15,7 +13,7 @@
         @getDetail="getDetail(act)"
       >
       </fromDeatil>
-	  <NoData show></NoData>
+	  <NoData :show="list.length === 0"></NoData>
     </view>
   </scroll-view>
 </template>
@@ -23,10 +21,18 @@
 <script>
 	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue";
+
+import { directorOrderCenterAllStatus } from "@/variable/orderCenter.js";
 export default {
+  props: {
+    list: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
-      list: [],
+      TYPES: directorOrderCenterAllStatus,
     };
   },
   components: {
@@ -34,8 +40,9 @@ export default {
 	NoData
   },
   methods: {
-    scrolltolower() {},
     getDetail() {},
+  
+
   },
 };
 </script>

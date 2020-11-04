@@ -7,8 +7,15 @@ baseUrl =''
 // #endif
 
 // #ifdef APP-PLUS
-baseUrl ='https://www.hemingbi.com/housekeeper'
+// baseUrl ='https://www.hemingbi.com/housekeeper'
+baseUrl ='http://192.168.0.110:8081/'
 // #endif
+// 判断是第一次
+export const wxloginone = data => ajax({ url: '/worker/wxloginone', data, method: 'POST' });
+
+export const wxlogin = data => ajax({ url: '/worker/wxlogin', data, method: 'POST' });
+
+
 
 // 1.账号密码登录   phone   pwd
 export const login = data => ajax({ url: '/worker/workerLogin', data, method: 'POST' });
@@ -63,6 +70,9 @@ export const questionnaireApiList = data => ajax({ url: '/api/questionnaireApi/l
 export const questionnaireApiAdd = data => ajax({ url: '/api/questionnaireApi/add', data, method: 'POST' });
 // 查询问卷调查答案列表
 export const questionnaireApiAnswerlist = data => ajax({ url: '/api/questionnaireApi/answerlist', data, method: 'POST' });
+// 主管訂單中心
+export const ordertype = data => ajax({ url: '/api/workerorderApi/ordertype', data, method: 'POST' });
+
 
 
 

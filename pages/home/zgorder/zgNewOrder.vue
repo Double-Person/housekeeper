@@ -6,14 +6,14 @@
 
 				<!-- 名称+logo -->
 				<view class="new_logo">
-					<image :src="item.image ? item.image : '/static/my_icon/logo.jpg'" mode=""></image>
-					<text>{{item.project_name}}</text>
+					<image :src=" imgBaseUrl + item.image" mode=""></image>
+					<text v-if="item.goods">{{item.goods_type == 0 ? item.goods.name : item.goods.package_name}}</text>
 				</view>
 
 				<!-- 订单详情 -->
 				<view class="new_text" @click="gonew">
 					<view class="new_img">
-						<image :src="item.image ? item.image : '/static/my_icon/logo.jpg'" mode=""></image>
+						<image :src=" imgBaseUrl + item.image" mode=""></image>
 					</view>
 					<view class="new_mid">
 						<text>订单编号：{{item.order_number}}</text>
@@ -30,7 +30,7 @@
 				</view>
 			</view>
 			
-			<NoData show></NoData>
+			<NoData :show="list.length === 0"></NoData>
 		</view>
 	</view>
 </template>
@@ -41,12 +41,14 @@
 		workerorderApiworkerList,
 		updatestate
 	} from "@/components/api/api.js"
+	import { imgBaseUrl } from "@/components/api/request.js"
 	export default {
 		components:{
 			NoData
 		},
 		data() {
 			return {
+				imgBaseUrl: imgBaseUrl,
 				list: []
 			}
 		},
@@ -62,9 +64,7 @@
 				workerorderApiworkerList({
 					worker_id,
 					token
-				}).then(({
-					varList
-				}) => {
+				}).then(({ varList }) => {
 					console.log('獲取新订单', varList)
 					this.list = varList
 				})
@@ -82,6 +82,11 @@
 					state_one: type ? 1 : 2
 				}).then(res => {
 					console.log(res)
+					uni.showToast({
+						title: res.mig,
+						icon: 'none'
+					});
+					this.getWorkerorderApiworkerList()
 					// uni.navigateTo({
 					// 	url: "./zgnewa?type=" + type + "&info=" + JSON.stringify(item)
 					// })

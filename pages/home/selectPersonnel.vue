@@ -1,4 +1,3 @@
-
 <template>
 	<view class="director-list">
 		<view class="director-item" v-for="(i, index) in list" :key="i.workers_id" :class="{active: active == index}">
@@ -20,48 +19,59 @@
 </template>
 
 <script>
-		import { workerUserExecutive, technician, workerWorker} from '@/components/api/api.js'
-		import {positionObj} from "@/variable/orderCenter.js"
-	export default{
+	import {
+		workerUserExecutive,
+		technician,
+		workerWorker
+	} from '@/components/api/api.js'
+	import {
+		positionObj
+	} from "@/variable/orderCenter.js"
+	export default {
 		data() {
 			return {
 				active: -1,
 				userInfo: {},
 				list: [],
+				type: '',
 				toPath: '' // 确定后跳转的地址
 			}
 		},
 		onLoad(option) {
 			console.log(option.type == 'technology')
-			if(option.userInfo) {
+			if (option.userInfo) {
 				this.userInfo = JSON.parse(option.userInfo)
 			}
-			
-			if(option.type == 'technology'){  // 技术
+
+			if (option.type == 'technology') { // 技术
+				this.type = 'technology';
 				this._technician()
 			}
-			if(option.type == 'master'){  //工长
-				
+			if (option.type == 'master') { //工长
+				this.type = 'master';
+				this._workerWorker()
 			}
-			if(option.type == 'director'){   // 主管
+			if (option.type == 'director') { // 主管
+				this.type = 'director';
 				this.getWorkerUserExecutive()
 			}
-			
+
 			this.toPath = option.path
 			console.log(this.toPath)
-			
-			
-			
-			
+
+
+
+
 		},
 		methods: {
 			checkWorker(index, item) {
 				this.active = index
 				this.userInfo.checkId = item.workers_id;
 				this.userInfo.checkName = item.name;
+				this.userInfo.selectType = this.type;
 			},
 			checkSure() {
-				if(this.toPath) {
+				if (this.toPath) {
 					uni.navigateTo({
 						url: `${this.toPath}?userInfo=${JSON.stringify(this.userInfo)}`
 					})
@@ -69,25 +79,50 @@
 				// uni.navigateTo({
 				// 	url:'./login-s?userInfo='+ JSON.stringify(this.userInfo)
 				// })
-				
+
 			},
 			// 查看用户资料
 			handelInfo(item) {
 				uni.navigateTo({
-					url:'./detailInfo?info='+ JSON.stringify(item)
+					url: './detailInfo?info=' + JSON.stringify(item)
 				})
 			},
 			// 查询主管列表
 			getWorkerUserExecutive() {
-				workerUserExecutive().then(({varList}) => {
+				workerUserExecutive().then(({
+					varList
+				}) => {
 					this.list = varList
+				})
+			},
+			// 查询主管下的工人
+			_workerWorker() {
+				uni.showLoading({
+					title: '加载中'
+				});
+				let parent_id = uni.getStorageSync('WORKERS_ID')
+				console.log(parent_id)
+				workerWorker({
+					parent_id
+				}).then(res => {
+					this.list = res.varList
+				}).finally(() => {
+					uni.hideLoading();
 				})
 			},
 			// 查询主管下的技术员列表
 			_technician() {
+				uni.showLoading({
+					title: '加载中'
+				});
 				let parent_id = uni.getStorageSync('WORKERS_ID')
-				technician({parent_id}).then(res => {
+				console.log(parent_id)
+				technician({
+					parent_id
+				}).then(res => {
 					this.list = res.varList
+				}).finally(() => {
+					uni.hideLoading();
 				})
 			},
 		}
@@ -95,11 +130,12 @@
 </script>
 
 <style lang="scss" scoped>
-	.active{
+	.active {
 		background: #eee;
 	}
-	.director-list{
-		.director-item{
+
+	.director-list {
+		.director-item {
 			padding: 0 30rpx;
 			width: 616rpx;
 			height: 128rpx;
@@ -109,21 +145,25 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			.left{
+
+			.left {
 				display: flex;
 				width: 75%;
-				.header{
+
+				.header {
 					width: 80rpx;
 					height: 80rpx;
 					border-radius: 50%;
 					margin-right: 22rpx;
 				}
-				.user-info{
-					.name{
+
+				.user-info {
+					.name {
 						font-size: 32rpx;
 						color: #333333;
 					}
-					.position{
+
+					.position {
 						margin-top: 20rpx;
 						font-size: 24rpx;
 						font-weight: 400;
@@ -132,7 +172,8 @@
 					}
 				}
 			}
-			.right{
+
+			.right {
 				padding: 11rpx 13rpx;
 				height: 46rpx;
 				border: 1rpx solid #FFC10C;
@@ -144,7 +185,7 @@
 
 			}
 		}
-	
+
 		.btn {
 			background: rgb(255, 200, 35);
 			width: 715rpx;
@@ -153,12 +194,12 @@
 			text-align: center;
 			margin: 50rpx auto;
 			border-radius: 10rpx;
-			
+
 			font-size: 36rpx;
 			font-weight: 500;
 			color: #FFFFFF;
 
 		}
-	
+
 	}
 </style>

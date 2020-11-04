@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.upLoadFile = exports.telCode = exports.start = exports.selectorder = exports.receivingorders = exports.orderprogrammeinfo = exports.search = exports.addprogrammeinfo = exports.programme3 = exports.programme2 = exports.programme1 = exports.technicianListAllById = exports.technicianUpaateforeman = exports.upaateforeman = exports.selectgoodname = exports.questionnaireApiAnswerlist = exports.questionnaireApiAdd = exports.questionnaireApiList = exports.programmeApiList = exports.workerorderApiJudgeadopt = exports.workerorderApiProgramme = exports.daiforeman = exports.daitechnician = exports.distribution = exports.updatestate = exports.workerorderApiworkerList = exports.workerWorker = exports.technician = exports.workerUserExecutive = exports.workerIndex = exports.forgetPwd = exports.executive = exports.workerRegister = exports.login = void 0;
+exports.upLoadFile = exports.telCode = exports.start = exports.selectorder = exports.receivingorders = exports.orderprogrammeinfo = exports.search = exports.addprogrammeinfo = exports.programme3 = exports.programme2 = exports.programme1 = exports.technicianListAllById = exports.technicianUpaateforeman = exports.upaateforeman = exports.selectgoodname = exports.ordertype = exports.questionnaireApiAnswerlist = exports.questionnaireApiAdd = exports.questionnaireApiList = exports.programmeApiList = exports.workerorderApiJudgeadopt = exports.workerorderApiProgramme = exports.daiforeman = exports.daitechnician = exports.distribution = exports.updatestate = exports.workerorderApiworkerList = exports.workerWorker = exports.technician = exports.workerUserExecutive = exports.workerIndex = exports.forgetPwd = exports.executive = exports.workerRegister = exports.login = void 0;
 
 var _request = require("./request.js");
 
@@ -223,12 +223,23 @@ var questionnaireApiAnswerlist = function questionnaireApiAnswerlist(data) {
     data: data,
     method: 'POST'
   });
+}; // 主管訂單中心
+
+
+exports.questionnaireApiAnswerlist = questionnaireApiAnswerlist;
+
+var ordertype = function ordertype(data) {
+  return (0, _request.ajax)({
+    url: '/api/workerorderApi/ordertype',
+    data: data,
+    method: 'POST'
+  });
 }; // 技术人员
 // 技术员的模糊查询
 // technician_id 技术员id    states（全部不传）   0设置方案、1完成、2取消、3重新设置、4、待审核     query 参数
 
 
-exports.questionnaireApiAnswerlist = questionnaireApiAnswerlist;
+exports.ordertype = ordertype;
 
 var selectgoodname = function selectgoodname(data) {
   return (0, _request.ajax)({

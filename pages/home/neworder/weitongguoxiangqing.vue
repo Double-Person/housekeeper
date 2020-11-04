@@ -41,7 +41,7 @@
 				<text class="tit_b" @click="detailAll">全部详情></text>
 			</view>
 			<view class="box" v-if="info.programme">
-				<view class="text" v-for="ele in info.programme">
+				<view class="text" v-for="(ele, ind) in info.programme" :key="ind">
 					<text>{{ele.name}}</text>
 					<text>{{ele.numbers + ele.company}}*{{ele.price}}</text>
 					<text>¥ {{ ele.numbers * ele.price }}</text>
@@ -70,7 +70,7 @@
 				照片
 			</view>
 			<view class="img_data">
-				<view class="oimg" v-for="(item, index) in info.urllist">
+				<view class="oimg" v-for="(item, index) in info.urllist" :key="index">
 					<image :src="imgBaseUrl + item.picture_url"></image>
 				</view>
 				
@@ -90,7 +90,7 @@
 				整改说明
 			</view>
 			<view class="txt_data">
-				{{info.explain}}
+				{{info.explaina}}
 			</view>
 		</view>
 		

@@ -38,7 +38,7 @@
             <view class="slot-active" @click="through">通过</view>
           </view>
         </fromDeatil>
-		<NoData show></NoData>
+		<NoData :show="list.length === 0"></NoData>
       </view>
     </scroll-view>
   </view>
@@ -47,11 +47,18 @@
 <script>
 	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue"
+import { directorOrderCenterAllStatus } from "@/variable/orderCenter.js";
 export default {
+   props: {
+    list: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       audit: "review",
-      list: [],
+      TYPES: directorOrderCenterAllStatus,
     };
   },
   components: {

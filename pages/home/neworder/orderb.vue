@@ -90,11 +90,14 @@
 						title: '接单成功',
 						icon: "none"
 					})
+					setTimeout( () => {
+						uni.navigateTo({
+						url:'../homejishu'
+					})
+					}, 1000 )
+					
 				})
-				uni.navigateTo({
-					// url: "fangan"
-					url:'/pages/home/neworder/neworder'
-				})
+				
 			},
 			bindDateChange(e) {
 				this.date = e.target.value

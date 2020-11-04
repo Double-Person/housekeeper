@@ -4,7 +4,7 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image :src="baseUrl + info.image" mode=""></image>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
 					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 
@@ -12,7 +12,7 @@
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image :src="baseUrl + info.image" mode=""></image>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
 				</view>
 				<view class="times">
 					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
@@ -74,7 +74,7 @@
 		</view>
 		
 		<view class="time" @click="selectPersonnel">
-			<text> {{info.checkId ? info.checkName : '选择技术人员'}} </text>
+			<text> {{info.checkId ? info.checkName : (selectType== 'technology' && '选择技术人员' || selectType== 'master' && '选择工长')}} </text>
 			<image src="/static/loginImg/hright.png" mode=""></image>
 		</view>
 		<view class="btn" @click="detailAll">
@@ -84,14 +84,15 @@
 </template>
 
 <script>
-	import {baseUrl } from "@/components/api/request.js"
+	import {imgBaseUrl } from "@/components/api/request.js"
 	import {distribution, workerorderApiJudgeadopt } from "@/components/api/api.js"
 	export default {
 
 		data() {
 			return {
-				baseUrl: baseUrl,
-				info: {}
+				imgBaseUrl: imgBaseUrl,
+				info: {},
+				selectType: ''
 			}
 		},
 		onLoad(option) {
@@ -99,23 +100,42 @@
 				this.info = JSON.parse(option.userInfo)
 				console.log(this.info)
 			}
+			if(option.selectType) {
+				this.selectType = option.selectType
+				console.log(option)
+			}
 		},
 		methods: {
 			detailAll(){   // worker_id 工人的id（技术员或工人的id）   order_id   订单id  states    0已分配技术人员、3已分配工人
 				let obj = {
 					worker_id: this.info.checkId,
 					order_id: this.info.order_id,
-					states: 0
+					states: this.info.selectType == 'technology' ? 0 : 3  // 
 				}
 			 	distribution(obj).then(res => {
 					console.log(res)
+					uni.showToast({
+						title: res.mig,
+						icon: 'none'
+					});
+					this.$toIndex()
 				})
 			},
 			// 选择技术人员
 			selectPersonnel() {
-				uni.navigateTo({
-					url: '../selectPersonnel?type=technology&path=/pages/home/zgorder/zgfanganNew&userInfo=' + JSON.stringify(this.info)
-				})
+				
+				if(this.selectType == 'technology') {
+					uni.navigateTo({ // this.selectType
+						url: '../selectPersonnel?type=technology&path=/pages/home/zgorder/zgfanganNew&userInfo=' + JSON.stringify(this.info)
+					})
+				}
+				if(this.selectType == 'master') {
+					uni.navigateTo({
+						url: '../selectPersonnel?type=master&path=/pages/home/zgorder/zgfanganNew&userInfo=' + JSON.stringify(this.info)
+					})
+				}
+				
+	
 			}
 			
 		}

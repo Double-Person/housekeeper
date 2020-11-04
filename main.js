@@ -21,6 +21,45 @@ Vue.prototype.$checkPhone = (phone) => {
 	} else return true
 }
 
+
+Vue.prototype.$toIndex = () => {
+	let HOUSE_LEVELS = uni.getStorageSync('HOUSE_LEVELS')
+	switch (HOUSE_LEVELS * 1) {
+		case 0:
+			// 主管
+			setTimeout(() => {
+				uni.navigateTo({
+					url: "/pages/home/zhuguan",
+				});
+			}, 1000)
+
+			break;
+
+		case 1:
+			// 技术员
+			setTimeout(() => {
+				uni.navigateTo({
+					url: "/pages/home/homejishu",
+				});
+			}, 1000)
+
+			break;
+
+		case 2:
+			// 工人
+			setTimeout(() => {
+				uni.navigateTo({
+					url: "/pages/home/home",
+				});
+			}, 1000)
+
+			break;
+
+		default:
+			break;
+	}
+}
+
 App.mpType = 'app'
 
 const app = new Vue({

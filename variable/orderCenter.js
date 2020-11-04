@@ -119,3 +119,22 @@ export const workersOrderCenterAllStatus = {
 	SALES_SERVICE_COMPLETED: 10, // 售后已完成
 
 }
+
+
+// 主管订单中所有状态
+export const directorOrderCenterAllStatus = {
+	START: 0, // 待开工
+	CONSTRUCTION: 1, // 施工中
+	REVIEW: 2, // 审核中
+	THROUGH: 3, // 已通过
+	NOT_THROUGH: 4, // 未通过
+	QUALITY: 5, // 质保中
+	COMPLETED: 6, // 已完成
+	CANCEL: 7, // 取消
+	SALES_SERVICE: 8, // 售后待处理
+	SALE_PROCESS: 9, // 售后处理中
+	SALES_SERVICE_COMPLETED: 10, // 售后已完成
+	USER_WAITING: 10, // 用户待通过 
+	USER_NOT_APPROVED: 10, // 用户不通过
+
+}

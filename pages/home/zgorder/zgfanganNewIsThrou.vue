@@ -4,7 +4,7 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image :src="baseUrl + info.image" mode=""></image>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
 					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 
@@ -12,7 +12,7 @@
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image :src="baseUrl + info.image" mode=""></image>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
 				</view>
 				<view class="times">
 					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
@@ -35,43 +35,25 @@
 
 			</view>
 		</view>
-		<view class="serve" v-if="false">
+
+		<view class="orderxx" v-if="status == 2">
 			<view class="titb">
-				<text class="tit_a">方案详情</text>
-				<text class="tit_b" @click="detailAll">全部详情></text>
+				原因
 			</view>
-			<view class="box">
-				<view class="text">
-					<text>水电安装</text>
-					<text>1.0m²*40.00</text>
-					<text>¥200.00</text>
-				</view>
-				<view class="text">
-					<text>窗台防水</text>
-					<text>1个*40.00</text>
-					<text>¥1688.00</text>
-				</view>
-				<view class="text">
-					<text>水电安装</text>
-					<text>1.0m²*40.00</text>
-					<text>¥100.00</text>
-				</view>
-			</view>
-			<view class="bottom">
-				<view class="left">
-					<text>开工时间：</text>
-					<text>2020-07-09</text>
-				</view>
-				<view class="right">
-					<text>完工时间：</text>
-					<text>2020-8-19</text>
-				</view>
-				<view class="youhui">
-					<text class="color">总金额：</text>
-					<text class="color">1256</text>
-				</view>
+			<view class="textT">
+				<textarea rows="2" cols="20" class="textareas" v-model="reason" :maxlength="-1" placeholder="请输入原因"></textarea>
 			</view>
 		</view>
+
+		<view class="orderxx" v-if="status == 2">
+			<view class="titb">
+				整改说明
+			</view>
+			<view class="textT">
+				<textarea rows="3" cols="10" class="textareas"  v-model="explaina" :maxlength="-1" placeholder="请输入整改说明"></textarea>
+			</view>
+		</view>
+		
 
 		<view class="time" @click="selectPersonnel" v-if="false">
 			<text> {{info.checkId ? info.checkName : '选择技术人员'}} </text>
@@ -85,7 +67,7 @@
 
 <script>
 	import {
-		baseUrl
+		imgBaseUrl
 	} from "@/components/api/request.js"
 	import {
 		workerorderApiJudgeadopt
@@ -94,26 +76,43 @@
 
 		data() {
 			return {
-				baseUrl: baseUrl,
+				imgBaseUrl: imgBaseUrl,
 				status: null,
-				info: {}
+				info: {},
+				reason: '',  // 原因
+				explaina: '',  // 整改说明
 			}
 		},
 		onLoad(option) {
 			if (option.userInfo) {
 				this.info = JSON.parse(option.userInfo)
 				this.status = option.status
-				console.log(this.info)
+			}
+			if(option.status) {
+				this.status = option.status
 			}
 		},
 		methods: {
-			detailAll() { // worker_id 工人的id（技术员或工人的id）   order_id   订单id  states    0 待审核  1  通过   2  不通过
-				
+			detailAll() { 
+				// worker_id 工人的id（技术员或工人的id）   order_id   订单id  states    0 待审核  1  通过   2  不通过
 				let obj = {
 					worker_id: uni.getStorageSync('WORKERS_ID'),
 					order_id: this.info.order_id,
 					state: this.status
 				}
+			
+				if(this.status == 2) {
+					if(!this.reason) {
+						return uni.showToast({ title: '请输入原因', icon: 'none' });
+					}
+					if(!this.explaina) {
+						return uni.showToast({ title: '请输入整改说明', icon: 'none' });
+					}
+					obj.reason = this.reason;
+					obj.explaina = this.explaina;
+				}
+				// 				* reason 原因
+				// *explaina 整改说明
 
 				workerorderApiJudgeadopt(obj).then(res => {
 					console.log(res)
@@ -121,6 +120,11 @@
 						title: res.mig,
 						icon: 'none'
 					})
+					setTimeout( () => {
+						uni.navigateTo({
+							 url: 'zgFangan'
+						});
+					}, 1000 )
 				})
 			},
 			// 选择技术人员
@@ -327,7 +331,7 @@
 
 	.orderxx {
 		margin-top: 20upx;
-		padding: 0upx 40upx;
+		padding: 20upx 40upx;
 		width: 670upx;
 
 		background: #fff;
@@ -345,6 +349,11 @@
 
 		.textT {
 			margin-top: 20upx;
+			.textareas{
+				height: 120rpx;
+				width: 100%;
+				background: #eee;
+			}
 
 			text {
 				width: 670upx;
@@ -355,9 +364,7 @@
 				line-height: 50upx;
 			}
 
-			// text:nth-child(3) {
-			// 	margin-top: 60upx;
-			// }
+	
 		}
 	}
 

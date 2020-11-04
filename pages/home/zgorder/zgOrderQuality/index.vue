@@ -15,7 +15,7 @@
         @getDetail="getDetail(act)"
       >
       </fromDeatil>
-	  <NoData show></NoData>
+	  <NoData :show="list.length === 0"></NoData>
     </view>
   </scroll-view>
 </template>
@@ -23,10 +23,17 @@
 <script>
 	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue";
+import { directorOrderCenterAllStatus } from "@/variable/orderCenter.js";
 export default {
+  props: {
+    list: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
-      list: [],
+      TYPES: directorOrderCenterAllStatus,
     };
   },
   components: {
