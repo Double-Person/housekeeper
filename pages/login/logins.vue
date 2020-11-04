@@ -93,13 +93,6 @@
 					} = res.returnMsg;
 
 					this.loginNavigate(worker, token);
-
-					// if (worker.levels == 0) {
-					// } else if (worker.levels == 1) {
-					// } else if (worker.levels == 2) {
-					// } else {
-					//   console.log(res);
-					// }
 				}
 			},
 			// 微信登录
@@ -125,7 +118,6 @@
 												})
 											} else {
 												let { token, user } = isFirstLoginByWechat;
-												console.log(user)
 												that.loginNavigate(user, token);
 											}
 
@@ -140,7 +132,6 @@
 									title: "您还未安装或登录！",
 									icon: "none",
 								});
-								console.log(JSON.stringify(err));
 							},
 						});
 					},

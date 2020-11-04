@@ -165,7 +165,6 @@
 				}
 
 				if (index == 2) { // 审核
-					console.log('-----', this.orderConstuctionType)
 					if (this.orderConstuctionType == 'review') { // 2审核中、3已通过、4未通过
 						this._list(2)
 					}

@@ -1,18 +1,18 @@
-// ,baseUrl 
-import { ajax, ajaxJson} from "./request.js";
-let baseUrl = ''
+import { ajax, ajaxJson, baseUrl} from "./request.js";
+// let baseUrl = ''
 
 // #ifdef H5   
-baseUrl =''
+// baseUrl =''
 // #endif
 
 // #ifdef APP-PLUS
 // baseUrl ='https://www.hemingbi.com/housekeeper'
-baseUrl ='http://192.168.0.110:8081/'
+// baseUrl ='http://192.168.0.110:8081/'
 // #endif
+
 // 判断是第一次
 export const wxloginone = data => ajax({ url: '/worker/wxloginone', data, method: 'POST' });
-
+// 微信登陆
 export const wxlogin = data => ajax({ url: '/worker/wxlogin', data, method: 'POST' });
 
 

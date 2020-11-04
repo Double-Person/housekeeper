@@ -54,7 +54,7 @@ export default {
     getDetail() {},
     subType(type) {
       this.audit = type;
-      // this.$emit("orderConstuction", type);
+      this.$emit("directorOrderConstuction", type);
     },
   },
 };
@@ -64,7 +64,7 @@ export default {
 @import "~@/common/style/tabList.scss";
 .state {
   width: 710upx;
-  margin-top: 19upx;
+  margin: 19upx auto 0 auto;
   display: flex;
   justify-content: space-between;
 
