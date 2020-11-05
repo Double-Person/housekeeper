@@ -134,7 +134,7 @@ export const directorOrderCenterAllStatus = {
 	SALES_SERVICE: 8, // 售后待处理
 	SALE_PROCESS: 9, // 售后处理中
 	SALES_SERVICE_COMPLETED: 10, // 售后已完成
-	USER_WAITING: 10, // 用户待通过 
-	USER_NOT_APPROVED: 10, // 用户不通过
+	USER_WAITING: 11, // 用户待通过 
+	USER_NOT_APPROVED: 12, // 用户不通过
 
 }

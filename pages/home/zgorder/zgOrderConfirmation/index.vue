@@ -4,13 +4,12 @@
 			<text :class="audit === 'review' ? 'statAct' : ''" @click="subType('review')">审核中</text>
 			<text :class="audit === 'noThrough' ? 'statAct' : ''" @click="subType('noThrough')">未通过</text>
 		</view>
-		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+		<scroll-view :scroll-y="true" class="scroll-view-body">
 			<view class="padding-bottom150">
 				<!-- :flag="8" -->
-				<fromDeatil msg="msg" :item="item" v-for="(item, index) in list" :key="index" @getDetail="getDetail(act)">
-					<view class="slot-warp">
-						<view class="slot-not-active" @click="notThrough">不通过</view>
-						<view class="slot-active" @click="through">通过</view>
+				<fromDeatil :msg="DIRECTORSHOWMSG(item.mastertype)" :item="item" v-for="(item, index) in list" :key="index" @getDetail="getDetail(act)">
+					<view class="slot-warp" v-if="item.mastertype == TYPES.USER_NOT_APPROVED">
+						<view class="slot-active" @click="aglinSubmit(item.order_id, 3)">重新提交</view>
 					</view>
 				</fromDeatil>
 				<NoData :show="list.length === 0"></NoData>
@@ -23,6 +22,8 @@
 <script>
 	import NoData from "@/components/NoData.vue"
 	import fromDeatil from "@/components/fromAll.vue"
+	import { directorShowMsg } from '@/utils/showMsg.js'
+	import {workerdopt } from "@/components/api/api.js"
 	import {
 		directorOrderCenterAllStatus
 	} from "@/variable/orderCenter.js";
@@ -37,6 +38,7 @@
 			return {
 				audit: 'review',
 				TYPES: directorOrderCenterAllStatus,
+				DIRECTORSHOWMSG: directorShowMsg,
 			};
 		},
 		components: {
@@ -46,22 +48,20 @@
 		methods: {
 			subType(type) {
 				this.audit = type;
-				this.$emit("directorOrderConfirmation", type);
+				uni.$emit("directorOrderConfirmation", type);
 			},
-			scrolltolower() {},
 			getDetail() {},
-			// 不通过
-			notThrough() {
-				uni.navigateTo({
-					url: "zgfanganquxiao",
-				});
+			async aglinSubmit(info) {
+				let obj = {
+					worker_id: uni.getStorageSync('WORKERS_ID'),
+					order_id, state
+				}
+					
+				let res = await workerdopt(obj);
+				await uni.showToast({ title: res.mig, icon: 'none' });
+				await this.$toIndex()
 			},
-			// 通过
-			through() {
-				uni.navigateTo({
-					url: "zgfanganNew",
-				});
-			},
+	
 		},
 	};
 </script>

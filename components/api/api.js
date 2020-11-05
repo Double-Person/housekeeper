@@ -72,6 +72,7 @@ export const questionnaireApiAdd = data => ajax({ url: '/api/questionnaireApi/ad
 export const questionnaireApiAnswerlist = data => ajax({ url: '/api/questionnaireApi/answerlist', data, method: 'POST' });
 // 主管訂單中心
 export const ordertype = data => ajax({ url: '/api/workerorderApi/ordertype', data, method: 'POST' });
+export const workerdopt = data => ajax({ url: '/api/workerorderApi/workerdopt', data, method: 'POST' });
 
 
 

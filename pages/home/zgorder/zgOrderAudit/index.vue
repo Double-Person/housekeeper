@@ -1,18 +1,18 @@
 <template>
 	<view>
-		<view class="state">
+		<!-- <view class="state">
 			<text :class="audit === 'review' ? 'statAct' : ''" @click="subType('review')">审核中</text>
 			<text :class="audit === 'haveBeenThrough' ? 'statAct' : ''" @click="subType('haveBeenThrough')">已通过</text>
 			<text :class="audit === 'noThrough' ? 'statAct' : ''" @click="subType('noThrough')">未通过</text>
-		</view>
+		</view> -->
 
 		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
 			<view class="padding-bottom150">
 				<!-- :flag="8" -->
-				<fromDeatil msg="msg" :item="item" v-for="(item, index) in list" :key="index" @getDetail="getDetail(act)">
+				<fromDeatil :msg="DIRECTORSHOWMSG(item.mastertype)" :item="item" v-for="(item, index) in list" :key="index" @getDetail="getDetail(act)">
 					<view class="slot-warp">
-						<view class="slot-not-active" @click="notThrough">不通过</view>
-						<view class="slot-active" @click="through">通过</view>
+						<view class="slot-not-active" @click="isThrough(item.order_id, 2)">不通过</view>
+						<view class="slot-active" @click="isThrough(item.order_id, 1)">通过</view>
 					</view>
 				</fromDeatil>
 				<NoData :show="list.length === 0"></NoData>
@@ -27,6 +27,8 @@
 	import {
 		directorOrderCenterAllStatus
 	} from "@/variable/orderCenter.js";
+	import { directorShowMsg } from '@/utils/showMsg.js'
+	import {workerdopt } from "@/components/api/api.js"
 	export default {
 		props: {
 			list: {
@@ -38,6 +40,7 @@
 			return {
 				audit: "review",
 				TYPES: directorOrderCenterAllStatus,
+				DIRECTORSHOWMSG: directorShowMsg,
 			};
 		},
 		components: {
@@ -45,24 +48,28 @@
 			NoData
 		},
 		methods: {
+			// * worker_id 主管id
+			// *  state  1  通过   2  不通过
+			// *  order_id
 			subType(type) {
 				this.audit = type;
-				this.$emit("directorOrderAudit", type);
+				uni.$emit("directorOrderAudit", type);
 			},
 			scrolltolower() {},
 			getDetail() {},
-			// 不通过
-			notThrough() {
-				uni.navigateTo({
-					url: "zgfanganquxiao",
-				});
+			// 不通过 通过
+			isThrough(order_id, state) {
+				let obj = {
+					worker_id: uni.getStorageSync('WORKERS_ID'),
+					order_id, state
+				}
+			
+				workerdopt(obj).then(res => {
+					uni.showToast({ title: res.mig, icon: 'none' });
+					setTimeout(() => this.$toIndex(), 1000)
+				})
 			},
-			// 通过
-			through() {
-				uni.navigateTo({
-					url: "zgfanganNew",
-				});
-			},
+		
 		},
 	};
 </script>

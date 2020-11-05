@@ -54,7 +54,7 @@ export default {
     getDetail() {},
     subType(type) {
       this.audit = type;
-      this.$emit("directorOrderConstuction", type);
+      uni.$emit("directorOrderConstuction", type);
     },
   },
 };

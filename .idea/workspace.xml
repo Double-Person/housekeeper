@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09d0f194-42f6-4725-b5d5-7ae723a9ea25" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/api/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/api/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/api/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/api/request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/zhuguan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zhuguan.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/login/login-s.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login-s.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/login/login_forgetPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login_forgetPassword.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/login/login_login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login_login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/login/login_securityCode.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/login_securityCode.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgOrder.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgOrderAll/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgOrderAll/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgOrderAudit/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgOrderAudit/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgOrderConfirmation/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgOrderConfirmation/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home/zgorder/zgOrderConstuction/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/zgorder/zgOrderConstuction/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/login/logins.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/logins.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/showMsg.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/showMsg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variable/orderCenter.js" beforeDir="false" afterPath="$PROJECT_DIR$/variable/orderCenter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +66,7 @@
       <workItem from="1603108669022" duration="139000" />
       <workItem from="1603158606587" duration="3309000" />
       <workItem from="1603218259293" duration="3671000" />
+      <workItem from="1604539440201" duration="633000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <created>1602653420511</created>

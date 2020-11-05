@@ -114,6 +114,7 @@
 		onLoad() {
 			// 施工状态切换事件监听
 			uni.$on("directorOrderConstuction", (type) => {
+				console.log('监听施工', type)
 				this.orderConstuctionType = type
 				this.watchConstuction()
 			})
@@ -135,14 +136,15 @@
 
 			topBarActive(index, value) {
 				this.currentTabBar = value; //
-				if (this.statusObj.ALL == this.currentTabBar) { // 施工
+				if (this.statusObj.ALL == this.currentTabBar) { // 所有
 					this._ordertype('')
 				}
 				if (this.statusObj.CONSTRUCTION == this.currentTabBar) { // 施工
 					this.watchConstuction()
 				}
 				if (this.statusObj.AUDIT == this.currentTabBar) { // 审核
-					this.watchAudit()
+					// this.watchAudit()
+					this._ordertype(2)
 				}
 				if (this.statusObj.CUSTOMER_CONFIRMATION == this.currentTabBar) { // 客户确认
 					this.watchConfirmation()
@@ -167,33 +169,33 @@
 			// 施工
 			watchConstuction() {
 				if (this.orderConstuctionType == 'review') { //    待开工
-					this._list(0)
+					this._ordertype('0')
 				}
 				if (this.orderConstuctionType == 'haveBeenThrough') { //   施工中
-					this._list(1)
+					this._ordertype(1)
 				}
 			},
 			
 			// 审核
 			watchAudit() {
 				if (this.orderAuditType == 'review') { //    审核中
-					this._list(2)
+					this._ordertype(2)
 				}
 				if (this.orderAuditType == 'haveBeenThrough') { //   已通过
-					this._list(3)
+					this._ordertype(3)
 				}
 				if (this.orderAuditType == 'noThrough') { //   未通过
-					this._list(4)
+					this._ordertype(4)
 				}
 			},
 			
 			// 用户确认
 			watchConfirmation() {
 				if (this.orderConfirmationType == 'review') { //    审核中
-					// this._list(0)
+					this._ordertype(11)
 				}
 				if (this.orderConfirmationType == 'noThrough') { //   未通过
-					// this._list(1)
+					this._ordertype(12)
 				}
 			},
 
@@ -208,7 +210,7 @@
 
 				ordertype(obj)
 					.then((res) => {
-						this.topBarList[this.currentTabBar].list = res.varList;
+						this.topBarList[this.currentTabBar].list = res.data;
 					})
 					.finally(() => {
 						uni.hideLoading();

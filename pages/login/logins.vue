@@ -79,6 +79,7 @@
 				}
 				await uni.showLoading({
 					title: "加载中",
+					mask: true
 				});
 				let res = await login({
 					phone: this.userInfo.phone,

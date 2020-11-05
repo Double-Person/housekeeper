@@ -584,6 +584,12 @@
 			"style": {
 				"navigationBarTitleText": "详情"
 			}
+		},
+		{
+			"path": "components/directorOrderDetail/allDetail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
 		}
 		
 		
