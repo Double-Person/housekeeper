@@ -4,19 +4,18 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image src="../../static/my_icon/logo.jpg" mode=""></image>
-					<text>窗台防水</text>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 
-				<view class="com">状态</view>
+				<view class="com">{{ (info.opinion_state == 1 && '进行中') || (info.opinion_state == 0 && '已完成') }}</view>
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image src="../../static/my_icon/logo.jpg" mode=""></image>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
 				</view>
 				<view class="time">
-					<text>项目名称</text>
-					<text>工人名称</text>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 			</view>
 		</view>
@@ -26,11 +25,11 @@
 				订单信息
 			</view>
 			<view class="textT">
-				<text>订单编号：51341851215121515</text>
-				<text>下单日期：2019年12月18日 13:20</text>
-				<text>客户姓名：张三胖</text>
-				<text>客户电话：18356987456</text>
-				<text>客户地址：四川省绵阳市涪城区贾家店街89号A栋203室</text>
+
+				<text>订单编号：{{ info.order_number }}</text>
+				<text>客户姓名：{{ info.contact }}</text>
+				<text>客户电话：{{ info.phone }}</text>
+				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
 			</view>
 		</view>
 		<!-- 服务项目 -->
@@ -42,34 +41,37 @@
 				照片
 			</view>
 			<view class="img_data">
-				<view class="oimg">
-					<image src="../../static/my_icon/logo.jpg"></image>
+				<view class="oimg" v-for="(item, index) in info.url" :key="index">
+					<image :src="imgBaseUrl + item.picture_url" mode=""></image>
 				</view>
-				<view class="oimg">
-					<image src="../../static/my_icon/logo.jpg"></image>
-				</view>
-				<view class="oimg">
-					<image src="../../static/my_icon/logo.jpg"></image>
-				</view>
+			
 			</view>
 		</view>
 		<!-- 备注 -->
 		<view class="order_txt">
 			<view class="title">
-				备注
+				意见反馈
 			</view>
 			<view class="txt_data">
-				xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				{{info.opinion}}
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {imgBaseUrl} from "@/components/api/request.js"
 	export default {
 
 		data() {
-			return {}
+			return {
+				imgBaseUrl: imgBaseUrl,
+				info: {}
+			}
+		},
+		onLoad(option) {
+			this.info = JSON.parse(option.info);
+			console.log(this.info)
 		},
 		methods: {
 			detailAll(){
@@ -228,7 +230,7 @@
 
 	.orderxx {
 		margin-top: 20upx;
-		padding: 0upx 40upx;
+		padding: 40upx 40upx;
 		width: 670upx;
 		
 		background: #fff;
@@ -254,10 +256,6 @@
 				font-weight: 400;
 				color: rgba(153, 153, 153, 1);
 				line-height: 50upx;
-			}
-
-			text:nth-child(3) {
-				margin-top: 60upx;
 			}
 		}
 	}

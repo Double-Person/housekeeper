@@ -2,21 +2,29 @@
 	<view class="wallet-record">
 		<view v-for="(item,index) in list" :key="index" class="list-item">
 			<view class="time">{{item.time}}</view>
-			<view class="money">{{item.money}}</view>
+			<view class="money"> - {{item.withdrawal_amount}}</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {withdraList} from "@/components/api/api.js"
 	export default{ 
 		data() {
 			return {
-				list: [
-					{time:'2020-10-10 15:15:15', money: -20},
-					{time:'2020-10-10 15:15:15', money: -20},
-					{time:'2020-10-10 15:15:15', money: -20},
-				
-				]
+				list: []
+			}
+		},
+		created() {
+			this._withdraList()
+		},
+		methods:{ 
+			_withdraList() {
+				let personnel = uni.getStorageSync('WORKERS_ID');
+				withdraList({personnel}).then(res => {
+					console.log(res)
+					this.list = res.pd
+				})
 			}
 		}
 	}
@@ -33,7 +41,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			padding: 0 21rpx;
+			padding: 0 29rpx 0 21rpx;
 			.time{
 				font-size: 28rpx;
 				font-weight: 500;

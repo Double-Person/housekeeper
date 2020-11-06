@@ -1,14 +1,5 @@
 import { ajax, ajaxJson, baseUrl} from "./request.js";
-// let baseUrl = ''
 
-// #ifdef H5   
-// baseUrl =''
-// #endif
-
-// #ifdef APP-PLUS
-// baseUrl ='https://www.hemingbi.com/housekeeper'
-// baseUrl ='http://192.168.0.110:8081/'
-// #endif
 
 // 判断是第一次
 export const wxloginone = data => ajax({ url: '/worker/wxloginone', data, method: 'POST' });
@@ -73,6 +64,18 @@ export const questionnaireApiAnswerlist = data => ajax({ url: '/api/questionnair
 // 主管訂單中心
 export const ordertype = data => ajax({ url: '/api/workerorderApi/ordertype', data, method: 'POST' });
 export const workerdopt = data => ajax({ url: '/api/workerorderApi/workerdopt', data, method: 'POST' });
+// 查看施工进度
+export const construction = data => ajax({ url: '/api/master/construction', data, method: 'POST' });
+// 查询用户总余额
+export const goEdit = data => ajax({ url: '/api/masterPrice/goEdit', data, method: 'POST' });
+// 提现
+export const withdra = data => ajax({ url: '/api/masterPrice/withdra', data, method: 'POST' });
+export const withdraList = data => ajax({ url: '/api/masterPrice/list', data, method: 'POST' });
+
+
+
+
+
 
 
 
@@ -135,6 +138,12 @@ export const receivingorders = data => ajax({ url: '/api/master/receivingorders'
 export const selectorder = data => ajax({ url: '/api/master/selectorder', data, method: 'POST' });
 // 订单中心  施工待开工中  开工按钮
 export const start = data => ajax({ url: '/api/master/start', data, method: 'POST' });
+ // 查询工人的订单的施工意见  * master_id   * opinion_state 状态(0已解决、1未解决)
+ export const listorder = data => ajax({ url: '/api/pinion/listorder', data, method: 'POST' });
+ // 查询工人的订单的施工完成按钮意见
+ export const opinionstate = data => ajax({ url: '/api/master/opinionstate', data, method: 'POST' });
+ 
+
 
 
 

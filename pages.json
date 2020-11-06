@@ -590,6 +590,12 @@
 			"style": {
 				"navigationBarTitleText": "详情"
 			}
+		},
+		{
+			"path": "components/plant/ViewSettingPlant",
+			"style": {
+				"navigationBarTitleText": "方案详情"
+			}
 		}
 		
 		

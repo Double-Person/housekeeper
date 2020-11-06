@@ -62,7 +62,6 @@
 			getWorkerorderApiworkerList() {
 				let worker_id = uni.getStorageSync("WORKERS_ID");
 				let token = uni.getStorageSync("HOUSE_TOKEN");
-				console.log(worker_id, token);
 				workerorderApiworkerList({
 					worker_id,
 					token,
@@ -95,12 +94,7 @@
 				// 	url: "./fromDetail",
 				// });
 			},
-			take() {
-				// 跳转首页
-				uni.navigateTo({
-					url: "/pages/home/home",
-				});
-			},
+			
 		},
 	};
 </script>

@@ -21,8 +21,9 @@
 		</view>
 
 		<view class="orderxx">
-			<view class="titb">
-				订单信息
+			<view class="titb fl-between">
+				<view class="">订单信息</view>
+				<view class="progress" @click="progress">查看施工进度</view>
 			</view>
 			<view class="textT">
 				<text>订单编号：{{ orderInfo.order_number }}</text>
@@ -75,23 +76,12 @@
 		</view>
 		<!-- 备注 -->
 		<view class="order_txt">
-			<view class="title">
-				备注
-			</view>
+			<view class="title"> 备注 </view>
 			<view class="txt_data">
 				{{ plantInfo.remarks }}
 			</view>
 		</view>
 		
-		<!-- 总价计算 -->
-		<!-- <view class="zong">
-			<view class="zprice">
-				总价：<text>￥300</text>
-			</view>
-			<view class="fu">
-				支付比例：<text>100%</text>
-			</view>
-		</view> -->
 	</view>
 </template>
 
@@ -115,17 +105,20 @@ import { showMsg } from "@/utils/showMsg.js"
 		},
 		methods: {
 			detailAll(){
+				
 			 	uni.navigateTo({
-					 // url:"./sgdetailAll"
-					 url: './moreDetail'
+			 		 url: '/components/plant/ViewSettingPlant?order_id=' + this.orderInfo.order_id
 			 	})
+			},
+			progress() {
+				uni.navigateTo({
+					url: './moreDetail?order_id=' + this.orderInfo.order_id,
+				})
 			},
 
 			_programmeApiList() {
 				programmeApiList( {order_id: this.orderInfo.order_id} ).then(res => {
-					
 					this.plantInfo = res.varList
-					console.log(this.plantInfo)
 				})
 			}
 		}
@@ -133,6 +126,15 @@ import { showMsg } from "@/utils/showMsg.js"
 </script>
 
 <style lang="scss" scoped>
+	
+	.fl-between {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		.progress {
+			color: #D4D4D4;
+		}
+	}
 	.index {
 		width: 750upx;
 		background-color: #F2F2F2;

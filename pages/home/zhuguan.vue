@@ -128,14 +128,14 @@
 	/* 功能列表 */
 	.my_list {
 		width: 750upx;
-		height: 956upx;
+		// height: 956upx;
 		background: $uni-color-hui;
 		overflow: hidden;
 	}
 
 	.list_fun {
 		width: 750upx;
-		height: 108upx;
+		// height: 108upx;
 		padding-top: 20upx;
 	}
 

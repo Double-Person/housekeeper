@@ -14,24 +14,25 @@
     <scroll-view
       :scroll-y="true"
       class="scroll-view-tab-list-body"
-      :lower-threshold="100"
-      @scrolltolower="scrolltolower"
     >
       <view class="padding-bottom150">
         <fromDeatil
           :msg="
-            (item.states == 1 && '已确认') ||
-            (item.states == 4 && '待确认') ||
-            (item.states == 3 && '未通过')
+            (item.opinion_state == 1 && '进行中') ||
+            (item.opinion_state == 0 && '已完成')
           "
           :item="item"
           v-for="(item, index) in titleList[activeIndex].list"
           :key="index"
           @getDetail="getDetail"
-          @butongguo="butongguo"
-          @tongyi="tongyi"
-        ></fromDeatil>
-		<NoData show></NoData>
+        >
+		<view class="slot-warp" v-if="item.opinion_state == 1">
+		  <view class="slot-active" @click="complete(item.orderopinion_id)"
+		    >完成</view
+		  >
+		</view>
+		</fromDeatil>
+		<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
       </view>
     </scroll-view>
 
@@ -44,6 +45,7 @@
 	import NoData from "@/components/NoData.vue"
 import fromDeatil from "@/components/fromAll.vue";
 import TopSearch from "@/components/TopSearch.vue";
+import {listorder, opinionstate } from "@/components/api/api.js"
 export default {
   data() {
     return {
@@ -73,6 +75,9 @@ export default {
     TopSearch,
 	NoData
   },
+  created() {
+  	this.getList(0,'');
+  },
   methods: {
     // 搜索
     search(value) {
@@ -81,23 +86,43 @@ export default {
     clickTitle(index, value) {
       this.activeIndex = index;
       this.currentTabBar = value;
-      this.getList();
+      
+	  if(this.currentTabBar == 0) { // 全部
+		  this.getList(0, '');
+	  }else if(this.currentTabBar == 1) { // 进行中
+		  this.getList(1, 1);
+	  }else if(this.currentTabBar == 2) {  // 已完成
+		  this.getList(2, 0);
+	  }
     },
-    // 获取列表
-    getList() {},
-    scrolltolower(e) {},
-    getDetail(act) {
+	// * 查询工人的订单的施工意见
+	// * opinion_state 状态(0已解决、1未解决)
+    getList(index, opinion_state) {
+		let obj = {
+			master_id: uni.getStorageSync('WORKERS_ID'),
+			opinion_state
+		}
+		listorder(obj).then(res => {
+			console.log(res)
+			this.titleList[index].list = res.varList
+		})
+	},
+    complete(orderopinion_id) {
+		opinionstate({orderopinion_id}).then(res => {
+			uni.showToast({
+				title: res.mig,
+				icon: 'none'
+			})
+			this.clickTitle(this.activeIndex, this.currentTabBar)
+		})
+	},
+    getDetail(info) {
       uni.navigateTo({
-        url: "fankui",
+        url: "fankui?info=" + JSON.stringify(info),
       });
     },
 
-    // 施工跳转
-    sgDetail() {
-      uni.navigateTo({
-        url: "./sgDetail",
-      });
-    },
+
   },
 };
 </script>

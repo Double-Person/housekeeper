@@ -1,11 +1,11 @@
 <template>
 	<view class="wallet">
-		<view class="balance"> 账户余额1000.00 </view>
+		<view class="balance"> 账户余额：{{ allCount }} </view>
 		<view class="withdrawal">
 			<view class="title">
 				提现金额
 			</view>
-			<input type="text" v-model="money" placeholder="请输入提现金额" placeholder-class="placeholder-class"  class="withdrawal-input"/>
+			<input v-model="money" type="number" placeholder="请输入提现金额" placeholder-class="placeholder-class"  class="withdrawal-input"/>
 			<view class="line"></view>
 		</view>
 		<view class="btn" @click="Withdrawal">
@@ -16,9 +16,11 @@
 
 <script>
 	// onNavigationBarButtonTap
+	import {goEdit, withdra } from "@/components/api/api.js"
 	export default{
 		data() {
 			return {
+				allCount: 0,
 				money: null
 			}
 		},
@@ -28,7 +30,16 @@
 				url: './zgwalletRecord'
 			})
 		},
+		created() {
+			this._goEdit()
+		},
 		methods:{
+			_goEdit() {
+				let worker_id = uni.getStorageSync('WORKERS_ID');
+				goEdit({worker_id}).then(res => {
+					this.allCount = res.pd.price
+				})
+			},
 			Withdrawal() {			
 				let money = Number(this.money)
 				if(!money) {
@@ -38,6 +49,26 @@
 					})
 					return false;
 				}
+				if( money > this.allCount ) {
+					uni.showToast({
+						title: '提现金额不能大于账户余额',
+						icon: 'none'
+					})
+					return false;
+				}
+				console.log(money);
+				let obj = {
+					 worker_id: uni.getStorageSync('WORKERS_ID'),
+					 price: money.toFixed(2)
+				}
+				withdra(obj).then(res => {
+					uni.showToast({
+						title: res.mig,
+						icon: 'none'
+					})
+					this.money = null;
+					this._goEdit()
+				})
 				// money.toFixed(2)
 			}
 		}

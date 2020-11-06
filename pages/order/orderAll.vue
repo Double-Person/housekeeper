@@ -154,7 +154,10 @@
 			})
 		},
 		methods: {
-
+			// 搜索
+			search(value) {
+				console.log(value);
+			},
 			topBarActive(index, value) {
 				this.topActive = index;
 				this.currentTabBar = value; //
@@ -202,7 +205,6 @@
 					mastertype: mastertype || '',
 					worker_id: uni.getStorageSync('WORKERS_ID')
 				};
-				console.log(mastertype, obj)
 				selectorder(obj).then(res => {
 					this.topBarList[this.topActive].list = res.varList
 				}).finally(() => {
@@ -245,50 +247,10 @@
 				this.currentType = type;
 			},
 
-			// 搜索
-			search(value) {
-				console.log(value);
-			},
+			
 
-			// 施工跳转
-			getDetail() {
-				uni.navigateTo({
-					url: "./sgdetailAll",
-				});
-			},
-			// 問卷調查
-			questionnaireSurvey() {
-				uni.navigateTo({
-					// url: '/pages/questionnaire/QuestionnaireSurvey?info=' + JSON.stringify(this.info)
-					url: "/pages/questionnaire/CheckQuestionnaire",
-				});
-			},
-			yitongguo() {
-				console.log(1);
-				uni.navigateTo({
-					url: "shenhexiangqing",
-				});
-			},
-			weitongguo() {
-				uni.navigateTo({
-					url: "weitongguo",
-				});
-			},
-			zhibaoxq() {
-				uni.navigateTo({
-					url: "zhibaoxiangqing",
-				});
-			},
-			yiwancheng() {
-				uni.navigateTo({
-					url: "chakanwenjuan",
-				});
-			},
-			yiquxiao() {
-				uni.navigateTo({
-					url: "quxiao",
-				});
-			},
+		
+			
 		},
 	};
 </script>
