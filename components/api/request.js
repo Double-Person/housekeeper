@@ -1,22 +1,19 @@
-
-// export const baseUrl ='http://192.168.0.103:8081'
-
 let baseUrl_ = ''
 // #ifdef H5   
 baseUrl_ =''
 // #endif
 
 // #ifdef APP-PLUS
-baseUrl_ ='https://www.hemingbi.com/housekeeper'
-// baseUrl_ ='http://192.168.0.107:8081/'
+// baseUrl_ ='https://www.hemingbi.com/housekeeper'
+baseUrl_ ='http://192.168.0.102:8081'
 // #endif
 export const baseUrl = baseUrl_
 
-export const imgBaseUrl = baseUrl + '/'
+// export const imgBaseUrl = baseUrl + '/'
 
 
 // export const imgBaseUrl = 'https://www.hemingbi.com/housekeeper/'
-// export const imgBaseUrl = 'http://192.168.0.107:8081/'
+export const imgBaseUrl = 'http://192.168.0.102:8081/'
 
 
 export const ajax = (option) => {

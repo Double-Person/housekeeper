@@ -1,15 +1,22 @@
 <template>
-	
+
 	<view class="newfrom">
 		<Topsearch @searchValue='searchValue' placeholder="搜索订单" />
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
-		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+		<scroll-view :scroll-y="true" class="scroll-view-body">
 			<view class="padding-bottom150">
-				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" :flag="flag" 
-				@getDetail="getDetail($event)"></fromDeatil>
-				<NoData :show="true"></NoData>
+				<fromDeatil :msg="item.qualitystate == 0 && '待处理' || item.qualitystate == 1 && '处理中' || item.qualitystate == 2 && '已完成'  " :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail($event)">
+					<view class="slot-warp" v-if="item.qualitystate == 0">
+						<view class="slot-active" @click="starts(0,item)">开工</view>
+					</view>
+					<view class="slot-warp" v-if="item.qualitystate == 1">
+						<view class="slot-not-active" @click="starts(1,item)">上传进度</view>
+						<view class="slot-active" @click="starts(2,item)">完成</view>
+					</view>
+				</fromDeatil>
+				<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
 			</view>
 		</scroll-view>
 	</view>
@@ -17,13 +24,17 @@
 
 <script>
 	import NoData from "@/components/NoData.vue"
-	import fromDeatil from "../../components/fromAll.vue"
-	import Topsearch from "../../components/TopSearch.vue"
+	import fromDeatil from "@/components/fromAll.vue"
+	import Topsearch from "@/components/TopSearch.vue"
 	import {
-		workersAfterSale
-	} from '../../variable/orderCenter.js'
+		qualityList
+	} from "@/components/api/api.js";
+	import {
+		workersAfterSale,
+		positionObj
+	} from '@/variable/orderCenter.js'
 	export default {
-		components:{
+		components: {
 			fromDeatil,
 			Topsearch,
 			NoData
@@ -51,96 +62,70 @@
 			}
 		},
 
+
+		created() {
+			this._qualityList(0)
+		},
 		methods: {
 			searchValue(val) {
-			
+
 			},
-			scrolltolower(eve) {
-				console.log(eve);
-			},
+
 			clickTitle(index, value) {
 				this.activeIndex = index
-				if(value === this.titleList[0].value) {
-					this.flag = 2
-				}else if(value === this.titleList[1].value) {
-					this.flag = 1
-				}else {
-					this.flag = -1
+				this._qualityList(index)
+			},
+
+			getDetail(event) {
+
+			},
+
+			_qualityList(qualitystate) {
+				uni.showLoading({
+					title: '加载中'
+				})
+				let levels = uni.getStorageSync('HOUSE_LEVELS'),
+					usertype = '';
+				if (levels == positionObj.DIRECTOR) { // 主管
+					usertype = 2
+				} else if (levels == positionObj.MASTER) { // 工长
+					usertype = 1
+				} else if (levels == positionObj.TECHNICIAN) { // jishu
+					usertype = 0
 				}
-			},
-		
-			getDetail(event){
-				let act = 0
-				if(act==0){
-					uni.navigateTo({
-						url:'kaigong'
-					})
-				}else if(act==1){
-					uni.navigateTo({
-						url:'shouhouxiangqing'
-					})
-				}else{
-					uni.navigateTo({
-						url:'shouhouchuli'
-					})
+
+
+				let obj = {
+					worker_id: uni.getStorageSync('WORKERS_ID'),
+					usertype, //  0用户、1工人、2主管
+					qualitystate // 0待处理、1处理中、2已完成
 				}
+				qualityList(obj).then(res => {
+					this.titleList[this.activeIndex].list = res.varList
+				}).finally(() => {
+					uni.hideLoading()
+				})
 			},
-			
-			// 施工跳转
-			sgDetail(){
-			 uni.navigateTo({
-			 	url:"./sgDetail"
-			 })
+// 开工
+			starts(bz, info) {
+				uni.navigateTo({
+					url: "./Start?bz=" + bz + '&info=' + JSON.stringify(info),
+					fail(err) {
+						console.log(err)
+					}
+				});
 			},
+	
 			
+
 		},
-		
+
 	}
 </script>
 
 <style lang="scss" scoped>
-	.sou {
-		width: 100%;
-		height: 130upx;
-		background-image: url(../../static/order_icon/suo_big.png);
-		overflow: hidden;
-	}
-	.sou_ipt {
-		width: 671upx;
-		height: 71upx;
-		overflow: hidden;
-		margin: 0 auto;
-		margin-top: 28upx;
-		border-radius: 50upx;
-		position: relative;
-	}
-
-	input {
-		width: 100%;
-		height: 71upx;
-		background-color: #fff;
-		padding-left: 40upx;
-		position: absolute;
-	}
-
-	.order_txt {
-		position: absolute;
-		z-index: 2;
-		overflow: hidden;
-		margin-left: 254upx;
-		margin-top: 19upx;
-	}
-
-	.sou_icon {
-		width: 34upx;
-		height: 35upx;
-		float: left;
-	}
-
-	.sou_icon image {
-		width: 100%;
-		height: 100%;
-	}
+	@import "~@/common/style/tabList.scss";
+	
 	.order_txt text {
 		display: block;
 		float: left;
@@ -149,6 +134,7 @@
 		margin-left: 19upx;
 		margin-top: 2upx;
 	}
+
 	.top {
 		padding: 0 20upx;
 		width: 710upx;
@@ -159,9 +145,9 @@
 		// border: 1px solid red;
 		display: flex;
 		justify-content: space-between;
-		background:rgba(255,255,255,1);
+		background: rgba(255, 255, 255, 1);
 	}
-	
+
 	.top view {
 		height: 61upx;
 		float: left;
@@ -171,10 +157,11 @@
 		margin-top: 21upx;
 		line-height: 61upx;
 	}
-	
+
 	.top view:nth-of-type(1) {
 		margin-left: 9upx;
 	}
+
 	.active {
 		border-bottom: 6upx solid #FFC823;
 		font-weight: 700;

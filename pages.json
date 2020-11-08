@@ -596,7 +596,22 @@
 			"style": {
 				"navigationBarTitleText": "方案详情"
 			}
+		},
+		{
+			"path": "pages/home/zgorder/afterSaleCommit/IsThrough",
+			"style": {
+				"navigationBarTitleText": "售后处理"
+			}
+		},
+		{
+			"path": "pages/after-sale/Start",
+			"style": {
+				"navigationBarTitleText": "售后"
+			}
 		}
+		
+		
+		
 		
 		
 		

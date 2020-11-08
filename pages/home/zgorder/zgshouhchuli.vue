@@ -5,16 +5,17 @@
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{ active: index === activeIndex }" @click="clickTitle(index, item.value)">{{ item.label }}</view>
 		</view>
-		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body">
 			<view class="padding-bottom150">
 				<!-- :flag="8" -->
 				<fromDeatil msg="msg" :item="item" v-for="(item, index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail(act)">
-					<view class="slot-warp">
-						<view class="slot-not-active" @click="notThrough">不通过</view>
-						<view class="slot-active" @click="through">通过</view>
+					<view class="slot-warp" v-if="item.aftersale_state == 0">
+						<view class="slot-not-active" @click="isThrough(2, item)">不同意</view>
+						<view class="slot-active" @click="isThrough(1, item)">同意</view>
 					</view>
+				
 				</fromDeatil>
-				 <NoData show></NoData>
+				<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
 			</view>
 		</scroll-view>
 	</view>
@@ -24,13 +25,19 @@
 	import NoData from "@/components/NoData.vue"
 	import fromDeatil from "@/components/fromAll.vue";
 	import TopSearch from "@/components/TopSearch.vue";
+
 	import {
-		afterProcessing
+		userlist
+	} from "@/components/api/api.js"
+	import {
+		afterProcessing,
+		positionObj
 	} from "@/variable/orderCenter.js";
 	export default {
 		components: {
 			fromDeatil,
-			TopSearch,NoData
+			TopSearch,
+			NoData
 		},
 		data() {
 			return {
@@ -48,36 +55,51 @@
 				],
 			};
 		},
-
+		created() {
+			this._userlist(0)
+		},
 		methods: {
 			// 标题点击
 			clickTitle(index, value) {
 				this.activeIndex = index;
+				this._userlist(index)
 			},
-			// 列表滚动
-			scrolltolower(event) {},
+
+			_userlist( aftersale_type) {
+				uni.showLoading({
+					title:'加载中'
+				})
+				let levels = uni.getStorageSync('HOUSE_LEVELS'),
+					usertype = '';
+				if (levels == positionObj.DIRECTOR) { // 主管
+					usertype = 2
+				} else if (levels == positionObj.MASTER) { // 工长
+					usertype = 1
+				}
+
+
+				let obj = {
+					worker_id: uni.getStorageSync('WORKERS_ID'),
+					usertype, //  0用户、1工人、2主管
+					aftersale_type  // 售后类型(0退款、1质量问题)
+				}
+				userlist(obj).then(res => {
+					this.titleList[this.activeIndex].list = res.varList
+				}).finally(() => {
+					uni.hideLoading()
+				})
+			},
 			getDetail(act) {
+				
+			},
+		
+			isThrough(isThrough, info) {
 				uni.navigateTo({
-					url: "./butongyi",
+					url: "./afterSaleCommit/IsThrough?isThrough=" + isThrough + '&info=' + JSON.stringify(info),
 				});
 			},
-			// 不通过
-			notThrough() {
-				uni.navigateTo({
-					url: "zgfanganquxiao",
-				});
-			},
-			// 通过
-			through() {
-				uni.navigateTo({
-					url: "zgfanganNew",
-				});
-			},
-			gox() {
-				uni.navigateTo({
-					url: "./zgrenyuan",
-				});
-			},
+			
+		
 		},
 	};
 </script>

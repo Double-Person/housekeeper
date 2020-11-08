@@ -19,8 +19,9 @@ export const statusObj = {
 
 //  售后订单
 export const salesOrder = {
-	PROCESSING: 0, // 处理中
-	COMPLETED: 1, // 已完成
+	PROCESSED: 0, // 待处理
+	PROCESSING: 1, // 处理中
+	COMPLETED: 2, // 已完成
 
 }
 

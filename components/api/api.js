@@ -143,8 +143,12 @@ export const start = data => ajax({ url: '/api/master/start', data, method: 'POS
  // 查询工人的订单的施工完成按钮意见
  export const opinionstate = data => ajax({ url: '/api/master/opinionstate', data, method: 'POST' });
  
-
-
+ // /售后订单开工
+ export const masterStart = data => ajax({ url: '/api/master/start', data, method: 'POST' });
+ 
+ 
+ 
+ 
 
 
 
@@ -156,6 +160,22 @@ export const start = data => ajax({ url: '/api/master/start', data, method: 'POS
 
 // 发送验证码
 export const telCode = data => ajax({ url: '/login/telCode', data, method: 'POST' });
+
+
+
+// 查询用户的售后处理  worker_id  主管id    token
+export const userlist = data => ajax({ url: '/api/aftersaleApi/userlist', data, method: 'POST' });
+// 用户的售后处理 通过、不通过
+export const workeradd = data => ajax({ url: '/api/aftersaleApi/workeradd', data, method: 'POST' });
+
+// 售后订单
+export const qualityList = data => ajax({ url: '/api/aftersaleApi/qualityList', data, method: 'POST' });
+
+
+
+
+
+
 
 
 

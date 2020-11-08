@@ -3,7 +3,7 @@
 		<!-- 头部导航 -->
 		<!--  -->
 		<view class="bigbox">
-			<textarea rows="3" cols="20" class="textareas" v-model="bz" placeholder="xxxxxx"></textarea>
+			<textarea rows="3" cols="20" class="textareas" v-model="note" placeholder="xxxxxx"></textarea>
 		</view>
 		<!--  -->
 		<!--  -->
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-	import {workeradd, upLoadFile} from '@/components/api/api.js';
+	import {masterStart, upLoadFile} from '@/components/api/api.js';
 	import {imgBaseUrl} from '@/components/api/request.js'
 	import {positionObj} from "@/variable/orderCenter.js";
 	export default {
@@ -33,48 +33,51 @@
 			return{
 				imgBaseUrl: imgBaseUrl,
 				urlList: [],
-				isThrough: '',
 				bz: '',
+				note: '',
 				info: {}
 			}
 		},
 		onLoad(opt) {
-			this.isThrough = opt.isThrough;
+			this.bz = opt.bz;
 			this.info = JSON.parse(opt.info);
+			if( opt.bz == 0) {
+				uni.setNavigationBarTitle({
+					title: '售后开工'
+				})
+			}else if( opt.bz == 1) {
+				uni.setNavigationBarTitle({
+					title: '售后施工进度'
+				})
+			}else if( opt.bz == 2) {
+				uni.setNavigationBarTitle({
+					title: '售后完成'
+				})
+			}
 		},
 		methods:{
-			_workeradd() {
-				// * 保存
-				// * orderaftersale_id
-				// * aftersale_type  售后类型(0退款、1质量问题)
-				// * user_id  用户、工人、主管的id
-				// * usertype   0用户、1工人、2主管
-				// * aftersale_state 售后状态(0待处理、1同意、2不同意)
-				// * bz  原因
+			_workeradd() {		
+				// * 工长 开工 施工进度汇报 完工
+				// * worker_id
+				// * order_id
+				// * construction_type 0新订单、1售后订单
+				// * bz   
 				// * urllist
+				// * note   备注
+				// * orderquality_id
+				
 				let obj = {
-					...this.info
-				};
-				
-				let levels = uni.getStorageSync('HOUSE_LEVELS'),
-					usertype = '';
-				if (levels == positionObj.DIRECTOR) { // 主管
-					usertype = 2
-				} else if (levels == positionObj.MASTER) { // 工长
-					usertype = 1
-				} else if (levels == positionObj.TECHNICIAN) { // 技术
-					usertype = 0
+					worker_id: uni.getStorageSync('WORKERS_ID'),
+					order_id: this.info.order_id,
+					construction_type: 1,
+					bz: this.bz,// 0开工 、 1施工进度 、 2完成
+					urllist: this.urlList.join(','),
+					note: this.note,
+					orderquality_id: this.orderquality_id
 				}
+		
 				
-				obj.user_id = uni.getStorageSync('WORKERS_ID');
-				obj.usertype = usertype;
-				obj.aftersale_state = this.isThrough;
-				obj.urllist = this.urlList.join(',');
-				obj.bz = this.bz;
-				
-				
-				
-				workeradd(obj).then(res => {
+				masterStart(obj).then(res => {
 					console.log(res)
 					uni.showToast({
 						title: res.mig,
@@ -99,20 +102,16 @@
 				});
 			},
 			
-			
-			
-			navigateBack(){
-				console.log("1")
-				uni.navigateBack({
-					
-				})
-			},
+			_masterStart() {
+				
+			}
 			
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	@import "~@/common/style/tabList.scss";
 	.photo-list{
 		display: flex;
 		justify-content: space-between;
