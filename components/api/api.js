@@ -146,6 +146,10 @@ export const start = data => ajax({ url: '/api/master/start', data, method: 'POS
  // /售后订单开工
  export const masterStart = data => ajax({ url: '/api/master/start', data, method: 'POST' });
  
+ export const masterProgramme = data => ajax({ url: '/api/master/programme', data, method: 'POST' });
+ 
+ 
+ 
  
  
  
