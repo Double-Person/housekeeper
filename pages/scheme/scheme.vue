@@ -1,6 +1,6 @@
 <template>
 	<view class="newfrom">
-		<Topsearch @searchValue='searchValue' placeholder="搜索订单" />
+		<Topsearch @search='searchValue' placeholder="请输入用户名,手机号,商品名搜索" />
 		<!--  -->
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
@@ -28,6 +28,7 @@
 	export default {
 		data() {
 			return {
+				query: '',
 				activeIndex: 0,
 				titleList: [{
 						value: workersPlant.ONGOING,
@@ -52,7 +53,8 @@
 		},
 		methods: {
 			searchValue(val) {
-
+				this.query = val
+				this._masterProgramme(this.activeIndex)
 			},
 
 			clickTitle(index, value) {
@@ -68,6 +70,7 @@
 					title: "加载中"
 				});
 				let obj = {
+					query: this.query,
 					worker_id: uni.getStorageSync("WORKERS_ID"), // worker_id 主管id
 					stype
 				}

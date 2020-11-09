@@ -46,6 +46,13 @@ export const employees = {
 	MASTER: 1, // 工长
 }
 
+// 订单审核
+export const orderReview = {
+	TO_PASS: 0,  // 待通过
+	PASSED: 1,  // 合格
+	NOT_PASS: 2,  // 不合格
+}
+
 
 
 

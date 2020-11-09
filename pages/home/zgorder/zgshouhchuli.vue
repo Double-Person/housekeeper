@@ -1,6 +1,6 @@
 <template>
 	<view class="newfrom">
-		<TopSearch placeholder="搜索"></TopSearch>
+		<TopSearch @search="searchValue" placeholder="请输入用户名,手机号,商品名搜索"></TopSearch>
 
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{ active: index === activeIndex }" @click="clickTitle(index, item.value)">{{ item.label }}</view>
@@ -8,7 +8,8 @@
 		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body">
 			<view class="padding-bottom150">
 				<!-- :flag="8" -->
-				<fromDeatil msg="msg" :item="item" v-for="(item, index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail(act)">
+				<fromDeatil :msg="titleList[activeIndex].label" :item="item" v-for="(item, index) in titleList[activeIndex].list" 
+				:key="index" @getDetail="getDetail">
 					<view class="slot-warp" v-if="item.aftersale_state == 0">
 						<view class="slot-not-active" @click="isThrough(2, item)">不同意</view>
 						<view class="slot-active" @click="isThrough(1, item)">同意</view>
@@ -41,6 +42,7 @@
 		},
 		data() {
 			return {
+				query: '',
 				activeIndex: 0,
 				titleList: [{
 						value: afterProcessing.REFUND,
@@ -59,6 +61,10 @@
 			this._userlist(0)
 		},
 		methods: {
+			searchValue(val) {
+				this.query = val
+				this._userlist(this.activeIndex)
+			},
 			// 标题点击
 			clickTitle(index, value) {
 				this.activeIndex = index;
@@ -79,6 +85,7 @@
 
 
 				let obj = {
+					query: this.query,
 					worker_id: uni.getStorageSync('WORKERS_ID'),
 					usertype, //  0用户、1工人、2主管
 					aftersale_type  // 售后类型(0退款、1质量问题)

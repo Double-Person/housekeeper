@@ -1,7 +1,7 @@
 <template>
 
 	<view class="newfrom">
-		<TopSearch placeholder="搜索订单"></TopSearch>
+		<TopSearch @search="searchValue" placeholder="请输入用户名,手机号,商品名搜索"></TopSearch>
 
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
@@ -41,6 +41,7 @@
 		},
 		data() {
 			return {
+				query: '',
 				currentTabBar: -1,
 				activeIndex: 0,
 				titleList: [{
@@ -67,7 +68,10 @@
 			await this.getList()
 		},
 		methods: {
-			
+			searchValue(val) {
+				this.query = val
+				this.getList()
+			},
 			aglinSetting(order_id) {
 				// /home/neworder/dingdanzhongxin
 				uni.navigateTo({ // home neworder weitongguoxiangqing
@@ -81,7 +85,7 @@
 			},
 			// 获取列表
 			getList () {
-				let obj = { technician_id: uni.getStorageSync('WORKERS_ID')}
+				let obj = {query: this.query, technician_id: uni.getStorageSync('WORKERS_ID')}
 				if(this.currentTabBar == 0) { // 0 进行中  1 已完成  2 已取消
 					obj.states = 1
 				}else if(this.currentTabBar == 1) {

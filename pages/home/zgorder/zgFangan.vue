@@ -1,6 +1,6 @@
 <template>
   <view class="newfrom">
-    <Topsearch @searchValue="searchValue" placeholder="搜索订单" />
+    <Topsearch @search="searchValue" placeholder="通过手机名,商品名,用户名搜索" /> 
     <!--  -->
     <view class="top">
       <view
@@ -43,6 +43,7 @@ import { workerorderApiProgramme } from "@/components/api/api.js";
 export default {
   data() {
     return {
+		query: '',
       activeIndex: 0,
       titleList: [
         {
@@ -74,13 +75,17 @@ export default {
   },
   methods: {
     // 搜索
-    searchValue(val) {},
+    searchValue(val) {
+		this.query = val
+		this._workerorderApiProgramme();
+	},
     clickTitle(index, value) {
       this.activeIndex = index;
       this._workerorderApiProgramme();
     },
     _workerorderApiProgramme() {
       let obj = {
+		  query: this.query,  //  shoujihao 商品名  用户名
         worker_id: uni.getStorageSync("WORKERS_ID"), // worker_id 主管id
         state: this.activeIndex, // *  state 0 待审核  1  通过   2  不通过
       };
@@ -94,9 +99,9 @@ export default {
         });
     },
     getDetail() {
-      uni.navigateTo({
-        url: "zgfanganxiangqing",
-      });
+      // uni.navigateTo({
+      //   url: "zgfanganxiangqing",
+      // });
     },
 
     // 不通过   通过

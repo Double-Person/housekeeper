@@ -1,13 +1,15 @@
 <template>
 
 	<view class="newfrom">
-		<Topsearch @searchValue='searchValue' placeholder="搜索订单" />
+		<Topsearch @search='searchValue' placeholder="搜索订单" />
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
 		<scroll-view :scroll-y="true" class="scroll-view-body">
 			<view class="padding-bottom150">
-				<fromDeatil :msg="item.qualitystate == 0 && '待处理' || item.qualitystate == 1 && '处理中' || item.qualitystate == 2 && '已完成'  " :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail($event)">
+				<fromDeatil 
+				:msg="item.qualitystate == 0 && '待处理' || item.qualitystate == 1 && '处理中' || item.qualitystate == 2 && '已完成'  " 
+				:item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail">
 					<view class="slot-warp" v-if="item.qualitystate == 0">
 						<view class="slot-active" @click="starts(0,item)">开工</view>
 					</view>
@@ -41,6 +43,7 @@
 		},
 		data() {
 			return {
+				query: '',
 				flag: 2,
 				activeIndex: 0,
 				titleList: [{
@@ -68,7 +71,8 @@
 		},
 		methods: {
 			searchValue(val) {
-
+				this.query = val
+				this._qualityList(this.activeIndex)
 			},
 
 			clickTitle(index, value) {
@@ -76,8 +80,8 @@
 				this._qualityList(index)
 			},
 
-			getDetail(event) {
-
+			getDetail(info) {
+				this.$detail(info)
 			},
 
 			_qualityList(qualitystate) {
@@ -96,6 +100,7 @@
 
 
 				let obj = {
+					query: this.query,
 					worker_id: uni.getStorageSync('WORKERS_ID'),
 					usertype, //  0用户、1工人、2主管
 					qualitystate // 0待处理、1处理中、2已完成

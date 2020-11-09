@@ -608,6 +608,18 @@
 			"style": {
 				"navigationBarTitleText": "售后"
 			}
+		},
+		{
+			"path": "pages/CustomDetail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/OrderReview",
+			"style": {
+				"navigationBarTitleText": "订单审核"
+			}
 		}
 		
 		

@@ -34,6 +34,7 @@ export default {
   },
   methods: {
 	  closeExit() {
+		  uni.clearStorageSync()
 		  uni.redirectTo({
 		  	url: '/pages/login/logins'
 		  })

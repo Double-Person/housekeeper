@@ -1,5 +1,6 @@
 <template>
   <view class="newfrom">
+	  <Topsearch @search="searchValue" placeholder="搜索订单" />
     <!--  -->
     <view class="top">
       <view
@@ -10,13 +11,12 @@
         >{{ item.label }}</view
       >
     </view>
-    <Topsearch @searchValue="searchValue" placeholder="搜索订单" />
+    
 
     <scroll-view
       :scroll-y="true"
       class="scroll-view-body"
-      :lower-threshold="100"
-      @scrolltolower="scrolltolower"
+ 
     >
       <view class="padding-bottom150">
         <fromDeatil
@@ -49,6 +49,7 @@ export default {
   },
   data() {
     return {
+		query: '',
       activeIndex: 0,
       worker_id: uni.getStorageSync("WORKERS_ID"),
       titleList: [
@@ -71,11 +72,15 @@ export default {
 
   methods: {
     // 搜索
-    searchValue(val) {},
-    // 滚动
-    scrolltolower(eve) {
-      console.log(eve);
-    },
+    searchValue(val) {
+		this.query = val
+		if (this.activeIndex === 0) {
+		  this._daitechnician();
+		} else {
+		  this._daiforeman();
+		}
+	},
+
     clickTitle(index, value) {
       this.activeIndex = index;
       if (index === 0) {
@@ -87,20 +92,19 @@ export default {
      
     },
     getDetail(act) {
-      console.log(1);
-      uni.navigateTo({
-        url: "zgfanganxiangqing",
-      });
+      // uni.navigateTo({
+      //   url: "zgfanganxiangqing",
+      // });
     },
     // 技术员
     _daitechnician() {
-      daitechnician({ worker_id: this.worker_id }).then((res) => {
+      daitechnician({ worker_id: this.worker_id, query: this.query }).then((res) => {
         this.titleList[0].list = res.varList;
       });
     },
-    // 工长   数据未绑定
+    // 工长   
     _daiforeman() {
-      daiforeman({ worker_id: this.worker_id }).then((res) => {
+      daiforeman({ worker_id: this.worker_id, query: this.query }).then((res) => {
         console.log("工长", res);
         this.titleList[1].list = res.varList;
       });

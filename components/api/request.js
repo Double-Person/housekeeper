@@ -4,8 +4,8 @@ baseUrl_ =''
 // #endif
 
 // #ifdef APP-PLUS
-// baseUrl_ ='https://www.hemingbi.com/housekeeper'
-baseUrl_ ='http://192.168.0.102:8081'
+baseUrl_ ='https://www.hemingbi.com/housekeeper'
+// baseUrl_ ='http://192.168.0.102:8081'
 // #endif
 export const baseUrl = baseUrl_
 

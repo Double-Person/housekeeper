@@ -45,14 +45,15 @@
 			return {
 				type: "password",
 				userInfo: {
-					phone: "15198163122", ///  15928784684  123456    技术    15198163122    123456     工人     18398207590     123456
-					password: "123456",
+					phone: "", ///  15928784684  123456    技术    15198163122    123456     工人     18398207590     123456
+					password: "",
 				},
 			};
 		},
 		onLoad(option) {
-			if (option.phone) {
-				this.userInfo.phone = option.phone;
+			console.log(option)
+			if (option.phone != '' && option.phone != undefined && option.phone != null ) {
+				// this.userInfo.phone = option.phone;
 			}
 		},
 		methods: {

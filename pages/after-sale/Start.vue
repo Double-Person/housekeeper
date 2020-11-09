@@ -3,7 +3,7 @@
 		<!-- 头部导航 -->
 		<!--  -->
 		<view class="bigbox">
-			<textarea rows="3" cols="20" class="textareas" v-model="note" placeholder="xxxxxx"></textarea>
+			<textarea rows="3" cols="20" class="textareas" v-model="note" placeholder="请输入"></textarea>
 		</view>
 		<!--  -->
 		<!--  -->
@@ -68,12 +68,12 @@
 				
 				let obj = {
 					worker_id: uni.getStorageSync('WORKERS_ID'),
-					order_id: this.info.order_id,
+					order_id: this.info.orderquality_id,
 					construction_type: 1,
 					bz: this.bz,// 0开工 、 1施工进度 、 2完成
 					urllist: this.urlList.join(','),
 					note: this.note,
-					orderquality_id: this.orderquality_id
+					orderquality_id: this.info.orderquality_id
 				}
 		
 				

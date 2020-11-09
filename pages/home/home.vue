@@ -53,16 +53,25 @@
 					// 	middle: "合同",
 					// },
 					{
+						image: require("@/static/my_icon/my_shouchu.png"),
+						middle: "售后处理",
+						url:"../after-sale/shouhouchuli"
+					},
+					{
 						image: require("@/static/my_icon/my_shouhou.png"),
 						middle: "售后订单",
 						url:"../after-sale/after-sale"
 
 					},
+					
 					{
-						image: require("@/static/my_icon/my_shouchu.png"),
-						middle: "售后处理",
-						url:"../after-sale/shouhouchuli"
+						image: require("@/static/my_icon/my_shouhou.png"),
+						middle: "售后审核",
+						url: "./zgorder/OrderReview"
 					},
+					
+					
+					
 					{
 						image: require("@/static/my_icon/my_yungong.png"),
 						middle: "反馈",

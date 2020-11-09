@@ -122,14 +122,29 @@
 			if (this.userInfo.positionIndex) {
 				this.positionIndex = this.userInfo.positionIndex
 			}
-			console.log('=======');
+			if (this.userInfo.userName) {
+				this.userName = this.userInfo.userName
+			}
 
+			if (this.userInfo.sexIndex) {
+				this.sexIndex = this.userInfo.sexIndex
+			}
+			if (this.userInfo.photo) {
+				console.log(this.userInfo.photo)
+				this.photo = this.userInfo.photo
+			}
+			
+			
 			this.getWorkerUserExecutive()
 
 		},
 		methods: {
 			changeDirector() {
 				this.userInfo.positionIndex = this.positionIndex
+				this.userInfo.userName = this.userName
+				this.userInfo.photo = this.photo
+				this.userInfo.sexIndex = this.sexIndex
+				
 				uni.navigateTo({
 					url: './directorList?userInfo=' + JSON.stringify(this.userInfo)
 				})

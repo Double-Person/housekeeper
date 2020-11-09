@@ -1,12 +1,10 @@
 <template>
 	<view class="newfrom">
 		
-		
+		<TopSearch placeholder="请输入用户名,手机号,商品名搜索" @search="search"></TopSearch>
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
-		
-		<TopSearch placeholder="搜索订单" @search="search"></TopSearch>
 		
 		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body" :lower-threshold="100" @scrolltolower="scrolltolower">
 			<view class="padding-bottom150">

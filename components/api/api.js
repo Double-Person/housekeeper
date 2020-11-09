@@ -72,15 +72,10 @@ export const goEdit = data => ajax({ url: '/api/masterPrice/goEdit', data, metho
 export const withdra = data => ajax({ url: '/api/masterPrice/withdra', data, method: 'POST' });
 export const withdraList = data => ajax({ url: '/api/masterPrice/list', data, method: 'POST' });
 
-
-
-
-
-
-
-
-
-
+// 订单审核
+export const shenhe = data => ajax({ url: '/api/aftersaleApi/shenhe', data, method: 'POST' });
+// 重新审核
+export const againshenhe = data => ajax({ url: '/api/aftersaleApi/againshenhe', data, method: 'POST' });
 
 
 
@@ -174,6 +169,17 @@ export const workeradd = data => ajax({ url: '/api/aftersaleApi/workeradd', data
 
 // 售后订单
 export const qualityList = data => ajax({ url: '/api/aftersaleApi/qualityList', data, method: 'POST' });
+
+
+// 订单审核详情
+export const aftersaleApiConstruction = data => ajax({ url: '/api/aftersaleApi/construction', data, method: 'POST' });
+
+
+
+
+
+
+
 
 
 

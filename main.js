@@ -60,6 +60,16 @@ Vue.prototype.$toIndex = () => {
 	}
 }
 
+
+Vue.prototype.$detail = (info, type = '') => {
+	uni.navigateTo({
+		url: '/pages/CustomDetail?info=' + JSON.stringify(info) + '&type=' + type,
+		fail(err) {
+			console.log(err)
+		}
+	})
+}
+
 App.mpType = 'app'
 
 const app = new Vue({

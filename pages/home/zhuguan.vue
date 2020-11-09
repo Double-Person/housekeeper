@@ -61,17 +61,25 @@
 					
 					},
 					{
-						image: require("@/static/my_icon/my_shouhou.png"),
-						middle: "售后订单",
-						url: "./zgorder/zgSHOrder"
-					
-					},
-					{
 						image: require("@/static/my_icon/my_shouchu.png"),
 						middle: "售后处理",
 						url: "./zgorder/zgshouhchuli"
 					
 					},
+					{
+						image: require("@/static/my_icon/my_shouhou.png"),
+						middle: "售后订单",
+						url: "./zgorder/zgSHOrder"
+					},
+					{
+						image: require("@/static/my_icon/my_shouhou.png"),
+						middle: "售后审核",
+						url: "./zgorder/OrderReview"
+					},
+					
+					
+					
+					
 					{
 						image: require("@/static/my_icon/my_yungong.png"),
 						middle: "员工",
@@ -93,7 +101,10 @@
 			getDome(item) {
 				console.log(item.url)
 				uni.navigateTo({
-					url: item.url
+					url: item.url,
+					fail(err) {
+						console.log(err)
+					}
 				});
 			},
 			goHome(){

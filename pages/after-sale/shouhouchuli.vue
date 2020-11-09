@@ -1,15 +1,22 @@
 <template>
-	
 	<view class="newfrom">
-		<Topsearch @searchValue='searchValue' placeholder="搜索订单" />
-		<!--  -->
+		<TopSearch @search='searchValue' placeholder="请输入用户名,手机号,商品名搜索"></TopSearch>
+
 		<view class="top">
-			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
+			<view v-for="(item, index) in titleList" :key="index" :class="{ active: index === activeIndex }" @click="clickTitle(index, item.value)">{{ item.label }}</view>
 		</view>
-		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body">
 			<view class="padding-bottom150">
-				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail($event)"></fromDeatil>
-				<NoData show></NoData>
+				<!-- :flag="8" -->
+				<fromDeatil :msg="titleList[activeIndex].label" :item="item" v-for="(item, index) in titleList[activeIndex].list" :key="index" 
+				@getDetail="getDetail">
+					<view class="slot-warp" v-if="item.aftersale_state == 0">
+						<view class="slot-not-active" @click="isThrough(2, item)">不同意</view>
+						<view class="slot-active" @click="isThrough(1, item)">同意</view>
+					</view>
+				
+				</fromDeatil>
+				<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
 			</view>
 		</scroll-view>
 	</view>
@@ -17,143 +24,93 @@
 
 <script>
 	import NoData from "@/components/NoData.vue"
-	import fromDeatil from "../../components/fromAll.vue"
-	import Topsearch from "../../components/TopSearch.vue"
+	import fromDeatil from "@/components/fromAll.vue";
+	import TopSearch from "@/components/TopSearch.vue";
+
 	import {
-		workersAfterProcessing
-	} from '../../variable/orderCenter.js'
-	
+		userlist
+	} from "@/components/api/api.js"
+	import {
+		afterProcessing,
+		positionObj
+	} from "@/variable/orderCenter.js";
 	export default {
-		components:{
+		components: {
 			fromDeatil,
-			Topsearch,
+			TopSearch,
 			NoData
 		},
 		data() {
 			return {
+				query: '',
 				activeIndex: 0,
 				titleList: [{
-						value: workersAfterProcessing.ALL,
-						label: '退款',
-						list: []
+						value: afterProcessing.REFUND,
+						label: "退款",
+						list: [],
 					},
 					{
-						value: workersAfterProcessing.ONGOING,
-						label: '质量问题',
-						list: []
-					}
+						value: afterProcessing.QUALITY_PROBLEM,
+						label: "质量问题",
+						list: [],
+					},
 				],
-				
-			}
+			};
+		},
+		created() {
+			this._userlist(0)
 		},
 		methods: {
-			searchValue(val) {
-			
-			},
-			scrolltolower(eve) {
-				console.log(eve);
-			},
+			// 标题点击
 			clickTitle(index, value) {
-				this.activeIndex = index
+				this.activeIndex = index;
+				this._userlist(index)
 			},
-			getDetail(event){
-				
-				uni.navigateTo({
-					url:'chulifankui'
+			searchValue(val) {
+				this.query = val
+				this._userlist(this.activeIndex)
+			},
+
+			_userlist( aftersale_type) {
+				uni.showLoading({
+					title:'加载中'
+				})
+				let levels = uni.getStorageSync('HOUSE_LEVELS'),
+					usertype = '';
+				if (levels == positionObj.DIRECTOR) { // 主管
+					usertype = 2
+				} else if (levels == positionObj.MASTER) { // 工长
+					usertype = 1
+				}
+
+
+				let obj = {
+					query: this.query,
+					worker_id: uni.getStorageSync('WORKERS_ID'),
+					usertype, //  0用户、1工人、2主管
+					aftersale_type  // 售后类型(0退款、1质量问题)
+				}
+				userlist(obj).then(res => {
+					this.titleList[this.activeIndex].list = res.varList
+				}).finally(() => {
+					uni.hideLoading()
 				})
 			},
-			// 施工跳转
-			sgDetail(){
-			 uni.navigateTo({
-			 	url:"./sgDetail"
-			 })
+			getDetail(act) {
+				
+			},
+		
+			isThrough(isThrough, info) {
+				uni.navigateTo({
+					url: "../home/zgorder/afterSaleCommit/IsThrough?isThrough=" + isThrough + '&info=' + JSON.stringify(info),
+				});
 			},
 			
-		},
 		
-	}
+		},
+	};
 </script>
 
 <style lang="scss" scoped>
-	.sou {
-		width: 100%;
-		height: 130upx;
-		background-image: url(../../static/order_icon/suo_big.png);
-		overflow: hidden;
-	}
-
-	.sou_ipt {
-		width: 671upx;
-		height: 71upx;
-		overflow: hidden;
-		margin: 0 auto;
-		margin-top: 28upx;
-		border-radius: 50upx;
-		position: relative;
-	}
-
-	input {
-		width: 100%;
-		height: 71upx;
-		background-color: #fff;
-		padding-left: 40upx;
-		position: absolute;
-	}
-
-	.order_txt {
-		position: absolute;
-		z-index: 2;
-		overflow: hidden;
-		margin-left: 254upx;
-		margin-top: 19upx;
-	}
-
-	.sou_icon {
-		width: 34upx;
-		height: 35upx;
-		float: left;
-	}
-
-	.sou_icon image {
-		width: 100%;
-		height: 100%;
-	}
-	.order_txt text {
-		display: block;
-		float: left;
-		font-size: 28upx;
-		color: #B2B2B2;
-		margin-left: 19upx;
-		margin-top: 2upx;
-	}
-	.top {
-		padding: 0 110upx;
-		width: 530upx;
-		height: 110upx;
-		display: flex;
-		flex-wrap: nowrap;
-		overflow: hidden;
-		// border: 1px solid red;
-		display: flex;
-		justify-content: space-between;
-		background:rgba(255,255,255,1);
-	}
-	
-	.top view {
-		height: 61upx;
-		float: left;
-		// border: 1px solid red;
-		margin-left: 67upx;
-		font-size: 32upx;
-		margin-top: 21upx;
-		line-height: 61upx;
-	}
-	
-	.top view:nth-of-type(1) {
-		margin-left: 9upx;
-	}
-	.active {
-		border-bottom: 6upx solid #FFC823;
-		font-weight: 700;
-	}
+	@import "~@/common/style/tabList.scss";
 </style>

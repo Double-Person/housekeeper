@@ -1,8 +1,7 @@
 <template>
 	<view class="newfrom">
 		<!-- 搜索 -->
-		<TopSearch @search="search"></TopSearch>
-
+		<TopSearch @search="search" placeholder="通过手机名,商品名,用户名搜索"></TopSearch>
 		<view class="list-view">
 			<!-- 横向滚动 -->
 			<scroll-view :scroll-x="true" class="top-scroll-view">
@@ -11,6 +10,8 @@
 					 @click="topBarActive(index, item.value)">{{ item.label }}</view>
 				</view>
 			</scroll-view>
+			
+			
 
 			<!-- 全部 -->
 			<zgOrderAll v-show="currentTabBar == statusObj.ALL" :list='topBarList[this.currentTabBar].list' />
@@ -52,6 +53,7 @@
 	export default {
 		data() {
 			return {
+				query: '',
 				currentTabBar: -1,
 				statusObj: statusObj,
 				TYPE: directorOrderCenterAllStatus,
@@ -133,9 +135,18 @@
 		},
 
 		methods: {
-
+			
+			// 搜索
+			search(value) {
+				this.query = value;
+				this.finallySearch()
+			},
 			topBarActive(index, value) {
 				this.currentTabBar = value; //
+				this.finallySearch()
+			},
+			
+			finallySearch() {
 				if (this.statusObj.ALL == this.currentTabBar) { // 所有
 					this._ordertype('')
 				}
@@ -158,8 +169,9 @@
 				if (this.statusObj.CANCEL == this.currentTabBar) { // 取消
 					this._ordertype(7)
 				}
-
 			},
+
+			
 
 			/* worker_id 主管id
 			 *  mastertype  订单的状态   0待开工、1施工中、2审核中、3已通过、4未通过、
@@ -201,6 +213,7 @@
 
 			_ordertype(mastertype) {
 				let obj = {
+					query: this.query,
 					worker_id: uni.getStorageSync("WORKERS_ID"),
 					mastertype: mastertype || '',
 				};
@@ -217,10 +230,7 @@
 					});
 			},
 
-			// 搜索
-			search(value) {
-				console.log(value);
-			},
+			
 		},
 	};
 </script>

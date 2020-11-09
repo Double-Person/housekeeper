@@ -24,9 +24,7 @@
 		technician,
 		workerWorker
 	} from '@/components/api/api.js'
-	import {
-		positionObj
-	} from "@/variable/orderCenter.js"
+	import { positionObj } from "@/variable/orderCenter.js"
 	export default {
 		data() {
 			return {

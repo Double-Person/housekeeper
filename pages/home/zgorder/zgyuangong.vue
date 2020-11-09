@@ -1,17 +1,18 @@
 <template>
 
 	<view class="newfrom">
-		<TopSearch placeholder="搜索"></TopSearch>
-
+		
+		<TopSearch placeholder="请输入用户名,手机号搜索" @search="searchValue"></TopSearch>
 		<!--  -->
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
+		
 		<!--  -->
 		<view class="person-num">
-			<view class="num">总人数:0</view>
-			<view class="num">技术人员:0</view>
-			<view class="num">工长:0</view>
+			<view class="num">总人数: {{ titleList[activeIndex].list.length }}</view>
+			<!-- <view class="num">技术人员:0</view>
+			<view class="num">工长:0</view> -->
 		</view>
 		<!-- 信息 -->
 		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
@@ -21,20 +22,20 @@
 						<view class="tit">
 							<image src="/static/loginImg/qq.png" mode=""></image>
 							<view class="text">
-								<view class="name">{{item.type + index}}</view>
-								<view class="zw">职位</view>
+								<view class="name">{{item.name}}</view>
+								<view class="zw">职位：{{ titleList[activeIndex].label }}</view>
 							</view>
 						</view>
 						<view class="bgtext">查看资料</view>
 					</view>
 					<view class="bigBoxs">
-						<text>姓名：{{item.position}}</text>
+						<!-- <text>姓名：{{item.name}}</text> -->
 						<text>电话：{{item.phone}}</text>
-						<text class="over-ellipsis">地址：{{item.address}}</text>
+						<!-- <text class="over-ellipsis">地址：{{item.address}}</text> -->
 					</view>
 				</view>
 				
-				<NoData show msg="暂无相关人员"></NoData>
+				<NoData :show="titleList[activeIndex].list.length === 0" msg="暂无相关人员"></NoData>
 			</view>
 
 		</scroll-view>
@@ -48,9 +49,8 @@
 	import NoData from "@/components/NoData.vue"
 	import fromDeatil from "@/components/fromAll.vue"
 	import TopSearch from "@/components/TopSearch.vue"
-	import {
-		employees
-	} from "@/variable/orderCenter.js"
+	import { employees } from "@/variable/orderCenter.js"
+	import { technician, workerWorker } from '@/components/api/api.js'
 	export default {
 		components: {
 			fromDeatil,
@@ -59,19 +59,12 @@
 		},
 		data() {
 			return {
+				query: '',
 				activeIndex: 0,
 				titleList: [{
 						value: employees.TECHNICAL_PERSONNEL,
 						label: '技术人员',
-						list: [
-							// {
-							// 	type:'王大伟',	
-							// 	position:'职位',
-							// 	name:'张三胖',
-							// 	phone:'12366598964',
-							// 	address:'XXXXXXXXXXXXXXXXXXXXXXXXX'
-							// }
-						]
+						list: []
 					},
 					{
 						value: employees.MASTER,
@@ -84,15 +77,57 @@
 				sAce: 0
 			}
 		},
+		created() {
+			this._technician()
+		},
 		methods: {
-
+				searchValue(val) {
+					this.query = val
+					console.log(val)
+					if(this.activeIndex == 0) {  // 技术
+						this._technician()
+					}else {
+						this._workerWorker()
+					}
+				},
 			// 标题点击
 			clickTitle(index, value) {
 				this.activeIndex = index
+				if(index == 0) {  // 技术
+					this._technician()
+				}else {
+					this._workerWorker()
+				}
 			},
-			// 列表滚动
-			scrolltolower(event) {
-
+			// 查询主管下的工人
+			_workerWorker() {
+				uni.showLoading({
+					title: '加载中'
+				});
+				let parent_id = uni.getStorageSync('WORKERS_ID');
+				workerWorker({
+					parent_id,
+					query: this.query
+				}).then(res => {
+					this.titleList[this.activeIndex].list = res.varList
+				}).finally(() => {
+					uni.hideLoading();
+				})
+			},
+			// 查询主管下的技术员列表
+			_technician() {
+				uni.showLoading({
+					title: '加载中'
+				});
+				let parent_id = uni.getStorageSync('WORKERS_ID')
+				technician({
+					parent_id,
+					query: this.query
+				}).then(res => {
+					this.titleList[this.activeIndex].list = res.varList
+				}).finally(() => {
+					uni.hideLoading();
+				})
 			},
 			getDetail(act) {
 				if (act == 1) {
@@ -210,7 +245,7 @@
 
 			.bigBoxs {
 				padding: 40upx;
-				height: 118upx;
+				// height: 118upx;
 				background: rgba(255, 255, 255, 1);
 
 				text {

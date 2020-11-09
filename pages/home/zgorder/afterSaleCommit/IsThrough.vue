@@ -3,7 +3,7 @@
 		<!-- 头部导航 -->
 		<!--  -->
 		<view class="bigbox">
-			<textarea rows="3" cols="20" class="textareas" v-model="bz" placeholder="xxxxxx"></textarea>
+			<textarea rows="3" cols="20" class="textareas" v-model="bz" placeholder="请输入"></textarea>
 		</view>
 		<!--  -->
 		<!--  -->
@@ -71,6 +71,7 @@
 				obj.aftersale_state = this.isThrough;
 				obj.urllist = this.urlList.join(',');
 				obj.bz = this.bz;
+				delete obj.order_id
 				
 				
 				

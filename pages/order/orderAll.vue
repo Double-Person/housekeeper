@@ -1,7 +1,7 @@
 <template>
 	<view class="newfrom">
 		<!-- 搜索 -->
-		<TopSearch @search="search"></TopSearch>
+		<TopSearch @search="search" placeholder="请输入用户名,手机号,商品名搜索"></TopSearch>
 
 		<view class="list-view">
 			<!-- 横向滚动 -->
@@ -64,6 +64,7 @@
 		},
 		data() {
 			return {
+				query: '',
 				orderAuditType: 'review', // 审核状态  
 				orderConstuctionType: 'review', // 施工状态
 				currentTabBar: -1,
@@ -157,6 +158,8 @@
 			// 搜索
 			search(value) {
 				console.log(value);
+				this.query = value
+				this.topBarActive(this.topActive, this.currentTabBar)
 			},
 			topBarActive(index, value) {
 				this.topActive = index;
@@ -202,6 +205,7 @@
 					title: '加载中'
 				})
 				let obj = {
+					query: this.query,
 					mastertype: mastertype || '',
 					worker_id: uni.getStorageSync('WORKERS_ID')
 				};
