@@ -16,7 +16,6 @@
     <scroll-view
       :scroll-y="true"
       class="scroll-view-body"
- 
     >
       <view class="padding-bottom150">
         <fromDeatil
@@ -24,7 +23,7 @@
           :item="item"
           v-for="(item, index) in titleList[activeIndex].list"
           :key="index"
-          @getDetail="getDetail()"
+          @getDetail="getDetail"
         >
           <view class="slot-warp">
             <view class="slot-active" @click="distribute(item)">派单</view>
@@ -91,7 +90,7 @@ export default {
 
      
     },
-    getDetail(act) {
+    getDetail(info) {
       // uni.navigateTo({
       //   url: "zgfanganxiangqing",
       // });
@@ -105,7 +104,6 @@ export default {
     // 工长   
     _daiforeman() {
       daiforeman({ worker_id: this.worker_id, query: this.query }).then((res) => {
-        console.log("工长", res);
         this.titleList[1].list = res.varList;
       });
     },
