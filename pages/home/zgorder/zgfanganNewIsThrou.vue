@@ -113,13 +113,19 @@
 				}
 				// 				* reason 原因
 				// *explaina 整改说明
-
+				
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
 				workerorderApiJudgeadopt(obj).then(res => {
 					uni.showToast({
 						title: res.mig,
 						icon: 'none'
 					})
 					this.$toIndex()
+				}).finally(() =>{
+					uni.hideLoading()
 				})
 			},
 			// 选择技术人员

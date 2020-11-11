@@ -15,6 +15,9 @@ export const imgBaseUrl = 'https://www.hemingbi.com/housekeeper/'
 // export const imgBaseUrl = 'http://192.168.0.105:8081/'
 
 
+let arr = []
+
+
 export const ajax = (option) => {
     if (!option.url) {
         throw new TypeError('请求地址不能为空')
@@ -31,8 +34,31 @@ export const ajax = (option) => {
 		  
 			console.log(e)
 		}
-	
-
+		
+		
+		// uni.showLoading({
+		// 	title: '加载中',
+		// 	mask: true
+		// })
+		let getUrl = option.url + '' + JSON.stringify(option.data || '');
+		let obj = {
+			url: getUrl,
+			timeStamp: new Date().getTime()
+		}
+		
+		if(arr.length > 1) {
+			let nowTime = new Date().getTime();
+			if( (getUrl == arr[arr.length - 1].url) && ( nowTime - arr[arr.length - 1].timeStamp < 1500 ) ) {
+				console.log('阻止重复提交');
+				if(arr.length > 500) {
+					arr = []
+				}
+				return false;
+			}
+		}
+		
+		arr.push(obj);
+		
         uni.request({
             url: baseUrl + option.url,
             data: option.data || {},
@@ -42,6 +68,7 @@ export const ajax = (option) => {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             success: (res) => {
+			
 				console.log(baseUrl + option.url)
                 // console.log('全局数据', res.data);
                 // 不同状态码相关提示
@@ -63,13 +90,16 @@ export const ajax = (option) => {
                 resolve(res.data);
             },
             fail: err => {
-                // console.log(err);
+
                 uni.showToast({
                     title: '请求失败，请稍后重试',
                     icon: 'none'
                 })
                 reject(err);
-            }
+            },
+			// complete() {
+			// 	uni.hideLoading()
+			// }
         });
     })
 }

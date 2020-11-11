@@ -35,7 +35,7 @@
 		<view class="serve">
 			<view class="titb">
 				<text class="tit_a">方案详情</text>
-				<text class="tit_b" @click="detailAll">全部详情></text>
+				<text class="tit_b"></text>
 			</view>
 			<view class="box">
 				<view class="text" v-for="(item, index) in plantInfo.programme" :key="index">
@@ -134,18 +134,10 @@ import { directorShowMsg } from "@/utils/showMsg.js"
 			// this._programmeApiList()
 		},
 		methods: {
-			detailAll(){
-			 	uni.navigateTo({
-					 // url:"./sgdetailAll"
-					 url: './moreDetail'
-			 	})
-			},
-
+		
 			_programmeApiList() {
-				programmeApiList( {order_id: this.orderInfo.order_id} ).then(res => {
-					
+				programmeApiList( {order_id: this.orderInfo.order_id} ).then(res => {	
 					this.plantInfo = res.varList
-					console.log(this.plantInfo)
 				})
 			}
 		}

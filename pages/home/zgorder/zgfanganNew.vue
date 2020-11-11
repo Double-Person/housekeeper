@@ -96,13 +96,11 @@
 			}
 		},
 		onLoad(option) {
-			console.log(option.userInfo)
 			if(option.userInfo) {
 				this.info = JSON.parse(option.userInfo);
 				if(this.info.selectType) {
 					this.selectType = this.info.selectType
 				}
-				console.log(this.info)
 			}
 			if(option.selectType) {
 				this.selectType = option.selectType
@@ -111,13 +109,17 @@
 		},
 		methods: {
 			detailAll(){   // worker_id 工人的id（技术员或工人的id）   order_id   订单id  states    0已分配技术人员、3已分配工人
+				
+				if(!this.info.checkId) {
+					return uni.showToast({title: '请选择派单人员', icon: 'none'})
+				}
 				let obj = {
 					worker_id: this.info.checkId,
 					order_id: this.info.order_id,
 					states: this.info.selectType == 'technology' ? 0 : 3  // 
 				}
+				
 			 	distribution(obj).then(res => {
-					console.log(res)
 					uni.showToast({
 						title: res.mig,
 						icon: 'none'
@@ -127,7 +129,6 @@
 			},
 			// 选择技术人员
 			selectPersonnel() {
-				console.log('----', this.selectType)
 				if(this.selectType == 'technology') {
 					uni.navigateTo({ // this.selectType
 						url: '../selectPersonnel?type=technology&path=/pages/home/zgorder/zgfanganNew&userInfo=' + JSON.stringify(this.info)

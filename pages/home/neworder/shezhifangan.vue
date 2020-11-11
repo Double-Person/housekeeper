@@ -27,7 +27,7 @@
     </view>
     <!-- 优惠价格 -->
     <view class="yhjg"
-      >优惠价格
+      >优惠价
       <input type="number" v-model="concessional" />
     </view>
     <!-- 上传照片 -->
@@ -69,7 +69,7 @@
     <!-- 支付比例 -->
     <view class="warp-option">
       <view class="pay">
-        <view class="tit">选择支付比例</view>
+        <view class="tit">支付比例</view>
         <input
           type="number"
           @input="inputPayPro"
@@ -182,6 +182,10 @@ export default {
       if (concessional == "") {
         return uni.showToast({ title: "请输入优惠价", icon: "none" });
       }
+	  let realPrice = ( ( this.comptedMoney() - this.concessional ) * this.checkPayPro / 100 ) < 0 ? 0 : ( (this.comptedMoney() - this.concessional)  ).toFixed(2);
+	  if (concessional >= this.comptedMoney() ) {
+	    return uni.showToast({ title: "优惠价不能大于实际价格", icon: "none" });
+	  }
       if (remarks == "") {
         return uni.showToast({ title: "请输入备注", icon: "none" });
       }
@@ -449,14 +453,12 @@ export default {
     height: 80upx;
     background: rgba(255, 255, 255, 1);
     display: flex;
-    // justify-content: flex-end;
     align-items: center;
     .tit {
       font-size: 28upx;
       font-family: PingFang SC;
       font-weight: 500;
       color: rgba(169, 169, 169, 1);
-      line-height: 80px;
     }
     input {
       border: 1rpx solid #eee;

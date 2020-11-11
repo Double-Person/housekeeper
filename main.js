@@ -31,7 +31,7 @@ Vue.prototype.$toIndex = () => {
 				uni.navigateTo({
 					url: "/pages/home/zhuguan",
 				});
-			}, 1000)
+			}, 600)
 
 			break;
 
@@ -41,7 +41,7 @@ Vue.prototype.$toIndex = () => {
 				uni.navigateTo({
 					url: "/pages/home/homejishu",
 				});
-			}, 1000)
+			}, 600)
 
 			break;
 
@@ -51,7 +51,7 @@ Vue.prototype.$toIndex = () => {
 				uni.navigateTo({
 					url: "/pages/home/home",
 				});
-			}, 1000)
+			}, 600)
 
 			break;
 

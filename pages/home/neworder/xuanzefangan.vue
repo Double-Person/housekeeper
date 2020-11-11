@@ -146,6 +146,13 @@
 					list: this.selectList
 				}
 				
+				if(this.selectList.length === 0) {
+					uni.showToast({
+						title: '请至少选择一种方案',
+						icon: 'none'
+					})
+				}
+				
 				console.log( selectPlant );
 	
 				uni.navigateTo({
