@@ -22,7 +22,6 @@
 			_withdraList() {
 				let personnel = uni.getStorageSync('WORKERS_ID');
 				withdraList({personnel}).then(res => {
-					console.log(res)
 					this.list = res.pd
 				})
 			}

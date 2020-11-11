@@ -113,6 +113,7 @@
 			},
 // 开工
 			starts(bz, info) {
+				info.goods = this.$goods(info);
 				uni.navigateTo({
 					url: "./Start?bz=" + bz + '&info=' + JSON.stringify(info),
 					fail(err) {

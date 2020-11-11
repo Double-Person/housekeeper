@@ -209,6 +209,9 @@
 				if (this.orderConfirmationType == 'noThrough') { //   未通过
 					this._ordertype(12)
 				}
+				if (this.orderConfirmationType == 'through') { //   已经通过
+					this._ordertype(13)
+				}
 			},
 
 			_ordertype(mastertype) {

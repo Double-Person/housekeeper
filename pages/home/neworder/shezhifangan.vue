@@ -13,7 +13,7 @@
           :key="item.programme_id"
         >
           <view class="text_a">{{ item.name }}</view>
-          <view class="text_b">{{ item.company }}/㎡</view>
+          <view class="text_b">{{ item.price }}/{{ item.company }}</view>
           <view class="text_c">
             <input v-model="item.num" type="number" />
             <text>㎡</text>
@@ -74,10 +74,10 @@
           type="number"
           @input="inputPayPro"
 		  placeholder-class="placeholder-class"
-          :max="100"
+          :max="99"
           :maxlength="5"
           v-model="checkPayPro"
-          placeholder="请输入1-100的支付比例"
+          placeholder="请输入1-99的支付比例"
         />
       </view>
     </view>
@@ -86,7 +86,7 @@
       <view class="text">
         <text>总价:</text>
         <text>{{ comptedMoney() }}</text>
-        <text>￥{{	 ( ( comptedMoney() - concessional ) * checkPayPro / 100 ) < 0 ? 0 : ( (comptedMoney() - concessional)  ) }}
+        <text>￥{{	 ( ( comptedMoney() - concessional ) * checkPayPro / 100 ) < 0 ? 0 : ( (comptedMoney() - concessional)  ).toFixed(2) }}
 		</text>
       </view>
       <view class="btn" @click="submitAudit">提交审核</view>
@@ -188,7 +188,7 @@ export default {
       if (imgList.length === 0) {
         return uni.showToast({ title: "请至少上传一张图片", icon: "none" });
       }
-      if (checkPayPro < 1 || checkPayPro > 100) {
+      if (checkPayPro < 1 || checkPayPro > 99) {
         return uni.showToast({ title: "请输入正确支付比例", icon: "none" });
       }
     if (this.order_id) {
@@ -207,7 +207,7 @@ export default {
         concessional, // 优惠价
         proportion: checkPayPro / 100, //支付比例
         price: this.comptedMoney(),
-        priceafter: this.comptedMoney() - concessional, // 优惠后价格
+        priceafter: (this.comptedMoney() - concessional).toFixed(2) || 0, // 优惠后价格
         reason: "", // 不通过原因
         explaina: ''
       };
@@ -220,11 +220,7 @@ export default {
             title: "提交成功",
             icon: "none",
           });
-          setTimeout(() => {
-            uni.navigateTo({
-              url: "dingdanzhongxin",
-            });
-          }, 1000);
+          this.$toIndex()
         }
       });
 
@@ -235,10 +231,10 @@ export default {
     inputPayPro(e) {
       if (e.detail.value * 1 < 1) {
         this.checkPayPro = 1;
-      } else if (e.detail.value * 1 <= 100 && e.detail.value * 1 >= 1) {
+      } else if (e.detail.value * 1 <= 99 && e.detail.value * 1 >= 1) {
         this.checkPayPro = e.detail.value;
       } else {
-        this.checkPayPro = 100;
+        this.checkPayPro = 99;
       }
     },
     // 计算价格

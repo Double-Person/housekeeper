@@ -8,11 +8,10 @@
 		</view>
 		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body">
 			<view class="padding-bottom150">
-				<fromDeatil 
-				 :msg="item.qualitystate == 0 && '待处理' || item.qualitystate == 1 && '处理中' || item.qualitystate == 2 && '已完成'  " 
-				:item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
-				 @getDetail="getDetail" @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
-				 <NoData :show="titleList[activeIndex].list.length === 0"></NoData>
+				<fromDeatil :msg="item.qualitystate == 0 && '待处理' || item.qualitystate == 1 && '处理中' || item.qualitystate == 2 && '已完成'  "
+				 :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail" @butongguo="butongguo"
+				 @tongyi="tongyi"></fromDeatil>
+				<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
 			</view>
 		</scroll-view>
 	</view>
@@ -22,8 +21,13 @@
 	import NoData from "@/components/NoData.vue"
 	import fromDeatil from "@/components/fromAll.vue"
 	import TopSearch from '@/components/TopSearch.vue'
-	import { salesOrder, positionObj } from "@/variable/orderCenter.js"
-	import {qualityList} from "@/components/api/api.js"
+	import {
+		salesOrder,
+		positionObj
+	} from "@/variable/orderCenter.js"
+	import {
+		qualityList
+	} from "@/components/api/api.js"
 	export default {
 		data() {
 			return {
@@ -31,7 +35,7 @@
 				query: '',
 				activeIndex: 0,
 				titleList: [
-				
+
 					{
 						value: salesOrder.PROCESSING,
 						label: '处理中',
@@ -47,7 +51,8 @@
 		},
 		components: {
 			fromDeatil,
-			TopSearch,NoData
+			TopSearch,
+			NoData
 		},
 		created() {
 			this._qualityList(1)
@@ -91,19 +96,15 @@
 					uni.hideLoading()
 				})
 			},
-		
+
 			getDetail(info) {
 				this.$detail(info, 'order')
 			},
 			getState(item, shopName) {
-				this.sAce = item,
-					this.msg = shopName
+				this.sAce = item
+				this.msg = shopName
 			},
-			gox() {
-				uni.navigateTo({
-					url: "./zgrenyuan"
-				})
-			},
+
 
 		},
 
@@ -112,5 +113,4 @@
 
 <style lang="scss" scoped>
 	@import '../../../common/style/tabList.scss';
-	
 </style>

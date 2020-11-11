@@ -21,8 +21,6 @@
     <scroll-view
       :scroll-y="true"
       class="scroll-view-body"
-      :lower-threshold="100"
-      @scrolltolower="scrolltolower"
     >
       <view class="padding-bottom150">
         <!-- :flag="8" -->
@@ -103,8 +101,9 @@ export default {
     // 		})
     // 	})
     // },
-    scrolltolower() {},
+
     getDetail(item) {
+		item.goods = this.$goods(item);
       uni.navigateTo({
         url:
           "../../components/workersOrderDetail/allDetail?info=" +

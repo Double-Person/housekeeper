@@ -135,6 +135,11 @@ export const selectorder = data => ajax({ url: '/api/master/selectorder', data, 
 export const start = data => ajax({ url: '/api/master/start', data, method: 'POST' });
  // 查询工人的订单的施工意见  * master_id   * opinion_state 状态(0已解决、1未解决)
  export const listorder = data => ajax({ url: '/api/pinion/listorder', data, method: 'POST' });
+ // 详情
+ export const pinionFindById = data => ajax({ url: '/api/pinion/findById', data, method: 'POST' });
+ 
+ 
+ 
  // 查询工人的订单的施工完成按钮意见
  export const opinionstate = data => ajax({ url: '/api/master/opinionstate', data, method: 'POST' });
  
@@ -177,6 +182,9 @@ export const aftersaleApiConstruction = data => ajax({ url: '/api/aftersaleApi/c
 
 
 
+
+// 订单详情
+export const goosapiFindById = data => ajax({ url: '/api/goosapi/findById', data, method: 'POST' });
 
 
 

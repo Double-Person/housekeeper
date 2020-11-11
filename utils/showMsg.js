@@ -41,6 +41,9 @@ function showMsg(type) {
 		case 12:
 			name = '用户不通过';
 			break;
+		case 13:
+			name = '用户通过';
+			break;
 		default:
 			name = type
 
@@ -91,6 +94,9 @@ function directorShowMsg(type) {
 		case 12:
 			name = '用户不通过';
 			break;
+		case 13:
+			name = '用户通过';
+			break;
 		default:
 			name = type
 
@@ -98,7 +104,32 @@ function directorShowMsg(type) {
 	return name
 }
 
+// 性别转换
+function sexConversion(sex) {
+	if (sex == 0) {
+		return '女'
+	} else if (sex == 1) {
+		return '男'
+	} else {
+		return '不详'
+	}
+}
+
+// 职位转换
+function levelsConversion(level) {
+	if (level == 0) {
+		return '主管'
+	} else if (level == 1) {
+		return '技术员'
+	} else if (level == 2) {
+		return '工长'
+	}
+}
+
+
 export {
 	showMsg,
-	directorShowMsg
+	directorShowMsg,
+	sexConversion,
+	levelsConversion
 }

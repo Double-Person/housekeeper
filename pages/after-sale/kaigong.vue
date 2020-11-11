@@ -9,7 +9,7 @@
 		<!--  -->
 		<view class="box">
 			<view class="text">添加图层</view>
-			<image src="../../static/loginImg/axx.png" mode=""></image>
+			<image src="/static/loginImg/axx.png" mode=""></image>
 			<button type="default" class="button" @click="goH">提交</button>
 		</view>
 	</view>
@@ -23,12 +23,7 @@
 			}
 		},
 		methods:{
-			navigateBack(){
-				console.log("1")
-				uni.navigateBack({
-					
-				})
-			},
+			
 			goH(){
 				
 			}

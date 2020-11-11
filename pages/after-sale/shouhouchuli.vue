@@ -101,6 +101,8 @@
 			},
 		
 			isThrough(isThrough, info) {
+				info.goods = this.$goods(info);
+				delete info.addresid;
 				uni.navigateTo({
 					url: "../home/zgorder/afterSaleCommit/IsThrough?isThrough=" + isThrough + '&info=' + JSON.stringify(info),
 				});

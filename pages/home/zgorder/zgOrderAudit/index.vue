@@ -6,10 +6,10 @@
 			<text :class="audit === 'noThrough' ? 'statAct' : ''" @click="subType('noThrough')">未通过</text>
 		</view> -->
 
-		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+		<scroll-view :scroll-y="true" class="scroll-view-body">
 			<view class="padding-bottom150">
 				<!-- :flag="8" -->
-				<fromDeatil :msg="DIRECTORSHOWMSG(item.mastertype)" :item="item" v-for="(item, index) in list" :key="index" @getDetail="getDetail(act)">
+				<fromDeatil :msg="DIRECTORSHOWMSG(item.mastertype)" :item="item" v-for="(item, index) in list" :key="index" @getDetail="getDetail">
 					<view class="slot-warp">
 						<view class="slot-not-active" @click="isThrough(item.order_id, 2)">不通过</view>
 						<view class="slot-active" @click="isThrough(item.order_id, 1)">通过</view>
@@ -55,8 +55,26 @@
 				this.audit = type;
 				uni.$emit("directorOrderAudit", type);
 			},
-			scrolltolower() {},
-			getDetail() {},
+	
+			getDetail(info) {
+				let obj = {
+					status: (info.states == 1 && '已确认') || (info.states == 4 && '待确认') || (info.states == 3 && '未通过'),
+					order_id: info.order_id,
+					image: info.image,
+					order_number: info.order_number,
+					contact: info.contact,
+					phone: info.phone,
+					province: info.province,
+					citys: info.citys, 
+					district_county: info.district_county, 
+					address_details: info.address_details,
+				}
+				obj.goods = this.$goods(info);
+				uni.navigateTo({// workersOrderDetail
+					url: '/components/workersOrderDetail/allDetail?info=' + JSON.stringify(obj),
+				})
+				  
+			},
 			// 不通过 通过
 			isThrough(order_id, state) {
 				let obj = {

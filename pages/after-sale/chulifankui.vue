@@ -75,7 +75,6 @@
 				
 				
 				workeradd(obj).then(res => {
-					console.log(res)
 					uni.showToast({
 						title: res.mig,
 						icon: 'none'
@@ -99,14 +98,6 @@
 				});
 			},
 			
-			
-			
-			navigateBack(){
-				console.log("1")
-				uni.navigateBack({
-					
-				})
-			},
 			
 		}
 	}

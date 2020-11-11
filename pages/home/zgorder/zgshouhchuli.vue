@@ -101,6 +101,7 @@
 			},
 		
 			isThrough(isThrough, info) {
+				info.goods = this.$goods(info);
 				uni.navigateTo({
 					url: "./afterSaleCommit/IsThrough?isThrough=" + isThrough + '&info=' + JSON.stringify(info),
 				});

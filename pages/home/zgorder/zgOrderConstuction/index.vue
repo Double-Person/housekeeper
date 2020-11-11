@@ -51,7 +51,25 @@ export default {
     NoData,
   },
   methods: {
-    getDetail() {},
+    getDetail(info) {
+    	let obj = {
+    		status: (info.states == 1 && '已确认') || (info.states == 4 && '待确认') || (info.states == 3 && '未通过'),
+    		order_id: info.order_id,
+    		image: info.image,
+    		order_number: info.order_number,
+    		contact: info.contact,
+    		phone: info.phone,
+    		province: info.province,
+    		citys: info.citys, 
+    		district_county: info.district_county, 
+    		address_details: info.address_details,
+    	}
+    	obj.goods = this.$goods(info);
+    	uni.navigateTo({// workersOrderDetail
+    		url: '/components/workersOrderDetail/allDetail?info=' + JSON.stringify(obj),
+    	})
+    	  
+    },
     subType(type) {
       this.audit = type;
       uni.$emit("directorOrderConstuction", type);

@@ -8,7 +8,7 @@
 					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 
-				<view class="com">{{ (info.opinion_state == 1 && '进行中') || (info.opinion_state == 0 && '已完成') }}</view>
+				<view class="com">{{ msg }}</view>
 			</view>
 			<view class="textBox">
 				<view class="img">
@@ -61,24 +61,29 @@
 
 <script>
 	import {imgBaseUrl} from "@/components/api/request.js"
+	import {goosapiFindById, pinionFindById } from "@/components/api/api.js"
 	export default {
 
 		data() {
 			return {
 				imgBaseUrl: imgBaseUrl,
+				orderopinion_id: '',
+				msg: '',
 				info: {}
 			}
 		},
 		onLoad(option) {
-			this.info = JSON.parse(option.info);
-			console.log(this.info)
+			this.orderopinion_id = option.orderopinion_id
+			this.msg = this.msg
+			this._pinionFindById()
 		},
 		methods: {
-			detailAll(){
-			 	uni.navigateTo({
-			 		url:"./sgdetailAll"
-			 	})
-			}
+			_pinionFindById() {
+				pinionFindById({orderopinion_id: this.orderopinion_id}).then(res => {
+					this.info = res.varList
+				})
+			},
+		
 		}
 	}
 </script>

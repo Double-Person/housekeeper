@@ -38,7 +38,7 @@
 		<view class="serve">
 			<view class="titb">
 				<text class="tit_a">方案详情</text>
-				<text class="tit_b" @click="detailAll">全部详情></text>
+				<text class="tit_b"></text>
 			</view>
 			<view class="box" v-if="info.programme">
 				<view class="text" v-for="(ele, ind) in info.programme" :key="ind">
@@ -125,11 +125,7 @@
 			})
 		},
 		methods: {
-			detailAll(){
-			 	uni.navigateTo({
-			 		url:"./sgdetailAll"
-			 	})
-			}
+			
 		}
 	}
 </script>
@@ -412,6 +408,10 @@
 			display: flex;
 			justify-content: space-between;
 			margin-top: 25upx;
+			&::after{
+				width: 210upx;
+				content: '';
+			}
 
 			.oimg {
 				width: 210upx;

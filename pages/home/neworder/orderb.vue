@@ -4,7 +4,7 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image :src="info.image" mode=""></image>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
 					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 
@@ -12,7 +12,7 @@
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image :src="info.image" mode=""></image>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
 				</view>
 				<view class="time">
 					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
@@ -52,6 +52,7 @@
 
 <script>
 	import {  technicianUpaateforeman } from "@/components/api/api.js";
+	import { imgBaseUrl } from "@/components/api/request.js";
 	export default {
 
 		data() {
@@ -59,6 +60,7 @@
 				format: true
 			})
 			return {
+				imgBaseUrl: imgBaseUrl,
 				info: {},
 				date: currentDate,
 				time: `${(new Date()).getHours()}:${(new Date()).getMinutes()} `
@@ -131,6 +133,7 @@
 	}
 	.check-time{
 		display: flex;
+		color: #000;
 		.check-time-item{
 			margin-left: 30rpx;
 		}
@@ -336,9 +339,6 @@
 				line-height: 50upx;
 			}
 
-			text:nth-child(3) {
-				margin-top: 60upx;
-			}
 		}
 	}
 

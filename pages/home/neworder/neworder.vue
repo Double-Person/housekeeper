@@ -66,18 +66,23 @@
 		methods: {
 			// 獲取新订单
 			getWorkerorderApiworkerList() {
+				uni.showLoading({
+					title:'加载中'
+				})
 				let worker_id = uni.getStorageSync("WORKERS_ID");
 				let token = uni.getStorageSync("HOUSE_TOKEN");
-				console.log(worker_id, token);
 				workerorderApiworkerList({
 					worker_id,
 					token,
 				}).then(({ varList }) => {
 					this.list = varList;
-				});
+				}).finally(() => {
+					uni.hideLoading()
+				})
 			},
 			// 接受
 			take(item) {
+				item.goods = this.$goods(item);
 				uni.navigateTo({
 					url: "./orderb?info=" + JSON.stringify(item),
 				});
@@ -94,12 +99,14 @@
 						title: "拒单成功",
 						icon: "none",
 					});
+					this.getWorkerorderApiworkerList();
 				});
 				// uni.navigateTo({
 				// 	url:"./ordera?info=" + JSON.stringify(item)
 				// })
 			},
 			detailInfo(item) {
+				item.goods = this.$goods(item);
 				uni.navigateTo({
 					url: "./ordera?info=" + JSON.stringify(item),
 				});

@@ -96,13 +96,17 @@
 			}
 		},
 		onLoad(option) {
+			console.log(option.userInfo)
 			if(option.userInfo) {
-				this.info = JSON.parse(option.userInfo)
+				this.info = JSON.parse(option.userInfo);
+				if(this.info.selectType) {
+					this.selectType = this.info.selectType
+				}
 				console.log(this.info)
 			}
 			if(option.selectType) {
 				this.selectType = option.selectType
-				console.log(option)
+				
 			}
 		},
 		methods: {
@@ -123,7 +127,7 @@
 			},
 			// 选择技术人员
 			selectPersonnel() {
-				
+				console.log('----', this.selectType)
 				if(this.selectType == 'technology') {
 					uni.navigateTo({ // this.selectType
 						url: '../selectPersonnel?type=technology&path=/pages/home/zgorder/zgfanganNew&userInfo=' + JSON.stringify(this.info)

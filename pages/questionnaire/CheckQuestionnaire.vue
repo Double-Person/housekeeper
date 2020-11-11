@@ -23,7 +23,6 @@ import { questionnaireApiAnswerlist } from "@/components/api/api.js";
 		methods: {
 			_questionnaireApiAnswerlist() {
 				questionnaireApiAnswerlist({ order_id: this.order_id }).then(res => {
-					console.log(res)
 					this.list = res.varList
 				})
 			}

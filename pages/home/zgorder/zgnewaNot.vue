@@ -67,7 +67,6 @@ export default {
     };
   },
   onLoad(option) {
-    console.log(JSON.parse(option.info || ""));
     this.orderInfo = JSON.parse(option.info || "");
     this.isReceive = option.type;
   },

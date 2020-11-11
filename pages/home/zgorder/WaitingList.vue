@@ -1,6 +1,6 @@
 <template>
   <view class="newfrom">
-	  <Topsearch @search="searchValue" placeholder="搜索订单" />
+	  <Topsearch @search="searchValue" placeholder="请输入用户名,手机号,商品名搜索" />
     <!--  -->
     <view class="top">
       <view
@@ -110,6 +110,7 @@ export default {
 
     // 派单
     distribute(item) {
+		item.goods = this.$goods(item);
 		if(this.activeIndex == 0) {
 			uni.navigateTo({
 			  url: "zgfanganNew?userInfo=" + JSON.stringify(item) + '&selectType=technology',

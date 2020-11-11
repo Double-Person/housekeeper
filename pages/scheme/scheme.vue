@@ -93,7 +93,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import '../../common/style/tabList.scss';
+	@import '@/common/style/tabList.scss';
 
 	.scroll-view-body {
 		height: calc(100vh - 130upx - 110upx);

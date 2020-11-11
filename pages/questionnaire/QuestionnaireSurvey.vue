@@ -74,7 +74,6 @@ export default {
     radioChange(index, questionnaire_id, event) {
       let val = event.detail.value;
       this.answerList[index] = questionnaire_id + ";" + val;
-      console.log(this.answerList);
     },
     _questionnaireApiList() {
       questionnaireApiList().then((res) => {

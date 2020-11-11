@@ -115,16 +115,11 @@
 				// *explaina 整改说明
 
 				workerorderApiJudgeadopt(obj).then(res => {
-					console.log(res)
 					uni.showToast({
 						title: res.mig,
 						icon: 'none'
 					})
-					setTimeout( () => {
-						uni.navigateTo({
-							 url: 'zgFangan'
-						});
-					}, 1000 )
+					this.$toIndex()
 				})
 			},
 			// 选择技术人员

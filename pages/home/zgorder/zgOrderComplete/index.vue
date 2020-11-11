@@ -2,8 +2,7 @@
   <scroll-view
     :scroll-y="true"
     class="scroll-view-tab-list-body"
-    :lower-threshold="100"
-    @scrolltolower="scrolltolower"
+
   >
     <view class="padding-bottom150">
       <!-- :flag="8" -->
@@ -12,7 +11,7 @@
         :item="item"
         v-for="(item, index) in list"
         :key="index"
-        @getDetail="getDetail(act)"
+        @getDetail="getDetail"
       >
       </fromDeatil>
       <NoData :show="list.length === 0"></NoData>
@@ -41,8 +40,25 @@ export default {
     NoData,
   },
   methods: {
-    scrolltolower() {},
-    getDetail() {},
+    getDetail(info) {
+    	let obj = {
+    		status: (info.states == 1 && '已确认') || (info.states == 4 && '待确认') || (info.states == 3 && '未通过'),
+    		order_id: info.order_id,
+    		image: info.image,
+    		order_number: info.order_number,
+    		contact: info.contact,
+    		phone: info.phone,
+    		province: info.province,
+    		citys: info.citys, 
+    		district_county: info.district_county, 
+    		address_details: info.address_details,
+    	}
+    	obj.goods = this.$goods(info);
+    	uni.navigateTo({// workersOrderDetail
+    		url: '/components/workersOrderDetail/allDetail?info=' + JSON.stringify(obj),
+    	})
+    	  
+    },
   },
 };
 </script>

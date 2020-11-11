@@ -5,22 +5,22 @@
 		<!-- 项目流程 -->
 		<view class="bigBox">
 			<view class="smallBox">
-				<image src="../../../static/loginImg/yuana.png" mode="" class="oA"></image>
-				<image src="../../../static/loginImg/yuana.png" mode="" class="oB"></image>
-				<image src="../../../static/loginImg/yuana.png" mode="" class="oV"></image>
+				<image src="/static/loginImg/yuana.png" mode="" class="oA"></image>
+				<image src="/static/loginImg/yuana.png" mode="" class="oB"></image>
+				<image src="/static/loginImg/yuana.png" mode="" class="oV"></image>
 				<view class="test">检测</view>
 				<view class="box">
 					<view class="imgBox">
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
 					</view>
 					<view class="textC">师傅已到达施工地点，开始施工...</view>
 					<view class="time">2019-12-09 18:19</view>
 				</view>
 				<view class="box">
 					<view class="imgBox">
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
 					</view>
 					<view class="textC">师傅已到达施工地点，开始施工...</view>
 					<view class="time">2019-12-09 18:19</view>
@@ -29,16 +29,16 @@
 				<view class="test top">进度1</view>
 				<view class="box">
 					<view class="imgBox">
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
 					</view>
 					<view class="textC">师傅已到达施工地点，开始施工...</view>
 					<view class="time">2019-12-09 18:19</view>
 				</view>
 				<view class="box">
 					<view class="imgBox">
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
 					</view>
 					<view class="textC">施工已结束...</view>
 					<view class="time">2019-12-09 18:19</view>
@@ -46,16 +46,16 @@
 				<view class="test top">完工</view>
 				<view class="box">
 					<view class="imgBox">
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
 					</view>
 					<view class="textC">师傅正在施工中...</view>
 					<view class="time">2019-12-09 18:19</view>
 				</view>
 				<view class="box">
 					<view class="imgBox">
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-						<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
+						<image src="/static/my_icon/logo.jpg" mode=""></image>
 					</view>
 					<view class="textC">师傅正在施工中...</view>
 					<view class="time">2019-12-09 18:19</view>

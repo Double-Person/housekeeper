@@ -4,19 +4,18 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
-					<text>窗台防水</text>
+					<image :src="IMGBASEURL + info.image" mode=""></image>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.name || ''}}</text>
 				</view>
 
-				<view class="com">已确认</view>
+				<view class="com">{{ info.status || '' }}</view>
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image src="../../../static/my_icon/logo.jpg" mode=""></image>
+					<image :src="IMGBASEURL + info.image" mode=""></image>
 				</view>
 				<view class="time">
-					<text>项目名称</text>
-					<text>工人名称</text>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.name || ''}}</text>
 				</view>
 			</view>
 		</view>
@@ -25,49 +24,39 @@
 			<view class="titb">
 				订单信息
 			</view>
-			<view class="textT">
-				<text>订单编号：51341851215121515</text>
-				<text>下单日期：2019年12月18日 13:20</text>
-				<text>客户姓名：张三胖</text>
-				<text>客户电话：18356987456</text>
-				<text>客户地址：四川省绵阳市涪城区贾家店街89号A栋203室</text>
+			<view class="textT">			
+				<text>订单编号：{{ info.order_number }}</text>
+				<text>客户姓名：{{ info.contact }}</text>
+				<text>客户电话：{{ info.phone }}</text>
+				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
 			</view>
 		</view>
 		<!-- 服务项目 -->
 		<view class="serve">
 			<view class="titb">
 				<text class="tit_a">方案详情</text>
-				<text class="tit_b" @click="detailAll">全部详情></text>
+				<text class="tit_b"></text>
 			</view>
-			<view class="box">
-				<view class="text">
-					<text>水电安装</text>
-					<text>1.0m²*40.00</text>
-					<text>¥200.00</text>
+			<view class="box" v-if="plantInfo.programme">
+				<view class="text" v-for="(item, index) in plantInfo.programme">
+					<text>{{ item.name }}</text>
+					<text>{{ item.price }} / {{ item.company }}</text>
+					<text>¥{{ item.price * item.numbers }}</text>
 				</view>
-				<view class="text">
-					<text>窗台防水</text>
-					<text>1个*40.00</text>
-					<text>¥1688.00</text>
-				</view>
-				<view class="text">
-					<text>水电安装</text>
-					<text>1.0m²*40.00</text>
-					<text>¥100.00</text>
-				</view>
+				
 			</view>
 			<view class="bottom">
 				<view class="left">
 					<text>开工时间：</text>
-					<text>2020-07-09</text>
+					<text>{{ plantInfo.starttime }}</text>
 				</view>
 				<view class="right">
 					<text>完工时间：</text>
-					<text>2020-8-19</text>
+					<text>{{ plantInfo.endtime }}</text>
 				</view>
 				<view class="youhui">
 					<text class="color">总金额：</text>
-					<text class="color">1256</text>
+					<text class="color">{{ plantInfo.proportion }}</text>
 				</view>
 			</view>
 		</view>
@@ -77,16 +66,11 @@
 			<view class="title">
 				照片
 			</view>
-			<view class="img_data">
-				<view class="oimg">
-					<image src="../../../static/my_icon/logo.jpg"></image>
+			<view class="img_data" v-if="plantInfo.urllist">
+				<view class="oimg" v-for="(item, index) in plantInfo.urllist">
+					<image :src="IMGBASEURL + item.picture_url"></image>
 				</view>
-				<view class="oimg">
-					<image src="../../../static/my_icon/logo.jpg"></image>
-				</view>
-				<view class="oimg">
-					<image src="../../../static/my_icon/logo.jpg"></image>
-				</view>
+				
 			</view>
 		</view>
 		<!-- 备注 -->
@@ -95,29 +79,38 @@
 				备注
 			</view>
 			<view class="txt_data">
-				xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				{{ plantInfo.remarks }}
 			</view>
 		</view>
 		
-		<!-- 总价计算 -->
-		<!-- <view class="zong">
-			<view class="zprice">
-				总价：<text>￥300</text>
-			</view>
-			<view class="fu">
-				支付比例：<text>100%</text>
-			</view>
-		</view> -->
+
 	</view>
 </template>
 
 <script>
+	import { programmeApiList } from "@/components/api/api.js";
+	import { imgBaseUrl } from "@/components/api/request.js";
 	export default {
 
 		data() {
-			return {}
+			return {
+				IMGBASEURL: imgBaseUrl,
+				info: {},
+				plantInfo: {},
+			}
+		},
+		onLoad(opt) {
+			this.info = JSON.parse(opt.info);
+			console.log(this.info)
+			this._programmeApiList()
 		},
 		methods: {
+			_programmeApiList() {
+				programmeApiList({ order_id: this.info.order_id }).then(res => {
+					console.log(res)
+					this.plantInfo = res.varList
+				})
+			},
 			detailAll(){
 			 	uni.navigateTo({
 			 		url:"./sgdetailAll"
@@ -279,7 +272,7 @@
 
 	.orderxx {
 		margin-top: 20upx;
-		padding: 0upx 40upx;
+		padding: 40upx 40upx;
 		width: 670upx;
 		
 		background: #fff;
@@ -307,9 +300,7 @@
 				line-height: 50upx;
 			}
 
-			text:nth-child(3) {
-				margin-top: 60upx;
-			}
+		
 		}
 	}
 
@@ -317,7 +308,6 @@
 		padding: 0upx 40upx;
 		margin-top: 20upx;
 		width: 670upx;
-		height: 465upx;
 		background: rgba(255, 255, 255, 1);
 		border-radius: 8upx;
 
@@ -359,11 +349,6 @@
 					color: rgba(26, 26, 26, 1);
 				}
 
-				text:nth-child(3) {
-					font-size: 28upx;
-					font-weight: 400;
-					color: rgba(253, 44, 44, 1);
-				}
 			}
 		}
 
@@ -410,6 +395,10 @@
 			display: flex;
 			justify-content: space-between;
 			margin-top: 25upx;
+			&::after{
+				width: 210upx;
+				content: '';
+			}
 
 			.oimg {
 				width: 210upx;

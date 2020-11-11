@@ -51,7 +51,6 @@
 			};
 		},
 		onLoad(option) {
-			console.log(option)
 			if (option.phone != '' && option.phone != undefined && option.phone != null ) {
 				// this.userInfo.phone = option.phone;
 			}
@@ -93,7 +92,6 @@
 						token,
 						worker
 					} = res.returnMsg;
-
 					this.loginNavigate(worker, token);
 				}
 			},
@@ -146,6 +144,7 @@
 				uni.setStorageSync("HOUSE_TOKEN", token); // workers_id
 				uni.setStorageSync("PARENT_ID", info.parent_id); // 上级主管id
 				uni.setStorageSync("HOUSE_LEVELS", info.levels); // 上级主管id
+
 				switch (info.levels * 1) {
 					case 0:
 						// 主管

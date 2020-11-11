@@ -14,6 +14,7 @@
 					<image src="/static/loginImg/axx.png" mode=""></image>
 				</view>
 				<view class="img-warp" v-for="(item, index) in urlList" :key="index">
+					{{ imgBaseUrl + item }}
 					<image :src="imgBaseUrl + item" mode=""></image>
 				</view>
 				

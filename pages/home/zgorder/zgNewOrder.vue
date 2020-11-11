@@ -65,7 +65,6 @@
 					worker_id,
 					token
 				}).then(({ varList }) => {
-					console.log('獲取新订单', varList)
 					this.list = varList
 				})
 			},

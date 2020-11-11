@@ -63,12 +63,29 @@ Vue.prototype.$toIndex = () => {
 
 Vue.prototype.$detail = (info, type = '') => {
 	uni.navigateTo({
-		url: '/pages/CustomDetail?info=' + JSON.stringify(info) + '&type=' + type,
+		url: '/pages/GlobalDetail?info=' + JSON.stringify(info) + '&type=' + type,
+		
 		fail(err) {
 			console.log(err)
 		}
 	})
 }
+
+Vue.prototype.$globalDetail = (order_id, msg = '') => {
+	uni.navigateTo({
+		url: '/pages/CustomDetail?order_id=' + order_id + '&msg=' + msg,
+		fail(err) {
+			console.log(err)
+		}
+	})
+}
+
+Vue.prototype.$goods = ( info ) => {
+	let { createtime, name, package_name } = info.goods
+	let goodsObj = { createtime, name, package_name };
+	return goodsObj
+}
+
 
 App.mpType = 'app'
 

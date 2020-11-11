@@ -73,7 +73,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import '../../../common/style/tabList.scss';
+	@import '@/common/style/tabList.scss';
 
 	
 </style>

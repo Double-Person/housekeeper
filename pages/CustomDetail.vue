@@ -15,8 +15,7 @@
 					<image :src="imgBaseUrl + info.image" mode=""></image>
 				</view>
 				<view class="time">
-					<text>项目名称</text>
-					<text>工人名称</text>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 			</view>
 		</view>
@@ -131,7 +130,18 @@ import { showMsg } from "@/utils/showMsg.js"
 				aftersaleApiConstruction({ orderquality_id }).then(res => {
 					console.log(res)
 				})
-			}
+			},
+			// import {programmeApiList, goosapiFindById} from "@/components/api/api.js";
+			// _goosapiFindById() {
+			// 	goosapiFindById({order_id: this.order_id}).then(res => {
+			// 		this.info = res.varList
+			// 	})
+			// },
+			// _programmeApiList() {
+			// 	programmeApiList({ order_id: this.order_id }).then((res) => {
+			// 	  this.plantInfo = res.varList
+			// 	});
+			// },
 
 		
 		}

@@ -12,7 +12,7 @@
 					<fromDeatil 
 					:msg="(item.states == 0 && '设置方案') || (item.states == 1 && '完成') || (item.states == 2 && '取消') || (item.states == 3 && '不通过')|| (item.states == 4 && '待审核')" :item="item" 
 					v-for="(item,index) in titleList[activeIndex].list" :key="index"
-					 @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi">
+					 @getDetail="getDetail" @butongguo="butongguo" @tongyi="tongyi">
 						<view class="slot-warp" v-if="item.states == 0">
 						  <view class="slot-active"  @click="Aszfa(item)">设置方案</view>
 						</view>
@@ -98,14 +98,11 @@
 			NoData
 		},
 		async onLoad() {
-			console.log('onLoad')
 			this.currentTabBar = await this.titleList && this.titleList[0].value;
 			await this._initParmas()
 			await this.getList()
 		},
-		mounted() {
-			 console.log('mounted')
-		},
+	
 		methods: {
 			// 初始化请求参数
 			_initParmas() {
@@ -143,23 +140,33 @@
 			},
 			scrolltolower(e) {},
 			// 施工跳转
-			getDetail(){
+			getDetail(info){
+				// uni.navigateTo({
+				// 	url:"./sgdetailAll"
+				// })
+				let msg = (info.states == 0 && '设置方案') || (info.states == 1 && '完成') || (info.states == 2 && '取消')
 				uni.navigateTo({
-					url:"./sgdetailAll"
+					url:'dyixiangqing?order_id=' + info.order_id + '&msg=' + msg
 				})
 			},
 			
-			yiwancheng(){
+			yiwancheng(info){
+				let msg = (info.states == 0 && '设置方案') || (info.states == 1 && '完成') || (info.states == 2 && '取消')
 				uni.navigateTo({
-					url:'dyixiangqing'
+					url:'dyixiangqing?order_id=' + info.order_id + '&msg=' + msg
 				})
 			},
-			yiquxiao(){
+			yiquxiao(info){
+				// uni.navigateTo({
+				// 	url:'dmeixiangqing'
+				// })
+				let msg = (info.states == 0 && '设置方案') || (info.states == 1 && '完成') || (info.states == 2 && '取消')
 				uni.navigateTo({
-					url:'dmeixiangqing'
+					url:'dyixiangqing?order_id=' + info.order_id + '&msg=' + msg
 				})
 			},
 			Aszfa(item){
+				item.goods = this.$goods(item)
 				uni.navigateTo({
 					url:'shezhifangan?info=' + JSON.stringify(item)
 				})

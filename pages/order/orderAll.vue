@@ -157,7 +157,6 @@
 		methods: {
 			// 搜索
 			search(value) {
-				console.log(value);
 				this.query = value
 				this.topBarActive(this.topActive, this.currentTabBar)
 			},

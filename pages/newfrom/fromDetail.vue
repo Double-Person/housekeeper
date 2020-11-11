@@ -1,219 +1,460 @@
 <template>
-	<!-- 新订单详情 -->
-	<view class="newfrom">
-		<view class="new_demo">
-			<!-- 循环订单位置 -->
-			<view class="new_list">
-
-				<!-- 名称+logo -->
-				<view class="new_logo">
-					<image src="../../static/my_icon/logo.jpg" mode=""></image>
-					<text>窗台防水</text>
+	<view class="index">
+		<!--  -->
+		<view class="box_te">
+			<view class="tit">
+				<view class="imgtit">
+					<image :src="IMGBASEURL + info.image" mode=""></image>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.name || ''}}</text>
 				</view>
 
-				<!-- 订单详情 -->
-				<view class="new_text">
-					<view class="new_img">
-						<image src="../../static/my_icon/logo.jpg" mode=""></image>
-					</view>
-					<view class="new_mid">
-						<text>项目名称</text>
-					</view>
-				</view>
+				<view class="com">新订单</view>
 			</view>
-
-			<!-- 订单信息 -->
-			<view class="new_detail">
-				<view class="detail">
-					订单详情
+			<view class="textBox">
+				<view class="img">
+					<image :src="IMGBASEURL + info.image" mode=""></image>
 				</view>
-				
-				<!-- 订单编号/日期 -->
-				<view class="text_detail">
-					<text>订单编号：15454534545454</text>
-					<view>
-						<text class="detail_data">
-							下单时间：2019年12月18日
-						</text>
-						<text class="detail_time">
-							13:20
-						</text>
-					</view>
-				</view>
-				<!-- 客户订单 -->
-				<view class="my_detail">
-					<view>客户姓名：汪小菲</view>
-					<view>客户电话：18356987413</view>
-					<view>客户姓名：四川省成都市锦江区崔家店145号</view>
+				<view class="time">
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.name || ''}}</text>
 				</view>
 			</view>
 		</view>
+
+		<view class="orderxx">
+			<view class="titb">
+				订单信息
+			</view>
+			<view class="textT">			
+				<text>订单编号：{{ info.order_number }}</text>
+				<text>客户姓名：{{ info.contact }}</text>
+				<text>客户电话：{{ info.phone }}</text>
+				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
+			</view>
+		</view>
+		<!-- 服务项目 -->
+		<view class="serve">
+			<view class="titb">
+				<text class="tit_a">方案详情</text>
+				<text class="tit_b"></text>
+			</view>
+			<view class="box" v-if="plantInfo.programme">
+				<view class="text" v-for="(item, index) in plantInfo.programme">
+					<text>{{ item.name }}</text>
+					<text>{{ item.price }} / {{ item.company }}</text>
+					<text>¥{{ item.price * item.numbers }}</text>
+				</view>
+				
+			</view>
+			<view class="bottom">
+				<view class="left">
+					<text>开工时间：</text>
+					<text>{{ plantInfo.starttime }}</text>
+				</view>
+				<view class="right">
+					<text>完工时间：</text>
+					<text>{{ plantInfo.endtime }}</text>
+				</view>
+				<view class="youhui">
+					<text class="color">总金额：</text>
+					<text class="color">{{ plantInfo.proportion }}</text>
+				</view>
+			</view>
+		</view>
+
+		<!-- 照片 -->
+		<view class="order_img">
+			<view class="title">
+				照片
+			</view>
+			<view class="img_data" v-if="plantInfo.urllist">
+				<view class="oimg" v-for="(item, index) in plantInfo.urllist">
+					<image :src="IMGBASEURL + item.picture_url"></image>
+				</view>
+				
+			</view>
+		</view>
+		<!-- 备注 -->
+		<view class="order_txt">
+			<view class="title">
+				备注
+			</view>
+			<view class="txt_data">
+				{{ plantInfo.remarks }}
+			</view>
+		</view>
+		
+
 	</view>
 </template>
 
 <script>
+	import { programmeApiList } from "@/components/api/api.js";
+	import { imgBaseUrl } from "@/components/api/request.js";
+	export default {
+
+		data() {
+			return {
+				IMGBASEURL: imgBaseUrl,
+				info: {},
+				plantInfo: {},
+			}
+		},
+		onLoad(opt) {
+			this.info = JSON.parse(opt.info);
+			console.log(this.info)
+			this._programmeApiList()
+		},
+		methods: {
+			_programmeApiList() {
+				programmeApiList({ order_id: this.info.order_id }).then(res => {
+					console.log(res)
+					this.plantInfo = res.varList
+				})
+			},
+			detailAll(){
+			 	uni.navigateTo({
+			 		url:"./sgdetailAll"
+			 	})
+			}
+		}
+	}
 </script>
 
-<style lang="scss">
-	.newfrom {
-		height: 100%;
-		background: $uni-color-hui;
-		overflow: hidden;
+<style lang="scss" scoped>
+	@font-face {
+		font-family: SourceHanSansCN;
+		src: url("~@/static/SourceHanSansCN-Normal.otf") format('truetype'),
 	}
 
-	.new_demo {
-		width: 100%;
-		height: 100%;
-	}
-
-	.new_list {
+	.index {
 		width: 750upx;
+		background-color: #F2F2F2;
+		font-family: SourceHanSansCN;
+	}
+
+	.box_te {
+		border-top: 19upx solid #f2f2f2;
+		padding: 40upx 0upx 0upx 20upx;
 		height: 350upx;
-		background: $uni-text-color-inverse;
-		padding-top: 48upx;
-		// padding-bottom: 40upx;
-		box-sizing: border-box;
-		background: rgba(255, 255, 255, 1);
-		overflow: hidden;
-		position: relative;
+		background: white;
+
+		.tit {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+
+			.imgtit {
+				position: relative;
+
+				image {
+					width: 38upx;
+					height: 38upx;
+					border-radius: 4upx;
+					position: absolute;
+					top: 8upx;
+					left: 0upx;
+				}
+
+				text {
+					margin-left: 56upx;
+					font-size: 36upx;
+					font-family: SourceHanSansCN;
+					font-weight: 600;
+					color: rgba(26, 26, 26, 1);
+					line-height: 36upx;
+				}
+			}
+
+			.com {
+				width: 130upx;
+				height: 48upx;
+				margin-left: auto;
+				font-size: 32upx;
+				font-weight: 500;
+				color: #999;
+				text-align: center;
+				line-height: 48upx;
+			}
+		}
+
+		.textBox {
+			padding: 60upx 0upx 20upx 0upx;
+			display: flex;
+			position: relative;
+
+			.img {
+				width: 180upx;
+				height: 180upx;
+				background: rgba(146, 113, 113, 1);
+				border-radius: 8upx;
+
+				image {
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			.time {
+				margin-left: 18upx;
+				margin-top: 21upx;
+
+				text {
+					display: block;
+					font-size: 28upx;
+					font-weight: 400;
+					color: #191919;
+				}
+
+				image {
+					margin-left: 20upx;
+					width: 13upx;
+					height: 24upx;
+				}
+			}
+		}
+
+		.btnBox {
+			display: flex;
+			float: right;
+
+			.btns {
+				width: 214upx;
+				height: 68upx;
+				background: linear-gradient(150deg, rgba(255, 200, 35, 1), rgba(255, 193, 12, 1));
+				border-radius: 8upx;
+				font-size: 32upx;
+				font-family: SourceHanSansCN;
+				font-weight: 600;
+				color: rgba(26, 26, 26, 1);
+				line-height: 68upx;
+				position: relative;
+
+				text {
+					margin-left: 60upx;
+				}
+
+				image {
+					position: absolute;
+					top: 18upx;
+					left: 16upx;
+					width: 39upx;
+					height: 39upx;
+				}
+			}
+
+			.btn {
+				margin-left: 30upx;
+				width: 214upx;
+				height: 68upx;
+				background: linear-gradient(150deg, rgba(255, 200, 35, 1), rgba(255, 193, 12, 1));
+				border-radius: 8upx;
+				font-size: 32upx;
+				font-family: SourceHanSansCN;
+				font-weight: 600;
+				color: rgba(26, 26, 26, 1);
+				line-height: 68upx;
+				position: relative;
+
+				text {
+					margin-left: 60upx;
+				}
+
+				image {
+					position: absolute;
+					top: 15upx;
+					left: 16upx;
+					width: 33upx;
+					height: 39upx;
+				}
+			}
+		}
+	}
+
+	.orderxx {
 		margin-top: 20upx;
-	}
-
-	.new_logo {
-		width: 750upx;
-		overflow: hidden;
-
-		image {
-			width: 38upx;
-			height: 38upx;
-			// margin-top: 38upx;
-			margin-left: 20rpx;
-			float: left;
-		}
-
-		text {
-			font-size: 36upx;
-			// margin-top: 34upx;
-			float: left;
-			margin-left: 16upx;
-		}
-	}
-
-	.new_text {
-		width: 750upx;
-		height: 180upx;
-		position: absolute;
-		top: 134upx;
-		left: 20upx;
-		overflow: hidden;
-	}
-
-	.new_img {
-		width: 180upx;
-		height: 180upx;
-		border-radius: 8px;
-		overflow: hidden;
-		float: left;
-	}
-
-	.new_img image {
-		display: block;
-		width: 180upx;
-		height: 180upx;
-	}
-
-	.new_mid {
-		float: left;
-		margin-left: 18upx;
-	}
-
-	.new_btn {
-		position: absolute;
-		top: 334upx;
-		left: 339upx;
-		overflow: hidden;
-	}
-
-	.new_btn text {
-		display: block;
-		width: 180upx;
-		height: 68upx;
-		float: left;
-		font-size: 32upx;
-		font-weight: 500;
-		text-align: center;
-		line-height: 68upx;
-		border-radius: 34upx;
-	}
-
-	.new_btn text:nth-of-type(1) {
-		border: 1px solid #999999;
-		color: rgba(153, 153, 153, 1);
-	}
-
-	.new_btn text:nth-of-type(2) {
-		background: $uni-color-yellow;
-		;
-		color: $uni--color-hei;
-		margin-left: 30upx;
-	}
-
-	.new_mid text {
-		display: block;
-		font-size: 28upx;
-		margin-top: 21upx;
-		color: $uni--color-hei;
-	}
-
-	.new_mid view {
-		font-size: 26upx;
-		color: #999999;
-	}
-
-	.new_mid view:nth-of-type(1) {
-		margin-top: 14upx;
-	}
-
-	.new_mid view:nth-of-type(2),
-	.new_mid view:nth-of-type(3) {
-		margin-top: 14upx;
-	}
-
-	// 订单所有详情
-	.new_detail {
-		width: 750upx;
+		padding: 40upx 40upx;
+		width: 670upx;
+		
 		background: #fff;
-		margin-top: 20upx;
-		padding:40upx 50upx 40upx 39upx;
+		border-radius: 8upx;
+
+		.titb {
+			padding: 20upx 0upx;
+			width: 670upx;
+			font-size: 28upx;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
+			border-bottom: 1upx solid rgba(191, 191, 191, 1);
+		}
+		
+
+		.textT {
+			margin-top: 20upx;
+
+			text {
+				width: 670upx;
+				display: block;
+				font-size: 28upx;
+				font-weight: 400;
+				color: rgba(153, 153, 153, 1);
+				line-height: 50upx;
+			}
+
+		
+		}
 	}
-	.detail{
-		font-size: 28upx;
+
+	.serve {
+		padding: 0upx 40upx;
+		margin-top: 20upx;
+		width: 670upx;
+		background: rgba(255, 255, 255, 1);
+		border-radius: 8upx;
+
+		.titb {
+			padding: 30upx 0upx;
+			width: 670upx;
+			font-size: 28upx;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
+			border-bottom: 1upx solid rgba(191, 191, 191, 1);
+			overflow: hidden;
+			.tit_a{
+				float: left;
+			}
+			.tit_b{
+				float:right;
+				color: #D4D4D4;
+			}
+		}
+
+		.box {
+			padding: 40upx 0upx 20upx 0upx;
+			border-bottom: 1upx solid rgba(191, 191, 191, 1);
+
+			.text {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 20upx;
+
+				text:nth-child(1) {
+					font-size: 28upx;
+					font-weight: 400;
+					color: rgba(153, 153, 153, 1);
+				}
+
+				text:nth-child(2) {
+					font-size: 28upx;
+					font-weight: 600;
+					color: rgba(26, 26, 26, 1);
+				}
+
+			}
+		}
+
+		.bottom {
+			padding: 20upx 0upx 40upx 0upx;
+			font-size: 24upx;
+			color: #191919;
+			position: relative;
+
+			.right {
+				margin-top: 18upx;
+			}
+
+			.youhui {
+				position: absolute;
+				top: 20upx;
+				right: 0upx;
+			}
+
+			.color {
+				color: #FA4F4F;
+			}
+		}
+	}
+
+	.order_img {
+		width: 750px;
+		background-color: #fff;
+		padding: 40upx;
+		overflow: hidden;
+		margin-top: 20upx;
+
+		.title {
+			width: 670upx;
+			padding-bottom: 20upx;
+			border-bottom: 2upx solid rgba(190, 190, 190, 1);
+			font-size: 28upx;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
+		}
+
+		.img_data {
+			width: 670upx;
+			display: flex;
+			justify-content: space-between;
+			margin-top: 25upx;
+			&::after{
+				width: 210upx;
+				content: '';
+			}
+
+			.oimg {
+				width: 210upx;
+				height: 210upx;
+				overflow: hidden;
+
+				image {
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
+
+	.order_txt {
+		width: 750px;
+		background-color: #fff;
+		padding: 40upx;
+		overflow: hidden;
+		margin-top: 20upx;
+
+		.title {
+			width: 670upx;
+			padding-bottom: 20upx;
+			font-size: 28upx;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
+			border-bottom: 2upx solid rgba(190, 190, 190, 1);
+		}
+
+		.txt_data {
+			width: 670upx;
+			word-break: break-all;
+			margin-top: 25upx;
+		}
+	}
+
+	.zong {
+		width: 750px;
+		// height: 118upx;
+		background-color: #fff;
+		padding: 40upx;
+		overflow: hidden;
+		margin-top: 20upx;
 		color: #333333;
-		padding-bottom: 20upx;
-		border-bottom: 1px solid #BEBEBE;
-	}
-	// 订单详情
-	.text_detail{
-		margin-top: 20upx;
-		color: $uni-coloe-qianhui;
-		font-size: 28upx;
-	}
-	.text_detail text{
-		margin-top: 20upx;
-	}
-	.text_detail view{
-		margin-top: 19upx;
-	}
-	// 客户信息
-	.my_detail{
-		margin-top: 59upx;
-		color: $uni-coloe-qianhui;
-		font-size: 28upx;
-	}
-	.my_detail view{
-		margin-top: 19upx;
-	}
-	.my_detail view:nth-of-type(3){
-		width: 660upx;
+		font-size: 32upx;
+		.zprice {
+			float: left;
+			text{
+				color: #FA4F4F;
+			}
+		}
+
+		.fu {
+			float: left;
+			margin-left: 250upx;
+		}
 	}
 </style>

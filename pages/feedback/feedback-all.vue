@@ -7,10 +7,7 @@
 		</view>
 		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body">
 			<view class="padding-bottom150">
-				<fromDeatil :msg="
-            (item.opinion_state == 1 && '进行中') ||
-            (item.opinion_state == 0 && '已完成')
-          "
+				<fromDeatil :msg=" (item.opinion_state == 1 && '进行中') || (item.opinion_state == 0 && '已完成') "
 				 :item="item" v-for="(item, index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail">
 					<view class="slot-warp" v-if="item.opinion_state == 1">
 						<view class="slot-active" @click="complete(item.orderopinion_id)">完成</view>
@@ -110,12 +107,17 @@
 						title: res.mig,
 						icon: 'none'
 					})
-					this.clickTitle(this.activeIndex, this.currentTabBar)
+					this.$toIndex()
 				})
 			},
 			getDetail(info) {
+				// info.goods = this.$goods(info)
+				// uni.navigateTo({
+				// 	url: "fankui?info=" + JSON.stringify(info),
+				// });
+				let msg = (info.opinion_state == 1 && '进行中') || (info.opinion_state == 0 && '已完成');
 				uni.navigateTo({
-					url: "fankui?info=" + JSON.stringify(info),
+					url: "fankui?orderopinion_id=" + info.orderopinion_id + '&msg=' + msg
 				});
 			},
 

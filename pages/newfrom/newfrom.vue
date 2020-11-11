@@ -10,7 +10,7 @@
 				</view>
 
 				<!-- 订单详情 -->
-				<view class="new_text">
+				<view class="new_text" @click="detail(item)">
 					<view class="new_img">
 						<image :src="
               item.image ? imgBaseUrl + item.image : '/static/my_icon/logo.jpg'
@@ -25,7 +25,7 @@
 				</view>
 
 				<!-- 按钮 -->
-				<view class="new_btn"> 
+				<view class="new_btn">
 					<text @click="receive(item.order_id, 2)">不接受</text>
 					<text @click="receive(item.order_id, 1)">接受</text>
 				</view>
@@ -38,7 +38,8 @@
 
 <script>
 	import {
-		workerorderApiworkerList, receivingorders
+		workerorderApiworkerList,
+		receivingorders
 	} from "@/components/api/api.js";
 	import {
 		imgBaseUrl
@@ -71,7 +72,7 @@
 					this.list = varList;
 				});
 			},
-			
+
 			_receivingorders(order_id, type) {
 				let obj = {
 					state_one: type,
@@ -89,12 +90,25 @@
 			receive(order_id, type) { // 1接受 2不接受
 				this._receivingorders(order_id, type)
 			},
-			getDetail() {
-				// uni.navigateTo({
-				// 	url: "./fromDetail",
-				// });
-			},
-			
+			detail(info) {
+				let obj = {
+					order_id: info.order_id,
+					image: info.image,
+					order_number: info.order_number,
+					contact: info.contact,
+					phone: info.phone,
+					province: info.province,
+					citys: info.citys, 
+					district_county: info.district_county, 
+					address_details: info.address_details,
+				}
+				obj.goods = this.$goods(info);
+				uni.navigateTo({
+					url: 'fromDetail?info=' + JSON.stringify(obj)
+				})
+			}
+
+
 		},
 	};
 </script>

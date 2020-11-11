@@ -82,7 +82,7 @@
 			// 查看用户资料
 			handelInfo(item) {
 				uni.navigateTo({
-					url: './detailInfo?info=' + JSON.stringify(item)
+					url: '/pages/login/detailInfo?info=' + JSON.stringify(item)
 				})
 			},
 			// 查询主管列表
