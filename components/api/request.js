@@ -4,14 +4,14 @@ baseUrl_ =''
 // #endif
 
 // #ifdef APP-PLUS
-baseUrl_ ='https://www.hemingbi.com/housekeeper'
+baseUrl_ ='https://yflh.hkzhtech.com/housekeeper'
 // #endif
 export const baseUrl = baseUrl_
 
 // export const imgBaseUrl = baseUrl + '/'
 
 
-export const imgBaseUrl = 'https://www.hemingbi.com/housekeeper/'
+export const imgBaseUrl = 'https://yflh.hkzhtech.com/housekeeper/'
 // export const imgBaseUrl = 'http://192.168.0.105:8081/'
 
 

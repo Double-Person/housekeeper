@@ -1,6 +1,6 @@
 <template>
 	<view class="sou">
-		<uni-search-bar :radius="100" :placeholder="placeholder" @confirm="search" class="input-search-own" cancelButton="none"></uni-search-bar>
+		<uni-search-bar ref="topSearch" :radius="100" :placeholder="placeholder" @confirm="search" class="input-search-own" cancelButton="none"></uni-search-bar>
 	</view>
 </template>
 
@@ -29,8 +29,11 @@
 				// this.$emit('searchValue', val.value)
 				this.$emit('search', val.value)
 			},
+			// 清空输入框
+			clear() {
+				this.$refs.topSearch.clear()
+			},
 			inputSearch() {
-				console.log(this.value)
 				if (this.value.length) {
 					this.isShow = false
 				} else {

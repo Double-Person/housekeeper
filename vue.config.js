@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/": {
-        target: "https://www.hemingbi.com/housekeeper",
+        target: "https://yflh.hkzhtech.com/housekeeper",
         // target: "http://192.168.0.105:8081/",
 		
         changeOrigin: true,

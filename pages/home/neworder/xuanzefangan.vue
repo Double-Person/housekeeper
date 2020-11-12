@@ -1,12 +1,12 @@
 <template>
 	<view class="index">
-		<TopSearch placeholder="搜索订单" @search="searchPlant"></TopSearch>
+		<TopSearch placeholder="搜索订单" ref="topSearch" @search="searchPlant"></TopSearch>
 
 		<view class="box">
 			<view class="tit" v-for="(item,index) in list" :key="index">
-				<view class="titT">
+				<view class="titT" @click="clickFirst(item, index)">
 					<view class="titi">{{item.typename}}</view>
-					<image src="/static/loginImg/hxiala.png" mode="" @click="clickFirst(item, index)"></image>
+					<image src="/static/loginImg/hxiala.png" mode="" ></image>
 				</view>
 				<!-- item.isShow    -->
 				<view v-show="item.isShow">
@@ -77,6 +77,12 @@
 				format: true
 			})
 			return {
+				hierarchy: '1', // 层级
+				query: '',
+				first: {},
+				sen: {},
+				
+				
 				checkProgrammeId: '',
 				checkProgrammeList: [],
 				checkProgrammeListId: [],
@@ -107,18 +113,46 @@
 		methods: { // typeid   series_id
 			// 顶部搜素
 			searchPlant(info) {
-				search({info}).then(res => {
-					console.log(res)
-				})
+				this.query = info;			
+				if(this.hierarchy == '1') {
+					this._programme1()
+				}else if(this.hierarchy == '2') {
+					let { id, index, isShow} = this.first;
+					if(!isShow) this._programme1()
+					else this._programme2(id, index)
+				}else if(this.hierarchy == '3') {
+					let { item, index1, index, isShow } = this.sen;
+					if(!isShow) {
+						let { id, index} = this.first;
+						this._programme2(id, index)
+					}else{
+						this._programme3(item, index1, index)
+					}
+					
+				}
+				// if(this.query.trim() == '') {
+				// 	this._programme1()
+				// }
+				// search({info}).then(res => { })
 			},
 			// 点击第一层
 			clickFirst(item, index) {
 				this.list[index].isShow = !item.isShow
 				this._programme2(item.programmetype_id, index)
+				this.first = { id: item.programmetype_id, index: index, isShow: item.isShow };
+				this.hierarchy = '2'
+				this.$refs.topSearch.clear();
+				this.query = ''
 			},
 			// 点击第二层
 			clickSen(item, index1, index) {
 				this._programme3(item, index1, index)
+				
+				this.sen = { item, index1, index, isShow: item.isShow };
+				this.hierarchy = '3'
+				
+				this.$refs.topSearch.clear();
+				this.query = ''
 				// this.$forceUpdate()
 			},
 			// 点击第三层
@@ -132,6 +166,9 @@
 					let findIndexNum = this.checkProgrammeListId.findIndex( item => item == ele.programme_id );
 					this.checkProgrammeListId.splice(findIndexNum, 1)
 				}
+				
+				this.$refs.topSearch.clear();
+				this.query = ''
 				
 				this.$forceUpdate()
 			},
@@ -153,8 +190,6 @@
 					})
 				}
 				
-				console.log( selectPlant );
-	
 				uni.navigateTo({
 					url: './shezhifangan?info=' + JSON.stringify(this.info) + '&selectPlant=' + JSON.stringify(selectPlant) + '&order_id=' + this.order_id
 				})
@@ -162,7 +197,6 @@
 			
 			formatTime(time) {
 				let newTime = new Date( time );
-				console.log(newTime);
 				let year = newTime.getFullYear(), 
 					month = this.padStart(newTime.getMonth() + 1) ,
 					day = this.padStart(newTime.getDate()),
@@ -190,7 +224,7 @@
 			// 获取第一级数据
 			_programme1() {
 				let token = uni.getStorageSync('HOUSE_TOKEN');
-				programme1({token}).then( res => {
+				programme1({token, query: this.query}).then( res => {
 					this.list = res.returnMsg
 					this.list && this.list.forEach(ele => {
 						ele.isShow = false
@@ -201,7 +235,7 @@
 			_programme2(typeid, index) {
 				let token = uni.getStorageSync('HOUSE_TOKEN');
 				programme2({
-					typeid, token
+					typeid, token, query: this.query
 				}).then(res => {
 					this.list[index].list = res.returnMsg
 					this.list[index].list.forEach(ele => {
@@ -217,7 +251,7 @@
 				programme3({
 					typeid: obj.typeid,
 					series_id: obj.series_id,
-					token
+					token, query: this.query
 				}).then(res => {
 					this.list[index1].list[index].list = res.returnMsg;
 					this.list[index1].list[index].isShow = !obj.isShow
