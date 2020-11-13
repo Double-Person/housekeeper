@@ -81,7 +81,9 @@
 			},
 
 			getDetail(info) {
-				this.$detail(info)
+				uni.navigateTo({
+					url: '../home/zgorder/moreDetail?orderquality_id=' + info.orderquality_id
+				})
 			},
 
 			_qualityList(qualitystate) {
@@ -111,7 +113,7 @@
 					uni.hideLoading()
 				})
 			},
-// 开工
+			// 开工
 			starts(bz, info) {
 				info.goods = this.$goods(info);
 				uni.navigateTo({

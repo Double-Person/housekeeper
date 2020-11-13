@@ -96,8 +96,11 @@
 					uni.hideLoading()
 				})
 			},
-			getDetail(act) {
-				
+			getDetail(info) {
+				info.goods = this.$goods(info)
+				uni.navigateTo({
+					url: './shouhouxiangqing?info=' + JSON.stringify(info)
+				})
 			},
 		
 			isThrough(isThrough, info) {

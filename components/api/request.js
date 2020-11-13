@@ -12,7 +12,7 @@ export const baseUrl = baseUrl_
 
 
 export const imgBaseUrl = 'https://yflh.hkzhtech.com/housekeeper/'
-// export const imgBaseUrl = 'http://192.168.0.105:8081/'
+// export const imgBaseUrl = 'http://192.168.0.110:8081/'
 
 
 let arr = []
@@ -48,7 +48,7 @@ export const ajax = (option) => {
 		
 		if(arr.length > 1) {
 			let nowTime = new Date().getTime();
-			if( (getUrl == arr[arr.length - 1].url) && ( nowTime - arr[arr.length - 1].timeStamp < 1500 ) ) {
+			if( (getUrl == arr[arr.length - 1].url) && ( nowTime - arr[arr.length - 1].timeStamp < 800 ) ) {
 				console.log('阻止重复提交');
 				if(arr.length > 500) {
 					arr = []

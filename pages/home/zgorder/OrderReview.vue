@@ -102,14 +102,15 @@
 						uni.hideLoading();
 					});
 			},
-			getDetail() {
+			getDetail(info) {
 				uni.navigateTo({
-					url: "zgfanganxiangqing",
-				});
+					// url: '/components/workersOrderDetail/moreDetail?order_id=' + info.order_id,
+					url: './moreDetail?orderquality_id=' + info.orderquality_id
+				})
 			},
 			
 			_againshenhe(afteragreement_id) {
-				againshenhe({afteragreement_id}).then(res => {
+				againshenhe({afteragreement_id, }).then(res => {
 					uni.showToast({
 						title: res.mig,
 						icon: 'none'

@@ -68,7 +68,7 @@
 				
 				let obj = {
 					worker_id: uni.getStorageSync('WORKERS_ID'),
-					order_id: this.info.orderquality_id,
+					order_id: this.info.order_id,
 					construction_type: 1,
 					bz: this.bz,// 0开工 、 1施工进度 、 2完成
 					urllist: this.urlList.join(','),

@@ -108,8 +108,16 @@
 			}
 		},
 		onLoad(opt) {
-			this.order_id = opt.order_id
-			this.msg = opt.msg;
+			
+			if(opt.info) {
+				this.info = JSON.parse(opt.info)
+			}
+			if(opt.order_id) {
+				this.order_id = opt.order_id
+			}else{
+				this.order_id = opt.info.order_id
+			}
+			this.msg = opt.msg || '';
 			this._goosapiFindById()
 			this._programmeApiList()
 		},

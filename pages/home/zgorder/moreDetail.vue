@@ -49,14 +49,19 @@
 
 			</view>
 
-		</view>
 
+		</view>
+		
+		<view class="btn-qualified" v-if="hege">
+			<view class="" @click="isQualified(1)">合格 </view>
+			<view class="" @click="isQualified(2)">不合格</view>
+		</view>
 	</view>
 </template>
 
 <script>
 	import {
-		construction
+		aftersaleApiConstruction, zhuguanshenhe
 	} from "@/components/api/api.js";
 	import {
 		imgBaseUrl
@@ -64,25 +69,53 @@
 	export default {
 		data() {
 			return {
+				hege: false,
+				commit: false,
+				orderquality_id: '',
 				imgBaseUrl: imgBaseUrl,
 				list: [],
 			};
 		},
 		onLoad(opt) {
-			let order_id = opt.order_id;
-			this._construction(order_id);
+			
+			this.orderquality_id = opt.orderquality_id;
+			this._aftersaleApiConstruction();
+			this.commit = false;
 		},
 		methods: {
-			async _construction(order_id) {
+			// 合格   不合格
+			isQualified(states) {
+			// * orderquality_id
+			// * states    1合格、2不合格
+				if(this.commit) {
+					return false
+				}
+				this.commit = true
+				let obj = {
+					orderquality_id: this.orderquality_id,
+					states,
+					worker_id: uni.getStorageSync('WORKERS_ID')
+				}
+				uni.showLoading({
+					title: '加载中'
+				})
+				zhuguanshenhe(obj).then(res => {
+					uni.showToast({ title: res.mig, icon: 'none' })
+					this.$toIndex()
+				})
+			},
+		
+			async _aftersaleApiConstruction() {
 				await uni.showLoading({
 					title: '加载中'
 				})
-				let res = await construction({
-					order_id
+				let res = await aftersaleApiConstruction({
+					orderquality_id:this.orderquality_id
 				});
 				await uni.hideLoading()
 
 				this.list = res.varList
+				this.hege = res.hege
 			},
 			computedType(type) {
 				switch (type * 1) {
@@ -101,6 +134,20 @@
 </script>
 
 <style lang="scss" scoped>
+	.btn-qualified{
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: 30rpx;
+		view{
+			width: 30%;
+			padding: 15rpx 0;
+			border-radius: 10rpx;
+			text-align: center;
+			color: #fff;
+			background: rgb(249, 201, 36);
+		}
+	}
+	
 	.warp {
 		width: 100%;
 

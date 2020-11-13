@@ -71,9 +71,20 @@ Vue.prototype.$detail = (info, type = '') => {
 	})
 }
 
-Vue.prototype.$globalDetail = (order_id, msg = '') => {
+Vue.prototype.$globalDetail = (info, msg = '') => {
 	uni.navigateTo({
-		url: '/pages/CustomDetail?order_id=' + order_id + '&msg=' + msg,
+		url: '/pages/CustomDetail?info=' + info + '&msg=' + msg,
+		fail(err) {
+			console.log(err)
+		}
+	})
+}
+
+
+Vue.prototype.$aglinGlobalDetail = (order_id, msg = '') => {
+	uni.navigateTo({
+		url: '/pages/GlobalDetail?order_id=' + order_id + '&msg=' + msg,
+		
 		fail(err) {
 			console.log(err)
 		}

@@ -60,6 +60,7 @@
 				format: true
 			})
 			return {
+				idDisable: false,
 				imgBaseUrl: imgBaseUrl,
 				info: {},
 				date: currentDate,
@@ -75,11 +76,15 @@
 			}
 		},
 		onLoad(option) {
-			this.info = JSON.parse(option.info)
-			console.log(this.info)
+			this.info = JSON.parse(option.info);
+			this.idDisable = false;
 		},
 		methods: {
 			detailAll() {
+				if(this.idDisable) {
+					return false;
+				}
+				this.idDisable = true;
 				let obj = {
 					technician_id: this.info.worker_id,
 					
@@ -88,6 +93,7 @@
 					doortime: this.date + ' ' + this.time,
 				}
 				technicianUpaateforeman(obj).then(res => {
+
 					uni.showToast({
 						title: '接单成功',
 						icon: "none"

@@ -17,7 +17,7 @@
 		<!-- 信息 -->
 		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
 			<view class="numBox">
-				<view class="bigBox" v-for="(item,index) in titleList[activeIndex].list" :key="index" @click="gox(item)">
+				<view class="bigBox" v-for="(item,index) in titleList[activeIndex].list" :key="index">
 					<view class="box">
 						<view class="tit">
 							<image src="/static/loginImg/qq.png" mode=""></image>
@@ -26,7 +26,7 @@
 								<view class="zw">职位：{{ titleList[activeIndex].label }}</view>
 							</view>
 						</view>
-						<view class="bgtext">查看资料</view>
+						<view class="bgtext"  @click="gox(item)">查看资料</view>
 					</view>
 					<view class="bigBoxs">
 						<!-- <text>姓名：{{item.name}}</text> -->
@@ -83,7 +83,6 @@
 		methods: {
 				searchValue(val) {
 					this.query = val
-					console.log(val)
 					if(this.activeIndex == 0) {  // 技术
 						this._technician()
 					}else {
@@ -129,22 +128,7 @@
 					uni.hideLoading();
 				})
 			},
-			getDetail(act) {
-				if (act == 1) {
-					uni.navigateTo({
-						url: 'daiquerenxiangqing'
-					})
-				} else if (act == 2) {
-					uni.navigateTo({
-						url: 'weitongguoxiangqing'
-					})
-				} else {
-					uni.navigateTo({
-						url: 'yiquerenxiangqing'
-					})
-				}
-
-			},
+			
 
 
 			gox(item) {

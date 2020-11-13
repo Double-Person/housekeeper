@@ -8,7 +8,8 @@
 		</view>
 		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body">
 			<view class="padding-bottom150">
-				<fromDeatil :msg="item.qualitystate == 0 && '待处理' || item.qualitystate == 1 && '处理中' || item.qualitystate == 2 && '已完成'  "
+				<fromDeatil 
+				:msg="msgShow(item.qualitystate)"
 				 :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail" @butongguo="butongguo"
 				 @tongyi="tongyi"></fromDeatil>
 				<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
@@ -35,7 +36,11 @@
 				query: '',
 				activeIndex: 0,
 				titleList: [
-
+					{
+						value: salesOrder.PROCESSED,
+						label: '待处理',
+						list: []
+					},
 					{
 						value: salesOrder.PROCESSING,
 						label: '处理中',
@@ -55,10 +60,14 @@
 			NoData
 		},
 		created() {
-			this._qualityList(1)
+			this._qualityList(0)
 		},
 
 		methods: {
+			// item.qualitystate == 0 && '待处理' || item.qualitystate == 1 && '处理中' || item.qualitystate == 2 && '已完成'
+			msgShow(qualitystate) {
+				return (qualitystate == 0 && '待处理' || qualitystate == 1 && '处理中' || qualitystate == 2 && '已完成')
+			},
 			searchValue(val) {
 				this.query = val
 				this._qualityList(this.val)
@@ -98,7 +107,11 @@
 			},
 
 			getDetail(info) {
-				this.$detail(info, 'order')
+				console.log(info.orderquality_id);
+				uni.navigateTo({
+					// url: '/components/workersOrderDetail/moreDetail?order_id=' + info.order_id,
+					url: './moreDetail?orderquality_id=' + info.orderquality_id
+				})
 			},
 			getState(item, shopName) {
 				this.sAce = item

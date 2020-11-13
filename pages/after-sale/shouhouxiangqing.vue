@@ -4,19 +4,18 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit">
-					<image src="../../static/my_icon/logo.jpg" mode=""></image>
-					<text>窗台防水</text>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 
-				<view class="com">状态</view>
+				<view class="com">{{info.aftersale_type == 0 && '退款' || info.aftersale_type == 1 && '质量问题'}}</view>
 			</view>
 			<view class="textBox">
 				<view class="img">
-					<image src="../../static/my_icon/logo.jpg" mode=""></image>
+					<image :src="imgBaseUrl + info.image" mode=""></image>
 				</view>
 				<view class="time">
-					<text>项目名称</text>
-					<text>工人名称</text>
+					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
 				</view>
 			</view>
 		</view>
@@ -24,10 +23,10 @@
 		<!-- 备注 -->
 		<view class="order_txt">
 			<view class="title">
-				客服反馈
+				原因
 			</view>
 			<view class="txt_data">
-				xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				{{ detailInfo.bz }}
 			</view>
 		</view>
 		
@@ -37,15 +36,9 @@
 			<view class="title">
 				照片
 			</view>
-			<view class="img_data">
-				<view class="oimg">
-					<image src="../../static/my_icon/logo.jpg"></image>
-				</view>
-				<view class="oimg">
-					<image src="../../static/my_icon/logo.jpg"></image>
-				</view>
-				<view class="oimg">
-					<image src="../../static/my_icon/logo.jpg"></image>
+			<view class="img_data" v-if="detailInfo.img">
+				<view class="oimg" v-for="item in detailInfo.img">
+					<image :src="imgBaseUrl + item.picture_url"></image>
 				</view>
 			</view>
 		</view>
@@ -62,16 +55,37 @@
 </template>
 
 <script>
+	import { xiangqing } from "@/components/api/api.js"
+	
+	import { imgBaseUrl } from "@/components/api/request.js"
 	export default {
 
 		data() {
-			return {}
+			return {
+				imgBaseUrl: imgBaseUrl,
+				info: {},
+				detailInfo: {}
+			}
+		},
+		onLoad(opt) {
+			this.info = JSON.parse(opt.info);
+			this._xiangqing()
 		},
 		methods: {
 			detailAll(){
 			 	uni.navigateTo({
 			 		url:"./sgdetailAll"
 			 	})
+			},
+			_xiangqing() {
+				uni.showLoading({
+					title: '加载中',
+				})
+				xiangqing({orderaftersale_id: this.info.orderaftersale_id}).then(res => {
+					this.detailInfo = res.data
+				}).finally(() => {
+					uni.hideLoading()
+				})
 			}
 		}
 	}
@@ -353,6 +367,10 @@
 			display: flex;
 			justify-content: space-between;
 			margin-top: 25upx;
+			&::after{
+				width: 210upx;
+				content: '';
+			}
 
 			.oimg {
 				width: 210upx;

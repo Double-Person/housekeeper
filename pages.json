@@ -626,8 +626,13 @@
 			"style": {
 				"navigationBarTitleText": "订单审核"
 			}
+		},
+		{
+			"path": "pages/home/zgorder/moreDetail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
 		}
-		
 		
 		
 		

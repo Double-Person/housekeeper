@@ -84,6 +84,7 @@ export const againshenhe = data => ajax({ url: '/api/aftersaleApi/againshenhe', 
 
 
 
+
 // 技术人员
 // 技术员的模糊查询
 // technician_id 技术员id    states（全部不传）   0设置方案、1完成、2取消、3重新设置、4、待审核     query 参数
@@ -148,6 +149,10 @@ export const start = data => ajax({ url: '/api/master/start', data, method: 'POS
  
  export const masterProgramme = data => ajax({ url: '/api/master/programme', data, method: 'POST' });
  
+ // 售后处理详情    orderaftersale_id
+ export const xiangqing = data => ajax({ url: ' /api/aftersaleApi/xiangqing', data, method: 'POST' });
+ 
+
  
  
  
@@ -182,9 +187,11 @@ export const aftersaleApiConstruction = data => ajax({ url: '/api/aftersaleApi/c
 
 
 
-
 // 订单详情
 export const goosapiFindById = data => ajax({ url: '/api/goosapi/findById', data, method: 'POST' });
+
+// 售后订单详情 审核
+export const zhuguanshenhe = data => ajax({ url: '/api/aftersaleApi/zhuguanshenhe', data, method: 'POST' });
 
 
 
