@@ -90,7 +90,7 @@
 					
 					order_id: this.info.order_id,
 					state_one: 1, //  1接受 2不接受
-					doortime: this.date + ' ' + this.time,
+					doortime: this.date + ' ' + ((this.time * 1) > 9 ? this.time : '0' + this.time),
 				}
 				technicianUpaateforeman(obj).then(res => {
 

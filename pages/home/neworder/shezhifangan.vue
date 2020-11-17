@@ -1,71 +1,46 @@
 <template>
-  <view class="index">
-    <view class="box">
-      <view class="tit" @click="szfan">
-        <text>选择方案</text>
-        <image src="/static/loginImg/hright.png" mode=""></image>
-      </view>
+	<view class="index">
+		<view class="box">
+			<view class="tit" @click="szfan">
+				<text>选择方案</text>
+				<image src="/static/loginImg/hright.png" mode=""></image>
+			</view>
 
-      <view class="bigBox" v-if="isShowPlant && selectPlant.list != 0">
-        <view
-          class="text"
-          v-for="item in selectPlant.list"
-          :key="item.programme_id"
-        >
-          <view class="text_a">{{ item.name }}</view>
-          <view class="text_b">{{ item.price }}/{{ item.company }}</view>
-          <view class="text_c">
-            <input v-model="item.num" type="number" />
-            <text>㎡</text>
-          </view>
-        </view>
-      </view>
-      <view class="time" v-if="isShowPlant">
-        <text>开工时间: {{ selectPlant.starttime }}</text>
-        <text>完成时间: {{ selectPlant.endtime }}</text>
-      </view>
-    </view>
-    <!-- 优惠价格 -->
-    <view class="yhjg"
-      >优惠价
-      <input type="number" v-model="concessional" />
-    </view>
-    <!-- 上传照片 -->
-    <view class="sczz">
-      <view class="tit">上传照片</view>
-      <image
-        src="/static/loginImg/axx.png"
-        mode=""
-        @click="chooseImgUpload('all')"
-        v-if="imgList != 6"
-      ></image>
-      <view class="pic-list">
-        <view class="pic-item" v-for="(item, index) in imgList" :key="index">
-          <image
-            v-if="!item"
-            src="/static/loginImg/axx.png"
-            mode=""
-            @click="chooseImgUpload(index)"
-          ></image>
-          <image
-            v-if="item"
-            :src="imgBaseUrl + item"
-            mode=""
-            @click="chooseImgUpload(index)"
-          ></image>
-        </view>
-      </view>
-    </view>
-    <!-- 备注 -->
-    <view class="bz">
-      <view class="tit">备注</view>
-      <textarea
-        v-model="remarks"
-        placeholder="请输入备注"
-        :maxlength="-1"
-        class="inp"
-      />
-    </view>
+			<view class="bigBox" v-if="isShowPlant && selectPlant.list != 0">
+				<view class="text" v-for="item in selectPlant.list" :key="item.programme_id">
+					<view class="text_a">{{ item.name }}</view>
+					<view class="text_b">{{ item.price }}/{{ item.company }}</view>
+					<view class="text_c">
+						<input v-model="item.num" type="number" />
+						<text>㎡</text>
+					</view>
+				</view>
+			</view>
+			<view class="time" v-if="isShowPlant">
+				<text>开工时间: {{ selectPlant.starttime }}</text>
+				<text>完成时间: {{ selectPlant.endtime }}</text>
+			</view>
+		</view>
+		<!-- 优惠价格 -->
+		<view class="yhjg">优惠价
+			<input type="number" v-model="concessional" />
+		</view>
+		<!-- 上传照片 -->
+		<view class="sczz">
+			<view class="tit">上传照片</view>
+			<image src="/static/loginImg/axx.png" mode="" @click="chooseImgUpload('all')" v-if="imgList != 6"></image>
+			<view class="pic-list">
+				<view class="pic-item" v-for="(item, index) in imgList" :key="index">
+					<image v-if="!item" src="/static/loginImg/axx.png" mode="" @click="chooseImgUpload(index)"></image>
+					<image v-if="item" :src="imgBaseUrl + item" mode="" @click="chooseImgUpload(index)"></image>
+				</view>
+			</view>
+		</view>
+		<!-- 备注 -->
+		<view class="bz">
+			<view class="tit">备注</view>
+			<textarea v-model="remarks" placeholder="请输入备注" :maxlength="-1" class="inp" />
+			</view>
     <!-- 支付比例 -->
     <view class="warp-option">
       <view class="pay">
@@ -104,6 +79,7 @@ import { imgBaseUrl } from "@/components/api/request.js";
 export default {
   data() {
     return {
+		isCommit: false,
       imgBaseUrl: imgBaseUrl,
       info: {}, // 上页信息
       selectPlant: {}, // 选择方案页信息
@@ -154,6 +130,10 @@ export default {
   methods: {
     // 提交审核 按钮
     submitAudit() {
+		if(this.isCommit) {
+			return false;
+		}
+		this.isCommit = true;
       if (!this.selectPlant || !this.selectPlant.list) {
         uni.showToast({
           title: "请先选择方案",
@@ -198,6 +178,7 @@ export default {
     if (this.order_id) {
         this.info.order_id = this.order_id;
       }
+	 
       let obj = {
         type: this.isAdd == 'edit' ? 1 : 0, 
         starttime,
@@ -216,6 +197,7 @@ export default {
         explaina: ''
       };
       
+
 
       addprogrammeinfo(obj).then((res) => {
         console.log("提交审核", res);

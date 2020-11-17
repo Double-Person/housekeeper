@@ -29,11 +29,12 @@
 		plantType
 	} from "@/variable/plan.js";
 	import {
-		workerorderApiProgramme
+		workerorderApiProgramme, workerorderApiJudgeadopt
 	} from "@/components/api/api.js";
 	export default {
 		data() {
 			return {
+				isCommit: false,
 				query: '',
 				activeIndex: 0,
 				titleList: [{
@@ -90,21 +91,44 @@
 						uni.hideLoading();
 					});
 			},
-			getDetail() {
-				// uni.navigateTo({
-				//   url: "zgfanganxiangqing",
-				// });
+			getDetail(info) {
+				this.$aglinGlobalDetail(info.order_id, this.conversion(info.state))
 			},
 
 			// 不通过   通过
 			through(info, status) {
-				info.goods = this.$goods(info)
-				uni.navigateTo({
-					url: "zgfanganNewIsThrou?userInfo=" +
-						JSON.stringify(info) +
-						"&status=" +
-						status,
-				});
+				 // 不通过
+				if(status == 2) {
+					info.goods = this.$goods(info)
+					uni.navigateTo({
+						url: "zgfanganNewIsThrou?userInfo=" +
+							JSON.stringify(info) +
+							"&status=" +
+							status,
+					});
+				}
+				// 通过
+				if(status == 1) {
+					if(this.isCommit) {
+						return;
+					}
+					this.isCommit = false;
+					let obj = {
+						worker_id: uni.getStorageSync('WORKERS_ID'),
+						order_id: info.order_id,
+						state: status
+					}
+					workerorderApiJudgeadopt(obj).then(res => {
+						uni.showToast({
+							title: res.mig,
+							icon: 'none'
+						})
+						this.$toIndex()
+					}).finally(() =>{
+						uni.hideLoading()
+					})
+				}
+				
 			},
 			conversion(state) {
 				return (state == 0 && '待审核') || (state == 1 && '通过') || (state == 2 && '不通过')

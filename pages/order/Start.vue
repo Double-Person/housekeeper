@@ -10,8 +10,12 @@
 			<view class="text">添加图层</view>
 			
 			<view class="pic-list">
+				<view class="pic-item">
+					<image src="/static/loginImg/axx.png" mode="" @click="changeImg" v-if="imgList.length != 6"></image>
+				</view>
 				<view class="pic-item" v-for="(item, index) in imgList" :key="index">
-					<image :src=" item.url ? (imgBaseUrl + item.url) : '/static/loginImg/axx.png'" mode="" @click="changeImg(index)"></image>
+					
+					<image :src=" item.url ? (imgBaseUrl + item.url) : '/static/loginImg/axx.png'" mode=""></image>
 				</view>
 			</view>
 			<button type="default" class="button" @click="submitBtn">提交</button>
@@ -26,19 +30,15 @@
 	export default {
 		data (){
 			return{
+				commit: false,
 				imgBaseUrl: imgBaseUrl,
 				TYPES: workersOrderCenterAllStatus,
 				note: '',
 				order_id: '',
 				orderType: '',
 				imgList: [
-					{ url: '' },
-					{ url: '' },
-					{ url: '' },
-					{ url: '' },
-					{ url: '' },
-					{ url: '' }
-				]
+					// { url: '' },
+					]
 				
 			}
 		},
@@ -63,6 +63,14 @@
 				// 施工  添加进度
 			},
 			_start(order_id) {
+				if(this.commit) {
+					return;
+				}
+				this.commit = true;
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
 				let obj = {
 					'order_id': this.order_id,
 					worker_id: uni.getStorageSync('WORKERS_ID'),
@@ -88,6 +96,8 @@
 					uni.navigateTo({
 						url: './orderAll'
 					})
+				}).finally(() => {
+					uni.hideLoading()
 				})
 			},
 			changeImg(index) {
@@ -97,9 +107,10 @@
 				  sourceType: ["album", "camera"], //从相册选择
 				  success: res => {
 				    upLoadFile({ path: res.tempFilePaths[0] }).then((upFile) => {
-					  // this.img = JSON.parse(upFile.data).data;
-					  this.imgList[index].url = JSON.parse(upFile.data).data
-					  console.log(this.img)
+					  // this.imgList[index].url = JSON.parse(upFile.data).data
+					  let obj = { url : JSON.parse(upFile.data).data };
+					  this.imgList.push(obj)
+					  
 				    });
 				  },
 				});

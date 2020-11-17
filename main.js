@@ -73,7 +73,7 @@ Vue.prototype.$detail = (info, type = '') => {
 
 Vue.prototype.$globalDetail = (info, msg = '') => {
 	uni.navigateTo({
-		url: '/pages/CustomDetail?info=' + info + '&msg=' + msg,
+		url: '/pages/CustomDetail?info=' + JSON.stringify(info) + '&msg=' + msg,
 		fail(err) {
 			console.log(err)
 		}

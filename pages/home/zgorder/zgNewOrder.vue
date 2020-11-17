@@ -11,7 +11,7 @@
 				</view>
 
 				<!-- 订单详情 -->
-				<view class="new_text" @click="gonew">
+				<view class="new_text" @click="gonew(item)">
 					<view class="new_img">
 						<image :src=" imgBaseUrl + item.image" mode=""></image>
 					</view>
@@ -58,6 +58,9 @@
 		methods: {
 			// 獲取新订单
 			getWorkerorderApiworkerList() {
+				uni.showLoading({
+					title: '加载中'
+				})
 				let worker_id = uni.getStorageSync("WORKERS_ID");
 				let token = uni.getStorageSync("HOUSE_TOKEN");
 				console.log(worker_id, token)
@@ -66,7 +69,7 @@
 					token
 				}).then(({ varList }) => {
 					this.list = varList
-				})
+				}).finally(() => uni.hideLoading())
 			},
 			// 接受
 			receive(type, item) {
@@ -94,10 +97,12 @@
 
 			},
 
-			gonew() {
-				uni.navigateTo({
-					url: 'zgnews'
-				})
+			gonew(info) {
+				// uni.navigateTo({
+				// 	url: 'zgnews'
+				// })
+				info.goods = this.$goods(info);
+				this.$globalDetail(info, '')
 			}
 		}
 	}
