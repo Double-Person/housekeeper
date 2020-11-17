@@ -106,10 +106,20 @@
 				// })
 			},
 			detailInfo(item) {
-				item.goods = this.$goods(item);
-				uni.navigateTo({
-					url: "./ordera?info=" + JSON.stringify(item),
-				});
+				// item.goods = this.$goods(item);
+				// delete item.addresid;
+				// delete item.goodsid;
+				
+				// delete item.orderprocess_id;
+				// delete item.userid;
+				// delete item.worker_id;
+				// delete item.workerorder_id;
+				
+				
+				// console.log((item));
+				// uni.navigateTo({
+				// 	url: "./ordera?info=" + JSON.stringify(item),
+				// });
 			},
 		},
 	};

@@ -39,7 +39,7 @@
 				<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
 					<view class="uni-input check-time-item">{{date}}</view>
 				</picker>
-				<picker mode="time" :value="time" start="00:00" end="00:00" @change="bindTimeChange">
+				<picker mode="time" :value="time" @change="bindTimeChange">
 					<view class="uni-input check-time-item">{{time}}</view>
 				</picker>
 			</view>
@@ -85,13 +85,16 @@
 					return false;
 				}
 				this.idDisable = true;
+				let [h, m] = this.time.split(':');
+				let times = h.padStart('0', 2)+':'+m.padStart('0', 2).trim()+':00';
 				let obj = {
 					technician_id: this.info.worker_id,
 					
 					order_id: this.info.order_id,
 					state_one: 1, //  1接受 2不接受
-					doortime: this.date + ' ' + ((this.time * 1) > 9 ? this.time : '0' + this.time),
+					doortime: this.date + ' ' + times,
 				}
+		
 				technicianUpaateforeman(obj).then(res => {
 
 					uni.showToast({

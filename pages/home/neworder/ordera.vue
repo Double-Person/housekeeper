@@ -28,7 +28,6 @@
 			<view class="textT">
 				
 				<text>订单编号：{{item.order_number}}</text>
-				<text>下单日期：2019年12月18日 13:20</text>
 				<view>客户姓名:{{item.contact}}</view>
 				<view>客户电话：{{item.phone}}</view>
 				<view>客户地址：{{item.address}}</view>
