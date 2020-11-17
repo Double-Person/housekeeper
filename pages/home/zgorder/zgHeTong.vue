@@ -8,7 +8,7 @@
 		</view>
 		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
 			<view class="padding-bottom150">
-				<fromDeatil msg="msg" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
+				<fromDeatil msg="" :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index"
 				 @getDetail="getDetail(act)" @butongguo="butongguo" @tongyi="tongyi"></fromDeatil>
 				 <NoData show></NoData>
 			</view>

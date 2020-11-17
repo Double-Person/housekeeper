@@ -107,7 +107,7 @@
 				order_id: '',
 			}
 		},
-		onLoad(opt) {
+		async onLoad(opt) {
 			
 			if(opt.info) {
 				this.info = JSON.parse(opt.info)
@@ -118,8 +118,8 @@
 				this.order_id = opt.info.order_id
 			}
 			this.msg = opt.msg || '';
-			this._goosapiFindById()
-			this._programmeApiList()
+			await this._goosapiFindById()
+			await this._programmeApiList()
 		},
 		methods: {
 			_goosapiFindById() {
@@ -128,9 +128,14 @@
 				})
 			},
 			_programmeApiList() {
+				uni.showLoading({
+					title: '加载中'
+				})
 				programmeApiList({ order_id: this.order_id }).then((res) => {
 				  this.plantInfo = res.varList
-				});
+				}).finally(() => {
+					uni.hideLoading()
+				})
 			},
 			
 		}

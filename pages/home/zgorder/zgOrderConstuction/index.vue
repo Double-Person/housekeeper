@@ -17,7 +17,7 @@
     </view>
     <view class="padding-bottom150">
       <fromDeatil
-        msg="msg"
+        :msg="DIRECTORSHOWMSG(item.mastertype)"
         :item="item"
         v-for="(item, index) in list"
         :key="index"
@@ -33,6 +33,7 @@
 import NoData from "@/components/NoData.vue";
 import fromDeatil from "@/components/fromAll.vue";
 import { directorOrderCenterAllStatus } from "@/variable/orderCenter.js";
+import { directorShowMsg } from '@/utils/showMsg.js'
 export default {
   props: {
     list: {
@@ -43,6 +44,7 @@ export default {
   data() {
     return {
       audit: "review",
+	  DIRECTORSHOWMSG: directorShowMsg,
       TYPES: directorOrderCenterAllStatus,
     };
   },

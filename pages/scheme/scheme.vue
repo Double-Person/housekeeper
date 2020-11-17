@@ -61,8 +61,9 @@
 				this.activeIndex = index
 				this._masterProgramme(index)
 			},
-			getDetail() {
-
+			getDetail(info) {
+				let status = this.activeIndex == 0 && '进行中' || this.activeIndex == 1 && '已完成'
+				this.$aglinGlobalDetail(info.order_id, status)
 			},
 			_masterProgramme(stype) {
 				// stype  0 进行中  1 已完成
