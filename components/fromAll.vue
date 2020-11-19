@@ -26,7 +26,7 @@
 				</view>
 			</view>
 			<slot>
-				<!-- Now this project is a third-hand project. Please be careful later. It may be that the slot is not suitable for the v-show below -->
+				
 				<!-- 每个组件下方的不能文字按钮（通过，不通过等） -->
 			</slot>
 			<view class="btn" v-show="flag==1">

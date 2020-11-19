@@ -70,11 +70,13 @@
 	
 	.new_text {
 		width: 750upx;
-		height: 200upx;
+		// height: 200upx;
 		position: absolute;
 		top: 134upx;
 		left: 20upx;
 		overflow: hidden;
+		padding-bottom: 20rpx;
+		display: flex;
 	}
 	
 	.new_img {
@@ -82,7 +84,7 @@
 		height: 180upx;
 		border-radius: 8px;
 		overflow: hidden;
-		float: left;
+		// float: left;
 	}
 	
 	.new_img image {
@@ -92,8 +94,9 @@
 	}
 	
 	.new_mid {
-		float: left;
+		// float: left;
 		margin-left: 18upx;
+		padding-right: 30rpx;
 	}
 	
 	.new_btn {
@@ -130,7 +133,7 @@
 	.new_mid text {
 		display: block;
 		font-size: 28upx;
-		margin-top: 13upx;
+		// margin-top: 13upx;
 		color: $uni--color-hei;
 	}
 	

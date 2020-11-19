@@ -12,7 +12,7 @@
 					<view class="text_b">{{ item.price }}/{{ item.company }}</view>
 					<view class="text_c">
 						<input v-model="item.num" type="number" />
-						<text>㎡</text>
+						<text>{{ item.company }}</text>
 					</view>
 				</view>
 			</view>

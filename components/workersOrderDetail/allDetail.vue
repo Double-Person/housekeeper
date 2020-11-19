@@ -117,9 +117,10 @@ import { showMsg } from "@/utils/showMsg.js"
 			},
 
 			_programmeApiList() {
+				uni.showLoading({ title: '加载中', mask: true });
 				programmeApiList( {order_id: this.orderInfo.order_id} ).then(res => {
 					this.plantInfo = res.varList
-				})
+				}).finally(()=> uni.hideLoading())
 			}
 		}
 	}

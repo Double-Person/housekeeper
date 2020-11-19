@@ -69,6 +69,7 @@
 					token
 				}).then(({ varList }) => {
 					this.list = varList
+					console.log(this.list)
 				}).finally(() => uni.hideLoading())
 			},
 			// 接受
@@ -108,7 +109,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.newfrom {
 		height: 100%;
 		background: $uni-color-hui;
@@ -159,6 +160,7 @@
 		top: 134upx;
 		left: 20upx;
 		overflow: hidden;
+		display: flex;
 	}
 
 	.new_img {

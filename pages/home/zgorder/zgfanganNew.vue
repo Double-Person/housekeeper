@@ -90,6 +90,7 @@
 
 		data() {
 			return {
+				isDisable: false,
 				imgBaseUrl: imgBaseUrl,
 				info: {},
 				selectType: ''
@@ -106,6 +107,7 @@
 				this.selectType = option.selectType
 				
 			}
+			this.isDisable =false;
 		},
 		methods: {
 			detailAll(){   // worker_id 工人的id（技术员或工人的id）   order_id   订单id  states    0已分配技术人员、3已分配工人
@@ -118,6 +120,11 @@
 					order_id: this.info.order_id,
 					states: this.info.selectType == 'technology' ? 0 : 3  // 
 				}
+				
+				if(this.isDisable) {
+					return false;
+				}
+				this.isDisable =true;
 				
 			 	distribution(obj).then(res => {
 					uni.showToast({
