@@ -42,15 +42,7 @@
 				</view>
 			</view>
 		</view>
-		<!-- 总价计算 -->
-		<!-- <view class="zong">
-			<view class="zprice">
-				总价：<text>￥300</text>
-			</view>
-			<view class="fu">
-				支付比例：<text>100%</text>
-			</view>
-		</view> -->
+
 	</view>
 </template>
 

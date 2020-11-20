@@ -56,6 +56,26 @@
         />
       </view>
     </view>
+	
+	<view class="retention">
+	
+	    <view class="tit">设置质保金</view>
+		<view class="retention-right">
+			<!-- qualitydeposit_id -->
+			<view class="checkRetention" @click="isShowRetention = !isShowRetention;">
+				<text v-if="qualitydepositObj.qualitydeposit_id">{{ qualitydepositObj.warranty_money }} 元 {{ qualitydepositObj.warranty_time }} 月 </text>
+				<text v-if="!qualitydepositObj.qualitydeposit_id">请选择质保金</text>
+			</view>
+			<view v-show="isShowRetention" class="list" v-for="(ret, inR) in retention" :key="inR" @click="qualitydepositObj= ret">
+				<view class="" :style="{color: qualitydepositObj.qualitydeposit_id == ret.qualitydeposit_id ? 'red' : ''}">
+					{{ ret.warranty_money }} 元 {{ ret.warranty_time }} 月 
+				</view>
+				<view class="symbol" v-if="qualitydepositObj.qualitydeposit_id == ret.qualitydeposit_id"> √ </view>
+			</view>
+		</view>
+
+	</view>
+	
     <!-- 提交审核 -->
     <view class="tijsh">
       <view class="text">
@@ -74,11 +94,16 @@ import {
   upLoadFile,
   addprogrammeinfo,
   programmeApiList,
+  qualitydeposit
 } from "@/components/api/api.js";
 import { imgBaseUrl } from "@/components/api/request.js";
 export default {
   data() {
     return {
+		qualitydeposit_id: '',
+		qualitydepositObj: {},
+		isShowRetention: false,
+		retention: [], //  质保金列表
 		isCommit: false,
       imgBaseUrl: imgBaseUrl,
       info: {}, // 上页信息
@@ -94,20 +119,22 @@ export default {
       isAdd:''
     };
   },
-  onLoad(option) {
+ async onLoad(option) {
     console.log(option);
     if (option.info) {
       this.info = JSON.parse(option.info);
+	  this._qualitydeposit(this.info.order_id)
     }
 
     if (option.order_id) {
       this.order_id = option.order_id;
-      programmeApiList({ order_id: option.order_id }).then((res) => {
+	 await  this._qualitydeposit(this.order_id)
+     await programmeApiList({ order_id: option.order_id }).then((res) => {
         let aginInfo = res.varList;
-        // img: '', //  图片
-        // imgList: [],
-        (this.remarks = aginInfo.remarks), // 备注
-          (this.concessional = aginInfo.concessional); // 优惠价格
+		this.qualitydepositObj = aginInfo.orderdeposit
+ 
+        this.remarks = aginInfo.remarks; // 备注
+         this.concessional = aginInfo.concessional; // 优惠价格
         this.imgList = aginInfo.urllist.map((ele) => ele.picture_url);
         this.checkPayPro = aginInfo.proportion * 100;
         if(aginInfo.proportion) {
@@ -128,6 +155,14 @@ export default {
     }
   },
   methods: {
+	  // 质保金列表
+	  _qualitydeposit(order_id) {
+		  qualitydeposit({order_id}).then(res => {
+			  console.log(res)
+			  this.retention = res.data
+		  })
+	  },
+	  
     // 提交审核 按钮
     submitAudit() {
 		if(this.isCommit) {
@@ -175,6 +210,12 @@ export default {
       if (checkPayPro < 1 || checkPayPro > 99) {
         return uni.showToast({ title: "请输入正确支付比例", icon: "none" });
       }
+	  console.log()
+	  if (!this.qualitydepositObj.qualitydeposit_id) {
+	    return uni.showToast({ title: "请选择质保金", icon: "none" });
+	  }
+	  
+	  
     if (this.order_id) {
         this.info.order_id = this.order_id;
       }
@@ -194,7 +235,8 @@ export default {
         price: this.comptedMoney(),
         priceafter: (this.comptedMoney() - concessional).toFixed(2) || 0, // 优惠后价格
         reason: "", // 不通过原因
-        explaina: ''
+        explaina: '',
+		qualitydeposit_id: this.qualitydepositObj.qualitydeposit_id,
       };
       
 
@@ -236,7 +278,11 @@ export default {
             num += item * 1;
           });
       }
-      return num;
+	  if(this.qualitydepositObj.warranty_money) {
+		  let qualit = this.qualitydepositObj.warranty_money * 1;
+		  return num + qualit;
+	  }
+      return num ;
     },
 
     // 选择图片上传
@@ -273,6 +319,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	
+	.retention{
+		display: flex;
+		background: #fff;
+		padding: 10upx 40upx;
+		width: 670upx;
+		
+		font-size: 28upx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: rgba(169, 169, 169, 1);
+		.tit {
+			line-height: 60rpx;
+		}
+		.checkRetention{
+			height: 60rpx;
+			line-height: 60rpx;
+		}
+		.retention-right{
+			margin-left: 30rpx;
+			.list{
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 14rpx;
+				.symbol{
+					margin-left: 100rpx;
+				}
+			}
+		}
+	}
 .pic-list {
   display: flex;
   align-items: center;

@@ -31,6 +31,7 @@
 				<text>客户姓名：{{info.contact}}</text>
 				<text>客户电话：{{info.phone}}</text>
 				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
+				<text v-if="info.statebz" style="color: red;">{{info.statebz}}</text>
 				
 			
 			</view>

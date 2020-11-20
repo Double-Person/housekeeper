@@ -22,6 +22,7 @@
 						<view>客户姓名: {{item.contact}}</view>
 						<view>客户电话：{{item.phone}}</view>
 						<view>客户地址：{{item.province + item.citys + item.district_county + item.address_details}}</view>
+						<view v-if="item.statebz" class="statebz">{{item.statebz}}</view>
 					</view>
 				</view>
 			</view>
@@ -119,6 +120,10 @@ import {imgBaseUrl} from "@/components/api/request.js"
 </script>
 
 <style lang="scss">
+	
+	.statebz{
+		color: $uni-color-error;
+	}
 	.btn{
 		padding: 20upx;
 		display: flex;

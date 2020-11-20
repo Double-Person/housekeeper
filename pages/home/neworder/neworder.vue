@@ -197,6 +197,7 @@
 		top: 334upx;
 		left: 339upx;
 		overflow: hidden;
+		margin-top: 30rpx;
 	}
 
 	.new_btn text {

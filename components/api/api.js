@@ -184,6 +184,12 @@ export const qualityList = data => ajax({ url: '/api/aftersaleApi/qualityList', 
 // 订单审核详情
 export const aftersaleApiConstruction = data => ajax({ url: '/api/aftersaleApi/construction', data, method: 'POST' });
 
+// 设置质保金
+export const qualitydeposit = data => ajax({ url: '/api/workerProgramme/qualitydeposit', data, method: 'POST' });
+
+
+
+
 
 
 

@@ -149,7 +149,7 @@ var workersOrderCenterAllStatus = {
   NOT_THROUGH: 4,
   // 未通过
   QUALITY: 5,
-  // 质保中
+  // 保修中
   COMPLETED: 6,
   // 已完成
   CANCEL: 7,
@@ -175,7 +175,7 @@ var directorOrderCenterAllStatus = {
   NOT_THROUGH: 4,
   // 未通过
   QUALITY: 5,
-  // 质保中
+  // 保修中
   COMPLETED: 6,
   // 已完成
   CANCEL: 7,

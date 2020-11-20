@@ -89,6 +89,7 @@
 				let times = h.padStart('0', 2)+':'+m.padStart('0', 2).trim()+':00';
 				let obj = {
 					technician_id: this.info.worker_id,
+					techniorder_id: this.info.worker_id,
 					
 					order_id: this.info.order_id,
 					state_one: 1, //  1接受 2不接受

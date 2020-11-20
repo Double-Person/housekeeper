@@ -119,7 +119,7 @@ export const workersOrderCenterAllStatus = {
 	REVIEW: 2, // 审核中
 	THROUGH: 3, // 已通过
 	NOT_THROUGH: 4, // 未通过
-	QUALITY: 5, // 质保中
+	QUALITY: 5, // 保修中
 	COMPLETED: 6, // 已完成
 	CANCEL: 7, // 取消
 	SALES_SERVICE: 8, // 售后待处理
@@ -136,7 +136,7 @@ export const directorOrderCenterAllStatus = {
 	REVIEW: 2, // 审核中
 	THROUGH: 3, // 已通过
 	NOT_THROUGH: 4, // 未通过
-	QUALITY: 5, // 质保中
+	QUALITY: 5, // 保修中
 	COMPLETED: 6, // 已完成
 	CANCEL: 7, // 取消
 	SALES_SERVICE: 8, // 售后待处理

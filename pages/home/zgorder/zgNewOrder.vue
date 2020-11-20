@@ -20,6 +20,7 @@
 						<view>客户姓名:{{item.contact}}</view>
 						<view>客户电话：{{item.phone}}</view>
 						<view>客户地址：{{item.province + item.citys + item.district_county + item.address_details}}</view>
+						<view>{{item.statebz}}</view>
 					</view>
 				</view>
 
@@ -75,15 +76,9 @@
 			// 接受
 			receive(type, item) {
 				// worker_id 主管的id    order_id   订单id   state_one   1接受 2不接受 
-				let {
-					worker_id,
-					order_id
-				} = item;
-				updatestate({
-					worker_id,
-					order_id,
-					state_one: type ? 1 : 2
-				}).then(res => {
+				let { worker_id, order_id } = item;
+				updatestate({ worker_id, order_id, state_one: type ? 1 : 2 })
+				.then(res => {
 					console.log(res)
 					uni.showToast({
 						title: res.mig,
@@ -182,6 +177,7 @@
 		top: 334upx;
 		left: 339upx;
 		overflow: hidden;
+		margin-top: 30rpx;
 	}
 
 	.new_btn text {

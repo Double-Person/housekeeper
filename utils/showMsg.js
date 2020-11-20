@@ -18,7 +18,7 @@ function showMsg(type) {
 			name = '未通过';
 			break;
 		case 5:
-			name = '质保中';
+			name = '保修中';
 			break;
 		case 6:
 			name = '已完成';
@@ -71,7 +71,7 @@ function directorShowMsg(type) {
 			name = '未通过';
 			break;
 		case 5:
-			name = '质保中';
+			name = '保修中';
 			break;
 		case 6:
 			name = '已完成';

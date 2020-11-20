@@ -458,7 +458,7 @@
 
 		.fu {
 			float: left;
-			margin-left: 250upx;
+			margin-left: 180upx;
 		}
 	}
 </style>

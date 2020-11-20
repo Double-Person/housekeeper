@@ -632,6 +632,12 @@
 			"style": {
 				"navigationBarTitleText": "详情"
 			}
+		},
+		{
+			"path": "pages/home/zgorder/zgOrderAll/NotThrouth",
+			"style": {
+				"navigationBarTitleText": "不通过原因"
+			}
 		}
 		
 		

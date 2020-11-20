@@ -24,7 +24,9 @@
 		technician,
 		workerWorker
 	} from '@/components/api/api.js'
-	import { positionObj } from "@/variable/orderCenter.js"
+	import {
+		positionObj
+	} from "@/variable/orderCenter.js"
 	export default {
 		data() {
 			return {
@@ -38,7 +40,13 @@
 		onLoad(option) {
 			console.log(option.type == 'technology')
 			if (option.userInfo) {
-				this.userInfo = JSON.parse(option.userInfo)
+				this.userInfo = JSON.parse(option.userInfo);
+				
+				
+				// this.active = 0;
+				// this.userInfo.checkId = this.userInfo.workers_id;
+				// this.userInfo.checkName = this.userInfo.name;
+				// this.userInfo.selectType = this.userInfo.type;
 			}
 
 			if (option.type == 'technology') { // 技术
@@ -69,6 +77,7 @@
 				this.userInfo.selectType = this.type;
 			},
 			checkSure() {
+			
 				if (this.toPath) {
 					uni.navigateTo({
 						url: `${this.toPath}?userInfo=${JSON.stringify(this.userInfo)}`
@@ -90,7 +99,18 @@
 				workerUserExecutive().then(({
 					varList
 				}) => {
-					this.list = varList
+					this.list = varList;
+					console.log(this.list)
+
+					if (this.list.length) {
+						let item = this.list[0]
+						this.active = 0
+						this.userInfo.checkId = item.workers_id;
+						this.userInfo.checkName = item.name;
+						this.userInfo.selectType = this.type;
+					}
+
+
 				})
 			},
 			// 查询主管下的工人
@@ -103,7 +123,15 @@
 				workerWorker({
 					parent_id
 				}).then(res => {
-					this.list = res.varList
+					this.list = res.varList;
+					
+					if (this.list.length) {
+						let item = this.list[0]
+						this.active = 0
+						this.userInfo.checkId = item.workers_id;
+						this.userInfo.checkName = item.name;
+						this.userInfo.selectType = this.type;
+					}
 				}).finally(() => {
 					uni.hideLoading();
 				})
@@ -118,7 +146,15 @@
 				technician({
 					parent_id
 				}).then(res => {
-					this.list = res.varList
+					this.list = res.varList;
+					
+					if (this.list.length) {
+						let item = this.list[0]
+						this.active = 0
+						this.userInfo.checkId = item.workers_id;
+						this.userInfo.checkName = item.name;
+						this.userInfo.selectType = this.type;
+					}
 				}).finally(() => {
 					uni.hideLoading();
 				})

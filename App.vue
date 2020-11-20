@@ -37,10 +37,10 @@
 	
 	.new_list {
 		width: 750upx;
-		height: 350upx;
+		height: 400upx;
 		background: $uni-text-color-inverse;
 		padding-top: 48upx;
-		// padding-bottom: 40upx;
+		padding-bottom: 40upx;
 		box-sizing: border-box;
 		background: rgba(255, 255, 255, 1);
 		overflow: hidden;

@@ -5,7 +5,7 @@
 		<view class="bigbox">
 			<textarea rows="3" cols="20" class="textareas" v-model="note" placeholder="请输入备注信息"></textarea>
 		</view>
-		<!-- START: 0, // 待开工  CONSTRUCTION: 1, // 施工中 REVIEW: 2, // 审核中 THROUGH: 3, // 已通过 NOT_THROUGH: 4, // 未通过 QUALITY: 5, // 质保中-->
+		<!-- START: 0, // 待开工  CONSTRUCTION: 1, // 施工中 REVIEW: 2, // 审核中 THROUGH: 3, // 已通过 NOT_THROUGH: 4, // 未通过 QUALITY: 5, // 保修中-->
 		<view class="box">
 			<view class="text">添加图层</view>
 			

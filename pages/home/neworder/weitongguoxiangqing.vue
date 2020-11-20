@@ -31,7 +31,7 @@
 				<text>客户电话：{{passInfo.phone}}</text>
 				<text>客户地址：{{passInfo.province + passInfo.citys + passInfo.district_county + passInfo.address_details}}</text>
 				
-		
+
 			</view>
 		</view>
 		<!-- 服务项目 -->
@@ -48,6 +48,7 @@
 				</view>
 			
 			</view>
+			
 			<view class="bottom">
 				<view class="left">
 					<text>开工时间：</text>
@@ -62,6 +63,9 @@
 					<text class="color">{{info.priceafter}}</text>
 				</view>
 			</view>
+			<!--  -->
+			<view style="color: red; font-size: 24rpx;padding-bottom: 20rpx;">
+				质保金：{{info.orderdeposit.warranty_money}}元{{info.orderdeposit.warranty_time}}月</view>
 		</view>
 
 		<!-- 照片 -->
@@ -94,15 +98,6 @@
 			</view>
 		</view>
 		
-		<!-- 总价计算 -->
-		<!-- <view class="zong">
-			<view class="zprice">
-				总价：<text>￥300</text>
-			</view>
-			<view class="fu">
-				支付比例：<text>100%</text>
-			</view>
-		</view> -->
 	</view>
 </template>
 
@@ -366,7 +361,7 @@
 		}
 
 		.bottom {
-			padding: 20upx 0upx 40upx 0upx;
+			padding: 20upx 0upx 20upx 0upx;
 			font-size: 24upx;
 			color: #191919;
 			position: relative;
