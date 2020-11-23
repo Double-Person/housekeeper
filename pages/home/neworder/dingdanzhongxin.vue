@@ -126,10 +126,14 @@
 			// 获取列表
 			async getList () {
 				await this._initParmas()
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
 				await technicianListAllById(this.objParmas).then(res => {
 					this.titleList[this.currentTabBar].hasData = (res.varList.length === 0)
 					this.titleList[this.currentTabBar].list = res.varList
-				})
+				}).finally(() => uni.hideLoading())
 			},
 			search(val) {
 				// technician_id 技术员id    states（全部不传）   0设置方案、1完成、2取消、3重新设置、4、待审核     query 参数

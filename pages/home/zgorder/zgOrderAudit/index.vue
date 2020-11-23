@@ -1,19 +1,19 @@
 <template>
 	<view>
-		<!-- <view class="state">
-			<text :class="audit === 'review' ? 'statAct' : ''" @click="subType('review')">审核中</text>
+		<view class="state">
+			<!-- <text :class="audit === 'review' ? 'statAct' : ''" @click="subType('review')">审核中</text>
 			<text :class="audit === 'haveBeenThrough' ? 'statAct' : ''" @click="subType('haveBeenThrough')">已通过</text>
-			<text :class="audit === 'noThrough' ? 'statAct' : ''" @click="subType('noThrough')">未通过</text>
-		</view> -->
+			<text :class="audit === 'noThrough' ? 'statAct' : ''" @click="subType('noThrough')">未通过</text> -->
+		</view>
 
 		<scroll-view :scroll-y="true" class="scroll-view-body">
 			<view class="padding-bottom150">
 				<!-- :flag="8" -->
 				<fromDeatil :msg="DIRECTORSHOWMSG(item.mastertype)" :item="item" v-for="(item, index) in list" :key="index" @getDetail="getDetail">
-					<view class="slot-warp">
+					<!-- <view class="slot-warp">
 						<view class="slot-not-active" @click="isThrough(item.order_id, 2)">不通过</view>
 						<view class="slot-active" @click="isThrough(item.order_id, 1)">通过</view>
-					</view>
+					</view> -->
 				</fromDeatil>
 				<NoData :show="list.length === 0"></NoData>
 			</view>

@@ -66,7 +66,9 @@
 				<text v-if="qualitydepositObj.qualitydeposit_id">{{ qualitydepositObj.warranty_money }} 元 {{ qualitydepositObj.warranty_time }} 月 </text>
 				<text v-if="!qualitydepositObj.qualitydeposit_id">请选择质保金</text>
 			</view>
-			<view v-show="isShowRetention" class="list" v-for="(ret, inR) in retention" :key="inR" @click="qualitydepositObj= ret">
+			<view v-show="isShowRetention" class="list" 
+			v-for="(ret, inR) in retention" :key="inR" 
+			@click="qualitydepositObj= ret; isShowRetention = !isShowRetention;">
 				<view class="" :style="{color: qualitydepositObj.qualitydeposit_id == ret.qualitydeposit_id ? 'red' : ''}">
 					{{ ret.warranty_money }} 元 {{ ret.warranty_time }} 月 
 				</view>
@@ -120,7 +122,6 @@ export default {
     };
   },
  async onLoad(option) {
-    console.log(option);
     if (option.info) {
       this.info = JSON.parse(option.info);
 	  this._qualitydeposit(this.info.order_id)
@@ -158,7 +159,6 @@ export default {
 	  // 质保金列表
 	  _qualitydeposit(order_id) {
 		  qualitydeposit({order_id}).then(res => {
-			  console.log(res)
 			  this.retention = res.data
 		  })
 	  },
@@ -198,7 +198,7 @@ export default {
         return uni.showToast({ title: "请输入优惠价", icon: "none" });
       }
 	  let realPrice = ( ( this.comptedMoney() - this.concessional ) * this.checkPayPro / 100 ) < 0 ? 0 : ( (this.comptedMoney() - this.concessional)  ).toFixed(2);
-	  if (concessional >= this.comptedMoney() ) {
+	  if (concessional > this.comptedMoney() ) {
 	    return uni.showToast({ title: "优惠价不能大于实际价格", icon: "none" });
 	  }
       if (remarks == "") {
@@ -210,7 +210,6 @@ export default {
       if (checkPayPro < 1 || checkPayPro > 99) {
         return uni.showToast({ title: "请输入正确支付比例", icon: "none" });
       }
-	  console.log()
 	  if (!this.qualitydepositObj.qualitydeposit_id) {
 	    return uni.showToast({ title: "请选择质保金", icon: "none" });
 	  }
@@ -219,6 +218,10 @@ export default {
     if (this.order_id) {
         this.info.order_id = this.order_id;
       }
+	  uni.showLoading({
+	  	title: '加载中',
+		mask: true
+	  })
 	 
       let obj = {
         type: this.isAdd == 'edit' ? 1 : 0, 
@@ -242,15 +245,17 @@ export default {
 
 
       addprogrammeinfo(obj).then((res) => {
-        console.log("提交审核", res);
+		const that = this;
         if (res.msgType == 0) {
-          uni.showToast({
-            title: "提交成功",
-            icon: "none",
-          });
-          this.$toIndex()
+          setTimeout(() => {
+			  uni.showToast({
+			    title: "提交成功",
+			    icon: "none",
+			  });
+			  that.$toIndex()
+		  }, 300)
         }
-      });
+      }).finally(() => uni.hideLoading())
 
       // uni.navigateTo({
       // 	url:'dingdanzhongxin'
@@ -406,7 +411,7 @@ export default {
         color: rgba(26, 26, 26, 1);
       }
       .text_c {
-        width: 130upx;
+        width: 250upx;
         display: flex;
         justify-content: center;
         align-items: center;

@@ -117,6 +117,7 @@
 			this.passInfo = JSON.parse(option.info)
 			programmeApiList({order_id : this.passInfo.order_id}).then(res => {
 				this.info = res.varList
+				console.log(this.info)
 			})
 		},
 		methods: {

@@ -84,6 +84,14 @@
 			</view>
 		</view>
 		
+		<!-- 不通过原因 -->
+		<view class="order_txt" v-if="plantInfo.butongguo">
+			<view class="title"> 原因 </view>
+			<view class="txt_data">
+				{{ plantInfo.butongguo }}
+			</view>
+		</view>
+		
 	</view>
 </template>
 

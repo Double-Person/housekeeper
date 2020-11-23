@@ -37,10 +37,10 @@
 	
 	.new_list {
 		width: 750upx;
-		height: 400upx;
+		// height: 400upx;
 		background: $uni-text-color-inverse;
 		padding-top: 48upx;
-		padding-bottom: 40upx;
+		// padding-bottom: 40upx;
 		box-sizing: border-box;
 		background: rgba(255, 255, 255, 1);
 		overflow: hidden;
@@ -70,10 +70,10 @@
 	
 	.new_text {
 		width: 750upx;
-		// height: 200upx;
-		position: absolute;
-		top: 134upx;
-		left: 20upx;
+		margin: 20rpx ;
+		// position: absolute;
+		// top: 134upx;
+		// left: 20upx;
 		overflow: hidden;
 		padding-bottom: 20rpx;
 		display: flex;
