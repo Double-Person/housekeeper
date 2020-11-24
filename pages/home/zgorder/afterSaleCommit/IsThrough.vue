@@ -66,6 +66,10 @@
 				} else if (levels == positionObj.TECHNICIAN) { // 技术
 					usertype = 0
 				}
+				uni.showLoading({
+					title:'加载中',
+					mask: true
+				})
 				
 				obj.user_id = uni.getStorageSync('WORKERS_ID');
 				obj.usertype = usertype;
@@ -77,13 +81,14 @@
 				
 				
 				workeradd(obj).then(res => {
-					console.log(res)
-					uni.showToast({
-						title: res.mig,
-						icon: 'none'
-					})
-					this.$toIndex()
-				})
+					setTimeout(()=> {
+						uni.showToast({
+							title: res.mig,
+							icon: 'none'
+						})
+						this.$toIndex()
+					}, 300)
+				}).finally(() => uni.hideLoading())
 			},
 			
 			

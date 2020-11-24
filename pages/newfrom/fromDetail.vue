@@ -29,6 +29,7 @@
 				<text>客户姓名：{{ info.contact }}</text>
 				<text>客户电话：{{ info.phone }}</text>
 				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
+				
 			</view>
 		</view>
 		<!-- 服务项目 -->
@@ -45,6 +46,7 @@
 				</view>
 				
 			</view>
+		
 			<view class="bottom">
 				<view class="left">
 					<text>开工时间：</text>
@@ -59,6 +61,11 @@
 					<text class="color">{{ plantInfo.proportion }}</text>
 				</view>
 			</view>
+			<view  class="bottom-price">
+				<view>优惠价：{{ plantInfo.concessional }}</view>
+				<view v-if="plantInfo.orderdeposit">质保金：{{ plantInfo.orderdeposit.warranty_time + '月' + plantInfo.orderdeposit.warranty_money + '元' }}</view>
+			</view>
+			
 		</view>
 
 		<!-- 照片 -->
@@ -353,7 +360,7 @@
 		}
 
 		.bottom {
-			padding: 20upx 0upx 40upx 0upx;
+			padding: 20upx 0upx 10upx 0upx;
 			font-size: 24upx;
 			color: #191919;
 			position: relative;
@@ -370,6 +377,14 @@
 
 			.color {
 				color: #FA4F4F;
+			}
+		}
+		.bottom-price{
+			font-size: 24upx;
+			color: #191919;
+			padding-bottom: 40rpx;
+			view:nth-of-type(2) {
+				margin-top: 18upx;
 			}
 		}
 	}

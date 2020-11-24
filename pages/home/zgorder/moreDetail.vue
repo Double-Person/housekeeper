@@ -116,6 +116,10 @@
 
 				this.list = res.varList
 				this.hege = res.hege
+				let HOUSE_LEVELS = uni.getStorageSync('HOUSE_LEVELS')
+				if(HOUSE_LEVELS != 0) {
+					this.hege = false
+				}
 			},
 			computedType(type) {
 				switch (type * 1) {

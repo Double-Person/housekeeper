@@ -81,6 +81,7 @@
 			},
 
 			getDetail(info) {
+				if(info.qualitystate == 0) return false;
 				uni.navigateTo({
 					url: '../home/zgorder/moreDetail?orderquality_id=' + info.orderquality_id
 				})

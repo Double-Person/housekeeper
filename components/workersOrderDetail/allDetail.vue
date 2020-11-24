@@ -5,7 +5,7 @@
 			<view class="tit">
 				<view class="imgtit">
 					<image :src="imgBaseUrl + orderInfo.image" mode=""></image>
-					<text v-if="orderInfo.goods">{{orderInfo.goods_type == 0 ? orderInfo.goods.name : orderInfo.goods.package_name}}</text>
+					<text v-if="orderInfo.goods">{{orderInfo.goods_type == 0 ? orderInfo.goods.name : orderInfo.goods.package_name || orderInfo.goods.name}}</text>
 				</view>
 
 				<view class="com">{{ showMsg(orderInfo.mastertype) }}</view>
@@ -15,7 +15,7 @@
 					<image :src="imgBaseUrl + orderInfo.image" mode=""></image>
 				</view>
 				<view class="time">
-					<text v-if="orderInfo.goods">{{orderInfo.goods_type == 0 ? orderInfo.goods.name : orderInfo.goods.package_name}}</text>
+					<text v-if="orderInfo.goods">{{orderInfo.goods_type == 0 ? orderInfo.goods.name : orderInfo.goods.package_name || orderInfo.goods.name}}</text>
 				</view>
 			</view>
 		</view>
@@ -60,8 +60,9 @@
 					<text class="color">{{ plantInfo.priceafter }}</text>
 				</view>
 			</view>
-			<view style="color: red; font-size: 24rpx;padding-bottom: 20rpx;" v-if="plantInfo.orderdeposit.qualitydeposit_id">
+			<view style="color: red; font-size: 24rpx;padding-bottom: 16rpx;" v-if="plantInfo.orderdeposit.qualitydeposit_id">
 				质保金：{{plantInfo.orderdeposit.warranty_money}}元{{plantInfo.orderdeposit.warranty_time}}月</view>
+				<view  style="color: red; font-size: 24rpx;padding-bottom: 20rpx;">优惠价：{{ plantInfo.concessional }}</view>
 		</view>
 
 		<!-- 照片 -->
@@ -92,6 +93,19 @@
 			</view>
 		</view>
 		
+		<view class="order_img" v-if="plantInfo.imgs">
+			<view class="title">
+				不通过图片
+			</view>
+			<view class="img_data">
+				<view class="oimg" v-for="(item, index) in plantInfo.imgs" :key="index">
+					<image :src="imgBaseUrl + item.picture_url"></image>
+				</view>
+				
+			</view>
+		</view>
+		
+		
 	</view>
 </template>
 
@@ -111,6 +125,7 @@ import { showMsg } from "@/utils/showMsg.js"
 		},
 		onLoad(opt) {
 			this.orderInfo = JSON.parse(opt.info)
+			console.log(this.orderInfo)
 			this._programmeApiList()
 		},
 		methods: {

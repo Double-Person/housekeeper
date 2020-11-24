@@ -7,25 +7,25 @@
       <view class="my_logo">
         <image src="/static/my_icon/my_logo.png" mode=""></image>
         <image
-          :src="userInfo.head ? userInfo.head : '/static/my_icon/logo.jpg'"
+          :src="userInfo.head ? (IMGBASEURL + userInfo.head) : '/static/my_icon/logo.jpg'"
           mode=""
           class="logo"
           @click="changeHead"
         ></image>
       </view>
     </view>
-    <view class="top_bac">
- 
-    </view>
+    <view class="top_bac"> </view>
     <text class="my_name">{{ userInfo.name }}</text>
   </view>
 </template>
 
 <script>
 import { workerIndex, upLoadFile } from "./api/api.js";
+import { imgBaseUrl } from "./api/request.js"
 export default {
   data() {
     return {
+	  IMGBASEURL: imgBaseUrl,
       userInfo: {},
     };
   },

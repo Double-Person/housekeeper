@@ -142,7 +142,6 @@ export default {
           this.isAdd = 'edit'
         }
 
-        // checkPayPro: null,
       });
     }
 
@@ -413,7 +412,7 @@ export default {
       .text_c {
         width: 250upx;
         display: flex;
-        justify-content: center;
+        justify-content: left;
         align-items: center;
         input {
           background: #f2f2f2;

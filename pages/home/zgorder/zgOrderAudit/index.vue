@@ -10,10 +10,10 @@
 			<view class="padding-bottom150">
 				<!-- :flag="8" -->
 				<fromDeatil :msg="DIRECTORSHOWMSG(item.mastertype)" :item="item" v-for="(item, index) in list" :key="index" @getDetail="getDetail">
-					<!-- <view class="slot-warp">
-						<view class="slot-not-active" @click="isThrough(item.order_id, 2)">不通过</view>
-						<view class="slot-active" @click="isThrough(item.order_id, 1)">通过</view>
-					</view> -->
+					<view class="slot-warp">
+						<view class="slot-not-active" @click="isThrough(item.order_id, 2, item.ordermaster_id)">不通过</view>
+						<view class="slot-active" @click="isThrough(item.order_id, 1, item.ordermaster_id)">通过</view>
+					</view>
 				</fromDeatil>
 				<NoData :show="list.length === 0"></NoData>
 			</view>
@@ -76,15 +76,24 @@
 				  
 			},
 			// 不通过 通过
-			isThrough(order_id, state) {
+			isThrough(order_id, state, ordermaster_id) {
 				let obj = {
 					worker_id: uni.getStorageSync('WORKERS_ID'),
 					order_id, state
 				}
-			
+				
+				if(state == 2) {
+					let info = { ordermaster_id,state, order_id }
+				
+					uni.navigateTo({
+						url: '/pages/home/zgorder/zgOrderAll/NotThrouth?info=' + JSON.stringify(info)
+					})
+					return false;
+				}
+					
 				workerdopt(obj).then(res => {
 					uni.showToast({ title: res.mig, icon: 'none' });
-					setTimeout(() => this.$toIndex(), 1000)
+					this.$toIndex()
 				})
 			},
 		

@@ -4,7 +4,12 @@
 		<TopSearch @search="searchValue" placeholder="请输入用户名,手机号,商品名搜索"></TopSearch>
 
 		<view class="top">
-			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
+			<view v-for="(item, index) in titleList" 
+				:key="index" 
+				:class="{active: index === activeIndex}" 
+				@click="clickTitle(index, item.value)">
+					{{item.label}}
+				</view>
 		</view>
 		<scroll-view :scroll-y="true" class="scroll-view-tab-list-body">
 			<view class="padding-bottom150">
