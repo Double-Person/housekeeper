@@ -54,6 +54,14 @@
 		components:{
 			UserInfoHeader
 		},
+		onBackPress(e){
+			console.log(e)
+			// if (e.from === 'navigateBack') {  
+			// 	return false;  
+			// }  
+			
+			// return true
+		},
 		methods: {
 			getDome(item) {
 				console.log(item.url)

@@ -63,7 +63,7 @@
 			</view>
 			<view  class="bottom-price">
 				<view>优惠价：{{ plantInfo.concessional }}</view>
-				<view v-if="plantInfo.orderdeposit">质保金：{{ plantInfo.orderdeposit.warranty_time + '月' + plantInfo.orderdeposit.warranty_money + '元' }}</view>
+				<view v-if="plantInfo.orderdeposit">本合同保修期:{{plantInfo.orderdeposit.warranty_time + '月' }}</view>
 			</view>
 			
 		</view>

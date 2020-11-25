@@ -65,7 +65,7 @@
 			</view>
 			<!--  -->
 			<view style="color: red; font-size: 24rpx;padding-bottom: 20rpx;">
-				质保金：{{info.orderdeposit.warranty_money}}元{{info.orderdeposit.warranty_time}}月</view>
+				本合同保修期:{{info.orderdeposit.warranty_time}}月</view>
 		</view>
 
 		<!-- 照片 -->

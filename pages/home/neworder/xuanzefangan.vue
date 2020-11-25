@@ -224,16 +224,26 @@
 			// 获取第一级数据
 			_programme1() {
 				let token = uni.getStorageSync('HOUSE_TOKEN');
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
 				programme1({token, query: this.query}).then( res => {
 					this.list = res.returnMsg
 					this.list && this.list.forEach(ele => {
 						ele.isShow = false
 					})
+				}).finally(() => {
+					uni.hideLoading();
 				})
 			},
 			// 获取第二级数据
 			_programme2(typeid, index) {
 				let token = uni.getStorageSync('HOUSE_TOKEN');
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
 				programme2({
 					typeid, token, query: this.query
 				}).then(res => {
@@ -242,12 +252,17 @@
 						ele.isShow = false
 					})
 				}).finally(() => {
+					uni.hideLoading();
 					this.$forceUpdate()
 				})
 			},
 			// 获取第三级数据
 			_programme3(obj, index1, index) {
 				let token = uni.getStorageSync('HOUSE_TOKEN');
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
 				programme3({
 					typeid: obj.typeid,
 					series_id: obj.series_id,
@@ -256,6 +271,7 @@
 					this.list[index1].list[index].list = res.returnMsg;
 					this.list[index1].list[index].isShow = !obj.isShow
 				}).finally(() => {
+					uni.hideLoading();
 					this.$forceUpdate()
 				})
 			},

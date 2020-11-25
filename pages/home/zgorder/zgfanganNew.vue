@@ -126,13 +126,21 @@
 					return false;
 				}
 				this.isDisable =true;
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
 				
 			 	distribution(obj).then(res => {
-					uni.showToast({
-						title: res.mig,
-						icon: 'none'
-					});
-					this.$toIndex()
+					uni.hideLoading();
+					setTimeout(() => {
+						uni.showToast({
+							title: res.mig,
+							icon: 'none'
+						});
+						this.$toIndex()
+					},300)
+					
 				})
 			},
 			// 选择技术人员

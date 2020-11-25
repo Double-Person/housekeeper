@@ -59,18 +59,18 @@
 	
 	<view class="retention">
 	
-	    <view class="tit">设置质保金</view>
+	    <view class="tit">本合同保修期</view>
 		<view class="retention-right">
 			<!-- qualitydeposit_id -->
 			<view class="checkRetention" @click="isShowRetention = !isShowRetention;">
-				<text v-if="qualitydepositObj.qualitydeposit_id">{{ qualitydepositObj.warranty_money }} 元 {{ qualitydepositObj.warranty_time }} 月 </text>
-				<text v-if="!qualitydepositObj.qualitydeposit_id">请选择质保金</text>
+				<text v-if="qualitydepositObj.qualitydeposit_id">{{ qualitydepositObj.warranty_time }} 月 </text>
+				<text v-if="!qualitydepositObj.qualitydeposit_id">本合同保修期</text>
 			</view>
 			<view v-show="isShowRetention" class="list" 
 			v-for="(ret, inR) in retention" :key="inR" 
 			@click="qualitydepositObj= ret; isShowRetention = !isShowRetention;">
 				<view class="" :style="{color: qualitydepositObj.qualitydeposit_id == ret.qualitydeposit_id ? 'red' : ''}">
-					{{ ret.warranty_money }} 元 {{ ret.warranty_time }} 月 
+					{{ ret.warranty_time }} 月 
 				</view>
 				<view class="symbol" v-if="qualitydepositObj.qualitydeposit_id == ret.qualitydeposit_id"> √ </view>
 			</view>
@@ -105,7 +105,7 @@ export default {
 		qualitydeposit_id: '',
 		qualitydepositObj: {},
 		isShowRetention: false,
-		retention: [], //  质保金列表
+		retention: [], //  本合同保修期列表
 		isCommit: false,
       imgBaseUrl: imgBaseUrl,
       info: {}, // 上页信息
@@ -126,6 +126,20 @@ export default {
       this.info = JSON.parse(option.info);
 	  this._qualitydeposit(this.info.order_id)
     }
+	
+	
+	try{
+		let locaData = uni.getStorageSync('locaData');
+		if(locaData) {
+			let obj = JSON.parse(locaData);
+			this.concessional = obj.concessional;
+			this.imgList = obj.imgList;
+			this.remarks = obj.remarks;
+			this.checkPayPro = obj.checkPayPro;
+		}
+	}catch(e){
+		//TODO handle the exception
+	}
 
     if (option.order_id) {
       this.order_id = option.order_id;
@@ -155,47 +169,59 @@ export default {
     }
   },
   methods: {
-	  // 质保金列表
-	  _qualitydeposit(order_id) {
+	  
+	  // 保存数据
+	  infoSetStorage() {
+		let locaData = {
+			  concessional: this.concessional,  // 优惠价
+			  imgList: this.imgList,  //   上传图片
+			  remarks: this.remarks, // 备注
+			  checkPayPro: this.checkPayPro
+		}
+		uni.setStorageSync('locaData', JSON.stringify(locaData))  
+	  },
+	  
+	  
+	  // 本合同保修期列表
+	_qualitydeposit(order_id) {
 		  qualitydeposit({order_id}).then(res => {
 			  this.retention = res.data
 		  })
-	  },
+	},
 	  
     // 提交审核 按钮
     submitAudit() {
 		if(this.isCommit) {
 			return false;
 		}
-		this.isCommit = true;
-      if (!this.selectPlant || !this.selectPlant.list) {
-        uni.showToast({
-          title: "请先选择方案",
-          icon: "none",
-        });
-        return false;
-      }
-      // type（0 是新增  1  是修改）   order_id 订单id  list（这个是穿个方案的数组传id就行） starttime开始时间  endtime结束时间  img 图片
-      // concessional 优惠价   remarks 备注  proportion 支付比例  price 原价  priceafter 优惠后价格  reason  不通过原因
-      let {
-        imgList,
-        remarks,
-        concessional,
-        checkPayPro,
-        selectPlant: { starttime, endtime },
-      } = this;
+		
+		if (!this.selectPlant || !this.selectPlant.list) {
+			uni.showToast({
+			  title: "请先选择方案",
+			  icon: "none",
+			});
+			return false;
+		}
+     
+		  let {
+			imgList,
+			remarks,
+			concessional,
+			checkPayPro,
+			selectPlant: { starttime, endtime },
+		  } = this;
       //  if(this.selectPlant.list == '') {
       // 	return uni.showToast({ title: '请输入优惠价', icon: 'none' })
       // }
-      for (let i = 0; i < this.selectPlant.list.length; i++) {
-        if (this.selectPlant.list[i].num == "") {
-          uni.showToast({ title: "请输入方案平方数量", icon: "none" });
-          return false;
-        }
-      }
-      if (concessional == "") {
-        return uni.showToast({ title: "请输入优惠价", icon: "none" });
-      }
+		  for (let i = 0; i < this.selectPlant.list.length; i++) {
+			if (this.selectPlant.list[i].num == "") {
+			  uni.showToast({ title: "请输入方案平方数量", icon: "none" });
+			  return false;
+			}
+		  }
+		  if (concessional == "") {
+			return uni.showToast({ title: "请输入优惠价", icon: "none" });
+		  }
 	  let realPrice = ( ( this.comptedMoney() - this.concessional ) * this.checkPayPro / 100 ) < 0 ? 0 : ( (this.comptedMoney() - this.concessional)  ).toFixed(2);
 	  if (concessional > this.comptedMoney() ) {
 	    return uni.showToast({ title: "优惠价不能大于实际价格", icon: "none" });
@@ -210,18 +236,19 @@ export default {
         return uni.showToast({ title: "请输入正确支付比例", icon: "none" });
       }
 	  if (!this.qualitydepositObj.qualitydeposit_id) {
-	    return uni.showToast({ title: "请选择质保金", icon: "none" });
+	    return uni.showToast({ title: "请选择本合同保修期", icon: "none" });
 	  }
 	  
 	  
-    if (this.order_id) {
+      if (this.order_id) {
         this.info.order_id = this.order_id;
       }
+	  this.isCommit = true;
 	  uni.showLoading({
 	  	title: '加载中',
 		mask: true
 	  })
-	 
+	 uni.removeStorageSync('locaData');
       let obj = {
         type: this.isAdd == 'edit' ? 1 : 0, 
         starttime,
@@ -256,9 +283,6 @@ export default {
         }
       }).finally(() => uni.hideLoading())
 
-      // uni.navigateTo({
-      // 	url:'dingdanzhongxin'
-      // })
     },
     inputPayPro(e) {
       if (e.detail.value * 1 < 1) {
@@ -282,10 +306,10 @@ export default {
             num += item * 1;
           });
       }
-	  if(this.qualitydepositObj.warranty_money) {
-		  let qualit = this.qualitydepositObj.warranty_money * 1;
-		  return num + qualit;
-	  }
+	  // if(this.qualitydepositObj.warranty_money) {
+		 //  let qualit = this.qualitydepositObj.warranty_money * 1;
+		 //  return num + qualit;
+	  // }
       return num ;
     },
 
@@ -310,12 +334,10 @@ export default {
 
     // 设置选择方案
     szfan() {
+		this.infoSetStorage();
+		
       uni.navigateTo({
-        url:
-          "xuanzefangan?info=" +
-          JSON.stringify(this.info) +
-          "&order_id=" +
-          this.order_id,
+        url: "xuanzefangan?info=" + JSON.stringify(this.info) + "&order_id=" + this.order_id,
       });
     },
   },

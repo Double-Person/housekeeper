@@ -148,14 +148,14 @@
 				// uni.navigateTo({
 				// 	url:"./sgdetailAll"
 				// })
-				let msg = (info.states == 0 && '设置方案') || (info.states == 1 && '完成') || (info.states == 2 && '取消')
+				let msg = (info.states == 0 && '设置方案') || (info.states == 1 && '完成') || (info.states == 2 && '取消') || ''
 				uni.navigateTo({
 					url:'dyixiangqing?order_id=' + info.order_id + '&msg=' + msg
 				})
 			},
 			
 			yiwancheng(info){
-				let msg = (info.states == 0 && '设置方案') || (info.states == 1 && '完成') || (info.states == 2 && '取消')
+				let msg = (info.states == 0 && '设置方案') || (info.states == 1 && '完成') || (info.states == 2 && '取消') || ''
 				uni.navigateTo({
 					url:'dyixiangqing?order_id=' + info.order_id + '&msg=' + msg
 				})
@@ -164,7 +164,7 @@
 				// uni.navigateTo({
 				// 	url:'dmeixiangqing'
 				// })
-				let msg = (info.states == 0 && '设置方案') || (info.states == 1 && '完成') || (info.states == 2 && '取消')
+				let msg = (info.states == 0 && '设置方案') || (info.states == 1 && '完成') || (info.states == 2 && '取消') || ''
 				uni.navigateTo({
 					url:'dyixiangqing?order_id=' + info.order_id + '&msg=' + msg
 				})

@@ -87,7 +87,7 @@ export const againshenhe = data => ajax({ url: '/api/aftersaleApi/againshenhe', 
 
 // 技术人员
 // 技术员的模糊查询
-// technician_id 技术员id    states（全部不传）   0设置方案、1完成、2取消、3重新设置、4、待审核     query 参数
+// technician_id 技术员id    states（全部不传）   0设置方案、1完成、2取消、3重新设置、4、待审核     query 参数
 export const selectgoodname = data => ajax({ url: '/api/technician/selectgoodname', data, method: 'POST' });
 
 
@@ -184,7 +184,7 @@ export const qualityList = data => ajax({ url: '/api/aftersaleApi/qualityList', 
 // 订单审核详情
 export const aftersaleApiConstruction = data => ajax({ url: '/api/aftersaleApi/construction', data, method: 'POST' });
 
-// 设置质保金
+// 设置本合同保修期
 export const qualitydeposit = data => ajax({ url: '/api/workerProgramme/qualitydeposit', data, method: 'POST' });
 
 
