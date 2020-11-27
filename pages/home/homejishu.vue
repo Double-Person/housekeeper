@@ -55,12 +55,13 @@
 			UserInfoHeader
 		},
 		onBackPress(e){
-			console.log(e)
-			// if (e.from === 'navigateBack') {  
-			// 	return false;  
-			// }  
-			
-			// return true
+			if (e.from === 'navigateBack') {  
+				return false;  
+			}  
+			if (e.from === 'backbutton') {
+				return true;  
+			} 
+			return true
 		},
 		methods: {
 			getDome(item) {
