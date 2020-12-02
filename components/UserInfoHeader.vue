@@ -34,7 +34,15 @@ export default {
   },
   methods: {
 	  closeExit() {
-		  uni.clearStorageSync()
+		  uni.removeStorageSync('USER_INFO');
+		  uni.removeStorageSync('HOUSE_LEVELS');
+		  uni.removeStorageSync('HOUSEKEEPER_PHONE_PWD');
+		  uni.removeStorageSync('HOUSE_TOKEN');
+		  uni.removeStorageSync('PARENT_ID');
+		  uni.removeStorageSync('WORKERS_ID');
+		  
+		  
+		  // uni.clearStorageSync()
 		  uni.redirectTo({
 		  	url: '/pages/login/logins'
 		  })

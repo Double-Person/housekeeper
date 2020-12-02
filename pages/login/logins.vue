@@ -54,8 +54,22 @@
 			if (option.phone != '' && option.phone != undefined && option.phone != null ) {
 				// this.userInfo.phone = option.phone;
 			}
+			this.autoLogin()
+			
 		},
 		methods: {
+			autoLogin() {
+				try{
+					let loginInfo = uni.getStorageSync('HOUSEKEEPER_PHONE_PWD');
+					if(loginInfo.phone) {
+						this.userInfo = { phone: loginInfo.phone, password: loginInfo.pwd }
+						this.goHome()
+					}
+					
+				}catch(e){
+					throw new TypeError('自动登录失败' + e);
+				}
+			},
 			togglePassWord() {
 				this.type = this.type === "password" ? "text" : "password";
 			},
@@ -86,8 +100,14 @@
 					pwd: this.userInfo.password,
 				});
 				await uni.hideLoading();
+				
 
 				if (res.msgType == 0) {
+					let HOUSEKEEPER_PHONE_PWD = {
+						phone: this.userInfo.phone,
+						pwd: this.userInfo.password,
+					}
+					uni.setStorageSync( "HOUSEKEEPER_PHONE_PWD", HOUSEKEEPER_PHONE_PWD );
 					let {
 						token,
 						worker

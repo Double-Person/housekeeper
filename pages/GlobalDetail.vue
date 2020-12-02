@@ -58,6 +58,7 @@
 					<text class="color">{{plantInfo.price}}</text>
 				</view>
 			</view>
+			<view class="" style="color: #191919;font-size: 24rpx;padding-bottom: 20rpx;">优惠价格：{{plantInfo.concessional}}</view>
 			<view style="color: red; font-size: 24rpx;padding-bottom: 20rpx;" v-if="plantInfo.orderdeposit.qualitydeposit_id">
 				本合同保修期:{{plantInfo.orderdeposit.warranty_time}}月</view>
 		</view>
