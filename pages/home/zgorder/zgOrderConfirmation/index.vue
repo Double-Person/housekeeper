@@ -2,7 +2,7 @@
 	<view>
 		<view class="state">
 			<text :class="audit === 'review' ? 'statAct' : ''" @click="subType('review')">审核中</text>
-			<text :class="audit === 'noThrough' ? 'statAct' : ''" @click="subType('noThrough')">未通过</text>
+			<!-- <text :class="audit === 'noThrough' ? 'statAct' : ''" @click="subType('noThrough')">未通过</text> -->
 			<text :class="audit === 'through' ? 'statAct' : ''" @click="subType('through')">已通过</text>
 		</view>
 		<scroll-view :scroll-y="true" class="scroll-view-body">
@@ -96,7 +96,7 @@
 		width: 710upx;
 		margin: 19upx auto 0 auto;
 		display: flex;
-		justify-content: space-between;
+		justify-content: space-around;
 
 		// padding: 0 20upx;
 		text {

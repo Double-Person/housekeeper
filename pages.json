@@ -568,6 +568,12 @@
 			}
 		},
 		{
+			"path": "pages/home/zgorder/Start",
+			"style": {
+				"navigationBarTitleText": "不合格原因"
+			}
+		},
+		{
 			"path": "pages/home/zgorder/zgfanganNewIsThrou",
 			"style": {
 				"navigationBarTitleText": "详情"

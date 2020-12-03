@@ -21,10 +21,10 @@
 					<!-- 详细信息 -->
 					<view class="content-detail">
 						<!-- 施工说明信息 -->
-						<view class="specifications" >
-							<view class="img-list" >
+						<view class="specifications">
+							<view class="img-list">
 								<view class="img-warp" v-for="(itemUrl, indey) in item.urls" :key="indey">
-									<image :src="imgBaseUrl + itemUrl.picture_url" mode=""  />
+									<image :src="imgBaseUrl + itemUrl.picture_url" mode="" />
 								</view>
 							</view>
 							<view class="instructions"> 施工说明:{{ item.note }} </view>
@@ -35,9 +35,9 @@
 						<!-- 客户意见 -->
 						<view class="specifications">
 							<view class="" v-for="(progress, indez) in item.pinion" :key="indez">
-								<view class="img-list" >
+								<view class="img-list">
 									<view class="img-warp" v-for="(pro, indey) in progress.image" :key="indey">
-										<image :src="imgBaseUrl + pro.picture_url" mode=""  />
+										<image :src="imgBaseUrl + pro.picture_url" mode="" />
 									</view>
 								</view>
 								<view class="instructions"> 客户意见：{{ progress.opinion}}</view>
@@ -51,7 +51,7 @@
 
 
 		</view>
-		
+
 		<view class="btn-qualified" v-if="hege">
 			<view class="" @click="isQualified(1)">合格 </view>
 			<view class="" @click="isQualified(2)">不合格</view>
@@ -61,7 +61,8 @@
 
 <script>
 	import {
-		aftersaleApiConstruction, zhuguanshenhe
+		aftersaleApiConstruction,
+		zhuguanshenhe
 	} from "@/components/api/api.js";
 	import {
 		imgBaseUrl
@@ -77,7 +78,7 @@
 			};
 		},
 		onLoad(opt) {
-			
+
 			this.orderquality_id = opt.orderquality_id;
 			this._aftersaleApiConstruction();
 			this.commit = false;
@@ -85,39 +86,49 @@
 		methods: {
 			// 合格   不合格
 			isQualified(states) {
-			// * orderquality_id
-			// * states    1合格、2不合格
-				if(this.commit) {
-					return false
-				}
-				this.commit = true
+				// * orderquality_id
+				// * states    1合格、2不合格
 				let obj = {
 					orderquality_id: this.orderquality_id,
 					states,
 					worker_id: uni.getStorageSync('WORKERS_ID')
 				}
+				if (states == 2) {
+					uni.navigateTo({
+						url: './Start?obj=' + JSON.stringify(obj)
+					})
+					return false;
+				}
+				if (this.commit) {
+					return false
+				}
+				this.commit = true
+				
 				uni.showLoading({
 					title: '加载中'
 				})
 				zhuguanshenhe(obj).then(res => {
-					uni.showToast({ title: res.mig, icon: 'none' })
+					uni.showToast({
+						title: res.mig,
+						icon: 'none'
+					})
 					this.$toIndex()
 				})
 			},
-		
+
 			async _aftersaleApiConstruction() {
 				await uni.showLoading({
 					title: '加载中'
 				})
 				let res = await aftersaleApiConstruction({
-					orderquality_id:this.orderquality_id
+					orderquality_id: this.orderquality_id
 				});
 				await uni.hideLoading()
 
 				this.list = res.varList
 				this.hege = res.hege
 				let HOUSE_LEVELS = uni.getStorageSync('HOUSE_LEVELS')
-				if(HOUSE_LEVELS != 0) {
+				if (HOUSE_LEVELS != 0) {
 					this.hege = false
 				}
 			},
@@ -138,11 +149,12 @@
 </script>
 
 <style lang="scss" scoped>
-	.btn-qualified{
+	.btn-qualified {
 		display: flex;
 		justify-content: space-around;
 		margin-bottom: 30rpx;
-		view{
+
+		view {
 			width: 30%;
 			padding: 15rpx 0;
 			border-radius: 10rpx;
@@ -151,7 +163,7 @@
 			background: rgb(249, 201, 36);
 		}
 	}
-	
+
 	.warp {
 		width: 100%;
 
@@ -194,10 +206,11 @@
 					position: relative;
 					height: 55rpx;
 
-					image,.text {
+					image,
+					.text {
 						width: 160rpx;
 						overflow: hidden;
-						
+
 						height: 55rpx;
 					}
 
@@ -236,7 +249,8 @@
 							display: flex;
 							justify-content: space-between;
 							flex-wrap: wrap;
-							.img-warp{
+
+							.img-warp {
 								width: 277rpx;
 								height: 277rpx;
 								margin-bottom: 36rpx;

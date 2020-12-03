@@ -38,7 +38,7 @@
             >添加进度</view
           >
           <view class="slot-active" @click="starts(item.order_id, TYPES.REVIEW)"
-            >完成</view
+            >{{item.wc == 2 ? '重新完成': '完成'}}</view
           >
         </view>
       </fromDeatil>

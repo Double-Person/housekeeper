@@ -90,6 +90,10 @@ export default {
   },
   methods: {
 	_programmeApiList() {
+		uni.showLoading({
+			title:'加载中',
+			mask: true
+		})
 		programmeApiList({ order_id: this.order_id }).then((res) => {
 		  let aginInfo = res.varList;		   
 		  this.remarks = aginInfo.remarks; // 备注
@@ -100,7 +104,7 @@ export default {
 		let { starttime, endtime, price, priceafter } = aginInfo;
 		this.otherInfo = { starttime, endtime, price, priceafter }
 		   
-		});
+		}).finally(()=> uni.hideLoading())
 	}
  
 

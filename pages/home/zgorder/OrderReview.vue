@@ -48,11 +48,11 @@
 						label: "合格",
 						list: [],
 					},
-					{
-						value: orderReview.NOT_PASS,
-						label: "不合格",
-						list: [],
-					},
+					// {
+					// 	value: orderReview.NOT_PASS,
+					// 	label: "不合格",
+					// 	list: [],
+					// },
 				],
 				act: 1,
 			};
@@ -62,10 +62,56 @@
 			Topsearch,
 			NoData,
 		},
-		mounted() {
-			this._shenhe(this.activeIndex)
+		
+		async mounted() {
+			await this.isNotPass();
+			await this._shenhe(this.activeIndex)
 		},
 		methods: {
+			isNotPass() {			
+				try{
+					let levels = uni.getStorageSync('HOUSE_LEVELS');
+					if (levels == positionObj.DIRECTOR) {  // 主管
+						this.titleList= [{
+								value: orderReview.TO_PASS,
+								label: "待审核",
+								list: [],
+							},
+							{
+								value: orderReview.PASSED,
+								label: "合格",
+								list: [],
+							},
+							// {
+							// 	value: orderReview.NOT_PASS,
+							// 	label: "不合格",
+							// 	list: [],
+							// },
+						]
+					}
+					if (levels == positionObj.MASTER) {   // 工长
+						this.titleList= [{
+								value: orderReview.TO_PASS,
+								label: "待审核",
+								list: [],
+							},
+							{
+								value: orderReview.PASSED,
+								label: "合格",
+								list: [],
+							},
+							{
+								value: orderReview.NOT_PASS,
+								label: "不合格",
+								list: [],
+							},
+						]
+					}
+					
+				}catch(e){
+					//TODO handle the exception
+				}
+			},
 			// 搜索
 			searchValue(val) {
 				this.query = val

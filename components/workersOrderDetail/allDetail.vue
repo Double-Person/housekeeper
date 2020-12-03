@@ -62,7 +62,7 @@
 			</view>
 			<view style="color: red; font-size: 24rpx;padding-bottom: 16rpx;" v-if="plantInfo.orderdeposit.qualitydeposit_id">
 				本合同保修期:{{plantInfo.orderdeposit.warranty_time}}月</view>
-				<view  style="color: red; font-size: 24rpx;padding-bottom: 20rpx;">优惠价：{{ plantInfo.concessional }}</view>
+				<view  style="color: red; font-size: 24rpx;padding-bottom: 20rpx;" v-if="plantInfo.concessional">优惠价：{{ plantInfo.concessional }} 元</view>
 		</view>
 
 		<!-- 照片 -->

@@ -8,14 +8,14 @@
 		<scroll-view :scroll-y="true" class="scroll-view-body">
 			<view class="padding-bottom150">
 				<fromDeatil 
-				:msg="item.qualitystate == 0 && '待处理' || item.qualitystate == 1 && '处理中' || item.qualitystate == 2 && '已完成'  " 
+				:msg="msgStatus(item.qualitystate)" 
 				:item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail">
 					<view class="slot-warp" v-if="item.qualitystate == 0">
 						<view class="slot-active" @click="starts(0,item)">开工</view>
 					</view>
 					<view class="slot-warp" v-if="item.qualitystate == 1">
 						<view class="slot-not-active" @click="starts(1,item)">上传进度</view>
-						<view class="slot-active" @click="starts(2,item)">完成</view>
+						<view class="slot-active" @click="starts(2,item)">{{ item.wc == 2 ? '重新完成' : '完成'}}</view>
 					</view>
 				</fromDeatil>
 				<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
@@ -70,6 +70,10 @@
 			this._qualityList(0)
 		},
 		methods: {
+			// msg 状态
+			msgStatus(status) {
+				return (status == 0 && '待处理' || status == 1 && '处理中' || status == 2 && '已完成')
+			},
 			searchValue(val) {
 				this.query = val
 				this._qualityList(this.activeIndex)

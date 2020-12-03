@@ -79,9 +79,13 @@
 		},
 		methods: {
 			_pinionFindById() {
+				uni.showToast({
+					title: '加载中',
+					title: true
+				})
 				pinionFindById({orderopinion_id: this.orderopinion_id}).then(res => {
 					this.info = res.varList
-				})
+				}).finally(() => uni.hideloading())
 			},
 		
 		}
