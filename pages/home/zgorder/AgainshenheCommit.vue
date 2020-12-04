@@ -18,13 +18,13 @@
 					<image :src=" item.url ? (imgBaseUrl + item.url) : '/static/loginImg/axx.png'" mode=""></image>
 				</view>
 			</view>
-			<button type="default" class="button" @click="submitBtn">提交</button>
+			<button type="default" class="button" @click="_start">提交</button>
 		</view>
 	</view>
 </template>
 
 <script>
-		import {start, upLoadFile} from "@/components/api/api.js"
+		import {start, upLoadFile, againshenhe} from "@/components/api/api.js"
 		import {imgBaseUrl} from "@/components/api/request.js"
 		import { workersOrderCenterAllStatus } from '@/variable/orderCenter.js'
 	export default {
@@ -34,8 +34,8 @@
 				imgBaseUrl: imgBaseUrl,
 				TYPES: workersOrderCenterAllStatus,
 				note: '',
-				order_id: '',
-				orderType: '',
+				afteragreement_id: '',
+				orderquality_id: '',
 				imgList: [
 					// { url: '' },
 					]
@@ -43,26 +43,12 @@
 			}
 		},
 		onLoad(option) {
-			this.order_id = option.order_id
-			this.orderType = option.types
-			let title = '重新审核';
-			if(this.orderType == this.TYPES.START) {
-				title = '开工';
-			}else if(this.orderType == this.TYPES.CONSTRUCTION) {
-				title = '添加施工进度';
-			}else if(this.orderType == this.TYPES.REVIEW) {
-				title = '完成';
-			}
-			uni.setNavigationBarTitle({ title });
+			this.afteragreement_id = option.afteragreement_id
+			this.orderquality_id = option.orderquality_id
+			
 		},
 		methods:{	
-			
-			submitBtn() {
-				this._start()
-				// 施工   开工
-				// 施工  添加进度
-			},
-			_start(order_id) {
+			_start() {
 				if(this.commit) {
 					return;
 				}
@@ -72,33 +58,30 @@
 					mask: true
 				})
 				let obj = {
-					'order_id': this.order_id,
-					worker_id: uni.getStorageSync('WORKERS_ID'),
-					construction_type: 1,  // 0新订单、1售后订单
-					// bz: 0, // 0开工 、 1施工进度 、 2完成
-					note: this.note,
+					'afteragreement_id': this.afteragreement_id,
+					'orderquality_id': this.orderquality_id,
+					
+					bz: this.note,
 					urllist: this.imgList.filter(item => item.url).map(item => item.url).join(',')
 				}
-				// 0开工 、 1施工进度 、 2完成
-				if(this.orderType == this.TYPES.START) {
-					obj.bz = 0
-				}else if(this.orderType == this.TYPES.CONSTRUCTION) {
-					obj.bz = 1
-				}else if(this.orderType == this.TYPES.REVIEW) {
-					obj.bz = 2
-				}
+				
 			
-				start(obj).then(res => {
-					uni.showToast({
-						title: res.mig,
-						icon: 'none'
-					})
-					uni.navigateTo({
-						url: './orderAll'
-					})
-				}).finally(() => {
+			
+				againshenhe(obj).then(res => {
 					uni.hideLoading()
-				})
+					setTimeout(() => {
+						uni.showToast({
+							title: res.mig || '提交失败',
+							icon: 'none'
+						})
+						if(res.result == 'success') {
+							uni.navigateTo({
+								url: './OrderReview'
+							})
+						}
+					}, 500)
+					
+				}).catch(() => uni.hideLoading())
 			},
 			changeImg(index) {
 				uni.chooseImage({

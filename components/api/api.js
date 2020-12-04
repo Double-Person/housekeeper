@@ -199,6 +199,13 @@ export const goosapiFindById = data => ajax({ url: '/api/goosapi/findById', data
 // 售后订单详情 审核
 export const zhuguanshenhe = data => ajax({ url: '/api/aftersaleApi/zhuguanshenhe', data, method: 'POST' });
 
+// 工人 订单审核 不合格详情
+export const shxq = data => ajax({ url: '/api/aftersaleApi/shxq', data, method: 'POST' });
+
+
+
+
+
 
 
 
@@ -228,7 +235,16 @@ export const upLoadFile = (option) => {
 				// file: 'test'
 			},
 			success: (uploadFileRes) => {
-				console.log(uploadFileRes)
+				console.log(uploadFileRes.data)
+				
+				if(JSON.parse(uploadFileRes.data) && JSON.parse(uploadFileRes.data).state != 'success') {
+					uni.showToast({
+						title: '图片上传失败', icon: 'none'
+					})
+					reject(uploadFileRes);
+					return false;
+					
+				}
 				uni.hideLoading()
 				resolve(uploadFileRes)
 			},

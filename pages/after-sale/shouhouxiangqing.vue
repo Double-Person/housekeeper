@@ -73,6 +73,7 @@
 				uni.showLoading({
 					title: '加载中',
 				})
+	
 				xiangqing({orderaftersale_id: this.info.orderaftersale_id}).then(res => {
 					this.detailInfo = res.data
 				}).finally(() => {

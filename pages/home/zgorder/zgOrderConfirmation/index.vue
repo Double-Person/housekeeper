@@ -77,7 +77,7 @@
 				}
 					
 				let res = await workerdopt(obj);
-				await uni.showToast({ title: res.mig, icon: 'none' });
+				await uni.showToast({ title: res.mig || '提交失败', icon: 'none' });
 				await this.$toIndex()
 			},
 	

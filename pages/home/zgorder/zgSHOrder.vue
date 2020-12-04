@@ -11,7 +11,14 @@
 				<fromDeatil 
 				:msg="msgShow(item.qualitystate)"
 				 :item="item" v-for="(item,index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail" @butongguo="butongguo"
-				 @tongyi="tongyi"></fromDeatil>
+				 @tongyi="tongyi">
+				   <view class="slot-warp" v-if="item.hg == 1">
+				   	<view class="slot-not-active" @click="isQualified(2, item.orderquality_id)">不合格</view>
+				   	<view class="slot-active" @click="isQualified(1, item.orderquality_id)">合格</view>
+					
+					
+				   </view>
+				 </fromDeatil>
 				<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
 			</view>
 		</scroll-view>
@@ -27,11 +34,12 @@
 		positionObj
 	} from "@/variable/orderCenter.js"
 	import {
-		qualityList
+		qualityList, zhuguanshenhe
 	} from "@/components/api/api.js"
 	export default {
 		data() {
 			return {
+				commit: false,
 				val: '1',
 				query: '',
 				activeIndex: 0,
@@ -64,6 +72,37 @@
 		},
 
 		methods: {
+			// 合格   不合格
+			isQualified(states, orderquality_id) {
+				// * orderquality_id
+				// * states    1合格、2不合格
+				let obj = {
+					orderquality_id,
+					states,
+					worker_id: uni.getStorageSync('WORKERS_ID')
+				}
+				if (states == 2) {
+					uni.navigateTo({
+						url: './Start?obj=' + JSON.stringify(obj)
+					})
+					return false;
+				}
+				if (this.commit) {
+					return false
+				}
+				this.commit = true
+				
+				uni.showLoading({
+					title: '加载中'
+				})
+				zhuguanshenhe(obj).then(res => {
+					uni.showToast({
+						title: res.mig || '提交失败',
+						icon: 'none'
+					})
+					this.$toIndex()
+				})
+			},
 			// item.qualitystate == 0 && '待处理' || item.qualitystate == 1 && '处理中' || item.qualitystate == 2 && '已完成'
 			msgShow(qualitystate) {
 				return (qualitystate == 0 && '待处理' || qualitystate == 1 && '处理中' || qualitystate == 2 && '已完成')

@@ -18,7 +18,7 @@
 					<image :src=" item.url ? (imgBaseUrl + item.url) : '/static/loginImg/axx.png'" mode=""></image>
 				</view>
 			</view>
-			<button type="default" class="button" @click="submitBtn">提交</button>
+			<button type="default" class="button" @click="_zhuguanshenhe">提交</button>
 		</view>
 	</view>
 </template>
@@ -47,11 +47,6 @@
 		},
 		methods:{	
 			
-			submitBtn() {
-				this._zhuguanshenhe()
-				// 施工   开工
-				// 施工  添加进度
-			},
 			_zhuguanshenhe() {
 				console.log(this.obj)
 				if(this.commit) {

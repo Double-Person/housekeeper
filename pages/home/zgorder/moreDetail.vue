@@ -51,10 +51,11 @@
 
 
 		</view>
-
-		<view class="btn-qualified" v-if="hege">
-			<view class="" @click="isQualified(1)">合格 </view>
-			<view class="" @click="isQualified(2)">不合格</view>
+		
+		<!-- hege -->
+		<view class="btn-qualified" v-if="false">
+			<view class="" >合格 </view>
+			<view class="" >不合格</view>
 		</view>
 	</view>
 </template>
@@ -71,7 +72,7 @@
 		data() {
 			return {
 				hege: false,
-				commit: false,
+				
 				orderquality_id: '',
 				imgBaseUrl: imgBaseUrl,
 				list: [],
@@ -81,40 +82,10 @@
 
 			this.orderquality_id = opt.orderquality_id;
 			this._aftersaleApiConstruction();
-			this.commit = false;
+	
 		},
 		methods: {
-			// 合格   不合格
-			isQualified(states) {
-				// * orderquality_id
-				// * states    1合格、2不合格
-				let obj = {
-					orderquality_id: this.orderquality_id,
-					states,
-					worker_id: uni.getStorageSync('WORKERS_ID')
-				}
-				if (states == 2) {
-					uni.navigateTo({
-						url: './Start?obj=' + JSON.stringify(obj)
-					})
-					return false;
-				}
-				if (this.commit) {
-					return false
-				}
-				this.commit = true
-				
-				uni.showLoading({
-					title: '加载中'
-				})
-				zhuguanshenhe(obj).then(res => {
-					uni.showToast({
-						title: res.mig,
-						icon: 'none'
-					})
-					this.$toIndex()
-				})
-			},
+			
 
 			async _aftersaleApiConstruction() {
 				await uni.showLoading({

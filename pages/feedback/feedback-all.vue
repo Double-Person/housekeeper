@@ -104,7 +104,7 @@
 					orderopinion_id
 				}).then(res => {
 					uni.showToast({
-						title: res.mig,
+						title: res.mig || '提交失败',
 						icon: 'none'
 					})
 					this.$toIndex()

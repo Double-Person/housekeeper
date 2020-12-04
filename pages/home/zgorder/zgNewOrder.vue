@@ -81,7 +81,7 @@
 				.then(res => {
 					console.log(res)
 					uni.showToast({
-						title: res.mig,
+						title: res.mig || '提交失败',
 						icon: 'none'
 					});
 					this.getWorkerorderApiworkerList()

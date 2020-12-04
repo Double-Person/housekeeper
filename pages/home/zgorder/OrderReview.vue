@@ -11,7 +11,7 @@
 				<fromDeatil :msg="conversion(item.states)" v-for="(item, index) in titleList[activeIndex].list" :key="index" :item="item"
 				 @getDetail="getDetail">
 					<view class="slot-warp" v-if="item.states == 2">
-						<view class="slot-active" @click="_againshenhe(item.afteragreement_id)">重新审核</view>
+						<view class="slot-active" @click="_againshenhe(item.afteragreement_id, item.orderquality_id)">重新审核</view>
 					</view>
 				</fromDeatil>
 				<NoData :show="titleList[activeIndex].list.length === 0"></NoData>
@@ -149,20 +149,31 @@
 					});
 			},
 			getDetail(info) {
+				
+				if(this.activeIndex == 2) {
+					uni.navigateTo({
+						url: 'OrderReviewDetail?afteragreement_id=' + info.afteragreement_id
+					})
+					return false
+				}
 				uni.navigateTo({
-					// url: '/components/workersOrderDetail/moreDetail?order_id=' + info.order_id,
 					url: './moreDetail?orderquality_id=' + info.orderquality_id
 				})
+				
 			},
 			
-			_againshenhe(afteragreement_id) {
+			_againshenhe(afteragreement_id, orderquality_id) {
+				uni.navigateTo({
+					url: './AgainshenheCommit?afteragreement_id=' + afteragreement_id + '&orderquality_id=' + orderquality_id
+				})
+				return false;
 				againshenhe({afteragreement_id, }).then(res => {
 					uni.showToast({
 						title: res.mig,
 						icon: 'none'
 					})
 					if(res.result == "success") {
-						this.$toIndex();
+						
 						return false;
 					}
 					this._shenhe(this.activeIndex)

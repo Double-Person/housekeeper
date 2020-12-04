@@ -3,193 +3,93 @@
 		<!--  -->
 		<view class="box_te">
 			<view class="tit">
-				<view class="imgtit">
-					<image :src="imgBaseUrl + info.image" mode=""></image>
-					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
+				<view class="imgtit" v-if="detailInfo.goods">
+					<image :src="imgBaseUrl + detailInfo.goods.image" mode=""></image>
+					<text>{{detailInfo.goods_type == 0 ? detailInfo.goods.name : info.goods.package_name}}</text>
 				</view>
 
-				<!-- <view class="com">显示状态</view> -->
+				<view class="com">不合格</view>
 			</view>
-			<view class="textBox">
+			<view class="textBox" v-if="detailInfo.goods">
 				<view class="img">
-					<image :src="imgBaseUrl + info.image" mode=""></image>
+					<image :src="imgBaseUrl + detailInfo.goods.image" mode=""></image>
 				</view>
-				<view class="times">
-					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.package_name}}</text>
-					<!-- <text>工人名称</text> -->
+				<view class="time">
+					<text v-if="detailInfo.goods">{{detailInfo.goods_type == 0 ? detailInfo.goods.name : detailInfo.goods.package_name}}</text>
 				</view>
 			</view>
 		</view>
 
-		<view class="orderxx">
-			<view class="titb">
-				订单信息
-			</view>
-			<view class="textT">
-				<text>订单编号：{{info.order_number}}</text>
-				<text v-if="info.goods">下单日期：{{info.goods.createtime}}</text>
-				<text>客户姓名：{{info.contact}}</text>
-				<text>客户电话：{{info.phone}}</text>
-				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
-
-
-			</view>
-		</view>
-
-		<view class="orderxx" v-if="status == 2">
-			<view class="titb">
+		<!-- 备注 -->
+		<view class="order_txt">
+			<view class="title">
 				原因
 			</view>
-			<view class="textT">
-				<textarea rows="2" cols="20" class="textareas" v-model="reason" :maxlength="-1" placeholder="请输入原因"></textarea>
-			</view>
-		</view>
-
-		<view class="orderxx" v-if="status == 2">
-			<view class="titb">
-				整改说明
-			</view>
-			<view class="textT">
-				<textarea rows="3" cols="10" class="textareas"  v-model="explaina" :maxlength="-1" placeholder="请输入整改说明"></textarea>
+			<view class="txt_data">
+				{{ detailInfo.bz }}
 			</view>
 		</view>
 		
 
-		<view class="time" @click="selectPersonnel" v-if="false">
-			<text> {{info.checkId ? info.checkName : '选择技术人员'}} </text>
-			<image src="/static/loginImg/hright.png" mode=""></image>
+		<!-- 照片 -->
+		<view class="order_img">
+			<view class="title">
+				照片
+			</view>
+			<view class="img_data" v-if="detailInfo.btgimage">
+				<view class="oimg" v-for="item in detailInfo.btgimage">
+					<image :src="imgBaseUrl + item.picture_url"></image>
+				</view>
+			</view>
 		</view>
-		<view class="btn" @click="detailAll">
-			确定
-		</view>
+
 	</view>
 </template>
 
 <script>
-	import {
-		imgBaseUrl
-	} from "@/components/api/request.js"
-	import {
-		workerorderApiJudgeadopt
-	} from "@/components/api/api.js"
+	import { shxq } from "@/components/api/api.js";
+	
+	import { imgBaseUrl } from "@/components/api/request.js"
 	export default {
 
 		data() {
 			return {
 				imgBaseUrl: imgBaseUrl,
-				status: null,
+				afteragreement_id: '',
 				info: {},
-				reason: '',  // 原因
-				explaina: '',  // 整改说明
+				detailInfo: {}
 			}
 		},
-		onLoad(option) {
-			if (option.userInfo) {
-				this.info = JSON.parse(option.userInfo)
-				this.status = option.status
-			}
-			if(option.status) {
-				this.status = option.status
-			}
+		onLoad(opt) {
+			console.log(opt)
+			this.afteragreement_id = opt.afteragreement_id;
+			this._shxq()
 		},
 		methods: {
-			detailAll() { 
-				// worker_id 工人的id（技术员或工人的id）   order_id   订单id  states    0 待审核  1  通过   2  不通过
-				let obj = {
-					worker_id: uni.getStorageSync('WORKERS_ID'),
-					order_id: this.info.order_id,
-					state: this.status
-				}
-			
-				if(this.status == 2) {
-					if(!this.reason) {
-						return uni.showToast({ title: '请输入原因', icon: 'none' });
-					}
-					if(!this.explaina) {
-						return uni.showToast({ title: '请输入整改说明', icon: 'none' });
-					}
-					obj.reason = this.reason;
-					obj.explaina = this.explaina;
-				}
-				// 				* reason 原因
-				// *explaina 整改说明
-				
+			detailAll(){
+			 	uni.navigateTo({
+			 		url:"./sgdetailAll"
+			 	})
+			},
+			_shxq() {
 				uni.showLoading({
 					title: '加载中',
-					mask: true
 				})
-				workerorderApiJudgeadopt(obj).then(res => {
-					uni.showToast({
-						title: res.mig || '提交失败',
-						icon: 'none'
-					})
-					this.$toIndex()
-				}).finally(() =>{
-					uni.hideLoading()
-				})
-			},
-			// 选择技术人员
-			selectPersonnel() {
-				uni.navigateTo({
-					url: '../selectPersonnel?type=technology&path=/pages/home/zgorder/zgfanganNew&userInfo=' + JSON.stringify(this.info)
-				})
+	
+				shxq({ afteragreement_id: this.afteragreement_id }).then(res => {
+					this.detailInfo = res.varList
+				}).finally(() => uni.hideLoading())
 			}
-
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	@font-face {
-		font-family: SourceHanSansCN;
-		src: url("~@/static/SourceHanSansCN-Normal.otf") format('truetype'),
-	}
-
 
 	.index {
 		width: 750upx;
-		height: 100vh;
 		background-color: #F2F2F2;
 		font-family: SourceHanSansCN;
-	}
-
-	.time {
-		margin-top: 20upx;
-		padding: 30upx 40upx;
-		width: 670upx;
-		height: 40upx;
-		background: rgba(255, 255, 255, 1);
-		display: flex;
-		justify-content: flex-end;
-
-		text {
-			font-size: 28upx;
-			font-family: PingFang SC;
-			font-weight: 500;
-			color: rgba(170, 170, 170, 1);
-		}
-
-		image {
-			display: block;
-			width: 34upx;
-			height: 34upx;
-			margin-left: auto;
-		}
-	}
-
-	.btn {
-		background: #FFC823;
-		width: 715upx;
-		height: 91upx;
-		font-size: 36upx;
-		font-family: PingFang SC;
-		font-weight: 500;
-		color: rgba(255, 255, 255, 1);
-		line-height: 91upx;
-		text-align: center;
-		border-radius: 8upx;
-		margin-top: 50upx;
-		margin-left: 15upx;
 	}
 
 	.box_te {
@@ -200,7 +100,7 @@
 
 		.tit {
 			display: flex;
-			// justify-content: flex-end;
+			justify-content: flex-end;
 			align-items: center;
 
 			.imgtit {
@@ -254,7 +154,7 @@
 				}
 			}
 
-			.times {
+			.time {
 				margin-left: 18upx;
 				margin-top: 21upx;
 
@@ -332,9 +232,9 @@
 
 	.orderxx {
 		margin-top: 20upx;
-		padding: 20upx 40upx;
+		padding: 0upx 40upx;
 		width: 670upx;
-
+		
 		background: #fff;
 		border-radius: 8upx;
 
@@ -346,15 +246,10 @@
 			color: rgba(51, 51, 51, 1);
 			border-bottom: 1upx solid rgba(191, 191, 191, 1);
 		}
-
+		
 
 		.textT {
 			margin-top: 20upx;
-			.textareas{
-				height: 120rpx;
-				width: 100%;
-				background: #eee;
-			}
 
 			text {
 				width: 670upx;
@@ -365,7 +260,9 @@
 				line-height: 50upx;
 			}
 
-	
+			text:nth-child(3) {
+				margin-top: 60upx;
+			}
 		}
 	}
 
@@ -385,13 +282,11 @@
 			color: rgba(51, 51, 51, 1);
 			border-bottom: 1upx solid rgba(191, 191, 191, 1);
 			overflow: hidden;
-
-			.tit_a {
+			.tit_a{
 				float: left;
 			}
-
-			.tit_b {
-				float: right;
+			.tit_b{
+				float:right;
 				color: #D4D4D4;
 			}
 		}
@@ -454,40 +349,7 @@
 		overflow: hidden;
 		margin-top: 20upx;
 
-		.name {
-			width: 670upx;
-			display: flex;
-			justify-content: space-between;
-			margin-top: 20upx;
-
-			.tit {
-				font-size: 28upx;
-				font-family: PingFang SC;
-				font-weight: 500;
-				color: rgba(153, 153, 153, 1);
-			}
-		}
-
-		.phone {
-			display: flex;
-			align-items: center;
-
-			text {
-				font-size: 28upx;
-				font-family: PingFang SC;
-				font-weight: 500;
-				color: rgba(251, 80, 80, 1);
-			}
-
-			image {
-				margin-left: 18upx;
-				width: 38upx;
-				height: 38upx;
-			}
-		}
-
 		.title {
-			font-size: 28upx;
 			width: 670upx;
 			padding-bottom: 20upx;
 			border-bottom: 2upx solid rgba(190, 190, 190, 1);
@@ -498,6 +360,10 @@
 			display: flex;
 			justify-content: space-between;
 			margin-top: 25upx;
+			&::after{
+				width: 210upx;
+				content: '';
+			}
 
 			.oimg {
 				width: 210upx;
@@ -541,11 +407,9 @@
 		margin-top: 20upx;
 		color: #333333;
 		font-size: 32upx;
-
 		.zprice {
 			float: left;
-
-			text {
+			text{
 				color: #FA4F4F;
 			}
 		}

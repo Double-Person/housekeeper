@@ -644,6 +644,18 @@
 			"style": {
 				"navigationBarTitleText": "不通过原因"
 			}
+		},
+		{
+			"path": "pages/home/zgorder/OrderReviewDetail",
+			"style": {
+				"navigationBarTitleText": "不合格详情"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/AgainshenheCommit",
+			"style": {
+				"navigationBarTitleText": "重新审核"
+			}
 		}
 		
 		

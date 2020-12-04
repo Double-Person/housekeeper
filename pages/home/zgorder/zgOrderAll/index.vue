@@ -90,7 +90,7 @@ export default {
 		}
 	
 		workerdopt(obj).then(res => {
-			uni.showToast({ title: res.mig, icon: 'none' });
+			uni.showToast({ title: res.mig || '提交失败', icon: 'none' });
 			this.$toIndex()
 		})
 	},
