@@ -46,18 +46,18 @@ export const ajax = (option) => {
 			timeStamp: new Date().getTime()
 		}
 		
-		if(arr.length > 1) {
-			let nowTime = new Date().getTime();
-			if( (getUrl == arr[arr.length - 1].url) && ( nowTime - arr[arr.length - 1].timeStamp < 800 ) ) {
-				console.log('阻止重复提交');
-				if(arr.length > 500) {
-					arr = []
-				}
-				return false;
-			}
-		}
+		// if(arr.length > 1) {
+		// 	let nowTime = new Date().getTime();
+		// 	if( (getUrl == arr[arr.length - 1].url) && ( nowTime - arr[arr.length - 1].timeStamp < 800 ) ) {
+		// 		console.log('阻止重复提交');
+		// 		if(arr.length > 500) {
+		// 			arr = []
+		// 		}
+		// 		return false;
+		// 	}
+		// }
 		
-		arr.push(obj);
+		// arr.push(obj);
 		
         uni.request({
             url: baseUrl + option.url,
@@ -69,7 +69,7 @@ export const ajax = (option) => {
             },
             success: (res) => {
 			
-				console.log(baseUrl + option.url)
+				// console.log(baseUrl + option.url)
                 // console.log('全局数据', res.data);
                 // 不同状态码相关提示
                 switch (res.data.msgType) {

@@ -4,15 +4,16 @@
 		<view class="box_te">
 			<view class="tit">
 				<view class="imgtit" v-if="detailInfo.goods">
-					<image :src="imgBaseUrl + detailInfo.goods.image" mode=""></image>
+					<image :src="imgBaseUrl + detailInfo.image" mode=""></image>
 					<text>{{detailInfo.goods_type == 0 ? detailInfo.goods.name : info.goods.package_name}}</text>
+	
 				</view>
 
 				<view class="com">不合格</view>
 			</view>
 			<view class="textBox" v-if="detailInfo.goods">
 				<view class="img">
-					<image :src="imgBaseUrl + detailInfo.goods.image" mode=""></image>
+					<image :src="imgBaseUrl + detailInfo.image" mode=""></image>
 				</view>
 				<view class="time">
 					<text v-if="detailInfo.goods">{{detailInfo.goods_type == 0 ? detailInfo.goods.name : detailInfo.goods.package_name}}</text>
@@ -61,7 +62,6 @@
 			}
 		},
 		onLoad(opt) {
-			console.log(opt)
 			this.afteragreement_id = opt.afteragreement_id;
 			this._shxq()
 		},
@@ -73,7 +73,7 @@
 			},
 			_shxq() {
 				uni.showLoading({
-					title: '加载中',
+					title: '加载中',mask:true
 				})
 	
 				shxq({ afteragreement_id: this.afteragreement_id }).then(res => {

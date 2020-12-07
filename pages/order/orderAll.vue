@@ -14,17 +14,17 @@
 			<!-- mastertype -->
 			<scroll-view scroll-y="true" class="body-scroll-view">
 				<!-- 全部 -->
-				<orderAll v-show="currentTabBar == statusObj.ALL" :list='topBarList[this.topActive].list' />
+				<orderAll v-if="currentTabBar == statusObj.ALL" :list='topBarList[this.topActive].list' />
 				<!-- 施工 -->
-				<orderConstuction v-show="currentTabBar == statusObj.CONSTRUCTION" @orderConstuction='orderConstuction' :list='topBarList[this.topActive].list' />
+				<orderConstuction v-if="currentTabBar == statusObj.CONSTRUCTION" @orderConstuction='orderConstuction' :list='topBarList[this.topActive].list' />
 				<!-- 审核 -->
-				<orderAudit v-show="currentTabBar == statusObj.AUDIT" @orderAuditEmit="orderAuditEmit" :list='topBarList[this.topActive].list' />
+				<orderAudit v-if="currentTabBar == statusObj.AUDIT" @orderAuditEmit="orderAuditEmit" :list='topBarList[this.topActive].list' />
 				<!-- 质保 -->
-				<orderQuality v-show="currentTabBar == statusObj.QUALITY_ASSURANCE" :list='topBarList[this.topActive].list' />
+				<orderQuality v-if="currentTabBar == statusObj.QUALITY_ASSURANCE" :list='topBarList[this.topActive].list' />
 				<!-- 完成 -->
-				<orderComplete v-show="currentTabBar == statusObj.COMPLETE" :list='topBarList[this.topActive].list' />
+				<orderComplete v-if="currentTabBar == statusObj.COMPLETE" :list='topBarList[this.topActive].list' />
 				<!-- 完成 -->
-				<orderCancel v-show="currentTabBar == statusObj.CANCEL" :list='topBarList[this.topActive].list' />
+				<orderCancel v-if="currentTabBar == statusObj.CANCEL" :list='topBarList[this.topActive].list' />
 			</scroll-view>
 
 
@@ -201,7 +201,8 @@
 
 			_list(mastertype) {
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask: true
 				})
 				let obj = {
 					query: this.query,
@@ -210,6 +211,8 @@
 				};
 				selectorder(obj).then(res => {
 					this.topBarList[this.topActive].list = res.varList
+					console.log(res.varList)
+					console.log(this.topBarList[this.topActive])
 				}).finally(() => {
 					uni.hideLoading()
 				})

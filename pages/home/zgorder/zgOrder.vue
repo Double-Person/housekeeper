@@ -143,7 +143,12 @@
 			},
 			topBarActive(index, value) {
 				this.currentTabBar = value; //
+				
 				this.finallySearch()
+				
+				// this.orderConstuctionType == 'review'
+				// this.orderAuditType == 'review'
+				// this.orderConfirmationType == 'review'
 			},
 			
 			finallySearch() {
@@ -178,6 +183,7 @@
 			 * 5保修中、6已完成、7取消、8售后待处理、9售后处理中、10售后已完成
 			 * 11用户待通过、12用户不通过
 			 */
+			
 			// 施工
 			watchConstuction() {
 				if (this.orderConstuctionType == 'review') { //    待开工
@@ -204,7 +210,8 @@
 			// 用户确认
 			watchConfirmation() {
 				if (this.orderConfirmationType == 'review') { //    审核中
-					this._ordertype(11)
+					// this._ordertype(11)
+					this._ordertype(3)
 				}
 				if (this.orderConfirmationType == 'noThrough') { //   未通过
 					this._ordertype(12)
@@ -222,7 +229,9 @@
 				};
 				uni.showLoading({
 					title: "加载中",
+					mask:true
 				});
+				
 
 				ordertype(obj)
 					.then((res) => {

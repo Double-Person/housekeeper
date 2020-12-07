@@ -68,7 +68,8 @@
 			_masterProgramme(stype) {
 				// stype  0 进行中  1 已完成
 				uni.showLoading({
-					title: "加载中"
+					title: "加载中",
+					mask:true
 				});
 				let obj = {
 					query: this.query,

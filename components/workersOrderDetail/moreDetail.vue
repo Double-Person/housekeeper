@@ -75,7 +75,8 @@
 		methods: {
 			async _construction(order_id) {
 				await uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				})
 				let res = await construction({
 					order_id

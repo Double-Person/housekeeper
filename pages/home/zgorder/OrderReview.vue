@@ -138,7 +138,8 @@
 					states: this.activeIndex, // *  states 0待审核、 1合格、2不合格
 				};
 				uni.showLoading({
-					title: "加载中"
+					title: "加载中",
+					mask:true
 				});
 				shenhe(obj)
 					.then((res) => {

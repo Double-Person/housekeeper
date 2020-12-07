@@ -150,7 +150,7 @@ export const start = data => ajax({ url: '/api/master/start', data, method: 'POS
  export const masterProgramme = data => ajax({ url: '/api/master/programme', data, method: 'POST' });
  
  // 售后处理详情    orderaftersale_id
- export const xiangqing = data => ajax({ url: ' /api/aftersaleApi/xiangqing', data, method: 'POST' });
+ export const xiangqing = data => ajax({ url: '/api/aftersaleApi/xiangqing', data, method: 'POST' });
  
 
  

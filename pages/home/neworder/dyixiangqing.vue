@@ -58,6 +58,10 @@
 					<text class="color">{{plantInfo.price}}</text>
 				</view>
 			</view>
+			<view  class="bottom-price">
+				<view>优惠价：{{ plantInfo.concessional }}</view>
+				<view v-if="plantInfo.orderdeposit">本合同保修期：{{plantInfo.orderdeposit.warranty_time + '月' }}</view>
+			</view>
 		</view>
 
 		<!-- 照片 -->
@@ -130,6 +134,15 @@
 </script>
 
 <style lang="scss" scoped>
+	
+	.bottom-price{
+		font-size: 24upx;
+		color: #191919;
+		padding-bottom: 40rpx;
+		view:nth-of-type(2) {
+			margin-top: 18upx;
+		}
+	}
 	.index {
 		width: 750upx;
 		background-color: #F2F2F2;
@@ -310,7 +323,7 @@
 		padding: 0upx 40upx;
 		margin-top: 20upx;
 		width: 670upx;
-		height: 465upx;
+		// height: 465upx;
 		background: rgba(255, 255, 255, 1);
 		border-radius: 8upx;
 
@@ -361,7 +374,7 @@
 		}
 
 		.bottom {
-			padding: 20upx 0upx 40upx 0upx;
+			padding: 20upx 0upx 16upx 0upx;
 			font-size: 24upx;
 			color: #191919;
 			position: relative;

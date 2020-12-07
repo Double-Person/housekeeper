@@ -101,7 +101,8 @@
 			// 查询主管下的工人
 			_workerWorker() {
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				});
 				let parent_id = uni.getStorageSync('WORKERS_ID');
 				workerWorker({
@@ -116,7 +117,8 @@
 			// 查询主管下的技术员列表
 			_technician() {
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				});
 				let parent_id = uni.getStorageSync('WORKERS_ID')
 				technician({

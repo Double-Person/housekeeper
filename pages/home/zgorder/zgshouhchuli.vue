@@ -73,7 +73,8 @@
 
 			_userlist( aftersale_type) {
 				uni.showLoading({
-					title:'加载中'
+					title:'加载中',
+					mask:true
 				})
 				let levels = uni.getStorageSync('HOUSE_LEVELS'),
 					usertype = '';

@@ -72,13 +72,11 @@
 			_xiangqing() {
 				uni.showLoading({
 					title: '加载中',
-				})
-	
+					mask:true
+				})	
 				xiangqing({orderaftersale_id: this.info.orderaftersale_id}).then(res => {
-					this.detailInfo = res.data
-				}).finally(() => {
-					uni.hideLoading()
-				})
+					this.detailInfo = res.data;
+				}).finally(() => uni.hideLoading())
 			}
 		}
 	}

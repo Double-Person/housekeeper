@@ -93,7 +93,8 @@
 				this.commit = true
 				
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				})
 				zhuguanshenhe(obj).then(res => {
 					uni.showToast({
@@ -119,7 +120,8 @@
 			},
 			_qualityList(qualitystate) {
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				})
 				//  worker_id  主管或工人
 				// * qualitystate  0待开工、1开工中、2已完成

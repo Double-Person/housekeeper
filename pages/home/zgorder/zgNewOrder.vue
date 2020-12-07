@@ -60,7 +60,8 @@
 			// 獲取新订单
 			getWorkerorderApiworkerList() {
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				})
 				let worker_id = uni.getStorageSync("WORKERS_ID");
 				let token = uni.getStorageSync("HOUSE_TOKEN");

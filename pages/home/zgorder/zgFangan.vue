@@ -81,7 +81,8 @@
 					state: this.activeIndex, // *  state 0 待审核  1  通过   2  不通过
 				};
 				uni.showLoading({
-					title: "加载中"
+					title: "加载中",
+					mask:true
 				});
 				workerorderApiProgramme(obj)
 					.then((res) => {
