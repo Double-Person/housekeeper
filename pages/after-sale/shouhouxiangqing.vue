@@ -61,6 +61,7 @@
 		},
 		onLoad(opt) {
 			this.info = JSON.parse(opt.info);
+			console.log(this.info)
 			this._xiangqing()
 		},
 		methods: {

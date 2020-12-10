@@ -12,7 +12,7 @@ export const baseUrl = baseUrl_
 
 
 export const imgBaseUrl = 'https://yflh.hkzhtech.com/housekeeper/'
-// export const imgBaseUrl = 'http://192.168.0.107:8081/'
+// export const imgBaseUrl = 'http://192.168.0.110:8081/'
 
 
 let arr = []

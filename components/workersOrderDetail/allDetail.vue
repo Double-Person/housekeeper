@@ -158,7 +158,7 @@ import { showMsg } from "@/utils/showMsg.js"
 		justify-content: space-between;
 		align-items: center;
 		.progress {
-			color: #D4D4D4;
+			color: #ffc61e;
 		}
 	}
 	.index {
@@ -358,7 +358,7 @@ import { showMsg } from "@/utils/showMsg.js"
 			}
 			.tit_b{
 				float:right;
-				color: #D4D4D4;
+				color: #ffc61e;
 			}
 		}
 

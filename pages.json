@@ -102,6 +102,14 @@
 			}
 		},
 		{
+			"path": "pages/newfrom/newfromNotRes",
+			"style": { //设置页面标题文字
+				"navigationBarTitleText": "不通过原因"
+			}
+		},
+		
+		
+		{
 			"path": "pages/order/sgDetail",
 			"style": {
 				"navigationBarTitleText": "详情"
@@ -248,6 +256,12 @@
 			}
 		},
 		{
+			"path": "pages/home/neworder/newOrderNotRes",
+			"style": {
+				"navigationBarTitleText": "不通过原因"
+			}
+		},
+		{
 			"path": "pages/home/neworder/ordera",
 			"style": {
 				"navigationBarTitleText": "新订单"
@@ -321,6 +335,12 @@
 			"path": "pages/home/zgorder/zgNewOrder",
 			"style": {
 				"navigationBarTitleText": "新订单"
+			}
+		},
+		{
+			"path": "pages/home/zgorder/zgNewOrderNotRes",
+			"style": {
+				"navigationBarTitleText": "不通过原因"
 			}
 		},
 		{

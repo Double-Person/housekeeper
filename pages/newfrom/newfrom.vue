@@ -79,6 +79,12 @@
 					order_id,
 					worker_id: uni.getStorageSync("WORKERS_ID")
 				}
+				if(type == 2) {
+					uni.navigateTo({
+						url: 'newfromNotRes?info=' + JSON.stringify(obj)
+					})
+					return false;
+				}
 				receivingorders(obj).then(res => {
 					uni.showToast({
 						title: '操作成功',

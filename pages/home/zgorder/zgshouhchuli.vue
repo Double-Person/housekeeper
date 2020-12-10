@@ -42,33 +42,35 @@
 		},
 		data() {
 			return {
+				AFTERP_ROCESSING: afterProcessing,  // 售后类型(0退款、1质量问题)
 				query: '',
 				activeIndex: 0,
-				titleList: [{
-						value: afterProcessing.REFUND,
-						label: "退款",
-						list: [],
-					},
+				titleList: [
 					{
 						value: afterProcessing.QUALITY_PROBLEM,
 						label: "质量问题",
 						list: [],
+					},{
+						value: afterProcessing.REFUND,
+						label: '',// "退款",
+						list: [],
 					},
+					
 				],
 			};
 		},
 		created() {
-			this._userlist(0)
+			this._userlist(this.AFTERP_ROCESSING.QUALITY_PROBLEM)
 		},
 		methods: {
 			searchValue(val) {
 				this.query = val
-				this._userlist(this.activeIndex)
+				this._userlist(this.AFTERP_ROCESSING.QUALITY_PROBLEM)
 			},
 			// 标题点击
 			clickTitle(index, value) {
-				this.activeIndex = index;
-				this._userlist(index)
+				// this.activeIndex = index;
+				// this._userlist(value)
 			},
 
 			_userlist( aftersale_type) {
@@ -99,8 +101,10 @@
 			},
 			getDetail(info) {
 				info.goods = this.$goods(info);
+				console.log(info);
+				// return
+				
 				uni.navigateTo({
-					// url: './shouhouxiangqing?info=' + JSON.stringify(info)
 					url: '../../after-sale/shouhouxiangqing?info=' + JSON.stringify(info)
 				})
 			},

@@ -78,7 +78,15 @@
 			receive(type, item) {
 				// worker_id 主管的id    order_id   订单id   state_one   1接受 2不接受 
 				let { worker_id, order_id } = item;
-				updatestate({ worker_id, order_id, state_one: type ? 1 : 2 })
+				let parmas = { worker_id, order_id, state_one: type ? 1 : 2 };
+				if(!type) {
+					uni.navigateTo({
+						url: 'zgNewOrderNotRes?info=' + JSON.stringify(parmas)
+					})
+					
+					return false;
+				}
+				updatestate(parmas)
 				.then(res => {
 					console.log(res)
 					uni.showToast({

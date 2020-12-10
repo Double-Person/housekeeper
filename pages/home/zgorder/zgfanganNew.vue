@@ -406,7 +406,7 @@
 			}
 			.tit_b{
 				float:right;
-				color: #D4D4D4;
+				color: #ffc61e;
 			}
 		}
 

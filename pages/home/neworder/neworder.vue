@@ -95,13 +95,11 @@
 					order_id: item.order_id,
 					state_one: 2, //  1接受 2不接受
 				};
-				technicianUpaateforeman(obj).then((res) => {
-					uni.showToast({
-						title: "拒单成功",
-						icon: "none",
-					});
-					this.getWorkerorderApiworkerList();
-				});
+				uni.navigateTo({
+					url: 'newOrderNotRes?info=' + JSON.stringify(obj)
+				})
+				
+				
 				// uni.navigateTo({
 				// 	url:"./ordera?info=" + JSON.stringify(item)
 				// })

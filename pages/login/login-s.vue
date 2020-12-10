@@ -133,8 +133,7 @@
 				console.log(this.userInfo.photo)
 				this.photo = this.userInfo.photo
 			}
-			
-			
+						
 			this.getWorkerUserExecutive()
 
 		},
@@ -257,6 +256,7 @@
 					if (res.msgType == 0) {
 						uni.showToast({
 							title: res.returnMsg,
+							duration: 3000,
 							icon: "none"
 						})
 						uni.navigateTo({
