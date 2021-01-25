@@ -1,0 +1,65 @@
+.contract{
+		padding: 0 30rpx;
+	}
+	.fl {
+		display: flex;
+	}
+	.jc-center{
+		justify-content: center;
+	}
+	.a-i-center {
+		align-items: center;
+	}
+	.text-center {
+		text-align: center;
+	}
+	// 编号
+	.serial-number{
+		font-size: 28rpx;
+		font-weight: bold;
+	}
+	// 合同名称
+	.contract-name{
+		width: 600rpx;
+		font-size: 40rpx;
+		font-weight: bold;
+		margin: 100rpx auto;
+	}
+	// 合同输入框（较长）
+	.contract-input{
+		min-width: 100rpx;
+		border-bottom: 1rpx solid #000;
+	}
+	// 数量输入框（较短）
+	.date-input{
+		width: 100rpx;
+		border-bottom: 1rpx solid #000;
+		display: inline-block;
+	}
+	// 详细类容
+	.content{
+		text-indent: 2em;
+		font-size: 28rpx;
+		line-height: 1.5em;
+	}
+	.keywords{
+		color: red;
+	}
+	// 第xx条
+	.article{
+		font-size: 28rpx;
+		font-weight: bold;
+		text-indent: 2em;
+	}
+	// (xx)点
+	.point{
+		font-size: 28rpx;
+		font-weight: 500;
+		text-indent: 2em;
+	}
+	.signature{
+		margin-top: 50rpx;
+		&:last-child{
+			padding-bottom: 100rpx;
+		}
+	}

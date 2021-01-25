@@ -676,15 +676,21 @@
 			"style": {
 				"navigationBarTitleText": "重新审核"
 			}
+		},{
+            "path" : "pages/maintenanceContracts/maintenanceContracts",
+            "style": {
+            	"navigationBarTitleText": "维修合同"
+            }
+            
+        },
+		,{
+		    "path" : "pages/constructionContracts/constructionContracts",
+		    "style": {
+		    	"navigationBarTitleText": "施工合同"
+		    }
+		    
 		}
-		
-		
-		
-		
-		
-
-
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

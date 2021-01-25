@@ -68,9 +68,6 @@ export const ajax = (option) => {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             success: (res) => {
-			
-				// console.log(baseUrl + option.url)
-                // console.log('全局数据', res.data);
                 // 不同状态码相关提示
                 switch (res.data.msgType) {
                     case -1:
