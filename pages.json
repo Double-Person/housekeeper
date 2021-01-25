@@ -683,7 +683,7 @@
             }
             
         },
-		,{
+		{
 		    "path" : "pages/constructionContracts/constructionContracts",
 		    "style": {
 		    	"navigationBarTitleText": "施工合同"
