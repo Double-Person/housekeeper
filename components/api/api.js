@@ -49,6 +49,10 @@ export const daitechnician = data => ajax({ url: '/api/workerorderApi/daitechnic
 // 12、查询主管工人待派单   worker_id 主管的id
 export const daiforeman = data => ajax({ url: '/api/workerorderApi/daiforeman', data, method: 'POST' });
 
+// 13 已派单   worker_id 主管id   levels 1技术人员 2工人
+export const workerOrderList = data => ajax({ url: '/api/workerOrder/list', data, method: 'POST' });
+
+
 // 13  方案
 export const workerorderApiProgramme = data => ajax({ url: '/api/workerorderApi/programme', data, method: 'POST' });
 // 方案通过

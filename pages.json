@@ -560,6 +560,12 @@
 			}
 		},
 		{
+			"path": "pages/home/zgorder/sentSingle",
+			"style": {
+				"navigationBarTitleText": "已派单"
+			}
+		},
+		{
 			"path": "pages/login/directorList",
 			"style": {
 				"navigationBarTitleText": "选择主管"

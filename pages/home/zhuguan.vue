@@ -44,6 +44,11 @@
 					},
 					{
 						image: require("@/static/my_icon/my_dan.png"),
+						middle: "已派单",
+						url: "./zgorder/sentSingle"
+					},
+					{
+						image: require("@/static/my_icon/my_dan.png"),
 						middle: "订单中心",
 						url: "./zgorder/zgOrder"
 

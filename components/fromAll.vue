@@ -7,7 +7,7 @@
 				<!-- 名称+logo -->
 				<view class="new_logo">
 					<image :src="imgBaseUrl + item.image" mode=""></image>
-					<text v-if="item.goods">{{item.goods_type == 0 ? item.goods.name : item.goods.package_name}}</text>
+					<text v-if="item.goods">{{item.goods_type == 0 ? item.goods.name : (item.goods.package_name || item.goods.name) }}</text>
 				</view>
 				<view class="shen">
 					{{msg}}
@@ -19,9 +19,10 @@
 					</view>
 					<view class="new_mid">
 						<text>项目编号: {{item.order_number}}</text>
-						<view>客户姓名: {{item.contact}}</view>
-						<view>客户电话：{{item.phone}}</view>
-						<view>客户地址：{{item.province + item.citys + item.district_county + item.address_details}}</view>
+						<view>{{types}}姓名: {{item.contact}}</view>
+						<view>{{types}}电话：{{item.phone}}</view>
+						<view v-if="doortime">上门时间：{{item.doortime}}</view>
+						<view v-if="showAddress">{{types}}地址：{{item.province + item.citys + item.district_county + item.address_details}}</view>
 						<view v-if="item.statebz" class="statebz">{{item.statebz}}</view>
 					</view>
 				</view>
@@ -65,6 +66,18 @@
 import {imgBaseUrl} from "@/components/api/request.js"
 	export default {
 		props: {
+			showAddress: {
+				type: Boolean,
+				default: true
+			},
+			doortime: {
+				type: Boolean,
+				default: false
+			},
+			types: {
+				type: String,
+				default: '客户'
+			},
 			msg: {
 				type: String,
 				default: ""
