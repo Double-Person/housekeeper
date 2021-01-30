@@ -77,6 +77,9 @@
 		</view>
 
 	</view>
+	<view class="set-contract" @click="setContract">
+		设置合同
+	</view>
 	
     <!-- 提交审核 -->
     <view class="tijsh">
@@ -107,18 +110,18 @@ export default {
 		isShowRetention: false,
 		retention: [], //  本合同保修期列表
 		isCommit: false,
-      imgBaseUrl: imgBaseUrl,
-      info: {}, // 上页信息
-      selectPlant: {}, // 选择方案页信息
-      img: "", //  图片
-      imgList: [],
-      remarks: "", // 备注
-      concessional: "", // 优惠价格
-      isShowPlant: false,
-      isShowPaymentProportion: false, // 是否显示支付比例
-      checkPayPro: null,
-      order_id: "",
-      isAdd:''
+		  imgBaseUrl: imgBaseUrl,
+		  info: {}, // 上页信息
+		  selectPlant: {}, // 选择方案页信息
+		  img: "", //  图片
+		  imgList: [],
+		  remarks: "", // 备注
+		  concessional: "", // 优惠价格
+		  isShowPlant: false,
+		  isShowPaymentProportion: false, // 是否显示支付比例
+		  checkPayPro: null,
+		  order_id: "",
+		  isAdd:''
     };
   },
  async onLoad(option) {
@@ -169,6 +172,26 @@ export default {
     }
   },
   methods: {
+		
+		setContract() {
+			uni.showActionSheet({
+				itemList: ['施工合同','维修合同'],
+				success:  (res) => {
+				        console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+						if(res.tapIndex == 0) { // 施工合同
+						
+							uni.navigateTo({
+								url: '/pages/constructionContracts/constructionContracts?order_id='+this.info.order_id
+							})
+						}
+						if(res.tapIndex == 1) {  // 维修合同
+							uni.navigateTo({
+								url: '/pages/maintenanceContracts/maintenanceContracts?order_id='+this.info.order_id
+							})
+						}
+				 },
+			})
+		},
 	  
 	  // 保存数据
 	  infoSetStorage() {
@@ -345,6 +368,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	.set-contract{
+		// margin: 50rpx 0 50rpx 0;
+		text-align: center;
+		width: 220upx;
+		height: 78upx;
+		border-radius: 8upx;
+		font-size: 32upx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: rgba(51, 51, 51, 1);
+		line-height: 78upx;
+		background: #ffc822;
+	}
 	
 	.retention{
 		display: flex;

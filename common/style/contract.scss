@@ -1,5 +1,25 @@
 .contract{
-		padding: 0 30rpx;
+		// padding: 0 30rpx;
+	}
+	.page{
+		width: 570rpx;
+		// width: ;
+		padding: 113rpx 90rpx;
+		// height: 1060rpx;
+		height: 1560rpx;
+		outline: 1rpx solid red;
+		position: relative;
+		// margin-top: 100rpx;
+	}
+	.page-number{
+		position: absolute;
+		bottom: 20rpx;
+		left: 0;
+		right: 0;
+		margin-top: 15rpx;
+		font-size: 24rpx;
+		text-align: center;
+		color: #666;
 	}
 	.fl {
 		display: flex;
@@ -7,24 +27,16 @@
 	.jc-center{
 		justify-content: center;
 	}
+	.jc-between {
+		justify-content: space-between;
+	}
 	.a-i-center {
 		align-items: center;
 	}
 	.text-center {
 		text-align: center;
 	}
-	// 编号
-	.serial-number{
-		font-size: 28rpx;
-		font-weight: bold;
-	}
-	// 合同名称
-	.contract-name{
-		width: 600rpx;
-		font-size: 40rpx;
-		font-weight: bold;
-		margin: 100rpx auto;
-	}
+	
 	// 合同输入框（较长）
 	.contract-input{
 		min-width: 100rpx;
@@ -36,24 +48,50 @@
 		border-bottom: 1rpx solid #000;
 		display: inline-block;
 	}
+	.date-input-sm{
+		width: 50rpx;
+		border-bottom: 1rpx solid #000;
+		display: inline-block;
+	}
+	.date-input-ml{
+		width: 140rpx;
+		border-bottom: 1rpx solid #000;
+		display: inline-block;
+	}
 	// 详细类容
 	.content{
 		text-indent: 2em;
-		font-size: 28rpx;
+		font-size: 24rpx;
 		line-height: 1.5em;
+	}
+	.merge-content{
+		text-indent: 0 !important;
 	}
 	.keywords{
 		color: red;
 	}
+	// 编号
+	.serial-number{
+		font-size: 26rpx;
+		font-weight: bold;
+	}
+	// 合同名称
+	.contract-name{
+		width: 600rpx;
+		font-size: 40rpx;
+		font-weight: bold;
+		margin: 200rpx auto;
+	}
 	// 第xx条
 	.article{
-		font-size: 28rpx;
+		// font-size: 28rpx;
+		font-size: 26rpx;
 		font-weight: bold;
 		text-indent: 2em;
 	}
 	// (xx)点
 	.point{
-		font-size: 28rpx;
+		font-size: 26rpx;
 		font-weight: 500;
 		text-indent: 2em;
 	}
@@ -62,4 +100,9 @@
 		&:last-child{
 			padding-bottom: 100rpx;
 		}
+	}
+	.over-ellipsis {
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
 	}

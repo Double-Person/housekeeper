@@ -122,7 +122,7 @@ export const search = data => ajax({ url: '/api/workerProgramme/search', data, m
 // 参数  orderprogrammeinfo_id    GET   这个是获取方案信息信息获取接口
 export const orderprogrammeinfo = data => ajax({ url: '/api/workerProgramme/orderprogrammeinfo', data, method: 'GET' });
 
-
+export const contractApiAdd = data => ajax({ url: '/user/contractApi/add', data, method: 'POST' });
 
 
 
