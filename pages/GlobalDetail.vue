@@ -33,8 +33,9 @@
 		</view>
 		<!-- 服务项目 -->
 		<view class="serve" v-if="Object.keys(plantInfo).length > 0">
-			<view class="titb">
+			<view class="titb fl-jc-between">
 				<text class="tit_a">方案详情</text>
+				<text class="tit_a" @click="contractDetail">查看合同</text>
 			</view>
 			<view class="box" v-if="plantInfo.programme">
 				<view class="text" v-for="(item, index) in plantInfo.programme">
@@ -98,7 +99,7 @@
 
 <script>
 	import { imgBaseUrl } from "@/components/api/request.js"
-	import {programmeApiList, goosapiFindById} from "@/components/api/api.js";
+	import {programmeApiList, goosapiFindById, contractType} from "@/components/api/api.js";
 	export default {
 
 		data() {
@@ -125,6 +126,30 @@
 			await this._programmeApiList()
 		},
 		methods: {
+			// 合同详情
+			contractDetail() {
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
+				contractType({order_id: this.order_id}).then(res => {
+					if(res.varList.contract_type == 1) { // 施工合同
+						uni.navigateTo({
+							url: 'constructionContracts/constructionContracts?order_id='+ this.order_id + '&disabel=disabel'
+						})
+					}else if(res.varList.contract_type == 2) {  // 维修合同
+						uni.navigateTo({
+							url: 'maintenanceContracts/maintenanceContracts?order_id=' +this.order_id + '&disabel=disabel'
+						})
+					}else {
+						uni.showToast({
+							title: '系统错误',
+							icon: 'none'
+						})
+					}
+				}).finally(() => uni.hideLoading())
+				
+			},
 			_goosapiFindById() {
 				goosapiFindById({order_id: this.order_id}).then(res => {
 					this.info = res.varList
@@ -147,6 +172,10 @@
 </script>
 
 <style lang="scss" scoped>
+	.fl-jc-between{
+		display: flex;
+		justify-content: space-between;
+	}
 	.index {
 		width: 750upx;
 		background-color: #F2F2F2;

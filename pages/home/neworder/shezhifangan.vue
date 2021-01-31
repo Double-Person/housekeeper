@@ -5,8 +5,8 @@
 				<text>选择方案</text>
 				<image src="/static/loginImg/hright.png" mode=""></image>
 			</view>
-
 			<view class="bigBox" v-if="isShowPlant && selectPlant.list != 0">
+
 				<view class="text" v-for="item in selectPlant.list" :key="item.programme_id">
 					<view class="text_a">{{ item.name }}</view>
 					<view class="text_b">{{ item.price }}/{{ item.company }}</view>
@@ -41,57 +41,56 @@
 			<view class="tit">备注</view>
 			<textarea v-model="remarks" placeholder="请输入备注" :maxlength="-1" class="inp" />
 			</view>
-    <!-- 支付比例 -->
-    <view class="warp-option">
-      <view class="pay">
-        <view class="tit">支付比例</view>
-        <input
-          type="number"
-          @input="inputPayPro"
-		  placeholder-class="placeholder-class"
-          :max="99"
-          :maxlength="5"
-          v-model="checkPayPro"
-          placeholder="请输入1-99的支付比例"
-        />
-      </view>
-    </view>
-	
-	<view class="retention">
-	
-	    <view class="tit">本合同保修期</view>
-		<view class="retention-right">
-			<!-- qualitydeposit_id -->
-			<view class="checkRetention" @click="isShowRetention = !isShowRetention;">
-				<text v-if="qualitydepositObj.qualitydeposit_id">{{ qualitydepositObj.warranty_time }} 月 </text>
-				<text v-if="!qualitydepositObj.qualitydeposit_id">本合同保修期</text>
-			</view>
-			<view v-show="isShowRetention" class="list" 
-			v-for="(ret, inR) in retention" :key="inR" 
-			@click="qualitydepositObj= ret; isShowRetention = !isShowRetention;">
-				<view class="" :style="{color: qualitydepositObj.qualitydeposit_id == ret.qualitydeposit_id ? 'red' : ''}">
-					{{ ret.warranty_time }} 月 
-				</view>
-				<view class="symbol" v-if="qualitydepositObj.qualitydeposit_id == ret.qualitydeposit_id"> √ </view>
-			</view>
+		<!-- 支付比例 -->
+		<view class="warp-option">
+		  <view class="pay">
+			<view class="tit">支付比例</view>
+			<input
+			  type="number"
+			  @input="inputPayPro"
+			  placeholder-class="placeholder-class"
+			  :max="99"
+			  :maxlength="5"
+			  v-model="checkPayPro"
+			  placeholder="请输入1-99的支付比例"
+			/>
+		  </view>
 		</view>
 
+		<view class="retention">
+			<view class="tit">本合同保修期</view>
+			<view class="retention-right">
+				<!-- qualitydeposit_id -->
+				<view class="checkRetention" @click="isShowRetention = !isShowRetention;">
+					<text v-if="qualitydepositObj.qualitydeposit_id">{{ qualitydepositObj.warranty_time }} 月 </text>
+					<text v-if="!qualitydepositObj.qualitydeposit_id">本合同保修期</text>
+				</view>
+				<view v-show="isShowRetention" class="list" 
+					v-for="(ret, inR) in retention" :key="inR" 
+					@click="qualitydepositObj= ret; isShowRetention = !isShowRetention;">
+					<view class="" :style="{color: qualitydepositObj.qualitydeposit_id == ret.qualitydeposit_id ? 'red' : ''}">
+						{{ ret.warranty_time }} 月 
+					</view>
+					<view class="symbol" v-if="qualitydepositObj.qualitydeposit_id == ret.qualitydeposit_id"> √ </view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="set-contract" @click="setContract">
+			设置合同
+		</view>
+
+		<!-- 提交审核 -->
+		<view class="tijsh">
+		  <view class="text">
+			<text>总价:</text>
+			<text>{{ comptedMoney() }} </text>
+			<text>￥{{( ( comptedMoney() - (concessional || 0) ) * checkPayPro / 100 ) < 0 ? 0 : ( (comptedMoney() - (concessional || 0))  ).toFixed(2) || 0 }}
+			</text>
+		  </view>
+		  <view class="btn" @click="submitAudit">提交审核</view>
+		</view>
 	</view>
-	<view class="set-contract" @click="setContract">
-		设置合同
-	</view>
-	
-    <!-- 提交审核 -->
-    <view class="tijsh">
-      <view class="text">
-        <text>总价:</text>
-        <text>{{ comptedMoney() }}</text>
-        <text>￥{{	 ( ( comptedMoney() - concessional ) * checkPayPro / 100 ) < 0 ? 0 : ( (comptedMoney() - concessional)  ).toFixed(2) }}
-		</text>
-      </view>
-      <view class="btn" @click="submitAudit">提交审核</view>
-    </view>
-  </view>
 </template>
 
 <script>
@@ -99,102 +98,162 @@ import {
   upLoadFile,
   addprogrammeinfo,
   programmeApiList,
+  contractType,
+  contractById,
   qualitydeposit
 } from "@/components/api/api.js";
 import { imgBaseUrl } from "@/components/api/request.js";
+import { eventBus } from "@/components/eventBus/eventBus.js"
 export default {
   data() {
     return {
+		contract_id: '', // 合同id
 		qualitydeposit_id: '',
 		qualitydepositObj: {},
 		isShowRetention: false,
 		retention: [], //  本合同保修期列表
 		isCommit: false,
-		  imgBaseUrl: imgBaseUrl,
-		  info: {}, // 上页信息
-		  selectPlant: {}, // 选择方案页信息
-		  img: "", //  图片
-		  imgList: [],
-		  remarks: "", // 备注
-		  concessional: "", // 优惠价格
-		  isShowPlant: false,
-		  isShowPaymentProportion: false, // 是否显示支付比例
-		  checkPayPro: null,
-		  order_id: "",
-		  isAdd:''
+		imgBaseUrl: imgBaseUrl,
+		info: {}, // 上页信息
+		selectPlant: {}, // 选择方案页信息
+		img: "", //  图片
+		imgList: [],
+		remarks: "", // 备注
+		concessional: 0, // 优惠价格
+		isShowPlant: false,
+		isShowPaymentProportion: false, // 是否显示支付比例
+		checkPayPro: null,
+		order_id: "",
+		isAdd:''
     };
   },
  async onLoad(option) {
+	 const that = this;
     if (option.info) {
+		
       this.info = JSON.parse(option.info);
-	  this._qualitydeposit(this.info.order_id)
+	  console.log(this.info)
+	  if(this.info.order_id) {
+		  this._qualitydeposit(this.info.order_id)
+		  this.order_id = this.info.order_id
+	  }
+	  
     }
-	
-	
-	try{
-		let locaData = uni.getStorageSync('locaData');
-		if(locaData) {
-			let obj = JSON.parse(locaData);
-			this.concessional = obj.concessional;
-			this.imgList = obj.imgList;
-			this.remarks = obj.remarks;
-			this.checkPayPro = obj.checkPayPro;
-		}
-	}catch(e){
-		//TODO handle the exception
+	if(option.contract_id) {
+		this.contract_id = option.contract_id
 	}
 
+	uni.$on('selectPlant', (value) => {
+		console.log('创建接受', value)
+		if (value) {
+		  this.selectPlant = value;
+		  this.selectPlant.list = this.selectPlant.list.filter((ele) => ele);
+		  console.log(this.selectPlant);
+		  this.isShowPlant = true;
+		  this.$forceUpdate()
+		  uni.$off('selectPlant')
+		} else {
+		  this.isShowPlant = false;
+		}
+		
+	})
+
+	
+	
+
     if (option.order_id) {
-      this.order_id = option.order_id;
-	 await  this._qualitydeposit(this.order_id)
-     await programmeApiList({ order_id: option.order_id }).then((res) => {
-        let aginInfo = res.varList;
-		this.qualitydepositObj = aginInfo.orderdeposit
- 
-        this.remarks = aginInfo.remarks; // 备注
-         this.concessional = aginInfo.concessional; // 优惠价格
-        this.imgList = aginInfo.urllist.map((ele) => ele.picture_url);
-        this.checkPayPro = aginInfo.proportion * 100;
-        if(aginInfo.proportion) {
-          this.isAdd = 'edit'
-        }
+		this.order_id = option.order_id;
+		await this._qualitydeposit(this.order_id)
+		await this._contractById()
+		await programmeApiList({ order_id: option.order_id }).then((res) => {
+			let { orderdeposit, remarks, concessional, urllist, proportion } = res.varList;
+			this.qualitydepositObj = orderdeposit
+	 
+			this.remarks = remarks; // 备注
+			this.concessional = concessional; // 优惠价格
+			this.imgList = urllist.map((ele) => ele.picture_url);
+			this.checkPayPro = proportion * 100;
+			if(proportion) {
+			  this.isAdd = 'edit'
+			}
 
       });
     }
+	
+	setTimeout(() => {
+		try{
+			let locaData = uni.getStorageSync('locaData');
+			if(locaData) {
+				let obj = JSON.parse(locaData);
+				this.concessional = obj.concessional;
+				this.imgList = obj.imgList;
+				this.remarks = obj.remarks;
+				this.checkPayPro = obj.checkPayPro;
+			}
+		}catch(e){}
+	},500)
 
-    if (option.selectPlant) {
-      this.selectPlant = JSON.parse(option.selectPlant);
-
-      this.selectPlant.list = this.selectPlant.list.filter((ele) => ele);
-      this.isShowPlant = true;
-    } else {
-      this.isShowPlant = false;
-    }
+	
+	
+    
+  },
+  computed:{
+	  // 计算价格
+	  
   },
   methods: {
 		
-		setContract() {
+	setContract() {
+		if(!this.order_id) {
+			return false;
+		}
+		contractType({order_id: this.order_id}).then(res => {
+			let list = ['施工合同', '维修合同'];
+			console.log(res)
+			if(res.varList && res.varList.contract_type) {
+				// contract_type  合同类型 1 施工、2维修
+				if(res.varList.contract_type == 1) {
+					list = ['施工合同']
+				}else if(res.varList.contract_type == 2) {
+					list = ['维修合同']
+				}
+			}
 			uni.showActionSheet({
-				itemList: ['施工合同','维修合同'],
+				itemList: list,
 				success:  (res) => {
-				        console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
-						if(res.tapIndex == 0) { // 施工合同
-						
-							uni.navigateTo({
-								url: '/pages/constructionContracts/constructionContracts?order_id='+this.info.order_id
-							})
-						}
-						if(res.tapIndex == 1) {  // 维修合同
-							uni.navigateTo({
-								url: '/pages/maintenanceContracts/maintenanceContracts?order_id='+this.info.order_id
-							})
-						}
+					this.infoSetStorage();	
+					// this.selectPlant
+					// let selectPlant = JSON.stringify(this.selectPlant);
+					let info = JSON.stringify(this.info);
+					setTimeout(() => {
+						uni.$emit("selectPlant", this.selectPlant);
+					}, 500)
+					if(list[res.tapIndex] == '施工合同') { // 施工合同
+						uni.navigateTo({
+							url: '/pages/constructionContracts/constructionContracts?order_id='+this.order_id + '&info='+ info
+						})
+					}
+					if(list[res.tapIndex] == '维修合同') {  // 维修合同
+						uni.navigateTo({
+							url: '/pages/maintenanceContracts/maintenanceContracts?order_id='+this.order_id + '&info='+ info
+						})
+					}
 				 },
 			})
-		},
+		})
+		
+	},
 	  
-	  // 保存数据
-	  infoSetStorage() {
+	_contractById() {
+		contractById({order_id: this.order_id}).then(res => {
+			console.log(res)
+			if(res.result == "success") {
+				this.contract_id = res.varList.contract_id
+			}
+		})
+	},
+	// 保存数据
+	infoSetStorage() {
 		let locaData = {
 			  concessional: this.concessional,  // 优惠价
 			  imgList: this.imgList,  //   上传图片
@@ -202,7 +261,7 @@ export default {
 			  checkPayPro: this.checkPayPro
 		}
 		uni.setStorageSync('locaData', JSON.stringify(locaData))  
-	  },
+	},
 	  
 	  
 	  // 本合同保修期列表
@@ -238,8 +297,7 @@ export default {
       // }
 		  for (let i = 0; i < this.selectPlant.list.length; i++) {
 			if (this.selectPlant.list[i].num == "") {
-			  uni.showToast({ title: "请输入方案平方数量", icon: "none" });
-			  return false;
+			  return uni.showToast({ title: "请输入方案平方数量", icon: "none" });
 			}
 		  }
 		  if (concessional == "") {
@@ -261,17 +319,17 @@ export default {
 	  if (!this.qualitydepositObj.qualitydeposit_id) {
 	    return uni.showToast({ title: "请选择本合同保修期", icon: "none" });
 	  }
+	  if(!this.contract_id) {
+		  return uni.showToast({ title: "设置合同", icon: "none" });
+	  }
 	  
 	  
       if (this.order_id) {
         this.info.order_id = this.order_id;
       }
 	  this.isCommit = true;
-	  uni.showLoading({
-	  	title: '加载中',
-		mask: true
-	  })
-	 uni.removeStorageSync('locaData');
+	  uni.showLoading({ title: '加载中', mask: true });
+	  uni.removeStorageSync('locaData');
       let obj = {
         type: this.isAdd == 'edit' ? 1 : 0, 
         starttime,
@@ -291,16 +349,13 @@ export default {
 		qualitydeposit_id: this.qualitydepositObj.qualitydeposit_id,
       };
       
-
-
+		console.log('提交订单', obj);
+		// return false;
       addprogrammeinfo(obj).then((res) => {
 		const that = this;
         if (res.msgType == 0) {
           setTimeout(() => {
-			  uni.showToast({
-			    title: "提交成功",
-			    icon: "none",
-			  });
+			  uni.showToast({ title: "提交成功", icon: "none", });
 			  that.$toIndex()
 		  }, 300)
         }
@@ -316,26 +371,21 @@ export default {
         this.checkPayPro = 99;
       }
     },
-    // 计算价格
-    comptedMoney() {
-      let num = 0;
-      if (this.selectPlant.list && this.selectPlant.list.length) {
-        // let sum = this.selectPlant.list.map(ele => ele.price).forEach(item => { num += (item * 1) });
+   
 
-        console.log("计算价格", this.selectPlant.list);
-        let sum = this.selectPlant.list
-          .map((item) => item.price * (item.num || 0))
-          .forEach((item) => {
-            num += item * 1;
-          });
-      }
-	  // if(this.qualitydepositObj.warranty_money) {
-		 //  let qualit = this.qualitydepositObj.warranty_money * 1;
-		 //  return num + qualit;
-	  // }
-      return num ;
-    },
-
+	comptedMoney() {
+	  let num = 0;
+	  if (this.selectPlant.list && this.selectPlant.list.length) {
+	    // let sum = this.selectPlant.list.map(ele => ele.price).forEach(item => { num += (item * 1) });
+	    let sum = this.selectPlant.list
+	      .map((item) => item.price * (item.num || 0))
+	      .forEach((item) => {
+	        num += item * 1;
+	      });
+	  }
+	  return num || 0 ;
+	},
+	
     // 选择图片上传
     chooseImgUpload(index) {
       uni.chooseImage({
@@ -343,25 +393,24 @@ export default {
         sizeType: ["original", "compressed"], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ["album", "camera"], //从相册选择
         success: (res) => {
+			uni.showLoading({ title: '上传中', mask: true })
           upLoadFile({ path: res.tempFilePaths[0] }).then((upFile) => {
-            // this.img = JSON.parse(upFile.data).data
             if (index == "all") {
               this.imgList.push(JSON.parse(upFile.data).data);
             } else {
               this.imgList[index] = JSON.parse(upFile.data).data;
             }
-          });
+          }).finally(() => uni.hideLoading())
         },
       });
     },
 
     // 设置选择方案
     szfan() {
-		this.infoSetStorage();
-		
-      uni.navigateTo({
-        url: "xuanzefangan?info=" + JSON.stringify(this.info) + "&order_id=" + this.order_id,
-      });
+		this.infoSetStorage();	
+	    uni.navigateTo({
+			url: "xuanzefangan?info=" + JSON.stringify(this.info) + "&order_id=" + this.order_id,
+	    });
     },
   },
 };

@@ -103,7 +103,7 @@ import {imgBaseUrl} from "@/components/api/request.js"
 		mounted() {
 			this.info = this.item
 			this.hasChildInfo = this.hasChildItem
-			console.log('this.info', this.info, this.hasChildItem)
+			// console.log('this.info', this.info, this.hasChildItem)
 		},
 		methods:{
 			getDetail(item){

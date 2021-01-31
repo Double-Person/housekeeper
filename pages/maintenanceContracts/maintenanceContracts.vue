@@ -7,20 +7,20 @@
 		<!-- 第一页 -->
 		<view class="page" id="page1">
 
-			<view class="fl a-i-center"><text class="serial-number">编号：</text><input type="text" class="contract-input" v-model="form.value1" /></view>
+			<view class="fl a-i-center"><text class="serial-number">编号：</text><input :disabled="isDisabled" type="text" class="contract-input" v-model="form.value1" /></view>
 			<view class="text-center contract-name">四川房管家信息科技有限公司维修合同</view>
 
-			<view class="fl a-i-center jc-center"><text class="serial-number">甲方：</text><input type="text" v-model="form.value2"
+			<view class="fl a-i-center jc-center"><text class="serial-number">甲方：</text><input :disabled="isDisabled" type="text" v-model="form.value2"
 				 class="contract-input" /></view>
 			<view class="fl a-i-center jc-center"><text class="serial-number">乙方：</text>四川房管家信息科技有限公司</view>
 
 			<view class="fl a-i-center jc-center">
 				<text class="serial-number">签订日期：</text>
-				<input type="text" class="date-input" v-model="form.value3" />
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value3" />
 				<text class="serial-number">年</text>
-				<input type="text" class="date-input" v-model="form.value4" />
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value4" />
 				<text class="serial-number">月</text>
-				<input type="text" class="date-input" v-model="form.value5" />
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value5" />
 				<text class="serial-number">日</text>
 			</view>
 			<view class="page-number">
@@ -30,12 +30,12 @@
 
 		<!-- 第二页 -->
 		<view class="page" id="page2">
-			<view class="fl a-i-center"><text class="serial-number">甲方：</text><input type="text" v-model="form.value6" class="contract-input" /></view>
-			<view class="fl a-i-center"><text class="serial-number">负责人：</text><input type="text" v-model="form.value7" class="contract-input" /></view>
-			<view class="fl a-i-center"><text class="serial-number">地址：</text><input type="text" v-model="form.value8" class="contract-input" /></view>
-			<view class="fl a-i-center"><text class="serial-number">联系方式：</text><input type="text" v-model="form.value9" class="contract-input" /></view>
+			<view class="fl a-i-center"><text class="serial-number">甲方：</text><input :disabled="isDisabled" type="text" v-model="form.value6" class="contract-input" /></view>
+			<view class="fl a-i-center"><text class="serial-number">负责人：</text><input :disabled="isDisabled" type="text" v-model="form.value7" class="contract-input" /></view>
+			<view class="fl a-i-center"><text class="serial-number">地址：</text><input :disabled="isDisabled" type="text" v-model="form.value8" class="contract-input" /></view>
+			<view class="fl a-i-center"><text class="serial-number">联系方式：</text><input :disabled="isDisabled" type="text" v-model="form.value9" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">乙方：</text>四川房管家信息科技有限公司</view>
-			<view class="fl a-i-center"><text class="serial-number">公司负责人：</text><input type="text" v-model="form.value10" class="contract-input" /></view>
+			<view class="fl a-i-center"><text class="serial-number">公司负责人：</text><input :disabled="isDisabled" type="text" v-model="form.value10" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">公司地址：</text>四川省绵阳市经开区贾家店89号</view>
 			<view class="fl a-i-center"><text class="serial-number">联系方式：</text>0816—285959889</view>
 
@@ -47,30 +47,17 @@
 			</view>
 
 			<view class="article">第一条工程项目</view>
-			<view class="point">（一）、工程名称：<input type="text" v-model="form.value11" class="contract-input" /></view>
-			<view class="point">（二）、工程地址：<input type="text" v-model="form.value12" class="contract-input" /></view>
+			<view class="point">（一）、工程名称：<input :disabled="isDisabled" type="text" v-model="form.value11" class="contract-input" /></view>
+			<view class="point">（二）、工程地址：<input :disabled="isDisabled" type="text" v-model="form.value12" class="contract-input" /></view>
 			<view class="point">（三）、工程范围： 见附件（ 详见“世隆房管”APP施工方案清单）</view>
 			<view class="point">（四）、双方商定采取乙方包工、包全部材料的承包方式;</view>
-			<view class="point">（五）、合同价款： ￥<input type="text" v-model="form.value13" class="contract-input" />元，大写（人名币）
-				<input type="text" v-model="form.value14" class="contract-input" />。
+			<view class="point">（五）、合同价款： ￥<input :disabled="isDisabled" type="text" v-model="form.value13" class="contract-input" />元，大写（人名币）
+				<input :disabled="isDisabled" type="text" v-model="form.value14" class="contract-input" />。
 			</view>
 
 
 
-			<view class="article">第二条 工程期限</view>
-			<view class="content">
-				本工程经甲乙双方协商一致，总工期
-				<input type="text" class="date-input" v-model="form.value15" />
-				天（<input type="text" class="date-input" v-model="form.value16" />年
-				<input type="text" class="date-input" v-model="form.value17" />月
-				<input type="text" class="date-input" v-model="form.value18" />日至
-				<input type="text" class="date-input" v-model="form.value19" />年
-				<input type="text" class="date-input" v-model="form.value20" />月
-				<input type="text" class="date-input" v-model="form.value21" />日
-			</view>
-			<view class="article">第三条 工程质量管理及验收</view>
-			<view class="point">（一）、工程具备隐蔽条件，乙方先进行自检，并在隐蔽验收前通知甲方验收。验收合格，
-			</view>
+			
 
 			<view class="page-number">
 				第2页 共{{ pages }}页
@@ -79,6 +66,20 @@
 
 		<!-- 第三页 -->
 		<view class="page" id="page3">
+			<view class="article">第二条 工程期限</view>
+			<view class="content">
+				本工程经甲乙双方协商一致，总工期
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value15" />
+				天（<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value16" />年
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value17" />月
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value18" />日至
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value19" />年
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value20" />月
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value21" />日
+			</view>
+			<view class="article">第三条 工程质量管理及验收</view>
+			<view class="point">（一）、工程具备隐蔽条件，乙方先进行自检，并在隐蔽验收前通知甲方验收。验收合格，
+			</view>
 			<view class="point merge-content">
 				甲方现场代表在<text class="keywords">APP</text>验收记录上确认后。验收不合格，乙方予以整改后再交由甲方重新验收。
 			</view>
@@ -90,7 +91,7 @@
 
 			<view class="article">第四条关于工程款项支付的约定</view>
 			<view class="point">
-				双方商定本合同价款采用固定价格，甲方分2次支付合同款项：第1次支付合同总价款的<input type="text" v-model="form.value22" class="date-input" />
+				双方商定本合同价款采用固定价格，甲方分2次支付合同款项：第1次支付合同总价款的<input :disabled="isDisabled" type="text" v-model="form.value22" class="date-input" />
 				% ，竣工验收合格后甲方须3个工作日内支付余下总价款。
 			</view>
 
@@ -105,10 +106,7 @@
 
 			<view class="article">第五条 其它约定</view>
 			<view class="point">（一）、甲方的责任</view>
-			<view class="content">
-				1、开工前，与乙方确认施工方案（作法说明，<text class="keywords">详情见APP施工方案</text>）。向乙方提供施工所需的水、电、气及电讯等设备，
-				并说明使用注
-			</view>
+			
 
 
 			<view class="page-number">
@@ -118,12 +116,14 @@
 
 		<!-- 第四页 -->
 		<view class="page" id="page4">
-			<view class="content merge-content">
-				意事项。办理施工所涉及的各种申请、批件等手续。
+			<view class="content">
+				1、开工前，与乙方确认施工方案（作法说明，<text class="keywords">详情见APP施工方案</text>）。向乙方提供施工所需的水、电、气及电讯等设备，
+				并说明使用注意事项。办理施工所涉及的各种申请、批件等手续。
 			</view>
+			
 			<view class="content">
 				2、指派
-				<input type="text" class="date-input" v-model="form.value23" />
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value23" />
 				为甲方驻工地代表，负责合同履行。对工程质量、进度进行监督检查，办理验收、变更、登记手续和其他事宜。
 			</view>
 
@@ -148,8 +148,8 @@
 			</view>
 			<view class="content">
 				2、指派
-				<input type="text" class="date-input" v-model="form.value24" />
-				为乙方驻工地代表，负责合同履行。按要求组织施工，保质、保量、按期
+				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value24" />
+				为乙方驻工地代表，负责合同履行。按要求组织施工，保质、保量、按期完成施工任务，解决由乙方负责的各项事宜。
 			</view>
 
 			<view class="page-number">
@@ -159,9 +159,7 @@
 
 		<!-- 第五页 -->
 		<view class="page" id="page5">
-			<view class="content merge-content">
-				完成施工任务，解决由乙方负责的各项事宜。
-			</view>
+			
 			<view class="content">
 				3、遵守国家或地方政府及有关部门对施工现场管理的规定，严格按照施工方案（作法说明）进行施工，妥善保护好施工现场周围建筑物、设备管线。做好施工现场垃圾消纳
 				等工作，做好各项质量检查记录，加强施工人员的安全教育管理，参加竣工验收。
@@ -182,9 +180,16 @@
 				2、维修过程中，乙方对甲方原有家具等物品进行搬运复原后出现的“原貌误差”等情况均属不可避免的正常现象，双方须认同，甲方不得要求乙方对此负责。
 			</view>
 			<view class="content">
-				3、甲方须正确认识“维修”与“新建、新做”的区别，须正确接受维修项目质量和外貌不可能与完全新建、新做项目的质量和外貌一致的
+				3、甲方须正确认识“维修”与“新建、新做”的区别，须正确接受维修项目质量和外貌不可能与完全新建、新做项目的质量和外貌一致的情况，对此，甲方不得要求乙方承担任何责任。
 			</view>
-
+			<view class="article">第六条 工程保修约定</view>
+			<view class="content">
+				施工项目保修期<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value25" />年；
+			</view>
+			<view class="content">
+				①本施工项目保修期自竣工验收合格之日起计算；②如甲方未按本合同规定按时向乙方支付工程施工费用或因地震、洪灾、在连续24小时内降雨量达到200毫米
+				（含200毫米）以上、在任何6小时内降雪量达到300毫米（含300毫米）以上等特殊情况导致本施工项目出现质量问题的，乙方不予承担保修责任。③保修期间因人为
+			</view>
 
 
 
@@ -193,17 +198,9 @@
 			</view>
 		</view>
 		<view class="page" id="page6">
+			
 			<view class="content merge-content">
-				情况，对此，甲方不得要求乙方承担任何责任。
-			</view>
-			<view class="article">第六条 工程保修约定</view>
-			<view class="content">
-				施工项目保修期<input type="text" class="date-input" v-model="form.value25" />年；
-			</view>
-			<view class="content">
-				①本施工项目保修期自竣工验收合格之日起计算；②如甲方未按本合同规定按时向乙方支付工程施工费用或因地震、洪灾、在连续24小时内降雨量达到200毫米
-				（含200毫米）以上、在任何6小时内降雪量达到300毫米（含300毫米）以上等特殊情况导致本施工项目出现质量问题的，乙方不予承担保修责任。③保修期间因人为因
-				素导致施工项目成品及设施而出现的质量问题，乙方不予承担保修责任。
+				因素导致施工项目成品及设施而出现的质量问题，乙方不予承担保修责任。
 			</view>
 
 			<view class="article">第七条　纠纷解决办法 </view>
@@ -217,42 +214,37 @@
 
 			<view class="fl jc-between">
 				<view class="signature" style="flex: 1;">
-					<view class="fl a-i-center"><text class="serial-number">甲方：</text><input type="text" class="date-input-ml" v-model="form.value26" /></view>
-					<view class="fl a-i-center"><text class="serial-number">代理人：</text><input type="text" class="date-input-ml"
+					<view class="fl a-i-center"><text class="serial-number">甲方：</text><input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value26" /></view>
+					<view class="fl a-i-center"><text class="serial-number">负责人：</text><input :disabled="isDisabled" type="text" class="date-input-ml"
 						 v-model="form.value27" /></view>
-					<input type="text" v-model="form.value28" class="date-input" />
+					<input :disabled="isDisabled" type="text" v-model="form.value28" class="date-input" />
 					<text class="serial-number">年</text>
-					<input type="text" v-model="form.value29" class="date-input-sm" />
+					<input :disabled="isDisabled" type="text" v-model="form.value29" class="date-input-sm" />
 					<text class="serial-number">月</text>
-					<input type="text" class="date-input-sm" v-model="form.value30" />
+					<input :disabled="isDisabled" type="text" class="date-input-sm" v-model="form.value30" />
 					<text class="serial-number">日</text>
 				</view>
 
 				<view class="signature" style="flex: 1;">
 					<view class="fl a-i-center over-ellipsis"><text class="serial-number">乙方：</text>四川房管家信息科技有限公司</view>
-					<view class="fl a-i-center"><text class="serial-number">代理人：</text><input type="text" class="date-input-ml"
+					<view class="fl a-i-center"><text class="serial-number">负责人：</text><input :disabled="isDisabled" type="text" class="date-input-ml"
 						 v-model="form.value31" /></view>
-					<input type="text" class="date-input" v-model="form.value32" />
+					<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value32" />
 					<text class="serial-number">年</text>
-					<input type="text" class="date-input-sm" v-model="form.value33" />
+					<input :disabled="isDisabled" type="text" class="date-input-sm" v-model="form.value33" />
 					<text class="serial-number">月</text>
-					<input type="text" class="date-input-sm" v-model="form.value34" />
+					<input :disabled="isDisabled" type="text" class="date-input-sm" v-model="form.value34" />
 					<text class="serial-number">日</text>
 				</view>
 			</view>
 			<view class="page-number">
-				第7页 共{{ pages }}页
-			</view>
-
-
-			<view class="page-number">
 				第6页 共{{ pages }}页
 			</view>
+
+
+			
 		</view>
 
-		<view class="page" id="page7">
-
-		</view>
 
 
 
@@ -266,7 +258,8 @@
 	} from 'image-tools'
 	import {
 		upLoadFile,
-		contractApiAdd
+		contractApiAdd,
+		contractById
 	} from "@/components/api/api.js"
 	import {
 		imgBaseUrl
@@ -274,6 +267,9 @@
 	export default {
 		data() {
 			return {
+				disabel: '',
+				info: {},
+				selectPlant: {},
 				order_id: '',
 				pages: 6,
 				imgBaseUrl: imgBaseUrl,
@@ -316,12 +312,42 @@
 				}
 			};
 		},
+		computed:{
+			isDisabled() {
+				return (this.disabel == 'disabel')
+			}
+		},
 		onLoad(opt) {
-			this.order_id = opt.order_id
+			this.order_id = opt.order_id;
+			if(opt.info) {  // 维修合同
+				this.info = JSON.parse(opt.info);
+			}
+			if(opt.selectPlant) {
+				this.selectPlant = JSON.parse(opt.selectPlant);
+			}
+			if(opt.disabel) {
+				this.disabel = opt.disabel
+			}
+			this._contractById()
+			uni.$on('selectPlant', (value) => {
+				if (value) {
+				  this.selectPlant = value;
+				  uni.$off('selectPlant')
+				} 
+			})
 		},
 		methods: {
 			_contractApiAdd() {
 				// order_id    订单id
+				let arr = Object.values(this.form);
+				let trimArr = arr.filter(ele => ele);
+				if(trimArr.length <34) {
+					let { value26, value27 } = this.form;
+					if(!value26.trim() || !value27.trim()) {
+						return uni.showToast({ title: '请完善合同信息', icon: 'none' })
+					}
+				}
+				
 				// contract_type  合同类型 1 施工、2维修
 				let parmas = {
 					order_id: this.order_id,
@@ -329,9 +355,36 @@
 					...this.form
 				}
 				contractApiAdd(parmas).then(res => {
-					console.log(res)
+					if(res.result == "success") {
+						// let selectPlant = JSON.stringify(this.selectPlant);
+						let info = JSON.stringify(this.info);
+						setTimeout(() => {
+							uni.$emit("selectPlant", this.selectPlant);
+						}, 500)
+						uni.navigateTo({
+							url:'../home/neworder/shezhifangan?info='+ info+ '&order_id=' + this.order_id + '&contract_id=' + res.contract_id 
+						})
+					}else{
+						uni.showToast({
+							title: res.mig || '提交失败',
+							icon: 'none'
+						})
+					}
+					
 				})
 			},
+			
+			_contractById() {
+				contractById({order_id: this.order_id}).then(res => {
+					console.log(res)
+					if(res.result == "success") {
+						if(res.varList && res.varList.contractxq) {
+							this.form = res.varList && res.varList.contractxq
+						}
+					}
+				})
+			},
+			
 			receiveRenderData(opt) {
 				const that = this;
 				base64ToPath(opt.val)

@@ -5,8 +5,8 @@
 		width: 570rpx;
 		// width: ;
 		padding: 113rpx 90rpx;
-		// height: 1060rpx;
-		height: 1560rpx;
+		height: 1060rpx;
+		// height: 1560rpx;
 		outline: 1rpx solid red;
 		position: relative;
 		// margin-top: 100rpx;
@@ -96,10 +96,20 @@
 		text-indent: 2em;
 	}
 	.signature{
+		width: 50%;
 		margin-top: 50rpx;
+		flex: 1;
 		&:last-child{
 			padding-bottom: 100rpx;
 		}
+	}
+	.company{
+		font-size: 24rpx;
+	}
+	input {
+		// padding: 0;
+		text-indent: 0;
+		font-size: 24rpx;
 	}
 	.over-ellipsis {
 	  overflow: hidden;

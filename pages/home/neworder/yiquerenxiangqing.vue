@@ -35,7 +35,7 @@
 		<view class="serve">
 			<view class="titb">
 				<text class="tit_a">方案详情</text>
-				<text class="tit_b"></text>
+				<text class="tit_b" @click="_contractType({contract_type:plantInfo.contract.contract_type, order_id :plantInfo.order_id})">查看合同</text>
 			</view>
 			<view class="box" v-if="plantInfo.programme">
 				<view class="text" v-for="(item, index) in plantInfo.programme">
@@ -105,6 +105,23 @@
 			this._programmeApiList()
 		},
 		methods: {
+			_contractType({contract_type, order_id}) {
+				if(contract_type == 1) { // 施工合同
+					uni.navigateTo({
+						url: '../../constructionContracts/constructionContracts?order_id='+ order_id + '&disabel=disabel'
+					})
+				}else if(contract_type == 2) {  // 维修合同
+					uni.navigateTo({
+						url: '../../maintenanceContracts/maintenanceContracts?order_id=' +order_id + '&disabel=disabel'
+					})
+				}else {
+					uni.showToast({
+						title: '系统错误',
+						icon: 'none'
+					})
+				}
+				
+			},
 			_programmeApiList() {
 				programmeApiList({ order_id: this.info.order_id }).then(res => {
 					console.log(res)
@@ -324,7 +341,7 @@
 			}
 			.tit_b{
 				float:right;
-				color: #D4D4D4;
+				// color: #D4D4D4;
 			}
 		}
 

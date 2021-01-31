@@ -123,6 +123,18 @@ export const search = data => ajax({ url: '/api/workerProgramme/search', data, m
 export const orderprogrammeinfo = data => ajax({ url: '/api/workerProgramme/orderprogrammeinfo', data, method: 'GET' });
 
 export const contractApiAdd = data => ajax({ url: '/user/contractApi/add', data, method: 'POST' });
+// 根据订单id查询合同
+export const contractById = data => ajax({ url: '/user/contractApi/contractById', data, method: 'POST' });
+
+
+export const contractType = data => ajax({ url: '/user/contractApi/contract_type', data, method: 'POST' });
+
+
+export const selectid = data => ajax({ url: '/user/contractApi/selectid', data, method: 'POST' });
+
+
+
+
 
 
 

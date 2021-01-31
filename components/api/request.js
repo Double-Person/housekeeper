@@ -4,15 +4,16 @@ baseUrl_ =''
 // #endif
 
 // #ifdef APP-PLUS
-baseUrl_ ='https://yflh.hkzhtech.com/housekeeper'
+// baseUrl_ ='https://yflh.hkzhtech.com/housekeeper'
+baseUrl_ ='http://192.168.0.110:8081'
 // #endif
 export const baseUrl = baseUrl_
 
 // export const imgBaseUrl = baseUrl + '/'
 
 
-export const imgBaseUrl = 'https://yflh.hkzhtech.com/housekeeper/'
-// export const imgBaseUrl = 'http://192.168.0.110:8081/'
+// export const imgBaseUrl = 'https://yflh.hkzhtech.com/housekeeper/'
+export const imgBaseUrl = 'http://192.168.0.110:8081/'
 
 
 let arr = []

@@ -62,6 +62,7 @@
 
 <script>
 	import TopSearch from "@/components/TopSearch.vue"
+	import { eventBus } from "@/components/eventBus/eventBus.js"
 	import {
 		programme1,
 		programme2,
@@ -110,6 +111,7 @@
 			}
 			this._programme1()
 		},
+		
 		methods: { // typeid   series_id
 			// 顶部搜素
 			searchPlant(info) {
@@ -165,12 +167,16 @@
 				}else {
 					let findIndexNum = this.checkProgrammeListId.findIndex( item => item == ele.programme_id );
 					this.checkProgrammeListId.splice(findIndexNum, 1)
+					this.selectList = this.selectList.filter(item => item.programme_id != ele.programme_id)
 				}
+				console.log(ele.programme_id)
 				
 				this.$refs.topSearch.clear();
 				this.query = ''
+				console.log(this.selectList)
 				
 				this.$forceUpdate()
+				return false;
 			},
 
 			// 确定按钮
@@ -181,17 +187,23 @@
 					endtime,
 					starttime,
 					list: this.selectList
-				}
-			
+				}			
 				if(this.selectList.length === 0) {
 					uni.showToast({
 						title: '请至少选择一种方案',
 						icon: 'none'
 					})
 				}
+		
+				// eventBus.$emit('selectPlant', selectPlant);
+				
+				setTimeout(() => {
+					uni.$emit("selectPlant", selectPlant);
+				}, 500)
+				console.log('发送时间')
 				
 				uni.navigateTo({
-					url: './shezhifangan?info=' + JSON.stringify(this.info) + '&selectPlant=' + JSON.stringify(selectPlant) + '&order_id=' + this.order_id
+					url: './shezhifangan?info=' + JSON.stringify(this.info) + '&order_id=' + this.order_id
 				})
 			},
 			
