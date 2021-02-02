@@ -7,9 +7,10 @@
       <!-- :flag="8" -->
       <fromDeatil
         :msg="DIRECTORSHOWMSG(item.mastertype)"
-        :item="item"
+        
         v-for="(item, index) in list"
         :key="index"
+		:item="item"
         @getDetail="getDetail"
       >
 	  <!-- 审核中 -->

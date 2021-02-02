@@ -3,7 +3,6 @@
 		<view class="new_demo">
 			<!-- 循环订单位置 -->
 			<view class="new_list" v-for="(item, index) in list" :key="index">
-
 				<!-- 名称+logo -->
 				<view class="new_logo">
 					<image :src=" imgBaseUrl + item.image" mode=""></image>
@@ -65,13 +64,11 @@
 				})
 				let worker_id = uni.getStorageSync("WORKERS_ID");
 				let token = uni.getStorageSync("HOUSE_TOKEN");
-				console.log(worker_id, token)
 				workerorderApiworkerList({
 					worker_id,
 					token
 				}).then(({ varList }) => {
 					this.list = varList
-					console.log(this.list)
 				}).finally(() => uni.hideLoading())
 			},
 			// 接受
@@ -123,6 +120,7 @@
 	.new_demo {
 		width: 100%;
 		height: 100%;
+		overflow-y: auto;
 	}
 
 	.new_list {

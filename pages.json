@@ -1,5 +1,17 @@
 {
 	"pages": [
+		
+		
+		// 登录	
+		{
+			"path": "pages/login/logins",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		
 		{
 			"path": "pages/constructionContracts/constructionContracts",
 			"style": {
@@ -12,18 +24,6 @@
 				"navigationBarTitleText": "维修合同"
 			}
 		},
-		
-		// 登录	
-		{
-			"path": "pages/login/logins",
-			"style": {
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		
-		
 		
 		
 		{

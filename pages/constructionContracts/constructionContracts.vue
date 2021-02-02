@@ -1,10 +1,8 @@
 <template>
 	<view class="contract">
-		<!-- 施工合同 -->
-		<!-- <button @click="renderScript.emitData">施工合同</button> -->
-		<button @click="_contractApiAdd">施工合同</button>
+		
 		<!-- 第一页 -->
-		<view class="page" id="page1">
+		<view class="page" id="contractimage1">
 		
 			<view class="fl a-i-center"><text class="serial-number">编号：</text><input type="text" class="contract-input" :disabled="isDisabled" v-model="form.value1" /></view>
 			<view class="text-center contract-name">四川房管家信息科技有限公司施工合同</view>
@@ -28,7 +26,7 @@
 		</view>
 
 		<!-- 第二页 -->
-		<view class="page" id="page2">
+		<view class="page" id="contractimage2">
 			<view class="fl a-i-center"><text class="serial-number">甲方：</text><input :disabled="isDisabled" type="text" v-model="form.value6" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">负责人：</text><input :disabled="isDisabled" type="text" v-model="form.value7" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">地址：</text><input :disabled="isDisabled" type="text" v-model="form.value8" class="contract-input" /></view>
@@ -71,7 +69,7 @@
 		</view>
 
 		<!-- 第三页 -->
-		<view class="page" id="page3">
+		<view class="page" id="contractimage3">
 			<view class="point">
 				（一）、工程具备隐蔽条件，乙方先进行自检，并在隐蔽验收前通知甲方验收。验收合格，甲方现场代表在
 				<text class="keywords">APP</text>验收记录上确认
@@ -115,7 +113,7 @@
 		</view>
 
 		<!-- 第四页 -->
-		<view class="page" id="page4">
+		<view class="page" id="contractimage4">
 			<view class="content">
 				3、参与对工程质量、施工进度的监督及对材料进场、工程竣工的验收。甲方应向乙方提供必要的施工条件及所需使用的材料堆放区，负责做好施工现场的安全等工作
 			</view>
@@ -159,7 +157,7 @@
 		</view>
 
 		<!-- 第五页 -->
-		<view class="page" id="page4">
+		<view class="page" id="contractimage5">
 			<view class="article">第六条 工程保修约定</view>
 			<view class="content">
 				施工项目保修期<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value25" />年；
@@ -212,6 +210,12 @@
 			</view>
 		</view>
 
+		<!-- 施工合同 -->
+		
+		<button @click="_contractApiAdd">提交合同</button>
+		<!-- <button @click="renderScript.emitData">提交合同</button> -->
+
+
 	</view>
 </template>
 
@@ -234,6 +238,13 @@
 				contract_id: '',
 				pages: 5,
 				imgBaseUrl: imgBaseUrl,
+				imgs: {
+					contractimage1: '',
+					contractimage2: '',
+					contractimage3: '',
+					contractimage4: '',
+					contractimage5: '',
+				},
 				form: {
 					value1: 'value1',
 					value2: 'value2',
@@ -277,7 +288,6 @@
 			this.order_id = opt.order_id;
 			if(opt.info) {
 				this.info = JSON.parse(opt.info);
-				console.log(this.info)
 			}
 			if(opt.disabel) {
 				this.disabel = opt.disabel
@@ -290,12 +300,7 @@
 				} 
 			})
 		},
-		// onBackPress(event) {
-		// 	uni.navigateTo({
-		// 		// url:'../home/neworder/shezhifangan?info='+ JSON.stringify(this.info)+ '&order_id=' + this.order_id+ '&contract_id=' + this.contract_id
-		// 		url: '../home/neworder/shezhifangan'
-		// 	})
-		// },
+
 		computed:{
 			isDisabled() {
 				return (this.disabel == 'disabel')
@@ -311,13 +316,18 @@
 						return uni.showToast({ title: '请完善合同信息', icon: 'none' })
 					}
 				}
+			
 				// order_id    订单id
 				// contract_type  合同类型 1 施工、2维修
+				// contractimage1
 				let parmas ={
 					order_id: this.order_id,
 					contract_type: 1,
 					...this.form
 				}
+				// console.log(module.exports.default.render);
+				this.test()
+				return false;
 				contractApiAdd(parmas).then(res => {
 					this.contract_id = res.contract_id;
 					// let selectPlant = JSON.stringify(this.selectPlant);
@@ -346,6 +356,7 @@
 						upLoadFile({ path: base64 }).then((upFile) => {
 						  let url = this.imgBaseUrl + JSON.parse(upFile.data).data;
 						  console.log(opt.ele, url)
+						  this[opt.ele] = url
 						});
 					})
 			},
@@ -358,20 +369,18 @@
 	import html2canvas from 'html2canvas';
 	export default {
 		methods: {
+			test() {
+				console.log(this)
+			},
 			// 发送数据到逻辑层
 			emitData(e, ownerVm) {
 				for(let i = 1; i <= 5; i ++ ){
-					this.screenshots(e, ownerVm, 'page' + i);
-					// this.screenshots(e, ownerVm, 'page2');
-					// this.screenshots(e, ownerVm, 'page3')
-					// this.screenshots(e, ownerVm, 'page4')
-					// this.screenshots(e, ownerVm, 'page5')
-					// this.screenshots(e, ownerVm, 'page6')
+					this.screenshots(e, ownerVm, 'contractimage' + i);
 				}
 				
 			},
 			screenshots(e, ownerVm, ele) {
-				// const dom = document.getElementById('page3');
+				// const dom = document.getElementById('contractimage3');
 				let dom = document.getElementById(ele);
 				// const dom = document.body;
 				setTimeout(() => {

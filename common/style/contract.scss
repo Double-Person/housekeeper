@@ -1,13 +1,13 @@
 .contract{
-		// padding: 0 30rpx;
+		padding: 0 30rpx;
+		font-family: '宋体';
 	}
 	.page{
-		width: 570rpx;
-		// width: ;
-		padding: 113rpx 90rpx;
+		width: 690rpx;
+		// width: 570rpx;
+		padding: 113rpx 0rpx;
 		height: 1060rpx;
-		// height: 1560rpx;
-		outline: 1rpx solid red;
+		// outline: 1rpx solid red;
 		position: relative;
 		// margin-top: 100rpx;
 	}
@@ -88,6 +88,7 @@
 		font-size: 26rpx;
 		font-weight: bold;
 		text-indent: 2em;
+		line-height: 2em;
 	}
 	// (xx)点
 	.point{

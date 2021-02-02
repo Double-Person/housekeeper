@@ -197,6 +197,8 @@
 				第5页 共{{ pages }}页
 			</view>
 		</view>
+		
+		<!-- 第六页 -->
 		<view class="page" id="page6">
 			
 			<view class="content merge-content">
@@ -376,7 +378,6 @@
 			
 			_contractById() {
 				contractById({order_id: this.order_id}).then(res => {
-					console.log(res)
 					if(res.result == "success") {
 						if(res.varList && res.varList.contractxq) {
 							this.form = res.varList && res.varList.contractxq
@@ -420,7 +421,6 @@
 
 			},
 			screenshots(e, ownerVm, ele) {
-				// const dom = document.getElementById('page3');
 				let dom = document.getElementById(ele);
 				// const dom = document.body;
 				setTimeout(() => {
