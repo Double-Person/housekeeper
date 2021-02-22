@@ -1,11 +1,9 @@
 <template>
 	<view class="contract">
 		<!-- 维修合同 -->
-		<!-- <button @click="renderScript.emitData">维修合同</button> -->
-		<button @click="_contractApiAdd">维修合同</button>
 		
 		<!-- 第一页 -->
-		<view class="page" id="page1">
+		<view class="page" id="contractimage1">
 
 			<view class="fl a-i-center"><text class="serial-number">编号：</text><input :disabled="isDisabled" type="text" class="contract-input" v-model="form.value1" /></view>
 			<view class="text-center contract-name">四川房管家信息科技有限公司维修合同</view>
@@ -29,7 +27,7 @@
 		</view>
 
 		<!-- 第二页 -->
-		<view class="page" id="page2">
+		<view class="page" id="contractimage2">
 			<view class="fl a-i-center"><text class="serial-number">甲方：</text><input :disabled="isDisabled" type="text" v-model="form.value6" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">负责人：</text><input :disabled="isDisabled" type="text" v-model="form.value7" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">地址：</text><input :disabled="isDisabled" type="text" v-model="form.value8" class="contract-input" /></view>
@@ -65,7 +63,7 @@
 		</view>
 
 		<!-- 第三页 -->
-		<view class="page" id="page3">
+		<view class="page" id="contractimage3">
 			<view class="article">第二条 工程期限</view>
 			<view class="content">
 				本工程经甲乙双方协商一致，总工期
@@ -115,7 +113,7 @@
 		</view>
 
 		<!-- 第四页 -->
-		<view class="page" id="page4">
+		<view class="page" id="contractimage4">
 			<view class="content">
 				1、开工前，与乙方确认施工方案（作法说明，<text class="keywords">详情见APP施工方案</text>）。向乙方提供施工所需的水、电、气及电讯等设备，
 				并说明使用注意事项。办理施工所涉及的各种申请、批件等手续。
@@ -158,7 +156,7 @@
 		</view>
 
 		<!-- 第五页 -->
-		<view class="page" id="page5">
+		<view class="page" id="contractimage5">
 			
 			<view class="content">
 				3、遵守国家或地方政府及有关部门对施工现场管理的规定，严格按照施工方案（作法说明）进行施工，妥善保护好施工现场周围建筑物、设备管线。做好施工现场垃圾消纳
@@ -199,7 +197,7 @@
 		</view>
 		
 		<!-- 第六页 -->
-		<view class="page" id="page6">
+		<view class="page" id="contractimage6">
 			
 			<view class="content merge-content">
 				因素导致施工项目成品及设施而出现的质量问题，乙方不予承担保修责任。
@@ -216,9 +214,14 @@
 
 			<view class="fl jc-between">
 				<view class="signature" style="flex: 1;">
-					<view class="fl a-i-center"><text class="serial-number">甲方：</text><input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value26" /></view>
-					<view class="fl a-i-center"><text class="serial-number">负责人：</text><input :disabled="isDisabled" type="text" class="date-input-ml"
-						 v-model="form.value27" /></view>
+					<view class="fl a-i-center"><text class="serial-number">甲方：</text>
+						<input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value26" v-if="!autographurl"  />
+						<image class="sign" :src=" imgBaseUrl+ autographurl" mode="" v-if="autographurl"></image>
+					</view>
+					<view class="fl a-i-center"><text class="serial-number">负责人：</text>
+						<input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value27" v-if="!autographurl2" />
+						<image class="sign" :src="imgBaseUrl+ autographurl2" mode="" v-if="autographurl2"></image>
+					</view>
 					<input :disabled="isDisabled" type="text" v-model="form.value28" class="date-input" />
 					<text class="serial-number">年</text>
 					<input :disabled="isDisabled" type="text" v-model="form.value29" class="date-input-sm" />
@@ -247,7 +250,9 @@
 			
 		</view>
 
-
+		<!-- 维修合同 -->
+		<!-- <button @click="renderScript.emitData">维修合同</button> -->
+		<button @click="renderScript.emitData">提交合同</button>
 
 
 	</view>
@@ -275,6 +280,16 @@
 				order_id: '',
 				pages: 6,
 				imgBaseUrl: imgBaseUrl,
+				autographurl: '',
+				autographurl2: '',
+				imgs: {
+					contractimage1: '',
+					contractimage2: '',
+					contractimage3: '',
+					contractimage4: '',
+					contractimage5: '',
+					contractimage6: '',
+				},
 				form: {
 					value1: 'value1',
 					value2: 'value2',
@@ -354,8 +369,11 @@
 				let parmas = {
 					order_id: this.order_id,
 					contract_type: 2,
-					...this.form
+					...this.form,
+					...this.imgs
 				}
+				console.log(parmas)
+				return false;
 				contractApiAdd(parmas).then(res => {
 					if(res.result == "success") {
 						// let selectPlant = JSON.stringify(this.selectPlant);
@@ -380,7 +398,10 @@
 				contractById({order_id: this.order_id}).then(res => {
 					if(res.result == "success") {
 						if(res.varList && res.varList.contractxq) {
-							this.form = res.varList && res.varList.contractxq
+							let { contractxq, autographurl, autographurl2 } = res.varList;
+							this.form = contractxq;
+							this.autographurl = autographurl;
+							this.autographurl2 = autographurl2
 						}
 					}
 				})
@@ -394,7 +415,13 @@
 							path: base64
 						}).then((upFile) => {
 							let url = this.imgBaseUrl + JSON.parse(upFile.data).data;
-							console.log(opt.ele, url)
+							this.imgs[opt.ele] = url;
+							 console.log('=====', opt.ele, url)
+							let imgsList = Object.values(this.imgs)
+							if(imgsList.length == 5) {
+								console.log(imgsList)
+								this._contractApiAdd()
+							}
 						});
 					})
 			},
@@ -410,13 +437,7 @@
 			// 发送数据到逻辑层
 			emitData(e, ownerVm) {
 				for (let i = 1; i <= 6; i++) {
-					console.log(i)
-					this.screenshots(e, ownerVm, 'page' + i);
-					// this.screenshots(e, ownerVm, 'page2');
-					// this.screenshots(e, ownerVm, 'page3')
-					// this.screenshots(e, ownerVm, 'page4')
-					// this.screenshots(e, ownerVm, 'page5')
-					// this.screenshots(e, ownerVm, 'page6')
+					this.screenshots(e, ownerVm, 'contractimage' + i);
 				}
 
 			},
@@ -428,11 +449,10 @@
 						scale: 1, // 用于渲染的比例尺。默认为浏览器设备像素比率。
 						width: dom.clientWidth, //dom 原始宽度
 						height: dom.clientHeight, // ,5000, // dom.offsetHeight,
-						scrollY: 0, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
+						scrollY: -3080, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
 						scrollX: 0,
-						useCORS: true, //支持跨域，但好像没什么用
+						useCORS: true, 
 					}).then((canvas) => {
-						// 将生产的canvas转为base64图片3
 						ownerVm.callMethod('receiveRenderData', {
 							val: canvas.toDataURL('image/png'),
 							ele

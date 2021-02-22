@@ -91,11 +91,11 @@
 				
 				if(item.contract_type == 1) { // 施工合同
 					uni.navigateTo({
-						url: '../../maintenanceContracts/maintenanceContracts?order_id='+ item.order_id + '&disabel=disabel'
+						url: '../../constructionContracts/constructionContracts?order_id=' +item.order_id + '&disabel=disabel'
 					})
 				}else if(item.contract_type == 2) {  // 维修合同
 					uni.navigateTo({
-						url: '../../constructionContracts/constructionContracts?order_id=' +item.order_id + '&disabel=disabel'
+						url: '../../maintenanceContracts/maintenanceContracts?order_id='+ item.order_id + '&disabel=disabel'
 					})
 				}
 

@@ -1,6 +1,6 @@
 <template>
 	<view class="contract">
-		
+		<!-- 施工合同 -->
 		<!-- 第一页 -->
 		<view class="page" id="contractimage1">
 		
@@ -182,8 +182,14 @@
 			
 			<view class="fl jc-between">
 				<view class="signature">
-					<view class="fl a-i-center"><text class="serial-number">甲方：</text><input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value26" /></view>
-					<view class="fl a-i-center"><text class="serial-number">负责人：</text><input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value27" /></view>
+					<view class="fl a-i-center"><text class="serial-number">甲方：</text>
+						<input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value26" v-if="!autographurl"  />
+						<image class="sign" :src=" imgBaseUrl+ autographurl" mode="" v-if="autographurl"></image>
+					</view>
+					<view class="fl a-i-center"><text class="serial-number">负责人：</text>
+						<input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value27" v-if="!autographurl2" />
+						<image class="sign" :src="imgBaseUrl+ autographurl2" mode="" v-if="autographurl2"></image>
+					</view>
 					<input :disabled="isDisabled" type="text"  v-model="form.value28" class="date-input" />
 					<text class="serial-number">年</text>
 					<input :disabled="isDisabled" type="text"  v-model="form.value29" class="date-input-sm" />
@@ -212,7 +218,7 @@
 
 		<!-- 施工合同 -->
 		
-		<button @click="_contractApiAdd">提交合同</button>
+		<button @click="renderScript.emitData">提交合同</button>
 		<!-- <button @click="renderScript.emitData">提交合同</button> -->
 
 
@@ -238,6 +244,8 @@
 				contract_id: '',
 				pages: 5,
 				imgBaseUrl: imgBaseUrl,
+				autographurl: '',
+				autographurl2: '',
 				imgs: {
 					contractimage1: '',
 					contractimage2: '',
@@ -319,15 +327,14 @@
 			
 				// order_id    订单id
 				// contract_type  合同类型 1 施工、2维修
-				// contractimage1
 				let parmas ={
 					order_id: this.order_id,
 					contract_type: 1,
-					...this.form
+					...this.form,
+					...this.imgs
 				}
-				// console.log(module.exports.default.render);
-				this.test()
-				return false;
+				console.log('++++', parmas);
+				
 				contractApiAdd(parmas).then(res => {
 					this.contract_id = res.contract_id;
 					// let selectPlant = JSON.stringify(this.selectPlant);
@@ -341,10 +348,14 @@
 				})
 			},
 			
+			// 查询合同详情
 			_contractById() {
 				contractById({order_id: this.order_id}).then(res => {
 					if(res.varList && res.varList.contractxq) {
-						this.form = res.varList && res.varList.contractxq
+						let { contractxq, autographurl, autographurl2 } = res.varList;
+						this.form = contractxq;
+						this.autographurl = autographurl;
+						this.autographurl2 = autographurl2
 					}
 				})
 			},
@@ -353,10 +364,17 @@
 				const that = this;
 				base64ToPath(opt.val)
 					.then(base64 => {
+						
 						upLoadFile({ path: base64 }).then((upFile) => {
+							console.log(upFile)
 						  let url = this.imgBaseUrl + JSON.parse(upFile.data).data;
-						  console.log(opt.ele, url)
-						  this[opt.ele] = url
+						  console.log('=====', opt.ele, url)
+						  this.imgs[opt.ele] = url
+						  
+						  let imgsList = Object.values(this.imgs)
+						if(imgsList.length == 5) {
+							this._contractApiAdd()
+						}
 						});
 					})
 			},
@@ -369,33 +387,30 @@
 	import html2canvas from 'html2canvas';
 	export default {
 		methods: {
-			test() {
-				console.log(this)
-			},
 			// 发送数据到逻辑层
 			emitData(e, ownerVm) {
 				for(let i = 1; i <= 5; i ++ ){
 					this.screenshots(e, ownerVm, 'contractimage' + i);
 				}
-				
+				// this.screenshots(e, ownerVm, 'contractimage3');
 			},
 			screenshots(e, ownerVm, ele) {
-				// const dom = document.getElementById('contractimage3');
-				let dom = document.getElementById(ele);
+				const dom = document.getElementById(ele);
 				// const dom = document.body;
 				setTimeout(() => {
 					html2canvas(dom, {
 						scale: 1, // 用于渲染的比例尺。默认为浏览器设备像素比率。
 						width: dom.clientWidth, //dom 原始宽度
-						height:  dom.clientHeight,// ,5000, // dom.offsetHeight,
-						scrollY: 0, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
+						height: dom.clientHeight,// ,5000, // dom.offsetHeight,616
+						scrollY: -2450, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0 (2450)
 						scrollX: 0,
-						useCORS: true, //支持跨域，但好像没什么用
+						useCORS: true, 
+						
 					}).then((canvas) => {
-						// 将生产的canvas转为base64图片3
 						ownerVm.callMethod('receiveRenderData', {val: canvas.toDataURL('image/png'), ele})
 					});
 				}, 1000)
+				
 			},
 		}
 	};
@@ -403,4 +418,5 @@
 
 <style lang="scss" scoped>
 	@import "~@/common/style/contract.scss";
+	
 </style>
