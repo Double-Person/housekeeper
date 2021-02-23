@@ -6,14 +6,14 @@
 		<view class="top">
 			<view v-for="(item, index) in titleList" :key="index" :class="{active: index === activeIndex}" @click="clickTitle(index, item.value)">{{item.label}}</view>
 		</view>
-		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100" @scrolltolower="scrolltolower">
+		<scroll-view :scroll-y="true" class="scroll-view-body" :lower-threshold="100">
 			<view class="padding-bottom150">
 
 				<NoData :show="titleList[activeIndex].list.length == 0"></NoData>
 				<view v-for="(item,index) in titleList[activeIndex].list" :key="index" @click="getDetail(item)" class="item">
 					<view class="item-info tops">
 						<view class="">{{ item.goodsname }}</view>
-						<view class="colors">{{ item.process_name }}</view>
+						<view class="colors">{{ item.process_name }} </view>
 					</view>
 					<view class="item-info bottoms">
 						<view class="colors">{{ item.order_number }}</view>

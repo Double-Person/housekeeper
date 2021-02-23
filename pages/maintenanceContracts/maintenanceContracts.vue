@@ -419,7 +419,6 @@
 							 console.log('=====', opt.ele, url)
 							let imgsList = Object.values(this.imgs)
 							if(imgsList.length == 5) {
-								console.log(imgsList)
 								this._contractApiAdd()
 							}
 						});
@@ -445,11 +444,12 @@
 				let dom = document.getElementById(ele);
 				// const dom = document.body;
 				setTimeout(() => {
+			
 					html2canvas(dom, {
 						scale: 1, // 用于渲染的比例尺。默认为浏览器设备像素比率。
 						width: dom.clientWidth, //dom 原始宽度
 						height: dom.clientHeight, // ,5000, // dom.offsetHeight,
-						scrollY: -3080, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
+						scrollY: -(dom.clientHeight * 5), // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0  3080
 						scrollX: 0,
 						useCORS: true, 
 					}).then((canvas) => {

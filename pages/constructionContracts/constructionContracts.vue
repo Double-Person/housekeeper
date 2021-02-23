@@ -373,7 +373,7 @@
 						  
 						  let imgsList = Object.values(this.imgs)
 						if(imgsList.length == 5) {
-							this._contractApiAdd()
+							// this._contractApiAdd()
 						}
 						});
 					})
@@ -389,21 +389,29 @@
 		methods: {
 			// 发送数据到逻辑层
 			emitData(e, ownerVm) {
-				for(let i = 1; i <= 5; i ++ ){
-					this.screenshots(e, ownerVm, 'contractimage' + i);
+				for(let i = 1; i <= 1; i ++ ){  // 5
+					this.screenshots(e, ownerVm, 'contractimage' + 4);
 				}
 				// this.screenshots(e, ownerVm, 'contractimage3');
 			},
 			screenshots(e, ownerVm, ele) {
 				const dom = document.getElementById(ele);
 				// const dom = document.body;
+				console.log('clientHeight:', dom.clientHeight);
+				console.log('scrollHeight:', dom.scrollHeight);
+				console.log('scrollTop:', dom.scrollTop);
+				console.log('body', document.body.clientHeight)
+				console.log('body', document.body.scrollHeight)
+				return false;
 				setTimeout(() => {
 					html2canvas(dom, {
 						scale: 1, // 用于渲染的比例尺。默认为浏览器设备像素比率。
-						width: dom.clientWidth, //dom 原始宽度
-						height: dom.clientHeight,// ,5000, // dom.offsetHeight,616
-						scrollY: -2450, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0 (2450)
-						scrollX: 0,
+						 windowWidth: dom.scrollWidth,
+						 windowHeight: dom.scrollHeight,
+						// width: dom.offsetWidth, //dom 原始宽度
+						// height: dom.offsetHeight,// ,5000, // dom.offsetHeight,616
+						// scrollY: -2570, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0 (2450)  -2570 (dom.clientHeight * 4)
+						// scrollX: 0,
 						useCORS: true, 
 						
 					}).then((canvas) => {
