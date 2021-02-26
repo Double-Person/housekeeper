@@ -22,7 +22,7 @@
 			</view>
 		</view>
 		<!-- 优惠价格 -->
-		<view class="yhjg">优惠价
+		<view class="yhjg">优惠金额
 			<input type="number" v-model="concessional" />
 		</view>
 		<!-- 上传照片 -->
@@ -32,7 +32,11 @@
 			<view class="pic-list">
 				<view class="pic-item" v-for="(item, index) in imgList" :key="index">
 					<image v-if="!item" src="/static/loginImg/axx.png" mode="" @click="chooseImgUpload(index)"></image>
-					<image v-if="item" :src="imgBaseUrl + item" mode="" @click="chooseImgUpload(index)"></image>
+					
+					<view class="upImg">
+						<image class="imggg" v-if="item" :src="imgBaseUrl + item" mode="" @click="chooseImgUpload(index)"></image>
+						<text class="text" @click="deleteImg(index)">X</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -57,11 +61,16 @@
 		  </view>
 		</view>
 
+		<view class="set-contract" @click="setContract">
+			设置合同
+		</view>
+
 		<view class="retention">
 			<view class="tit">本合同保修期</view>
 			<view class="retention-right">
 				<!-- qualitydeposit_id -->
 				<view class="checkRetention" @click="isShowRetention = !isShowRetention;">
+					
 					<text v-if="qualitydepositObj.qualitydeposit_id">{{ qualitydepositObj.warranty_time }} 月 </text>
 					<text v-if="!qualitydepositObj.qualitydeposit_id">本合同保修期</text>
 				</view>
@@ -76,9 +85,7 @@
 			</view>
 		</view>
 		
-		<view class="set-contract" @click="setContract">
-			设置合同
-		</view>
+		
 
 		<!-- 提交审核 -->
 		<view class="tijsh">
@@ -189,8 +196,12 @@ export default {
 				this.imgList = obj.imgList;
 				this.remarks = obj.remarks;
 				this.checkPayPro = obj.checkPayPro;
+				this.qualitydepositObj.qualitydeposit_id = obj.qualitydeposit_id;  // qualitydeposit_id
+				this.qualitydepositObj.warranty_time = obj.warranty_time
 			}
-		}catch(e){}
+		}catch(e){
+			console.log('错误',e)
+		}
 	},500)
 
 	
@@ -202,6 +213,9 @@ export default {
 	  
   },
   methods: {
+	  deleteImg(index) {
+		  this.imgList = this.imgList.filter((ele, indey) => index != indey)
+	  },
 		
 	setContract() {
 		if(!this.order_id) {
@@ -258,7 +272,9 @@ export default {
 			  concessional: this.concessional,  // 优惠价
 			  imgList: this.imgList,  //   上传图片
 			  remarks: this.remarks, // 备注
-			  checkPayPro: this.checkPayPro
+			  checkPayPro: this.checkPayPro,
+			  qualitydeposit_id: this.qualitydepositObj.qualitydeposit_id,
+			  warranty_time: this.qualitydepositObj.warranty_time
 		}
 		uni.setStorageSync('locaData', JSON.stringify(locaData))  
 	},
@@ -273,6 +289,7 @@ export default {
 	  
     // 提交审核 按钮
     submitAudit() {
+		console.log(this.imgList)
 		if(this.isCommit) {
 			return false;
 		}
@@ -301,11 +318,11 @@ export default {
 			}
 		  }
 		  if (concessional == "") {
-			return uni.showToast({ title: "请输入优惠价", icon: "none" });
+			return uni.showToast({ title: "请输入优惠金额", icon: "none" });
 		  }
 	  let realPrice = ( ( this.comptedMoney() - this.concessional ) * this.checkPayPro / 100 ) < 0 ? 0 : ( (this.comptedMoney() - this.concessional)  ).toFixed(2);
 	  if (concessional > this.comptedMoney() ) {
-	    return uni.showToast({ title: "优惠价不能大于实际价格", icon: "none" });
+	    return uni.showToast({ title: "优惠金额不能大于实际价格", icon: "none" });
 	  }
       if (remarks == "") {
         return uni.showToast({ title: "请输入备注", icon: "none" });
@@ -349,8 +366,6 @@ export default {
 		qualitydeposit_id: this.qualitydepositObj.qualitydeposit_id,
       };
       
-		console.log('提交订单', obj);
-		// return false;
       addprogrammeinfo(obj).then((res) => {
 		const that = this;
         if (res.msgType == 0) {
@@ -417,7 +432,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	
+	.index{
+		overflow-y: auto;
+	}
 	.set-contract{
+		margin: 30rpx auto 50rpx auto;
 		// margin: 50rpx 0 50rpx 0;
 		text-align: center;
 		width: 220upx;
@@ -460,228 +480,255 @@ export default {
 			}
 		}
 	}
-.pic-list {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  .pic-item {
-    width: 33%;
-  }
-}
+	.pic-list {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		&::after{
+			content: '';
+			width: 200rpx;
+			height: 40rpx;
+		}
+		.pic-item {  // 670 220
+			width: 200rpx;
+			height: 220rpx;
+			image{
+				width: 200rpx;
+				height: 200rpx;
+				// object-fit: cover;
+			}
+		}
+	}
+	.upImg{
+		position: relative;
+		.imggg{
+			padding-bottom: 20rpx;
+		}
+		.text {
+			position: absolute;
+			top: 0rpx;
+			right: 5%;
+		}
+	}
 
-.index {
-  width: 750upx;
-  height: 100vh;
-  background: #f2f2f2;
-}
-.box {
-  padding: 10upx 40upx;
-  width: 670upx;
-  // height:395upx;
-  min-height: 50rpx;
-  background: rgba(255, 255, 255, 1);
-  .tit {
-    width: 670upx;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20upx;
-    text {
-      font-size: 28upx;
-      font-family: PingFang SC;
-      font-weight: 500;
-      color: rgba(169, 169, 169, 1);
-    }
-    image {
-      width: 40upx;
-      height: 40upx;
-    }
-  }
-  .bigBox {
-    background: #ffebaf;
-    padding: 25upx 25upx 1upx 25upx;
-    width: 620upx;
-    .text {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20upx;
-      .text_a {
-        font-size: 28upx;
-        font-family: PingFang SC;
-        font-weight: 400;
-        color: rgba(26, 26, 26, 1);
-      }
-      .text_b {
-        font-size: 28upx;
-        font-family: PingFang SC;
-        font-weight: 400;
-        color: rgba(26, 26, 26, 1);
-      }
-      .text_c {
-        width: 250upx;
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        input {
-          background: #f2f2f2;
-          width: 100upx;
-          height: 40upx;
-        }
-        text {
-          margin-left: 8upx;
-          font-size: 28upx;
-          font-family: PingFang SC;
-          font-weight: 400;
-          color: rgba(26, 26, 26, 1);
-        }
-      }
-    }
-  }
-  .time {
-    margin-top: 20upx;
-    text {
-      display: block;
-      font-size: 24upx;
-      font-family: PingFang SC;
-      font-weight: 500;
-      color: rgba(251, 79, 79, 1);
-      line-height: 20px;
-    }
-  }
-}
+	.index {
+		width: 750upx;
+		height: 100vh;
+		background: #f2f2f2;
+	}
+	.box {
+		padding: 10upx 40upx;
+		width: 670upx;
+		// height:395upx;
+		min-height: 50rpx;
+		background: rgba(255, 255, 255, 1);
+		.tit {
+			width: 670upx;
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 20upx;
+			text {
+				font-size: 28upx;
+				font-family: PingFang SC;
+				font-weight: 500;
+				color: rgba(169, 169, 169, 1);
+			}
+			image {
+				width: 40upx;
+				height: 40upx;
+			}
+		}
+		.bigBox {
+			background: #ffebaf;
+			padding: 25upx 25upx 1upx 25upx;
+			width: 620upx;
+			.text {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 20upx;
+				.text_a {
+					font-size: 28upx;
+					font-family: PingFang SC;
+					font-weight: 400;
+					color: rgba(26, 26, 26, 1);
+				}
+				.text_b {
+					font-size: 28upx;
+					font-family: PingFang SC;
+					font-weight: 400;
+					color: rgba(26, 26, 26, 1);
+				}
+				.text_c {
+					width: 250upx;
+					display: flex;
+					justify-content: left;
+					align-items: center;
+					input {
+						background: #f2f2f2;
+						width: 100upx;
+						height: 40upx;
+					}
+					text {
+						margin-left: 8upx;
+						font-size: 28upx;
+						font-family: PingFang SC;
+						font-weight: 400;
+						color: rgba(26, 26, 26, 1);
+					}
+				}
+			}
+		}
+		.time {
+			margin-top: 20upx;
+			text {
+				display: block;
+				font-size: 24upx;
+				font-family: PingFang SC;
+				font-weight: 500;
+				color: rgba(251, 79, 79, 1);
+				line-height: 20px;
+			}
+		}
+	}
 
-.yhjg {
-  margin-top: 20upx;
-  padding: 0 40upx;
-  width: 670upx;
-  height: 80upx;
-  background: rgba(255, 255, 255, 1);
-  font-size: 28upx;
-  font-weight: 500;
-  color: rgba(169, 169, 169, 1);
-  line-height: 80upx;
-  display: flex;
-  align-items: center;
-  input {
-    margin-left: 50rpx;
-  }
-}
+	.yhjg {
+	  margin-top: 20upx;
+	  padding: 0 40upx;
+	  width: 670upx;
+	  height: 80upx;
+	  background: rgba(255, 255, 255, 1);
+	  font-size: 28upx;
+	  font-weight: 500;
+	  color: rgba(169, 169, 169, 1);
+	  line-height: 80upx;
+	  display: flex;
+	  align-items: center;
+	  input {
+		margin-left: 50rpx;
+	  }
+	}
 
 .sczz {
-  margin-top: 20upx;
-  padding: 20upx 40upx;
-  width: 670upx;
-  // height:237upx;
-  background: rgba(255, 255, 255, 1);
-  .tit {
-    font-size: 28upx;
-    font-family: PingFang SC;
-    font-weight: 500;
-    color: rgba(169, 169, 169, 1);
-  }
-  image {
-    margin-top: 29upx;
-    display: block;
-    width: 154upx;
-    height: 154upx;
-  }
-}
-.bz {
-  margin-top: 20upx;
-  padding: 20upx 40upx;
-  width: 670upx;
-  // height: 258upx;
-  background: rgba(255, 255, 255, 1);
-  .tit {
-    padding: 20upx 0upx;
-    font-size: 28upx;
-    font-family: PingFang SC;
-    font-weight: 500;
-    color: rgba(51, 51, 51, 1);
-    border-bottom: 1upx solid rgba(191, 191, 191, 1);
-  }
-  .inp {
-    margin-top: 20upx;
-    padding: 25upx;
-    width: 620upx;
-    height: 61upx;
-    background: #f2f2f2;
-    font-size: 28upx;
-    font-family: PingFang SC;
-    font-weight: 500;
-    color: rgba(153, 153, 153, 1);
-  }
-}
-
-.warp-option {
-  margin-top: 20upx;
-  background-color: #fff;
-  margin-bottom: 20upx;
-  .pay {
-    padding: 20upx 40upx;
-    width: 670upx;
-    height: 80upx;
-    background: rgba(255, 255, 255, 1);
-    display: flex;
-    align-items: center;
-    .tit {
-      font-size: 28upx;
-      font-family: PingFang SC;
-      font-weight: 500;
-      color: rgba(169, 169, 169, 1);
-    }
-    input {
-      border: 1rpx solid #eee;
-      margin-left: 30rpx;
-	  border-radius: 15rpx;
-	  height: 60rpx;
+	margin-top: 20upx;
+	padding: 20upx 40upx;
+	width: 670upx;
+	// height:237upx;
+	background: rgba(255, 255, 255, 1);
+	.tit {
+		font-size: 28upx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: rgba(169, 169, 169, 1);
 	}
-	.placeholder-class {
-		font-size: 26rpx;
-		padding: 25rpx;
+	image {
+		margin-top: 29upx;
+		display: block;
+		width: 154upx;
+		height: 154upx;
 	}
-    image {
-      margin-left: auto;
-      display: block;
-      width: 40upx;
-      height: 40upx;
-    }
-  }
 }
+	.bz {
+		margin-top: 20upx;
+		padding: 20upx 40upx;
+		width: 670upx;
+		// height: 258upx;
+		background: rgba(255, 255, 255, 1);
+		.tit {
+			padding: 20upx 0upx;
+			font-size: 28upx;
+			font-family: PingFang SC;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
+			border-bottom: 1upx solid rgba(191, 191, 191, 1);
+		}
+		.inp {
+			margin-top: 20upx;
+			padding: 25upx;
+			width: 620upx;
+			height: 61upx;
+			background: #f2f2f2;
+			font-size: 28upx;
+			font-family: PingFang SC;
+			font-weight: 500;
+			color: rgba(153, 153, 153, 1);
+		}
+	}
 
-.tijsh {
-  margin-top: 20upx;
-  padding: 20upx 40upx;
-  width: 670upx;
-  height: 78upx;
-  background: rgba(255, 255, 255, 1);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  .text {
-    font-size: 32upx;
-    text:nth-child(1) {
-      color: #333333;
-    }
-    text:nth-child(2) {
-      color: #cacaca;
-      text-decoration: line-through;
-    }
-    text:nth-child(3) {
-      color: #fb4f4f;
-    }
-  }
-  .btn {
-    margin-left: auto;
-    text-align: center;
-    width: 220upx;
-    height: 78upx;
-    border-radius: 8upx;
-    font-size: 32upx;
-    font-family: PingFang SC;
-    font-weight: 500;
-    color: rgba(51, 51, 51, 1);
-    line-height: 78upx;
-    background: #ffc822;
-  }
-}
+	.warp-option {
+		margin-top: 20upx;
+		background-color: #fff;
+		margin-bottom: 20upx;
+		.pay {
+			padding: 20upx 40upx;
+			width: 670upx;
+			height: 80upx;
+			background: rgba(255, 255, 255, 1);
+			display: flex;
+			align-items: center;
+			.tit {
+				font-size: 28upx;
+				font-family: PingFang SC;
+				font-weight: 500;
+				color: rgba(169, 169, 169, 1);
+			}
+			input {
+				border: 1rpx solid #eee;
+				margin-left: 30rpx;
+				border-radius: 15rpx;
+				height: 60rpx;
+			}
+			.placeholder-class {
+				font-size: 26rpx;
+				padding: 25rpx;
+			}
+			image {
+				margin-left: auto;
+				display: block;
+				width: 40upx;
+				height: 40upx;
+			}
+		}
+		
+	}
+	
+
+
+	.tijsh {
+		margin-top: 20upx;
+		padding: 20upx 40upx;
+		width: 670upx;
+		height: 78upx;
+		background: rgba(255, 255, 255, 1);
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		.text {
+			font-size: 32upx;
+			text:nth-child(1) {
+			  color: #333333;
+			}
+			text:nth-child(2) {
+			  color: #cacaca;
+			  text-decoration: line-through;
+			}
+			text:nth-child(3) {
+			  color: #fb4f4f;
+			}
+		}
+		.btn {
+			margin-left: auto;
+			text-align: center;
+			width: 220upx;
+			height: 78upx;
+			border-radius: 8upx;
+			font-size: 32upx;
+			font-family: PingFang SC;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
+			line-height: 78upx;
+			background: #ffc822;
+		}
+	}
+	
 </style>

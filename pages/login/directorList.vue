@@ -64,7 +64,8 @@
 
 <style lang="scss" scoped>
 	.active{
-		background: #eee;
+		// background: #eee;
+		background: rgb(255, 200, 35);
 	}
 	.director-list{
 		.director-item{
@@ -103,11 +104,13 @@
 			.right{
 				padding: 11rpx 13rpx;
 				height: 46rpx;
-				border: 1rpx solid #FFC10C;
+				// border: 1rpx solid #FFC10C;
+				border: 1rpx solid #191919;
 				border-radius: 8rpx;
 				font-size: 26rpx;
 				font-weight: 500;
-				color: #FFC10C;
+				// color: #FFC10C;
+				color: #191919;
 				line-height: 46rpx;
 
 			}

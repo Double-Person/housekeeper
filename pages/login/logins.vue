@@ -24,9 +24,9 @@
 		<!-- 登录 -->
 		<view class="button" @click="goHome">登录</view>
 		<!-- #ifdef APP-PLUS -->
-		<view class="imgBox" @click="wxLogin">
+		<!-- <view class="imgBox" @click="wxLogin">
 			<image src="/static/loginImg/wx.png" mode=""></image>
-		</view>
+		</view> -->
 		<!-- #endif -->
 		<view class="btnImg">
 			<image src="/static/loginImg/lonbg.png" mode=""></image>

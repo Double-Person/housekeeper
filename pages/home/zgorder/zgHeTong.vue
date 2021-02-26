@@ -88,7 +88,7 @@
 				this._selectid()
 			},
 			getDetail(item) {
-				
+				// 1 施工、2维修
 				if(item.contract_type == 1) { // 施工合同
 					uni.navigateTo({
 						url: '../../constructionContracts/constructionContracts?order_id=' +item.order_id + '&disabel=disabel'

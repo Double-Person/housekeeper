@@ -220,28 +220,28 @@
 					"office": handPositive,
 					name: userName
 				}
-
+				if (!userName) {
+					return uni.showToast({ title: '请输入用户姓名', icon: 'none' })	 
+				}
 				if (!positive) {
-					uni.showToast({
+					return uni.showToast({
 						title: '身份证正面不能为空',
 						icon: 'none'
 					})
-					return false;
 				}
 				if (!reverse) {
-					uni.showToast({
+					return uni.showToast({
 						title: '身份证反面不能为空',
 						icon: 'none'
 					})
-					return false;
 				}
 				if (!handPositive) {
-					uni.showToast({
+					return uni.showToast({
 						title: '证件照不能为空不能为空',
 						icon: 'none'
 					})
-					return false;
 				}
+				
 				// if (positionIndex == 2) {
 				// 	uni.showToast({
 				// 		title: '系统错误',
@@ -249,10 +249,8 @@
 				// 	})
 				// 	return false;
 				// }
-				console.log(sexIndex, positionIndex, directorIndex)
-				console.log(obj)
+			
 				workerRegister(obj).then(res => {
-					console.log('注册', res)
 					if (res.msgType == 0) {
 						uni.showToast({
 							title: res.returnMsg,

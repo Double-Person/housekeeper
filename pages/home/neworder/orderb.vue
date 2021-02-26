@@ -29,7 +29,10 @@
 				<text>订单编号：{{info.order_number}}</text>
 				<text>下单日期：{{info.createtime}}</text>
 				<text>客户姓名：{{info.contact}}</text>
-				<text>客户电话：{{info.phone}}</text>
+				<view class="text">
+					客户电话：{{info.phone }}<view class="call-phone" @click="callPhone(info.phone)">拨打电话</view>
+				</view>
+				
 				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
 			</view>
 		</view>
@@ -80,6 +83,11 @@
 			this.idDisable = false;
 		},
 		methods: {
+			callPhone(phone) {
+				uni.makePhoneCall({
+				    phoneNumber: phone
+				});
+			},
 			detailAll() {
 				if(this.idDisable) {
 					return false;
@@ -340,13 +348,22 @@
 		.textT {
 			margin-top: 20upx;
 
-			text {
+			text, .text {
 				width: 670upx;
 				display: block;
 				font-size: 27upx;
 				font-weight: 400;
 				color: rgba(153, 153, 153, 1);
 				line-height: 50upx;
+			}
+			.text{
+				display: flex;
+			}
+			.call-phone{
+				margin-left: 30rpx;
+				background: #FFC823;
+				padding: 5rpx 15rpx;
+				border-radius: 5rpx;
 			}
 
 		}

@@ -9,7 +9,7 @@
 
 		<scroll-view :scroll-y="true" class="scroll-view-body">
 			<view class="padding-bottom150">
-				<fromDeatil msg="已派发" doortime :showAddress="false" :types="types" :item="item" v-for="(item, index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail">
+				<fromDeatil showName msg="已派发" doortime :showAddress="false" :types="types" :item="item" v-for="(item, index) in titleList[activeIndex].list" :key="index" @getDetail="getDetail">
 					
 				</fromDeatil>
 				<NoData :show="titleList[activeIndex].list.length === 0"></NoData>

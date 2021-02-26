@@ -19,7 +19,7 @@
 					</view>
 					<view class="new_mid">
 						<text>项目编号: {{item.order_number}}</text>
-						<view>{{types}}姓名: {{item.contact}}</view>
+						<view>{{types}}姓名: {{ showName ? item.name:item.contact}}</view>
 						<view>{{types}}电话：{{item.phone}}</view>
 						<view v-if="doortime">上门时间：{{item.doortime}}</view>
 						<view v-if="showAddress">{{types}}地址：{{item.province + item.citys + item.district_county + item.address_details}}</view>
@@ -77,6 +77,11 @@ import {imgBaseUrl} from "@/components/api/request.js"
 			types: {
 				type: String,
 				default: '客户'
+			},
+			// 显示客户名字
+			showName: {
+				type: Boolean,
+				default: false
 			},
 			msg: {
 				type: String,

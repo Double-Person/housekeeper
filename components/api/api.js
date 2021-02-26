@@ -220,15 +220,7 @@ export const shxq = data => ajax({ url: '/api/aftersaleApi/shxq', data, method: 
 
 
 
-
-
-
-
-
-
-
-
-
+export const upLoadByBase64 = data => ajax({ url: '/Base64ToImg/imgStr', data, method: 'POST' });
 
 
 
@@ -279,3 +271,4 @@ export const upLoadFile = (option) => {
 	})
 	
 }
+

@@ -1,6 +1,10 @@
 <template>
 	<view class="contract">
 		<!-- 维修合同 -->
+		<view class="btn-warp">
+			<button @click="html2canvas.emitData" v-if="!isDisabled" class="btns">提交合同</button>
+			<button @click="html2canvas.downLoadFile" class="btns">下载合同</button>
+		</view>
 		
 		<!-- 第一页 -->
 		<view class="page" id="contractimage1">
@@ -182,7 +186,7 @@
 			</view>
 			<view class="article">第六条 工程保修约定</view>
 			<view class="content">
-				施工项目保修期<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value25" />年；
+				施工项目保修期<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value25" />月；
 			</view>
 			<view class="content">
 				①本施工项目保修期自竣工验收合格之日起计算；②如甲方未按本合同规定按时向乙方支付工程施工费用或因地震、洪灾、在连续24小时内降雨量达到200毫米
@@ -240,6 +244,7 @@
 					<text class="serial-number">月</text>
 					<input :disabled="isDisabled" type="text" class="date-input-sm" v-model="form.value34" />
 					<text class="serial-number">日</text>
+					<image class="officialsealimage" v-if="states == 1" :src="imgBaseUrl+ officialsealimage" mode=""></image>
 				</view>
 			</view>
 			<view class="page-number">
@@ -250,9 +255,11 @@
 			
 		</view>
 
-		<!-- 维修合同 -->
+		<!-- 维修合同  officialsealimage  -->
 		<!-- <button @click="renderScript.emitData">维修合同</button> -->
-		<button @click="renderScript.emitData">提交合同</button>
+		
+		<button @click="toAttachment" class="btns">查看附件</button>
+	
 
 
 	</view>
@@ -266,7 +273,8 @@
 	import {
 		upLoadFile,
 		contractApiAdd,
-		contractById
+		contractById,
+		upLoadByBase64
 	} from "@/components/api/api.js"
 	import {
 		imgBaseUrl
@@ -274,6 +282,9 @@
 	export default {
 		data() {
 			return {
+				states: -1, // 0 代签 1 以前 2取消
+				officialsealimage: '', // 印章
+				img: '',
 				disabel: '',
 				info: {},
 				selectPlant: {},
@@ -291,41 +302,41 @@
 					contractimage6: '',
 				},
 				form: {
-					value1: 'value1',
-					value2: 'value2',
-					value3: 'value3',
-					value4: 'value4',
-					value5: 'value5',
-					value6: 'value6',
-					value7: 'value7',		
-					value8: 'value8',
-					value9: 'value9',
-					value10: 'value10',
-					value11: 'value11',
-					value12: 'value12',
-					value13: 'value13',
-					value14: 'value14',
-					value15: 'value15',
-					value16: 'value16',
-					value17: 'value17',
-					value18: 'value18',
-					value18: 'value18',
-					value19: 'value19',
-					value20: 'value20',
-					value21: 'value21',
-					value22: 'value22',
-					value23: 'value23',
-					value24: 'value24',
-					value25: 'value25',
-					value26: 'value26',
-					value27: 'value27',
-					value28: 'value28',
-					value29: 'value29',
-					value30: 'value30',
-					value31: 'value31',
-					value32: 'value32',
-					value33: 'value33',
-					value34: 'value34',
+					value1: '',
+					value2: '',
+					value3: '',
+					value4: '',
+					value5: '',
+					value6: '',
+					value7: '',
+					value8: '',
+					value9: '',
+					value10: '',
+					value11: '',
+					value12: '',
+					value13: '',
+					value14: '',
+					value15: '',
+					value16: '',
+					value17: '',
+					value18: '',
+					value18: '',
+					value19: '',
+					value20: '',
+					value21: '',
+					value22: '',
+					value23: '',
+					value24: '',
+					value25: '',
+					value26: '',
+					value27: '',
+					value28: '',
+					value29: '',
+					value30: '',
+					value31: '',
+					value32: '',
+					value33: '',
+					value34: '',
 				}
 			};
 		},
@@ -335,6 +346,7 @@
 			}
 		},
 		onLoad(opt) {
+			// return false;
 			this.order_id = opt.order_id;
 			if(opt.info) {  // 维修合同
 				this.info = JSON.parse(opt.info);
@@ -354,15 +366,70 @@
 			})
 		},
 		methods: {
+			// 查看附件
+			toAttachment() {
+				uni.navigateTo({
+					url: '../attachment/attachment?order_id=' + this.order_id
+				})
+			},
+			// 下载合同
+			downloadFile(list) {
+				list.forEach((item, index) => this.downLoad(item, index))
+			},
+			
+			// 下载
+			downLoad(url, index) {
+				const that = this;
+				uni.downloadFile({
+				    url: url,
+				    success: (res) => {
+				        if (res.statusCode === 200) {
+				            uni.saveImageToPhotosAlbum({
+				            	filePath: res.tempFilePath,
+								success: function() {
+									if(index == that.pages-1) {
+										that.hideLoading()
+										setTimeout(() => {
+											uni.showToast({ title: "保存成功", icon: "none" });
+										}, 1000)
+									}
+								},
+								fail: function() {
+									that.hideLoading()
+									uni.showToast({
+										title: "保存失败",
+										icon: "none"
+									});
+								}
+				            })
+				        }
+				    },
+					fail: () => {
+						uni.showToast({
+							title: '下载失败',
+							icon: 'none'
+						})
+					}
+				});
+			},
+			
+			showLoading() {
+				uni.showLoading({
+					title: '加载中……',
+					mask: true
+				})
+			},
+			hideLoading() {
+				uni.hideLoading()
+			},
+			
 			_contractApiAdd() {
 				// order_id    订单id
 				let arr = Object.values(this.form);
 				let trimArr = arr.filter(ele => ele);
 				if(trimArr.length <34) {
-					let { value26, value27 } = this.form;
-					if(!value26.trim() || !value27.trim()) {
-						return uni.showToast({ title: '请完善合同信息', icon: 'none' })
-					}
+					return uni.showToast({ title: '请完善合同信息', icon: 'none' })
+					
 				}
 				
 				// contract_type  合同类型 1 施工、2维修
@@ -373,7 +440,7 @@
 					...this.imgs
 				}
 				console.log(parmas)
-				return false;
+				// return false;
 				contractApiAdd(parmas).then(res => {
 					if(res.result == "success") {
 						// let selectPlant = JSON.stringify(this.selectPlant);
@@ -398,72 +465,272 @@
 				contractById({order_id: this.order_id}).then(res => {
 					if(res.result == "success") {
 						if(res.varList && res.varList.contractxq) {
-							let { contractxq, autographurl, autographurl2 } = res.varList;
+							let { contractxq, autographurl, autographurl2, officialsealimage, states } = res.varList;
 							this.form = contractxq;
 							this.autographurl = autographurl;
-							this.autographurl2 = autographurl2
+							this.autographurl2 = autographurl2;
+							this.officialsealimage = officialsealimage;
+							this.states = states;
 						}
 					}
 				})
 			},
 			
-			receiveRenderData(opt) {
+			renderFinish(opt) {
+				// console.log(opt.path)
+				this.img = opt.path
 				const that = this;
-				base64ToPath(opt.val)
-					.then(base64 => {
-						upLoadFile({
-							path: base64
-						}).then((upFile) => {
-							let url = this.imgBaseUrl + JSON.parse(upFile.data).data;
-							this.imgs[opt.ele] = url;
-							 console.log('=====', opt.ele, url)
-							let imgsList = Object.values(this.imgs)
-							if(imgsList.length == 5) {
-								this._contractApiAdd()
-							}
-						});
-					})
+				upLoadByBase64({
+					imgStr: opt.path
+				}).then(res => {
+					let url = this.imgBaseUrl + res.data;
+					console.log('=====', opt.ele, url)
+					this.imgs[opt.ele] = url
+				
+					let imgsList = Object.values(this.imgs);
+					let filterList = imgsList.filter(item => item)
+					if (filterList.length == that.pages && opt.down == 'down') {
+						that.downloadFile(filterList)
+						return false;
+					}
+					if (filterList.length == that.pages && opt.down == '') {
+						that.hideLoading()
+						this._contractApiAdd()
+					}
+				}).catch(() => uni.showToast({
+					title: '上传图片失败',
+					icon: 'none'
+				}))
+							
+			
 			},
-
+			
 		}
 	}
 </script>
 
-<script module="renderScript" lang="renderjs">
+<script module="html2canvas" lang="renderjs">
 	import html2canvas from 'html2canvas';
 	export default {
 		methods: {
-			// 发送数据到逻辑层
-			emitData(e, ownerVm) {
-				for (let i = 1; i <= 6; i++) {
-					this.screenshots(e, ownerVm, 'contractimage' + i);
+			emitData() {
+				for(let i = 1; i <= 6; i ++ ){  // 6
+					this.create('contractimage' + i, '');
 				}
-
+				// this.create('contractimage3');
 			},
-			screenshots(e, ownerVm, ele) {
-				let dom = document.getElementById(ele);
-				// const dom = document.body;
-				setTimeout(() => {
-			
-					html2canvas(dom, {
-						scale: 1, // 用于渲染的比例尺。默认为浏览器设备像素比率。
-						width: dom.clientWidth, //dom 原始宽度
-						height: dom.clientHeight, // ,5000, // dom.offsetHeight,
-						scrollY: -(dom.clientHeight * 5), // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0  3080
-						scrollX: 0,
-						useCORS: true, 
-					}).then((canvas) => {
-						ownerVm.callMethod('receiveRenderData', {
-							val: canvas.toDataURL('image/png'),
-							ele
-						})
-					});
-				}, 1000)
+			downLoadFile() {
+				for(let i = 1; i <= 6; i ++ ){  // 5
+					this.create('contractimage' + i, 'down');
+				}
 			},
+			async create(id, down) {
+				console.log(id)
+				try {
+					this.$ownerInstance.callMethod('showLoading', true);
+					const timeout = setTimeout(async () => {
+						const shareContent = document.getElementById(id);
+						window.pageYOffset = 0;
+						document.documentElement.scrollTop = 0;
+						document.body.scrollTop = 0;
+						const canvas = await html2canvas(shareContent, {
+							width: shareContent.offsetWidth, //设置canvas尺寸与所截图尺寸相同，防止白边
+							height: shareContent.offsetHeight, //防止白边
+							logging: true,
+							useCORS: true
+						});
+						const base64 = canvas.toDataURL('image/jpeg', 1);
+						this.$ownerInstance.callMethod('renderFinish', {
+							path: base64,
+							ele: id,
+							down: down
+						});
+						clearTimeout(timeout);
+					}, 500);
+				} catch (error) {
+					console.log(error)
+				}
+			}
 		}
-	};
+	}
 </script>
 
+
 <style lang="scss" scoped>
-	@import "~@/common/style/contract.scss";
+	
+	.btns {
+		background: #F9C923;
+		margin-bottom: 30rpx;
+	}
+	.mtop1 { // xianshi
+		height: 200rpx;
+	}
+	.mtop2 {
+		height: 50rpx;
+	}
+	
+	#contractimage1{
+		margin-top: 50rpx;
+	}
+
+	.contract {
+		padding: 0 30rpx;
+		font-family: '宋体';
+	}
+
+	.sign {
+		width: 100rpx;
+		height: 50rpx;
+	}
+
+	.page {
+		width: 690rpx;
+		margin: 0 auto;
+		// width: 570rpx;
+		padding: 113rpx 0rpx;
+		height: 1060rpx;
+		// outline: 1rpx solid red;
+		position: relative;
+		// margin-top: 100rpx;
+	}
+
+	.page-number {
+		position: absolute;
+		bottom: 20rpx;
+		left: 0;
+		right: 0;
+		margin-top: 15rpx;
+		font-size: 24rpx;
+		text-align: center;
+		color: #666;
+	}
+
+	.fl {
+		display: flex;
+	}
+
+	.jc-center {
+		justify-content: center;
+	}
+
+	.jc-between {
+		justify-content: space-between;
+	}
+
+	.a-i-center {
+		align-items: center;
+	}
+
+	.text-center {
+		text-align: center;
+	}
+
+	// 合同输入框（较长）
+	.contract-input {
+		min-width: 100rpx;
+		border-bottom: 1rpx solid #000;
+	}
+
+	// 数量输入框（较短）
+	.date-input {
+		width: 100rpx;
+		border-bottom: 1rpx solid #000;
+		display: inline-block;
+	}
+
+	.date-input-sm {
+		width: 50rpx;
+		border-bottom: 1rpx solid #000;
+		display: inline-block;
+	}
+
+	.date-input-ml {
+		width: 140rpx;
+		border-bottom: 1rpx solid #000;
+		display: inline-block;
+	}
+
+	// 详细类容
+	.content {
+		text-indent: 2em;
+		font-size: 24rpx;
+		line-height: 1.5em;
+	}
+
+	.merge-content {
+		text-indent: 0 !important;
+	}
+
+	.keywords {
+		color: #666;
+	}
+
+	// 编号
+	.serial-number {
+		font-size: 26rpx;
+		font-weight: bold;
+	}
+
+	// 合同名称
+	.contract-name {
+		width: 600rpx;
+		font-size: 40rpx;
+		font-weight: bold;
+		margin: 200rpx auto;
+	}
+
+	// 第xx条
+	.article {
+		// font-size: 28rpx;
+		font-size: 26rpx;
+		font-weight: bold;
+		text-indent: 2em;
+		line-height: 2em;
+	}
+
+	// (xx)点
+	.point {
+		// font-size: 26rpx;
+		font-size: 26rpx;
+		line-height: 50upx;
+		font-weight: bold;
+		text-indent: 2em;
+	}
+
+	.signature {
+		width: 50%;
+		margin-top: 50rpx;
+		flex: 1;
+		position: relative;
+
+		&:last-child {
+			padding-bottom: 100rpx;
+		}
+		.officialsealimage{
+			position: absolute;
+			width: 240rpx;
+			height: 240rpx;
+			left: 30rpx;
+			bottom: 40rpx;
+		}
+	}
+
+	.company {
+		font-size: 24rpx;
+	}
+
+	input {
+		// padding: 0;
+		text-indent: 0;
+		font-size: 24rpx;
+		text-align: center;
+	}
+
+	.over-ellipsis {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 </style>
+
+<style></style>

@@ -1,36 +1,6 @@
 <template>
 	<view class="index">
-		<!--  -->
-		<view class="box_te">
-			<view class="tit">
-				<view class="imgtit">
-					<image :src="IMGBASEURL + info.image" mode=""></image>
-					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.name || ''}}</text>
-				</view>
-
-				<view class="com">{{ info.status || '' }}</view>
-			</view>
-			<view class="textBox">
-				<view class="img">
-					<image :src="IMGBASEURL + info.image" mode=""></image>
-				</view>
-				<view class="time">
-					<text v-if="info.goods">{{info.goods_type == 0 ? info.goods.name : info.goods.name || ''}}</text>
-				</view>
-			</view>
-		</view>
-
-		<view class="orderxx">
-			<view class="titb">
-				订单信息
-			</view>
-			<view class="textT">			
-				<text>订单编号：{{ info.order_number }}</text>
-				<text>客户姓名：{{ info.contact }}</text>
-				<text>客户电话：{{ info.phone }}</text>
-				<text>客户地址：{{info.province + info.citys + info.district_county + info.address_details}}</text>
-			</view>
-		</view>
+		<button @click="html2canvas.create" class="btns" v-if="isShow">下载附件</button>
 		<!-- 服务项目 -->
 		<view class="serve">
 			<view class="titb">
@@ -88,23 +58,26 @@
 </template>
 
 <script>
-	import { programmeApiList } from "@/components/api/api.js";
+	import { programmeApiList, upLoadByBase64 } from "@/components/api/api.js";
 	import { imgBaseUrl } from "@/components/api/request.js";
 	export default {
 
 		data() {
 			return {
+				isShow: true,
 				IMGBASEURL: imgBaseUrl,
-				info: {},
+		
 				plantInfo: {},
 			}
 		},
 		onLoad(opt) {
-			this.info = JSON.parse(opt.info);
-			console.log(this.info)
-			this._programmeApiList()
+			let order_id = opt.order_id
+			this._programmeApiList(order_id)
 		},
 		methods: {
+			isShowBtn() {
+				this.isShow = !this.isShow
+			},
 			_contractType({contract_type, order_id}) {
 				if(contract_type == 1) { // 施工合同
 					uni.navigateTo({
@@ -122,15 +95,100 @@
 				}
 				
 			},
-			_programmeApiList() {
-				programmeApiList({ order_id: this.info.order_id }).then(res => {
+			_programmeApiList(order_id) {
+				programmeApiList({ order_id }).then(res => {
 					this.plantInfo = res.varList
 				})
 			},
-			detailAll(){
-			 	uni.navigateTo({
-			 		url:"./sgdetailAll"
-			 	})
+			renderFinish(opt) {
+				const that = this;
+				upLoadByBase64({
+					imgStr: opt.path
+				}).then(res => {
+					let url = this.IMGBASEURL + res.data;
+					this.downLoad(url)
+				}).catch(() => uni.showToast({
+					title: '上传图片失败',
+					icon: 'none'
+				}))
+			},
+			showLoading() {
+				uni.showLoading({
+					title: '下载中……',
+					mask: true
+				})
+			},
+			hideLoading() {
+				uni.hideLoading()
+			},
+			// 下载
+			downLoad(url) {
+				const that = this;
+				uni.downloadFile({
+				    url: url,
+				    success: (res) => {
+				        if (res.statusCode === 200) {
+				            uni.saveImageToPhotosAlbum({
+				            	filePath: res.tempFilePath,
+								success: function() {
+									
+									setTimeout(() => {
+										uni.showToast({ title: "保存成功", icon: "none" });
+									}, 1000)
+								},
+								fail: function() {
+									setTimeout(() => {
+										uni.showToast({ title: "保存失败", icon: "none" });
+									}, 1000)
+								},
+								complete() {
+									that.hideLoading();
+									that.isShowBtn()
+								}
+				            })
+				        }
+				    },
+					fail: () => {
+						uni.showToast({
+							title: '下载失败',
+							icon: 'none'
+						})
+					}
+				});
+			},
+			
+		}
+	}
+</script>
+
+<script module="html2canvas" lang="renderjs">
+	import html2canvas from 'html2canvas';
+	export default {
+		methods: {
+			async create() {	
+				try {
+					this.$ownerInstance.callMethod('showLoading', true);
+					this.$ownerInstance.callMethod('isShowBtn', true);
+					const timeout = setTimeout(async () => {
+						const shareContent = document.body;
+						window.pageYOffset = 0;
+						document.documentElement.scrollTop = 0;
+						document.body.scrollTop = 0;
+						const canvas = await html2canvas(shareContent, {
+							width: shareContent.offsetWidth, //设置canvas尺寸与所截图尺寸相同，防止白边
+							height: shareContent.offsetHeight, //防止白边
+							logging: true,
+							useCORS: true
+						});
+						const base64 = canvas.toDataURL('image/jpeg', 1);
+						this.$ownerInstance.callMethod('renderFinish', {
+							path: base64,
+						});
+						clearTimeout(timeout);
+					}, 500);
+				} catch (error) {
+					console.log(error)
+				}
 			}
 		}
 	}
@@ -141,183 +199,15 @@
 		font-family: SourceHanSansCN;
 		src: url("~@/static/SourceHanSansCN-Normal.otf") format('truetype'),
 	}
+	.btns {
+		background: #F9C923;
+		margin: 30rpx auto;
+	}
 
 	.index {
 		width: 750upx;
 		background-color: #F2F2F2;
 		font-family: SourceHanSansCN;
-	}
-
-	.box_te {
-		border-top: 19upx solid #f2f2f2;
-		padding: 40upx 0upx 0upx 20upx;
-		height: 350upx;
-		background: white;
-
-		.tit {
-			display: flex;
-			justify-content: flex-end;
-			align-items: center;
-
-			.imgtit {
-				position: relative;
-
-				image {
-					width: 38upx;
-					height: 38upx;
-					border-radius: 4upx;
-					position: absolute;
-					top: 8upx;
-					left: 0upx;
-				}
-
-				text {
-					margin-left: 56upx;
-					font-size: 36upx;
-					font-family: SourceHanSansCN;
-					font-weight: 600;
-					color: rgba(26, 26, 26, 1);
-					line-height: 36upx;
-				}
-			}
-
-			.com {
-				width: 130upx;
-				height: 48upx;
-				margin-left: auto;
-				font-size: 32upx;
-				font-weight: 500;
-				color: #999;
-				text-align: center;
-				line-height: 48upx;
-			}
-		}
-
-		.textBox {
-			padding: 60upx 0upx 20upx 0upx;
-			display: flex;
-			position: relative;
-
-			.img {
-				width: 180upx;
-				height: 180upx;
-				background: rgba(146, 113, 113, 1);
-				border-radius: 8upx;
-
-				image {
-					width: 100%;
-					height: 100%;
-				}
-			}
-
-			.time {
-				margin-left: 18upx;
-				margin-top: 21upx;
-
-				text {
-					display: block;
-					font-size: 28upx;
-					font-weight: 400;
-					color: #191919;
-				}
-
-				image {
-					margin-left: 20upx;
-					width: 13upx;
-					height: 24upx;
-				}
-			}
-		}
-
-		.btnBox {
-			display: flex;
-			float: right;
-
-			.btns {
-				width: 214upx;
-				height: 68upx;
-				background: linear-gradient(150deg, rgba(255, 200, 35, 1), rgba(255, 193, 12, 1));
-				border-radius: 8upx;
-				font-size: 32upx;
-				font-family: SourceHanSansCN;
-				font-weight: 600;
-				color: rgba(26, 26, 26, 1);
-				line-height: 68upx;
-				position: relative;
-
-				text {
-					margin-left: 60upx;
-				}
-
-				image {
-					position: absolute;
-					top: 18upx;
-					left: 16upx;
-					width: 39upx;
-					height: 39upx;
-				}
-			}
-
-			.btn {
-				margin-left: 30upx;
-				width: 214upx;
-				height: 68upx;
-				background: linear-gradient(150deg, rgba(255, 200, 35, 1), rgba(255, 193, 12, 1));
-				border-radius: 8upx;
-				font-size: 32upx;
-				font-family: SourceHanSansCN;
-				font-weight: 600;
-				color: rgba(26, 26, 26, 1);
-				line-height: 68upx;
-				position: relative;
-
-				text {
-					margin-left: 60upx;
-				}
-
-				image {
-					position: absolute;
-					top: 15upx;
-					left: 16upx;
-					width: 33upx;
-					height: 39upx;
-				}
-			}
-		}
-	}
-
-	.orderxx {
-		margin-top: 20upx;
-		padding: 40upx 40upx;
-		width: 670upx;
-		
-		background: #fff;
-		border-radius: 8upx;
-
-		.titb {
-			padding: 20upx 0upx;
-			width: 670upx;
-			font-size: 28upx;
-			font-weight: 500;
-			color: rgba(51, 51, 51, 1);
-			border-bottom: 1upx solid rgba(191, 191, 191, 1);
-		}
-		
-
-		.textT {
-			margin-top: 20upx;
-
-			text {
-				width: 670upx;
-				display: block;
-				font-size: 28upx;
-				font-weight: 400;
-				color: rgba(153, 153, 153, 1);
-				line-height: 50upx;
-			}
-
-		
-		}
 	}
 
 	.serve {

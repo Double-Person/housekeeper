@@ -700,7 +700,15 @@
 				"navigationBarTitleText": "重新审核"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/attachment/attachment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "下载附件"
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
