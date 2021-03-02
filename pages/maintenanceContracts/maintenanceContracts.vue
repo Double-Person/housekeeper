@@ -34,7 +34,8 @@
 		<view class="page" id="contractimage2">
 			<view class="fl a-i-center"><text class="serial-number">甲方：</text><input :disabled="isDisabled" type="text" v-model="form.value6" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">负责人：</text><input :disabled="isDisabled" type="text" v-model="form.value7" class="contract-input" /></view>
-			<view class="fl a-i-center"><text class="serial-number">地址：</text><input :disabled="isDisabled" type="text" v-model="form.value8" class="contract-input" /></view>
+			<view class="fl a-i-center"><text class="serial-number">地址：</text>
+				<input style="width: 580rpx;" :disabled="isDisabled" type="text" v-model="form.value8" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">联系方式：</text><input :disabled="isDisabled" type="text" v-model="form.value9" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">乙方：</text>四川房管家信息科技有限公司</view>
 			<view class="fl a-i-center"><text class="serial-number">公司负责人：</text><input :disabled="isDisabled" type="text" v-model="form.value10" class="contract-input" /></view>
@@ -53,7 +54,7 @@
 			<view class="point">（二）、工程地址：<input :disabled="isDisabled" type="text" v-model="form.value12" class="contract-input" /></view>
 			<view class="point">（三）、工程范围： 见附件（ 详见“世隆房管”APP施工方案清单）</view>
 			<view class="point">（四）、双方商定采取乙方包工、包全部材料的承包方式;</view>
-			<view class="point">（五）、合同价款： ￥<input :disabled="isDisabled" type="text" v-model="form.value13" class="contract-input" />元，大写（人名币）
+			<view class="point">（五）、合同价款： ￥<input :disabled="isDisabled" type="text" v-model="form.value13" class="contract-input" />元，大写(人民币)
 				<input :disabled="isDisabled" type="text" v-model="form.value14" class="contract-input" />。
 			</view>
 
@@ -125,7 +126,7 @@
 			
 			<view class="content">
 				2、指派
-				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value23" />
+				<input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value23" />
 				为甲方驻工地代表，负责合同履行。对工程质量、进度进行监督检查，办理验收、变更、登记手续和其他事宜。
 			</view>
 
@@ -150,7 +151,7 @@
 			</view>
 			<view class="content">
 				2、指派
-				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value24" />
+				<input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value24" />
 				为乙方驻工地代表，负责合同履行。按要求组织施工，保质、保量、按期完成施工任务，解决由乙方负责的各项事宜。
 			</view>
 
@@ -645,7 +646,7 @@
 	}
 
 	.date-input-ml {
-		width: 140rpx;
+		width: 280rpx;
 		border-bottom: 1rpx solid #000;
 		display: inline-block;
 	}

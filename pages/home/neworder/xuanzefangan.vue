@@ -21,7 +21,6 @@
 								<view class="textb" @click="clickThree(ele, index, idex, idey)">
 									
 									<image src="/static/loginImg/aaxa.png" mode="" v-show="checkProgrammeListId.includes(ele.programme_id)"></image>
-									<!-- <image src="/static/loginImg/kax.png" mode="" v-show="checkProgrammeId != ele.programme_id"></image> -->
 									<image src="/static/loginImg/kax.png" mode="" v-show="!checkProgrammeListId.includes(ele.programme_id)"></image>
 									<text>{{ele.name}}</text>
 								</view>
@@ -389,6 +388,7 @@
 			}
 
 			.text {
+				margin-bottom: 15rpx;
 				padding: 15rpx 25upx;
 				width: 620upx;
 				// height: 132upx;
@@ -396,7 +396,7 @@
 				border-radius: 12upx;
 
 				.textb {
-					height: 50upx;
+					min-height: 50upx;
 					display: flex;
 					align-items: center;
 
@@ -408,6 +408,7 @@
 					}
 
 					text {
+						width: 580rpx;
 						font-size: 28upx;
 						font-family: PingFang SC;
 						font-weight: 400;

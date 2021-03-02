@@ -38,8 +38,9 @@
 				 class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">负责人：</text><input :disabled="isDisabled" type="text" v-model="form.value7"
 				 class="contract-input" /></view>
-			<view class="fl a-i-center"><text class="serial-number">地址：</text><input :disabled="isDisabled" type="text" v-model="form.value8"
-				 class="contract-input" /></view>
+			<view class="fl a-i-center"><text class="serial-number">地址：</text>
+					<input style="width: 580rpx;" :disabled="isDisabled" type="text" v-model="form.value8"
+					class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">联系方式：</text><input :disabled="isDisabled" type="text"
 				 v-model="form.value9" class="contract-input" /></view>
 			<view class="fl a-i-center"><text class="serial-number">乙方：四川房管家信息科技有限公司</text></view>
@@ -59,7 +60,7 @@
 			<view class="point">（三）、工程范围：（ 详见“世隆房管”APP施工方案详情）</view>
 			<view class="point">（四）、承包方式： 双方商定采取乙方包工、包全部材料;</view>
 			<view class="point">（五）、合同价款：￥<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value13" />元，大写(人民币)：<input
-				 :disabled="isDisabled" type="text" class="date-input" v-model="form.value14" /></view>
+				 :disabled="isDisabled" type="text" class="contract-input" v-model="form.value14" /></view>
 
 
 			<view class="article">第二条 工程期限</view>
@@ -115,7 +116,7 @@
 			</view>
 			<view class="content">
 				2、指派
-				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value23" />
+				<input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value23" />
 				为甲方驻工地代表，负责合同履行。对工程质量、进度进行监督检查，办理验收、变更、登记手续和其他事宜。
 			</view>
 
@@ -149,7 +150,7 @@
 			</view>
 			<view class="content">
 				2、指派
-				<input :disabled="isDisabled" type="text" class="date-input" v-model="form.value24" />
+				<input :disabled="isDisabled" type="text" class="date-input-ml" v-model="form.value24" />
 				为乙方驻工地代表，负责合同履行。按要求组织施工，保质、保量、按期完成施工任务，解决由乙方负责的各项事宜。
 			</view>
 			<view class="content">
@@ -614,7 +615,7 @@
 	}
 
 	.date-input-ml {
-		width: 140rpx;
+		width: 280rpx;
 		border-bottom: 1rpx solid #000;
 		display: inline-block;
 	}
